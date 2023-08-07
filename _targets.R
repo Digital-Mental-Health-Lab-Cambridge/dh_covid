@@ -2,16 +2,19 @@ library(targets)
 library(tarchetypes)
 library(data.table)
 library(dplyr)
+library(magrittr)
+
+source("R\\functions.R")
 
 list(
     tar_target(
         raw_data_file,
-        "..\\..\\..\\ownCloud\\2023_unicef_covid\\raw_data\\DH_12Countries_110222.csv",
+        "..\\..\\..\\ownCloud - Tom Metherell@cloud.mrc-cbu.cam.ac.uk\\2023_unicef_covid\\raw_data\\DH_12Countries_110222.csv",
         format = "file"
     ),
 
     tar_target(
-        raw_data,
+        data_raw,
         fread(
             raw_data_file
         ) %>% 
@@ -19,9 +22,9 @@ list(
     ),
 
     tar_target(
-        clean_data,
+        data_clean,
         clean_data(
-            raw_data
+            data_raw
         )
     )
 )

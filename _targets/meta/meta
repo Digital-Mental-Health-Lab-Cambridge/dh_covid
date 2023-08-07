@@ -1,0 +1,6 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+clean_data|function|a5d16f2bb8d572a6|||||||||||||||
+data_clean|stem|0bace3b41480ef1b|03fe9dea8342f9fe|ba108dd89c24a622|207072666||t19576.6948715104s|42609ff8eb922882|451245|rds|local|vector|||0.11||
+data_raw|stem|16f2e525d9621fff|3419861478ae44c6|2a321fce830de684|648730325||t19576.6867843205s|d12676d350448f00|3626611|rds|local|vector|||0.49||
+raw_data|stem|16f2e525d9621fff|3419861478ae44c6|2a321fce830de684|-979620141||t19576.6859519732s|d12676d350448f00|3626611|rds|local|vector|||0.48||
+raw_data_file|stem|f6233436d1ea5112|6450dc1ee5d0420c|ef46db3751d8e999|2110307107|..\..\..\ownCloud - Tom Metherell@cloud.mrc-cbu.cam.ac.uk\2023_unicef_covid\raw_data\DH_12Countries_110222.csv|t19034.3421296296s|2945c3c212a491c9|86971627|file|local|vector|||0||
