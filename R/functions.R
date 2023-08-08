@@ -65,22 +65,44 @@ clean_data <- function(data){
         `13` = "Vietnam"
     ))
 
+    # Making the language variable categorical
+    data_clean$Language <- as.character(data_clean$Language)
+
     return(data_clean)
+}
+
+plot_overall_NA <- function(data){
+    plot <- ggplot(data, aes(x = var, y = missingness)) +
+        geom_col() +
+        labs(x = "Variable", y = "Missingness", title = "Overall missingness") +
+        ylim(0, 1) +
+        theme_linedraw() +
+        theme(axis.text.x=element_text(angle = 45, hjust = 1))
+
+    return(plot)
 }
 
 country_missingness <- function(data){
     NA_by_country <- lapply(
         seq_len(length(names(data))),
         function(x){
-            data.frame(country = unique(data$COUNTRY), missingness = rep(NA, length(unique(data$COUNTRY))))
+            data.frame(
+                country = unique(data$COUNTRY), 
+                missingness = rep(NA, length(unique(data$COUNTRY))),
+                proportion = rep(NA, length(unique(data$COUNTRY)))
+            )
         }
     )
 
     for(i in seq_len(length(names(data)))){
         for(j in seq_len(length(unique(data$COUNTRY)))){
             NA_by_country[[i]]$missingness[j] <- 
-            sum(is.na(data[data$COUNTRY == unique(data$COUNTRY)[j], i])) /
-            length(data[data$COUNTRY == unique(data$COUNTRY)[j], i])
+                sum(is.na(data[data$COUNTRY == unique(data$COUNTRY)[j], i])) /
+                length(data[data$COUNTRY == unique(data$COUNTRY)[j], i])
+
+            NA_by_country[[i]]$proportion[j] <-
+                length(data[data$COUNTRY == unique(data$COUNTRY)[j], i]) /
+                nrow(data)
         }
     }
 
@@ -89,23 +111,74 @@ country_missingness <- function(data){
     return(NA_by_country)
 }
 
+plot_country_NA <- function(NA_by_country){
+    country_NA_plots <- lapply(
+        seq_len(length(NA_by_country)),
+        function(x){
+            NA_by_country[[x]] %<>% melt(id.vars = "country")
+
+            ggplot(NA_by_country[[x]], aes(x = country, y = value, fill = variable)) +
+                geom_col(position = "dodge") +
+                labs(x = "Country", y = NULL, title = names(NA_by_country)[x]) +
+                ylim(0, 1) +
+                scale_fill_manual(values = c("black", "red")) +
+                theme_linedraw() +
+                theme(axis.text.x=element_text(angle = 45, hjust = 1))
+        }
+    )
+
+    names(country_NA_plots) <- names(NA_by_country)
+
+    return(country_NA_plots)
+}
+
 language_missingness <- function(data){
     NA_by_language <- lapply(
         seq_len(length(names(data))),
         function(x){
-            data.frame(language = unique(data$Language), missingness = rep(NA, length(unique(data$Language))))
+            data.frame(
+                language = unique(data$Language), 
+                missingness = rep(NA, length(unique(data$Language))),
+                proportion = rep(NA, length(unique(data$Language)))
+            )
         }
     )
 
     for(i in seq_len(length(names(data)))){
         for(j in seq_len(length(unique(data$Language)))){
             NA_by_language[[i]]$missingness[j] <- 
-            sum(is.na(data[data$Language == unique(data$Language)[j], i])) /
-            length(data[data$Language == unique(data$Language)[j], i])
+                sum(is.na(data[data$Language == unique(data$Language)[j], i])) /
+                length(data[data$Language == unique(data$Language)[j], i])
+
+            NA_by_language[[i]]$proportion[j] <-
+                length(data[data$Language == unique(data$Language)[j], i]) /
+                nrow(data)
         }
     }
 
     names(NA_by_language) <- names(data)
 
     return(NA_by_language)
+}
+
+plot_language_NA <- function(NA_by_language){
+    language_NA_plots <- lapply(
+        seq_len(length(NA_by_language)),
+        function(x){
+            NA_by_language[[x]] %<>% melt(id.vars = "language")
+
+            ggplot(NA_by_language[[x]], aes(x = language, y = value, fill = variable)) +
+                geom_col(position = "dodge") +
+                labs(y = NULL, title = names(NA_by_language)[x]) +
+                ylim(0, 1) +
+                scale_x_discrete("Language") +
+                scale_fill_manual(values = c("black", "red")) +
+                theme_linedraw() +
+                theme(axis.text.x=element_text(angle = 45, hjust = 1))
+        }
+    )
+
+    names(language_NA_plots) <- names(NA_by_language)
+
+    return(language_NA_plots)
 }
