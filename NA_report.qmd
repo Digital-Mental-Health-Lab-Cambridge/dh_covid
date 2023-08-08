@@ -28,6 +28,12 @@ print(overall_NA_plot)
 ```
 
 ## Wellbeing measures
+### Life satisfaction ladder
+```{r ls_ladder}
+print(country_NA_plots[["H1"]])
+print(language_NA_plots[["H1"]])
+```
+
 ### CW-SWBS
 
 ```{r CW_SWBS}
@@ -66,6 +72,15 @@ print(language_NA_plots[["H6"]])
 
 ```{r paykel}
 for(i in c("H7a", "H7b", "H7c", "H7d", "H7e")){
+    print(country_NA_plots[[i]])
+    print(language_NA_plots[[i]])
+}
+```
+
+## COVID-19 variables
+
+```{r covid}
+for(i in c("CO2", "CO3")){
     print(country_NA_plots[[i]])
     print(language_NA_plots[[i]])
 }

@@ -114,12 +114,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#overall-missingness" id="toc-overall-missingness" class="nav-link" data-scroll-target="#overall-missingness">Overall missingness</a></li>
   <li><a href="#wellbeing-measures" id="toc-wellbeing-measures" class="nav-link" data-scroll-target="#wellbeing-measures">Wellbeing measures</a>
   <ul class="collapse">
+  <li><a href="#life-satisfaction-ladder" id="toc-life-satisfaction-ladder" class="nav-link" data-scroll-target="#life-satisfaction-ladder">Life satisfaction ladder</a></li>
   <li><a href="#cw-swbs" id="toc-cw-swbs" class="nav-link" data-scroll-target="#cw-swbs">CW-SWBS</a></li>
   <li><a href="#anxiety-scale" id="toc-anxiety-scale" class="nav-link" data-scroll-target="#anxiety-scale">Anxiety scale</a></li>
   <li><a href="#abridged-ces-d" id="toc-abridged-ces-d" class="nav-link" data-scroll-target="#abridged-ces-d">Abridged CES-D</a></li>
   <li><a href="#self-harm" id="toc-self-harm" class="nav-link" data-scroll-target="#self-harm">Self-harm</a></li>
   <li><a href="#paykel-suicide-scale" id="toc-paykel-suicide-scale" class="nav-link" data-scroll-target="#paykel-suicide-scale">Paykel suicide scale</a></li>
   </ul></li>
+  <li><a href="#covid-19-variables" id="toc-covid-19-variables" class="nav-link" data-scroll-target="#covid-19-variables">COVID-19 variables</a></li>
   </ul>
 </nav>
 </div>
@@ -181,15 +183,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="wellbeing-measures" class="level2">
 <h2 class="anchored" data-anchor-id="wellbeing-measures">Wellbeing measures</h2>
+<section id="life-satisfaction-ladder" class="level3">
+<h3 class="anchored" data-anchor-id="life-satisfaction-ladder">Life satisfaction ladder</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(country_NA_plots[[<span class="st">"H1"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="NA_report_files/figure-html/ls_ladder-1.svg" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(language_NA_plots[[<span class="st">"H1"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="NA_report_files/figure-html/ls_ladder-2.svg" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 <section id="cw-swbs" class="level3">
 <h3 class="anchored" data-anchor-id="cw-swbs">CW-SWBS</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H4a"</span>, <span class="st">"H4b"</span>, <span class="st">"H4c"</span>, <span class="st">"H4d"</span>, <span class="st">"H4e"</span>, <span class="st">"H4f"</span>)){</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H4a"</span>, <span class="st">"H4b"</span>, <span class="st">"H4c"</span>, <span class="st">"H4d"</span>, <span class="st">"H4e"</span>, <span class="st">"H4f"</span>)){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="NA_report_files/figure-html/CW_SWBS-1.svg" class="img-fluid" width="672"></p>
@@ -234,10 +255,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H4_NEW_a"</span>, <span class="st">"H4_NEW_b"</span>, <span class="st">"H4_NEW_c"</span>, <span class="st">"H4_NEW_d"</span>, <span class="st">"H4_NEW_e"</span>, <span class="st">"H4_NEW_f"</span>, <span class="st">"H4_NEW_g"</span>)){</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H4_NEW_a"</span>, <span class="st">"H4_NEW_b"</span>, <span class="st">"H4_NEW_c"</span>, <span class="st">"H4_NEW_d"</span>, <span class="st">"H4_NEW_e"</span>, <span class="st">"H4_NEW_f"</span>, <span class="st">"H4_NEW_g"</span>)){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="NA_report_files/figure-html/anxiety-1.svg" class="img-fluid" width="672"></p>
@@ -288,10 +309,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H5a"</span>, <span class="st">"H5b"</span>, <span class="st">"H5f"</span>, <span class="st">"H5g"</span>)){</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H5a"</span>, <span class="st">"H5b"</span>, <span class="st">"H5f"</span>, <span class="st">"H5g"</span>)){</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="NA_report_files/figure-html/CES_D-1.svg" class="img-fluid" width="672"></p>
@@ -324,14 +345,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(country_NA_plots[[<span class="st">"H6"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(country_NA_plots[[<span class="st">"H6"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="NA_report_files/figure-html/self_harm-1.svg" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(language_NA_plots[[<span class="st">"H6"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(language_NA_plots[[<span class="st">"H6"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="NA_report_files/figure-html/self_harm-2.svg" class="img-fluid" width="672"></p>
@@ -343,10 +364,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H7a"</span>, <span class="st">"H7b"</span>, <span class="st">"H7c"</span>, <span class="st">"H7d"</span>, <span class="st">"H7e"</span>)){</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"H7a"</span>, <span class="st">"H7b"</span>, <span class="st">"H7c"</span>, <span class="st">"H7d"</span>, <span class="st">"H7e"</span>)){</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="NA_report_files/figure-html/paykel-1.svg" class="img-fluid" width="672"></p>
@@ -380,6 +401,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
+</section>
+<section id="covid-19-variables" class="level2">
+<h2 class="anchored" data-anchor-id="covid-19-variables">COVID-19 variables</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"CO2"</span>, <span class="st">"CO3"</span>)){</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(country_NA_plots[[i]])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(language_NA_plots[[i]])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="NA_report_files/figure-html/covid-1.svg" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="NA_report_files/figure-html/covid-2.svg" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="NA_report_files/figure-html/covid-3.svg" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="NA_report_files/figure-html/covid-4.svg" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 
 </main>

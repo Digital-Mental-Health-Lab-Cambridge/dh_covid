@@ -11,7 +11,6 @@ clean_data <- function(data){
         ECS_SELECTED_CH, # Selected child
         ECS_SELECTED_CH_GENDER, # Selected child's gender
         ECS_SELECTED_CH_AGE, # Selected child's age
-        ECS_SELECTED_CH_INTUSE, # Selected child's internet usage
         A1, # Classification of local area/neighbourhood
         A4, # Highest level of education completed
         B1, # Frequency of internet usage
