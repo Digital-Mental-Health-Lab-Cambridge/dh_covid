@@ -26,5 +26,19 @@ list(
         clean_data(
             data_raw
         )
+    ),
+
+    tar_target(
+        NA_by_country,
+        country_missingness(
+            data_clean
+        )
+    ),
+
+    tar_target(
+        NA_by_language,
+        language_missingness(
+            data_clean
+        )
     )
 )

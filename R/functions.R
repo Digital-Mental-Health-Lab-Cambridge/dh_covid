@@ -47,7 +47,65 @@ clean_data <- function(data){
     )
 
     # Set 888 and 999 values to NA
-    is.na(data_clean[, names(data_clean) != "intStartTime"]) <- data_clean[, names(data_clean) != "intStartTime"] > 887
+    is.na(data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime"))]) <- data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime"))] > 887
+
+    # Recode country names
+    data_clean %<>% mutate(COUNTRY = recode(COUNTRY,
+        `1` = "Ethiopia", 
+        `2` = "Kenya", 
+        `3` = "Mozambique", 
+        `4` = "Namibia",
+        `6` = "Tanzania", 
+        `7` = "Uganda", 
+        `8` = "Cambodia", 
+        `9` = "Indonesia",
+        `10` = "Malaysia", 
+        `11` = "Philippines",
+        `12` = "Thailand", 
+        `13` = "Vietnam"
+    ))
 
     return(data_clean)
+}
+
+country_missingness <- function(data){
+    NA_by_country <- lapply(
+        seq_len(length(names(data))),
+        function(x){
+            data.frame(country = unique(data$COUNTRY), missingness = rep(NA, length(unique(data$COUNTRY))))
+        }
+    )
+
+    for(i in seq_len(length(names(data)))){
+        for(j in seq_len(length(unique(data$COUNTRY)))){
+            NA_by_country[[i]]$missingness[j] <- 
+            sum(is.na(data[data$COUNTRY == unique(data$COUNTRY)[j], i])) /
+            length(data[data$COUNTRY == unique(data$COUNTRY)[j], i])
+        }
+    }
+
+    names(NA_by_country) <- names(data)
+
+    return(NA_by_country)
+}
+
+language_missingness <- function(data){
+    NA_by_language <- lapply(
+        seq_len(length(names(data))),
+        function(x){
+            data.frame(language = unique(data$Language), missingness = rep(NA, length(unique(data$Language))))
+        }
+    )
+
+    for(i in seq_len(length(names(data)))){
+        for(j in seq_len(length(unique(data$Language)))){
+            NA_by_language[[i]]$missingness[j] <- 
+            sum(is.na(data[data$Language == unique(data$Language)[j], i])) /
+            length(data[data$Language == unique(data$Language)[j], i])
+        }
+    }
+
+    names(NA_by_language) <- names(data)
+
+    return(NA_by_language)
 }

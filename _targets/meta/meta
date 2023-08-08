@@ -1,6 +1,13 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-clean_data|function|a5d16f2bb8d572a6|||||||||||||||
-data_clean|stem|0bace3b41480ef1b|03fe9dea8342f9fe|ba108dd89c24a622|207072666||t19576.6948715104s|42609ff8eb922882|451245|rds|local|vector|||0.11||
+clean_data|function|907524071a8b8e90|||||||||||||||
+country_missingness|function|5888a832de6016c5|||||||||||||||
+country_NA_plot|function|81b2376d29893578|||||||||||||||
+data_clean|stem|65c5d0b38b3d97cf|03fe9dea8342f9fe|91a94bc7bc83d303|207072666||t19577.408041335s|eda28e18d123c4f2|448847|rds|local|vector|||0.12||
 data_raw|stem|16f2e525d9621fff|3419861478ae44c6|2a321fce830de684|648730325||t19576.6867843205s|d12676d350448f00|3626611|rds|local|vector|||0.49||
+language_missingness|function|b654f6102934ce59|||||||||||||||
+missingness|stem|4848b880a561b35f|d80f60086b9b66e4|20e93693260ee095|-1201379769||t19577.366620448s|7ab60aebd40b847a|777|rds|local|vector|||0||
+NA_by_country|stem|0c4b68b977dc4da4|84de102bd1ce6f20|07faf8f9b1b66487|1120834578||t19577.4080486634s|221f1d07cd82bd0b|5594|rds|local|vector|||0.63||
+NA_by_language|stem|7f0cef50c2e8fe70|e1cf2b03d8b5dbf2|f7f0eb7d8fb57922|29673300||t19577.4080621179s|5b317ad05565066f|7209|rds|local|vector|||1.15||
+NA_country_plots|stem||8f1f90ebde5ed19d|cad8a16e4d034164|-1959740237||t19577.3999567084s||0|rds|local|vector|||0||could not find function country_NA_plot
 raw_data|stem|16f2e525d9621fff|3419861478ae44c6|2a321fce830de684|-979620141||t19576.6859519732s|d12676d350448f00|3626611|rds|local|vector|||0.48||
 raw_data_file|stem|f6233436d1ea5112|6450dc1ee5d0420c|ef46db3751d8e999|2110307107|..\..\..\ownCloud - Tom Metherell@cloud.mrc-cbu.cam.ac.uk\2023_unicef_covid\raw_data\DH_12Countries_110222.csv|t19034.3421296296s|2945c3c212a491c9|86971627|file|local|vector|||0||
