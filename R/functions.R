@@ -64,8 +64,11 @@ clean_data <- function(data){
         `13` = "Vietnam"
     ))
 
-    # Making the language variable categorical
+    # Make the language variable categorical
     data_clean$Language <- as.character(data_clean$Language)
+
+    # Delete all responses for H4f in Mozambique (because of a translation error)
+    data_clean[data_clean$COUNTRY == "Mozambique", ]$H4f <- NA
 
     return(data_clean)
 }
@@ -180,4 +183,41 @@ plot_language_NA <- function(NA_by_language){
     names(language_NA_plots) <- names(NA_by_language)
 
     return(language_NA_plots)
+}
+
+MZ_mean_impute <- function(data){
+    data[data$COUNTRY == "Mozambique", ]$H4f <- mean(data$H4f, na.rm = TRUE)
+
+    return(data)
+}
+
+conf_fact_analysis <- function(data){
+    model <- "
+        lf =~ H4a + H4b + H4c + H4d + H4e + H4f
+    "
+
+    cfa_model <- cfa(
+        model,
+        data,
+        estimator = "ML",
+        group = "COUNTRY"
+    )
+
+    return(cfa_model)
+}
+
+metr_cfa <- function(data){
+    model <- "
+        lf =~ H4a + H4b + H4c + H4d + H4e + H4f
+    "
+
+    metric_model <- cfa(
+        model,
+        data,
+        estimator = "ML",
+        group = "COUNTRY",
+        group.equal = "loadings"
+    )
+
+    return(metric_model)
 }

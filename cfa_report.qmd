@@ -1,0 +1,38 @@
+---
+title: "cfa_report"
+author: "Thomas E. Metherell"
+date: "2023-08-08"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependency and targets
+
+```{r dependencies}
+library(targets)
+library(lavaan)
+library(semTools)
+
+cfa_model_MZexclude <- tar_read(cfa_model_MZexclude)
+metric_model_MZexclude <- tar_read(metric_model_MZexclude)
+```
+
+## CFA summary
+
+```{r cfa}
+summary(cfa_model_MZexclude, fit.measures = TRUE, standardized = TRUE)
+```
+
+## Constrained CFA summary
+
+```{r cfa_constrained}
+summary(metric_model_MZexclude, fit.measures = TRUE, standardized = TRUE)
+``` 
+
+## Comparison between constrained and unconstrained models
+
+```{r metric}
+summary(compareFit(metric_model_MZexclude, cfa_model_MZexclude))
+```

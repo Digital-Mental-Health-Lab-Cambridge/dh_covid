@@ -3,6 +3,7 @@ library(tarchetypes)
 library(data.table)
 library(dplyr)
 library(ggplot2)
+library(lavaan)
 library(magrittr)
 library(quarto)
 library(reshape2)
@@ -75,5 +76,29 @@ list(
     tar_quarto(
         NA_report,
         "NA_report.Qmd"
+    ),
+
+    tar_target(
+        data_MZexclude,
+        data_clean %>% filter(COUNTRY != "Mozambique")
+    ),
+
+    tar_target(
+        cfa_model_MZexclude,
+        conf_fact_analysis(
+            data_MZexclude
+        )
+    ),
+
+    tar_target(
+        metric_model_MZexclude,
+        metr_cfa(
+            data_MZexclude
+        )
+    ),
+
+    tar_quarto(
+        cfa_report,
+        "cfa_report.Qmd"
     )
 )
