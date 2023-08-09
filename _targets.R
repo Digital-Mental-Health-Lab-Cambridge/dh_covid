@@ -100,5 +100,12 @@ list(
     tar_quarto(
         cfa_report,
         "cfa_report.Qmd"
+    ),
+
+    tar_target(
+        data_MZmeanimpute,
+        MZ_mean_impute(
+            data_clean
+        )
     )
 )

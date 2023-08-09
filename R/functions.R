@@ -221,3 +221,9 @@ metr_cfa <- function(data){
 
     return(metric_model)
 }
+
+MZ_mean_impute <- function(data){
+    data[data$COUNTRY == "Mozambique", ]$H4f <- mean(data$H4f, na.rm = TRUE)
+
+    return(data)
+}
