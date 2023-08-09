@@ -84,16 +84,59 @@ list(
     ),
 
     tar_target(
-        cfa_model_MZexclude,
+        swbs_country_cfa_model_MZexclude,
         conf_fact_analysis(
-            data_MZexclude
+            data_MZexclude,
+            "lf =~ H4a + H4b + H4c + H4d + H4e + H4f",
+            group = "COUNTRY"
         )
     ),
 
     tar_target(
-        metric_model_MZexclude,
-        metr_cfa(
-            data_MZexclude
+        swbs_country_metric_model_MZexclude,
+        conf_fact_analysis(
+            data_MZexclude,
+            "lf =~ H4a + H4b + H4c + H4d + H4e + H4f",
+            group = "COUNTRY",
+            TRUE
+        )
+    ),
+
+    tar_target(
+        anx_country_cfa_model,
+        conf_fact_analysis(
+            data_clean,
+            "lf =~ H4_NEW_a + H4_NEW_c + H4_NEW_f + H4_NEW_g",
+            group = "COUNTRY"
+        )
+    ),
+
+    tar_target(
+        anx_country_metric_model,
+        conf_fact_analysis(
+            data_clean,
+            "lf =~ H4_NEW_a + H4_NEW_c + H4_NEW_f + H4_NEW_g",
+            group = "COUNTRY",
+            TRUE
+        )
+    ),
+
+    tar_target(
+        cesd_country_cfa_model,
+        conf_fact_analysis(
+            data_clean,
+            "lf =~ H5b + H5f + H5g",
+            group = "COUNTRY"
+        )
+    ),
+
+    tar_target(
+        cesd_country_metric_model,
+        conf_fact_analysis(
+            data_clean,
+            "lf =~ H5b + H5f + H5g",
+            group = "COUNTRY",
+            TRUE
         )
     ),
 
@@ -106,6 +149,24 @@ list(
         data_MZmeanimpute,
         MZ_mean_impute(
             data_clean
+        )
+    ),
+
+    tar_target(
+        swbs_cfa_model,
+        conf_fact_analysis(
+            data_MZmeanimpute,
+            "lf =~ H4a + H4b + H4c + H4d + H4e + H4f"
+        )
+    ),
+
+    tar_target(
+        data_swbs_calc,
+        cfa_calc(
+            data_MZmeanimpute,
+            swbs_cfa_model,
+            "CW_SWBS",
+            c("H4a", "H4b", "H4c", "H4d", "H4e", "H4f")
         )
     )
 )

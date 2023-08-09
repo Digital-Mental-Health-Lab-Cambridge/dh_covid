@@ -191,39 +191,38 @@ MZ_mean_impute <- function(data){
     return(data)
 }
 
-conf_fact_analysis <- function(data){
-    model <- "
-        lf =~ H4a + H4b + H4c + H4d + H4e + H4f
-    "
-
-    cfa_model <- cfa(
-        model,
-        data,
-        estimator = "ML",
-        group = "COUNTRY"
-    )
-
+conf_fact_analysis <- function(data, model, group = NULL, groups_constrained = FALSE){
+    if(groups_constrained == TRUE){
+        cfa_model <- cfa(
+            model,
+            data,
+            estimator = "ML",
+            group = group,
+            group.equal = "loadings"
+        )
+    } else if(groups_constrained == FALSE) {
+        cfa_model <- cfa(
+            model,
+            data,
+            estimator = "ML",
+            group = group
+        )
+    }
+ 
     return(cfa_model)
-}
-
-metr_cfa <- function(data){
-    model <- "
-        lf =~ H4a + H4b + H4c + H4d + H4e + H4f
-    "
-
-    metric_model <- cfa(
-        model,
-        data,
-        estimator = "ML",
-        group = "COUNTRY",
-        group.equal = "loadings"
-    )
-
-    return(metric_model)
 }
 
 MZ_mean_impute <- function(data){
     data[data$COUNTRY == "Mozambique", ]$H4f <- mean(data$H4f, na.rm = TRUE)
+
+    return(data)
+}
+
+cfa_calc <- function(data, model, new_var, old_vars){
+    all_NA <- rowSums(is.na(data[, old_vars])) > 0
+
+    data[!all_NA, new_var] <- lavPredict(model)
+    data %<>% select(-all_of(old_vars))
 
     return(data)
 }

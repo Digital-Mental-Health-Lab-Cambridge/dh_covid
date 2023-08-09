@@ -111,9 +111,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#loading-dependency-and-targets" id="toc-loading-dependency-and-targets" class="nav-link active" data-scroll-target="#loading-dependency-and-targets">Loading dependency and targets</a></li>
-  <li><a href="#cfa-summary" id="toc-cfa-summary" class="nav-link" data-scroll-target="#cfa-summary">CFA summary</a></li>
+  <li><a href="#cw-swbs" id="toc-cw-swbs" class="nav-link" data-scroll-target="#cw-swbs">CW-SWBS</a>
+  <ul class="collapse">
+  <li><a href="#unconstrained-cfa-summary" id="toc-unconstrained-cfa-summary" class="nav-link" data-scroll-target="#unconstrained-cfa-summary">Unconstrained CFA summary</a></li>
   <li><a href="#constrained-cfa-summary" id="toc-constrained-cfa-summary" class="nav-link" data-scroll-target="#constrained-cfa-summary">Constrained CFA summary</a></li>
   <li><a href="#comparison-between-constrained-and-unconstrained-models" id="toc-comparison-between-constrained-and-unconstrained-models" class="nav-link" data-scroll-target="#comparison-between-constrained-and-unconstrained-models">Comparison between constrained and unconstrained models</a></li>
+  </ul></li>
+  <li><a href="#anxiety-scale" id="toc-anxiety-scale" class="nav-link" data-scroll-target="#anxiety-scale">Anxiety scale</a>
+  <ul class="collapse">
+  <li><a href="#unconstrained-cfa-summary-1" id="toc-unconstrained-cfa-summary-1" class="nav-link" data-scroll-target="#unconstrained-cfa-summary-1">Unconstrained CFA summary</a></li>
+  <li><a href="#constrained-cfa-summary-1" id="toc-constrained-cfa-summary-1" class="nav-link" data-scroll-target="#constrained-cfa-summary-1">Constrained CFA summary</a></li>
+  <li><a href="#comparison-between-constrained-and-unconstrained-models-1" id="toc-comparison-between-constrained-and-unconstrained-models-1" class="nav-link" data-scroll-target="#comparison-between-constrained-and-unconstrained-models-1">Comparison between constrained and unconstrained models</a></li>
+  </ul></li>
+  <li><a href="#abridged-ces-d" id="toc-abridged-ces-d" class="nav-link" data-scroll-target="#abridged-ces-d">Abridged CES-D</a>
+  <ul class="collapse">
+  <li><a href="#unconstrained-cfa-summary-2" id="toc-unconstrained-cfa-summary-2" class="nav-link" data-scroll-target="#unconstrained-cfa-summary-2">Unconstrained CFA summary</a></li>
+  <li><a href="#constrained-cfa-summary-2" id="toc-constrained-cfa-summary-2" class="nav-link" data-scroll-target="#constrained-cfa-summary-2">Constrained CFA summary</a></li>
+  <li><a href="#comparison-between-constrained-and-unconstrained-models-2" id="toc-comparison-between-constrained-and-unconstrained-models-2" class="nav-link" data-scroll-target="#comparison-between-constrained-and-unconstrained-models-2">Comparison between constrained and unconstrained models</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -181,17 +196,25 @@ lavaan is FREE software! Please report any bugs.</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cfa_model_MZexclude <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cfa_model_MZexclude)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>metric_model_MZexclude <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(metric_model_MZexclude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>swbs_country_cfa_model_MZexclude <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(swbs_country_cfa_model_MZexclude)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>swbs_country_metric_model_MZexclude <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(swbs_country_metric_model_MZexclude)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>anx_country_cfa_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(anx_country_cfa_model)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>anx_country_metric_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(anx_country_metric_model)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>cesd_country_cfa_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cesd_country_cfa_model)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>cesd_country_metric_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cesd_country_metric_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
-<section id="cfa-summary" class="level2">
-<h2 class="anchored" data-anchor-id="cfa-summary">CFA summary</h2>
+<section id="cw-swbs" class="level2">
+<h2 class="anchored" data-anchor-id="cw-swbs">CW-SWBS</h2>
+<section id="unconstrained-cfa-summary" class="level3">
+<h3 class="anchored" data-anchor-id="unconstrained-cfa-summary">Unconstrained CFA summary</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cfa_model_MZexclude, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swbs_country_cfa_model_MZexclude, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.16 ended normally after 180 iterations
@@ -634,12 +657,12 @@ Variances:
 </div>
 </div>
 </section>
-<section id="constrained-cfa-summary" class="level2">
-<h2 class="anchored" data-anchor-id="constrained-cfa-summary">Constrained CFA summary</h2>
+<section id="constrained-cfa-summary" class="level3">
+<h3 class="anchored" data-anchor-id="constrained-cfa-summary">Constrained CFA summary</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(metric_model_MZexclude, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swbs_country_metric_model_MZexclude, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.16 ended normally after 77 iterations
@@ -1083,42 +1106,1706 @@ Variances:
 </div>
 </div>
 </section>
-<section id="comparison-between-constrained-and-unconstrained-models" class="level2">
-<h2 class="anchored" data-anchor-id="comparison-between-constrained-and-unconstrained-models">Comparison between constrained and unconstrained models</h2>
+<section id="comparison-between-constrained-and-unconstrained-models" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-between-constrained-and-unconstrained-models">Comparison between constrained and unconstrained models</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(metric_model_MZexclude, cfa_model_MZexclude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(swbs_country_metric_model_MZexclude, swbs_country_cfa_model_MZexclude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>################### Nested Model Comparison #########################
 
 Chi-Squared Difference Test
 
-                        Df    AIC    BIC  Chisq Chisq diff    RMSEA Df diff
-cfa_model_MZexclude     99 136117 137550 567.56                            
-metric_model_MZexclude 149 136188 137260 738.79     171.23 0.050928      50
-                       Pr(&gt;Chisq)    
-cfa_model_MZexclude                  
-metric_model_MZexclude  3.523e-15 ***
+                                     Df    AIC    BIC  Chisq Chisq diff
+swbs_country_cfa_model_MZexclude     99 136117 137550 567.56           
+swbs_country_metric_model_MZexclude 149 136188 137260 738.79     171.23
+                                       RMSEA Df diff Pr(&gt;Chisq)    
+swbs_country_cfa_model_MZexclude                                   
+swbs_country_metric_model_MZexclude 0.050928      50  3.523e-15 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ####################### Model Fit Indices ###########################
-                          chisq  df pvalue rmsea   cfi   tli  srmr         aic
-cfa_model_MZexclude    567.558†  99   .000 .071  .953† .921  .031† 136117.058†
-metric_model_MZexclude 738.786  149   .000 .065† .940  .934† .045  136188.286 
-                               bic
-cfa_model_MZexclude    137550.231 
-metric_model_MZexclude 137259.547†
+                                       chisq  df pvalue rmsea   cfi   tli  srmr
+swbs_country_cfa_model_MZexclude    567.558†  99   .000 .071  .953† .921  .031†
+swbs_country_metric_model_MZexclude 738.786  149   .000 .065† .940  .934† .045 
+                                            aic         bic
+swbs_country_cfa_model_MZexclude    136117.058† 137550.231 
+swbs_country_metric_model_MZexclude 136188.286  137259.547†
 
 ################## Differences in Fit Indices #######################
-                                             df  rmsea    cfi   tli  srmr
-metric_model_MZexclude - cfa_model_MZexclude 50 -0.006 -0.012 0.013 0.014
-                                                aic      bic
-metric_model_MZexclude - cfa_model_MZexclude 71.228 -290.684</code></pre>
+                                                                       df
+swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 50
+                                                                        rmsea
+swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude -0.006
+                                                                          cfi
+swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude -0.012
+                                                                         tli
+swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 0.013
+                                                                        srmr
+swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 0.014
+                                                                          aic
+swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 71.228
+                                                                            bic
+swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude -290.684</code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="anxiety-scale" class="level2">
+<h2 class="anchored" data-anchor-id="anxiety-scale">Anxiety scale</h2>
+<section id="unconstrained-cfa-summary-1" class="level3">
+<h3 class="anchored" data-anchor-id="unconstrained-cfa-summary-1">Unconstrained CFA summary</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anx_country_cfa_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 98 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                       144
+
+  Number of observations per group:               Used       Total
+    Ethiopia                                       977        1021
+    Kenya                                          995        1016
+    Mozambique                                     952        1111
+    Namibia                                        935        1000
+    Tanzania                                       979        1000
+    Uganda                                         972        1020
+    Cambodia                                       990        1007
+    Indonesia                                      963        1012
+    Malaysia                                       946        1009
+    Philippines                                    887         975
+    Thailand                                       985        1000
+    Vietnam                                        965         998
+
+Model Test User Model:
+                                                      
+  Test statistic                               354.383
+  Degrees of freedom                                24
+  P-value (Chi-square)                           0.000
+  Test statistic for each group:
+    Ethiopia                                     8.856
+    Kenya                                        4.436
+    Mozambique                                  15.792
+    Namibia                                      9.628
+    Tanzania                                    58.259
+    Uganda                                      27.576
+    Cambodia                                     3.393
+    Indonesia                                   26.371
+    Malaysia                                     3.060
+    Philippines                                  4.192
+    Thailand                                   130.726
+    Vietnam                                     62.093
+
+Model Test Baseline Model:
+
+  Test statistic                             18592.187
+  Degrees of freedom                                72
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.982
+  Tucker-Lewis Index (TLI)                       0.946
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -49840.316
+  Loglikelihood unrestricted model (H1)     -49663.125
+                                                      
+  Akaike (AIC)                               99968.632
+  Bayesian (BIC)                            101027.621
+  Sample-size adjusted Bayesian (SABIC)     100570.007
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.120
+  90 Percent confidence interval - lower         0.109
+  90 Percent confidence interval - upper         0.131
+  P-value H_0: RMSEA &lt;= 0.050                    0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.016
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+
+Group 1 [Ethiopia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.547    0.600
+    H4_NEW_c          1.385    0.076   18.271    0.000    0.757    0.826
+    H4_NEW_f          0.833    0.059   14.080    0.000    0.455    0.551
+    H4_NEW_g          1.355    0.074   18.324    0.000    0.741    0.848
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.646    0.029   56.448    0.000    1.646    1.806
+   .H4_NEW_c          1.664    0.029   56.717    0.000    1.664    1.815
+   .H4_NEW_f          1.462    0.026   55.300    0.000    1.462    1.769
+   .H4_NEW_g          1.584    0.028   56.704    0.000    1.584    1.814
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.532    0.027   19.840    0.000    0.532    0.640
+   .H4_NEW_c          0.268    0.022   12.020    0.000    0.268    0.318
+   .H4_NEW_f          0.475    0.023   20.362    0.000    0.475    0.696
+   .H4_NEW_g          0.214    0.020   10.559    0.000    0.214    0.280
+    lf                0.299    0.031    9.585    0.000    1.000    1.000
+
+
+Group 2 [Kenya]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.606    0.634
+    H4_NEW_c          1.132    0.075   15.160    0.000    0.685    0.704
+    H4_NEW_f          0.904    0.064   14.092    0.000    0.547    0.608
+    H4_NEW_g          1.040    0.070   14.772    0.000    0.630    0.660
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.761    0.030   58.108    0.000    1.761    1.842
+   .H4_NEW_c          1.743    0.031   56.493    0.000    1.743    1.791
+   .H4_NEW_f          1.570    0.029   55.023    0.000    1.570    1.744
+   .H4_NEW_g          1.710    0.030   56.479    0.000    1.710    1.791
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.547    0.032   17.095    0.000    0.547    0.598
+   .H4_NEW_c          0.477    0.033   14.615    0.000    0.477    0.504
+   .H4_NEW_f          0.510    0.029   17.776    0.000    0.510    0.630
+   .H4_NEW_g          0.515    0.032   16.295    0.000    0.515    0.565
+    lf                0.367    0.039    9.478    0.000    1.000    1.000
+
+
+Group 3 [Mozambique]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.699    0.697
+    H4_NEW_c          1.129    0.061   18.510    0.000    0.789    0.767
+    H4_NEW_f          0.950    0.056   17.049    0.000    0.664    0.670
+    H4_NEW_g          1.068    0.062   17.354    0.000    0.747    0.686
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.832    0.033   56.314    0.000    1.832    1.825
+   .H4_NEW_c          1.957    0.033   58.701    0.000    1.957    1.903
+   .H4_NEW_f          1.828    0.032   56.881    0.000    1.828    1.844
+   .H4_NEW_g          2.007    0.035   56.875    0.000    2.007    1.843
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.519    0.031   16.494    0.000    0.519    0.515
+   .H4_NEW_c          0.435    0.032   13.731    0.000    0.435    0.411
+   .H4_NEW_f          0.542    0.031   17.258    0.000    0.542    0.551
+   .H4_NEW_g          0.628    0.037   16.822    0.000    0.628    0.530
+    lf                0.489    0.045   10.957    0.000    1.000    1.000
+
+
+Group 4 [Namibia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.609    0.739
+    H4_NEW_c          1.244    0.055   22.453    0.000    0.758    0.831
+    H4_NEW_f          1.143    0.055   20.711    0.000    0.697    0.740
+    H4_NEW_g          1.156    0.059   19.562    0.000    0.704    0.696
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.597    0.027   59.248    0.000    1.597    1.938
+   .H4_NEW_c          1.728    0.030   57.974    0.000    1.728    1.896
+   .H4_NEW_f          1.733    0.031   56.260    0.000    1.733    1.840
+   .H4_NEW_g          1.871    0.033   56.527    0.000    1.871    1.849
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.308    0.019   16.651    0.000    0.308    0.454
+   .H4_NEW_c          0.257    0.021   12.458    0.000    0.257    0.309
+   .H4_NEW_f          0.402    0.024   16.635    0.000    0.402    0.453
+   .H4_NEW_g          0.528    0.030   17.810    0.000    0.528    0.516
+    lf                0.371    0.030   12.215    0.000    1.000    1.000
+
+
+Group 5 [Tanzania]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.627    0.810
+    H4_NEW_c          1.137    0.035   32.911    0.000    0.713    0.903
+    H4_NEW_f          0.816    0.032   25.854    0.000    0.512    0.750
+    H4_NEW_g          1.016    0.032   31.850    0.000    0.638    0.877
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.499    0.025   60.604    0.000    1.499    1.937
+   .H4_NEW_c          1.488    0.025   58.963    0.000    1.488    1.884
+   .H4_NEW_f          1.369    0.022   62.759    0.000    1.369    2.006
+   .H4_NEW_g          1.429    0.023   61.479    0.000    1.429    1.965
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.206    0.011   18.040    0.000    0.206    0.343
+   .H4_NEW_c          0.115    0.009   12.475    0.000    0.115    0.185
+   .H4_NEW_f          0.203    0.010   19.426    0.000    0.203    0.437
+   .H4_NEW_g          0.122    0.008   14.691    0.000    0.122    0.231
+    lf                0.394    0.026   14.974    0.000    1.000    1.000
+
+
+Group 6 [Uganda]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.647    0.669
+    H4_NEW_c          0.986    0.067   14.704    0.000    0.638    0.676
+    H4_NEW_f          0.904    0.065   13.910    0.000    0.585    0.605
+    H4_NEW_g          0.949    0.068   13.976    0.000    0.614    0.609
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.913    0.031   61.640    0.000    1.913    1.977
+   .H4_NEW_c          1.773    0.030   58.592    0.000    1.773    1.879
+   .H4_NEW_f          1.779    0.031   57.333    0.000    1.779    1.839
+   .H4_NEW_g          1.876    0.032   57.999    0.000    1.876    1.860
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.517    0.034   15.362    0.000    0.517    0.552
+   .H4_NEW_c          0.483    0.032   15.094    0.000    0.483    0.543
+   .H4_NEW_f          0.594    0.034   17.349    0.000    0.594    0.635
+   .H4_NEW_g          0.639    0.037   17.230    0.000    0.639    0.629
+    lf                0.419    0.043    9.779    0.000    1.000    1.000
+
+
+Group 7 [Cambodia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.482    0.513
+    H4_NEW_c          1.306    0.104   12.556    0.000    0.629    0.681
+    H4_NEW_f          1.163    0.098   11.821    0.000    0.561    0.587
+    H4_NEW_g          1.576    0.124   12.677    0.000    0.760    0.720
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.725    0.030   57.798    0.000    1.725    1.837
+   .H4_NEW_c          1.662    0.029   56.568    0.000    1.662    1.798
+   .H4_NEW_f          1.642    0.030   54.157    0.000    1.642    1.721
+   .H4_NEW_g          1.901    0.034   56.737    0.000    1.901    1.803
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.650    0.034   19.340    0.000    0.650    0.737
+   .H4_NEW_c          0.458    0.031   14.820    0.000    0.458    0.536
+   .H4_NEW_f          0.596    0.033   17.881    0.000    0.596    0.655
+   .H4_NEW_g          0.534    0.041   13.114    0.000    0.534    0.481
+    lf                0.232    0.032    7.365    0.000    1.000    1.000
+
+
+Group 8 [Indonesia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.662    0.798
+    H4_NEW_c          1.090    0.037   29.317    0.000    0.721    0.848
+    H4_NEW_f          1.087    0.037   29.614    0.000    0.719    0.854
+    H4_NEW_g          1.084    0.036   30.422    0.000    0.717    0.874
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.590    0.027   59.550    0.000    1.590    1.919
+   .H4_NEW_c          1.582    0.027   57.715    0.000    1.582    1.860
+   .H4_NEW_f          1.522    0.027   56.125    0.000    1.522    1.809
+   .H4_NEW_g          1.522    0.026   57.578    0.000    1.522    1.855
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.249    0.014   18.037    0.000    0.249    0.362
+   .H4_NEW_c          0.204    0.013   16.188    0.000    0.204    0.282
+   .H4_NEW_f          0.191    0.012   15.828    0.000    0.191    0.270
+   .H4_NEW_g          0.159    0.011   14.644    0.000    0.159    0.237
+    lf                0.438    0.030   14.494    0.000    1.000    1.000
+
+
+Group 9 [Malaysia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.608    0.777
+    H4_NEW_c          1.044    0.041   25.650    0.000    0.635    0.813
+    H4_NEW_f          1.000    0.040   25.277    0.000    0.608    0.802
+    H4_NEW_g          1.131    0.042   26.696    0.000    0.687    0.846
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.560    0.025   61.337    0.000    1.560    1.994
+   .H4_NEW_c          1.580    0.025   62.270    0.000    1.580    2.025
+   .H4_NEW_f          1.459    0.025   59.227    0.000    1.459    1.926
+   .H4_NEW_g          1.554    0.026   58.859    0.000    1.554    1.914
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.243    0.014   17.328    0.000    0.243    0.396
+   .H4_NEW_c          0.206    0.013   16.021    0.000    0.206    0.339
+   .H4_NEW_f          0.205    0.012   16.469    0.000    0.205    0.356
+   .H4_NEW_g          0.187    0.013   14.335    0.000    0.187    0.284
+    lf                0.369    0.027   13.588    0.000    1.000    1.000
+
+
+Group 10 [Philippines]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.581    0.615
+    H4_NEW_c          1.151    0.094   12.305    0.000    0.669    0.670
+    H4_NEW_f          1.019    0.086   11.797    0.000    0.593    0.589
+    H4_NEW_g          1.018    0.090   11.305    0.000    0.592    0.546
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          2.188    0.032   68.903    0.000    2.188    2.314
+   .H4_NEW_c          2.090    0.033   62.400    0.000    2.090    2.095
+   .H4_NEW_f          1.945    0.034   57.555    0.000    1.945    1.932
+   .H4_NEW_g          2.470    0.036   67.909    0.000    2.470    2.280
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.557    0.036   15.373    0.000    0.557    0.622
+   .H4_NEW_c          0.548    0.041   13.421    0.000    0.548    0.551
+   .H4_NEW_f          0.662    0.041   16.119    0.000    0.662    0.653
+   .H4_NEW_g          0.823    0.048   17.142    0.000    0.823    0.702
+    lf                0.338    0.041    8.150    0.000    1.000    1.000
+
+
+Group 11 [Thailand]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.764    0.808
+    H4_NEW_c          0.984    0.031   32.041    0.000    0.752    0.882
+    H4_NEW_f          0.975    0.031   30.960    0.000    0.745    0.859
+    H4_NEW_g          1.076    0.035   30.846    0.000    0.822    0.857
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.787    0.030   59.288    0.000    1.787    1.889
+   .H4_NEW_c          1.628    0.027   59.944    0.000    1.628    1.910
+   .H4_NEW_f          1.632    0.028   59.073    0.000    1.632    1.882
+   .H4_NEW_g          1.813    0.031   59.283    0.000    1.813    1.889
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.311    0.017   18.245    0.000    0.311    0.347
+   .H4_NEW_c          0.161    0.011   14.687    0.000    0.161    0.222
+   .H4_NEW_f          0.197    0.012   16.182    0.000    0.197    0.262
+   .H4_NEW_g          0.245    0.015   16.312    0.000    0.245    0.266
+    lf                0.584    0.039   14.962    0.000    1.000    1.000
+
+
+Group 12 [Vietnam]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_a          1.000                               0.403    0.809
+    H4_NEW_c          1.140    0.043   26.530    0.000    0.459    0.828
+    H4_NEW_f          0.971    0.042   22.903    0.000    0.391    0.721
+    H4_NEW_g          1.249    0.050   24.840    0.000    0.504    0.774
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.185    0.016   73.876    0.000    1.185    2.378
+   .H4_NEW_c          1.227    0.018   68.668    0.000    1.227    2.211
+   .H4_NEW_f          1.200    0.017   68.666    0.000    1.200    2.210
+   .H4_NEW_g          1.294    0.021   61.803    0.000    1.294    1.990
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.086    0.006   15.328    0.000    0.086    0.346
+   .H4_NEW_c          0.097    0.007   14.336    0.000    0.097    0.315
+   .H4_NEW_f          0.142    0.008   18.261    0.000    0.142    0.480
+   .H4_NEW_g          0.170    0.010   16.773    0.000    0.170    0.401
+    lf                0.163    0.011   14.322    0.000    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="constrained-cfa-summary-1" class="level3">
+<h3 class="anchored" data-anchor-id="constrained-cfa-summary-1">Constrained CFA summary</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anx_country_metric_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 50 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                       144
+  Number of equality constraints                    33
+
+  Number of observations per group:               Used       Total
+    Ethiopia                                       977        1021
+    Kenya                                          995        1016
+    Mozambique                                     952        1111
+    Namibia                                        935        1000
+    Tanzania                                       979        1000
+    Uganda                                         972        1020
+    Cambodia                                       990        1007
+    Indonesia                                      963        1012
+    Malaysia                                       946        1009
+    Philippines                                    887         975
+    Thailand                                       985        1000
+    Vietnam                                        965         998
+
+Model Test User Model:
+                                                      
+  Test statistic                               570.858
+  Degrees of freedom                                57
+  P-value (Chi-square)                           0.000
+  Test statistic for each group:
+    Ethiopia                                    72.562
+    Kenya                                        7.573
+    Mozambique                                  17.164
+    Namibia                                     22.566
+    Tanzania                                   100.687
+    Uganda                                      33.673
+    Cambodia                                    24.054
+    Indonesia                                   48.777
+    Malaysia                                     9.508
+    Philippines                                  6.966
+    Thailand                                   155.595
+    Vietnam                                     71.733
+
+Model Test Baseline Model:
+
+  Test statistic                             18592.187
+  Degrees of freedom                                72
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.972
+  Tucker-Lewis Index (TLI)                       0.965
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -49948.554
+  Loglikelihood unrestricted model (H1)     -49663.125
+                                                      
+  Akaike (AIC)                              100119.108
+  Bayesian (BIC)                            100935.412
+  Sample-size adjusted Bayesian (SABIC)     100582.667
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.097
+  90 Percent confidence interval - lower         0.090
+  90 Percent confidence interval - upper         0.104
+  P-value H_0: RMSEA &lt;= 0.050                    0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.042
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+
+Group 1 [Ethiopia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.616    0.653
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.685    0.779
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.605    0.667
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.688    0.813
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.646    0.030   54.571    0.000    1.646    1.746
+   .H4_NEW_c          1.664    0.028   59.163    0.000    1.664    1.893
+   .H4_NEW_f          1.462    0.029   50.367    0.000    1.462    1.611
+   .H4_NEW_g          1.584    0.027   58.562    0.000    1.584    1.874
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.509    0.026   19.279    0.000    0.509    0.573
+   .H4_NEW_c          0.304    0.019   16.065    0.000    0.304    0.393
+   .H4_NEW_f          0.457    0.024   19.059    0.000    0.457    0.555
+   .H4_NEW_g          0.242    0.017   14.497    0.000    0.242    0.339
+    lf                0.379    0.022   17.337    0.000    1.000    1.000
+
+
+Group 2 [Kenya]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.586    0.617
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.652    0.678
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.575    0.632
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.654    0.679
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.761    0.030   58.545    0.000    1.761    1.856
+   .H4_NEW_c          1.743    0.030   57.195    0.000    1.743    1.813
+   .H4_NEW_f          1.570    0.029   54.401    0.000    1.570    1.725
+   .H4_NEW_g          1.710    0.031   55.970    0.000    1.710    1.774
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.557    0.030   18.729    0.000    0.557    0.619
+   .H4_NEW_c          0.499    0.029   17.334    0.000    0.499    0.540
+   .H4_NEW_f          0.498    0.027   18.437    0.000    0.498    0.601
+   .H4_NEW_g          0.500    0.029   17.303    0.000    0.500    0.539
+    lf                0.343    0.022   15.885    0.000    1.000    1.000
+
+
+Group 3 [Mozambique]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.690    0.690
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.768    0.753
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.678    0.680
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.771    0.701
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.832    0.032   56.532    0.000    1.832    1.832
+   .H4_NEW_c          1.957    0.033   59.223    0.000    1.957    1.919
+   .H4_NEW_f          1.828    0.032   56.570    0.000    1.828    1.833
+   .H4_NEW_g          2.007    0.036   56.355    0.000    2.007    1.826
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.524    0.030   17.715    0.000    0.524    0.524
+   .H4_NEW_c          0.450    0.028   15.886    0.000    0.450    0.433
+   .H4_NEW_f          0.535    0.030   17.952    0.000    0.535    0.538
+   .H4_NEW_g          0.614    0.035   17.459    0.000    0.614    0.508
+    lf                0.476    0.029   16.655    0.000    1.000    1.000
+
+
+Group 4 [Namibia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.657    0.771
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.731    0.815
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.645    0.706
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.733    0.713
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.597    0.028   57.340    0.000    1.597    1.875
+   .H4_NEW_c          1.728    0.029   58.937    0.000    1.728    1.927
+   .H4_NEW_f          1.733    0.030   57.969    0.000    1.733    1.896
+   .H4_NEW_g          1.871    0.034   55.600    0.000    1.871    1.818
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.294    0.018   16.423    0.000    0.294    0.405
+   .H4_NEW_c          0.270    0.018   14.650    0.000    0.270    0.336
+   .H4_NEW_f          0.419    0.023   18.168    0.000    0.419    0.502
+   .H4_NEW_g          0.520    0.029   18.026    0.000    0.520    0.492
+    lf                0.431    0.025   17.453    0.000    1.000    1.000
+
+
+Group 5 [Tanzania]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.592    0.786
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.659    0.871
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.582    0.797
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.662    0.894
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.499    0.024   62.235    0.000    1.499    1.989
+   .H4_NEW_c          1.488    0.024   61.523    0.000    1.488    1.966
+   .H4_NEW_f          1.369    0.023   58.702    0.000    1.369    1.876
+   .H4_NEW_g          1.429    0.024   60.451    0.000    1.429    1.932
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.217    0.012   18.871    0.000    0.217    0.383
+   .H4_NEW_c          0.139    0.009   15.583    0.000    0.139    0.242
+   .H4_NEW_f          0.194    0.010   18.592    0.000    0.194    0.364
+   .H4_NEW_g          0.109    0.008   13.839    0.000    0.109    0.200
+    lf                0.351    0.019   18.871    0.000    1.000    1.000
+
+
+Group 6 [Uganda]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.589    0.622
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.655    0.687
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.578    0.601
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.657    0.641
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.913    0.030   63.051    0.000    1.913    2.022
+   .H4_NEW_c          1.773    0.031   58.018    0.000    1.773    1.861
+   .H4_NEW_f          1.779    0.031   57.686    0.000    1.779    1.850
+   .H4_NEW_g          1.876    0.033   57.001    0.000    1.876    1.828
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.548    0.030   18.219    0.000    0.548    0.613
+   .H4_NEW_c          0.479    0.029   16.587    0.000    0.479    0.528
+   .H4_NEW_f          0.590    0.032   18.633    0.000    0.590    0.639
+   .H4_NEW_g          0.620    0.035   17.828    0.000    0.620    0.589
+    lf                0.346    0.022   15.468    0.000    1.000    1.000
+
+
+Group 7 [Cambodia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.578    0.592
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.643    0.695
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.567    0.592
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.645    0.635
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.725    0.031   55.633    0.000    1.725    1.768
+   .H4_NEW_c          1.662    0.029   56.543    0.000    1.662    1.797
+   .H4_NEW_f          1.642    0.030   53.932    0.000    1.642    1.714
+   .H4_NEW_g          1.901    0.032   58.860    0.000    1.901    1.871
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.619    0.033   18.872    0.000    0.619    0.650
+   .H4_NEW_c          0.442    0.027   16.324    0.000    0.442    0.517
+   .H4_NEW_f          0.596    0.032   18.873    0.000    0.596    0.650
+   .H4_NEW_g          0.617    0.034   18.003    0.000    0.617    0.597
+    lf                0.334    0.022   15.403    0.000    1.000    1.000
+
+
+Group 8 [Indonesia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.665    0.802
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.740    0.855
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.653    0.819
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.743    0.884
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.590    0.027   59.508    0.000    1.590    1.918
+   .H4_NEW_c          1.582    0.028   56.739    0.000    1.582    1.828
+   .H4_NEW_f          1.522    0.026   59.216    0.000    1.522    1.908
+   .H4_NEW_g          1.522    0.027   56.211    0.000    1.522    1.811
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.245    0.013   18.213    0.000    0.245    0.356
+   .H4_NEW_c          0.201    0.012   16.216    0.000    0.201    0.268
+   .H4_NEW_f          0.210    0.012   17.719    0.000    0.210    0.330
+   .H4_NEW_g          0.155    0.011   14.449    0.000    0.155    0.219
+    lf                0.442    0.024   18.755    0.000    1.000    1.000
+
+
+Group 9 [Malaysia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.602    0.773
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.669    0.833
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.591    0.791
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.672    0.837
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.560    0.025   61.691    0.000    1.560    2.006
+   .H4_NEW_c          1.580    0.026   60.499    0.000    1.580    1.967
+   .H4_NEW_f          1.459    0.024   60.051    0.000    1.459    1.952
+   .H4_NEW_g          1.554    0.026   59.556    0.000    1.554    1.936
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.243    0.014   17.892    0.000    0.243    0.402
+   .H4_NEW_c          0.198    0.013   15.810    0.000    0.198    0.306
+   .H4_NEW_f          0.209    0.012   17.406    0.000    0.209    0.375
+   .H4_NEW_g          0.193    0.012   15.604    0.000    0.193    0.299
+    lf                0.362    0.020   18.188    0.000    1.000    1.000
+
+
+Group 10 [Philippines]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.580    0.614
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.645    0.651
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.570    0.570
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.648    0.588
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          2.188    0.032   69.007    0.000    2.188    2.317
+   .H4_NEW_c          2.090    0.033   62.807    0.000    2.090    2.109
+   .H4_NEW_f          1.945    0.034   58.014    0.000    1.945    1.948
+   .H4_NEW_g          2.470    0.037   66.758    0.000    2.470    2.242
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.556    0.033   17.087    0.000    0.556    0.623
+   .H4_NEW_c          0.566    0.035   16.218    0.000    0.566    0.576
+   .H4_NEW_f          0.672    0.038   17.919    0.000    0.672    0.675
+   .H4_NEW_g          0.795    0.045   17.621    0.000    0.795    0.655
+    lf                0.336    0.024   14.150    0.000    1.000    1.000
+
+
+Group 11 [Thailand]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.722    0.786
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.803    0.902
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.709    0.845
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.806    0.846
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.787    0.029   61.088    0.000    1.787    1.946
+   .H4_NEW_c          1.628    0.028   57.378    0.000    1.628    1.828
+   .H4_NEW_f          1.632    0.027   61.053    0.000    1.632    1.945
+   .H4_NEW_g          1.813    0.030   59.692    0.000    1.813    1.902
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.321    0.017   19.049    0.000    0.321    0.381
+   .H4_NEW_c          0.148    0.011   13.579    0.000    0.148    0.187
+   .H4_NEW_f          0.201    0.012   17.234    0.000    0.201    0.286
+   .H4_NEW_g          0.259    0.015   17.213    0.000    0.259    0.285
+    lf                0.521    0.027   18.975    0.000    1.000    1.000
+
+
+Group 12 [Vietnam]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H4_NEW_           1.000                               0.414    0.822
+    H4_NEW_ (.p2.)    1.113    0.014   78.676    0.000    0.461    0.830
+    H4_NEW_ (.p3.)    0.982    0.014   72.482    0.000    0.407    0.734
+    H4_NEW_ (.p4.)    1.117    0.014   77.039    0.000    0.463    0.737
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          1.185    0.016   73.018    0.000    1.185    2.351
+   .H4_NEW_c          1.227    0.018   68.626    0.000    1.227    2.209
+   .H4_NEW_f          1.200    0.018   67.250    0.000    1.200    2.165
+   .H4_NEW_g          1.294    0.020   64.067    0.000    1.294    2.062
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H4_NEW_a          0.083    0.005   15.601    0.000    0.083    0.325
+   .H4_NEW_c          0.096    0.006   15.211    0.000    0.096    0.311
+   .H4_NEW_f          0.142    0.008   18.466    0.000    0.142    0.461
+   .H4_NEW_g          0.180    0.010   18.405    0.000    0.180    0.456
+    lf                0.172    0.009   18.269    0.000    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="comparison-between-constrained-and-unconstrained-models-1" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-between-constrained-and-unconstrained-models-1">Comparison between constrained and unconstrained models</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(anx_country_metric_model, anx_country_cfa_model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Chi-Squared Difference Test
+
+                         Df    AIC    BIC  Chisq Chisq diff    RMSEA Df diff
+anx_country_cfa_model    24  99969 101028 354.38                            
+anx_country_metric_model 57 100119 100935 570.86     216.48 0.076016      33
+                         Pr(&gt;Chisq)    
+anx_country_cfa_model                  
+anx_country_metric_model  &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+####################### Model Fit Indices ###########################
+                            chisq df pvalue rmsea   cfi   tli  srmr         aic
+anx_country_cfa_model    354.383† 24   .000 .120  .982† .946  .016†  99968.632†
+anx_country_metric_model 570.858  57   .000 .097† .972  .965† .042  100119.108 
+                                 bic
+anx_country_cfa_model    101027.621 
+anx_country_metric_model 100935.412†
+
+################## Differences in Fit Indices #######################
+                                                 df  rmsea   cfi   tli  srmr
+anx_country_metric_model - anx_country_cfa_model 33 -0.023 -0.01 0.018 0.026
+                                                     aic     bic
+anx_country_metric_model - anx_country_cfa_model 150.476 -92.209</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="abridged-ces-d" class="level2">
+<h2 class="anchored" data-anchor-id="abridged-ces-d">Abridged CES-D</h2>
+<section id="unconstrained-cfa-summary-2" class="level3">
+<h3 class="anchored" data-anchor-id="unconstrained-cfa-summary-2">Unconstrained CFA summary</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cesd_country_cfa_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 403 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                       108
+
+  Number of observations per group:               Used       Total
+    Ethiopia                                       837        1021
+    Kenya                                          825        1016
+    Mozambique                                     870        1111
+    Namibia                                        777        1000
+    Tanzania                                       878        1000
+    Uganda                                         802        1020
+    Cambodia                                       794        1007
+    Indonesia                                      801        1012
+    Malaysia                                       842        1009
+    Philippines                                    662         975
+    Thailand                                       964        1000
+    Vietnam                                        887         998
+
+Model Test User Model:
+                                                      
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
+  Test statistic for each group:
+    Ethiopia                                     0.000
+    Kenya                                        0.000
+    Mozambique                                   0.000
+    Namibia                                      0.000
+    Tanzania                                     0.000
+    Uganda                                       0.000
+    Cambodia                                     0.000
+    Indonesia                                    0.000
+    Malaysia                                     0.000
+    Philippines                                  0.000
+    Thailand                                     0.000
+    Vietnam                                      0.000
+
+Model Test Baseline Model:
+
+  Test statistic                              4384.462
+  Degrees of freedom                                36
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.000
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -39479.726
+  Loglikelihood unrestricted model (H1)     -39479.726
+                                                      
+  Akaike (AIC)                               79175.452
+  Bayesian (BIC)                             79953.508
+  Sample-size adjusted Bayesian (SABIC)      79610.299
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.000
+  P-value H_0: RMSEA &lt;= 0.050                       NA
+  P-value H_0: RMSEA &gt;= 0.080                       NA
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.000
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+
+Group 1 [Ethiopia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.322    0.236
+    H5f              -2.313    0.436   -5.302    0.000   -0.745   -0.661
+    H5g              -2.547    0.559   -4.555    0.000   -0.820   -0.783
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.466    0.047   73.442    0.000    3.466    2.539
+   .H5f               1.694    0.039   43.478    0.000    1.694    1.503
+   .H5g               1.790    0.036   49.469    0.000    1.790    1.710
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.760    0.089   19.889    0.000    1.760    0.944
+   .H5f               0.716    0.116    6.161    0.000    0.716    0.564
+   .H5g               0.423    0.136    3.113    0.002    0.423    0.386
+    lf                0.104    0.036    2.846    0.004    1.000    1.000
+
+
+Group 2 [Kenya]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.304    0.258
+    H5f              -2.135    0.368   -5.801    0.000   -0.649   -0.619
+    H5g              -2.614    0.562   -4.647    0.000   -0.794   -0.799
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.208    0.041  102.556    0.000    4.208    3.571
+   .H5f               1.625    0.037   44.521    0.000    1.625    1.550
+   .H5g               1.518    0.035   43.883    0.000    1.518    1.528
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.297    0.066   19.545    0.000    1.297    0.934
+   .H5f               0.679    0.089    7.648    0.000    0.679    0.617
+   .H5g               0.356    0.124    2.861    0.004    0.356    0.361
+    lf                0.092    0.030    3.032    0.002    1.000    1.000
+
+
+Group 3 [Mozambique]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.139    0.101
+    H5f              -5.837    2.983   -1.957    0.050   -0.811   -0.806
+    H5g              -4.417    1.851   -2.386    0.017   -0.614   -0.658
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.524    0.047   75.184    0.000    3.524    2.549
+   .H5f               1.599    0.034   46.864    0.000    1.599    1.589
+   .H5g               1.439    0.032   45.527    0.000    1.439    1.543
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.892    0.091   20.759    0.000    1.892    0.990
+   .H5f               0.355    0.301    1.178    0.239    0.355    0.350
+   .H5g               0.492    0.174    2.834    0.005    0.492    0.566
+    lf                0.019    0.016    1.230    0.219    1.000    1.000
+
+
+Group 4 [Namibia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.289    0.280
+    H5f              -2.922    0.549   -5.320    0.000   -0.845   -0.836
+    H5g              -1.853    0.286   -6.470    0.000   -0.536   -0.665
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.398    0.037  118.884    0.000    4.398    4.265
+   .H5f               1.656    0.036   45.695    0.000    1.656    1.639
+   .H5g               1.373    0.029   47.539    0.000    1.373    1.705
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.980    0.052   19.019    0.000    0.980    0.921
+   .H5f               0.307    0.117    2.633    0.008    0.307    0.301
+   .H5g               0.361    0.050    7.241    0.000    0.361    0.557
+    lf                0.084    0.025    3.350    0.001    1.000    1.000
+
+
+Group 5 [Tanzania]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.234    0.203
+    H5f              -2.936    0.562   -5.228    0.000   -0.688   -0.722
+    H5g              -3.084    0.700   -4.409    0.000   -0.723   -0.866
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.246    0.039  109.136    0.000    4.246    3.683
+   .H5f               1.600    0.032   49.715    0.000    1.600    1.678
+   .H5g               1.490    0.028   52.898    0.000    1.490    1.785
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.274    0.062   20.672    0.000    1.274    0.959
+   .H5f               0.436    0.089    4.894    0.000    0.436    0.479
+   .H5g               0.174    0.096    1.811    0.070    0.174    0.249
+    lf                0.055    0.021    2.660    0.008    1.000    1.000
+
+
+Group 6 [Uganda]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.328    0.263
+    H5f              -1.960    0.406   -4.830    0.000   -0.642   -0.527
+    H5g              -2.289    0.586   -3.908    0.000   -0.750   -0.683
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.883    0.044   88.255    0.000    3.883    3.116
+   .H5f               1.948    0.043   45.246    0.000    1.948    1.598
+   .H5g               1.731    0.039   44.616    0.000    1.731    1.575
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.445    0.077   18.694    0.000    1.445    0.931
+   .H5f               1.073    0.119    9.009    0.000    1.073    0.722
+   .H5g               0.644    0.149    4.328    0.000    0.644    0.533
+    lf                0.107    0.040    2.712    0.007    1.000    1.000
+
+
+Group 7 [Cambodia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.127    0.091
+    H5f              -5.263    1.923   -2.737    0.006   -0.667   -0.543
+    H5g              -9.926    7.131   -1.392    0.164   -1.258   -1.078
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.742    0.050   75.413    0.000    3.742    2.676
+   .H5f               1.795    0.044   41.144    0.000    1.795    1.460
+   .H5g               1.729    0.041   41.764    0.000    1.729    1.482
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.939    0.098   19.832    0.000    1.939    0.992
+   .H5f               1.066    0.266    4.009    0.000    1.066    0.706
+   .H5g              -0.220    0.926   -0.238    0.812   -0.220   -0.162
+    lf                0.016    0.016    1.024    0.306    1.000    1.000
+
+
+Group 8 [Indonesia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.286    0.399
+    H5f              -2.187    0.290   -7.534    0.000   -0.625   -0.706
+    H5g              -1.296    0.166   -7.815    0.000   -0.370   -0.668
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.732    0.025  186.881    0.000    4.732    6.603
+   .H5f               1.382    0.031   44.206    0.000    1.382    1.562
+   .H5g               1.160    0.020   59.286    0.000    1.160    2.095
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.432    0.024   18.013    0.000    0.432    0.841
+   .H5f               0.393    0.054    7.318    0.000    0.393    0.502
+   .H5g               0.170    0.019    8.709    0.000    0.170    0.553
+    lf                0.082    0.017    4.696    0.000    1.000    1.000
+
+
+Group 9 [Malaysia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.343    0.402
+    H5f              -1.744    0.179   -9.716    0.000   -0.597   -0.784
+    H5g              -1.813    0.191   -9.509    0.000   -0.621   -0.808
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.553    0.029  154.968    0.000    4.553    5.341
+   .H5f               1.363    0.026   51.925    0.000    1.363    1.789
+   .H5g               1.361    0.027   51.341    0.000    1.361    1.769
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.610    0.031   19.406    0.000    0.610    0.838
+   .H5f               0.224    0.033    6.805    0.000    0.224    0.385
+   .H5g               0.206    0.035    5.878    0.000    0.206    0.348
+    lf                0.117    0.022    5.377    0.000    1.000    1.000
+
+
+Group 10 [Philippines]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.310    0.273
+    H5f              -2.893    0.780   -3.708    0.000   -0.896   -0.803
+    H5g              -1.556    0.293   -5.312    0.000   -0.482   -0.519
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.148    0.044   94.104    0.000    4.148    3.657
+   .H5f               2.150    0.043   49.567    0.000    2.150    1.926
+   .H5g               1.589    0.036   44.054    0.000    1.589    1.712
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.190    0.070   17.067    0.000    1.190    0.925
+   .H5f               0.442    0.204    2.172    0.030    0.442    0.355
+   .H5g               0.629    0.068    9.267    0.000    0.629    0.731
+    lf                0.096    0.036    2.658    0.008    1.000    1.000
+
+
+Group 11 [Thailand]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.148    0.157
+    H5f              -5.386    1.274   -4.226    0.000   -0.799   -0.863
+    H5g              -4.933    1.160   -4.252    0.000   -0.732   -0.858
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.356    0.030  143.439    0.000    4.356    4.620
+   .H5f               1.368    0.030   45.886    0.000    1.368    1.478
+   .H5g               1.279    0.027   46.539    0.000    1.279    1.499
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.867    0.040   21.857    0.000    0.867    0.975
+   .H5f               0.218    0.109    2.009    0.045    0.218    0.255
+   .H5g               0.192    0.091    2.106    0.035    0.192    0.264
+    lf                0.022    0.010    2.269    0.023    1.000    1.000
+
+
+Group 12 [Vietnam]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.312    0.367
+    H5f              -2.084    0.262   -7.959    0.000   -0.649   -0.829
+    H5g              -1.756    0.194   -9.037    0.000   -0.547   -0.701
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.605    0.029  161.487    0.000    4.605    5.422
+   .H5f               1.287    0.026   48.977    0.000    1.287    1.644
+   .H5g               1.419    0.026   54.179    0.000    1.419    1.819
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.624    0.031   19.887    0.000    0.624    0.865
+   .H5f               0.192    0.046    4.189    0.000    0.192    0.313
+   .H5g               0.309    0.035    8.819    0.000    0.309    0.508
+    lf                0.097    0.020    4.846    0.000    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="constrained-cfa-summary-2" class="level3">
+<h3 class="anchored" data-anchor-id="constrained-cfa-summary-2">Constrained CFA summary</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cesd_country_metric_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 127 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                       108
+  Number of equality constraints                    22
+
+  Number of observations per group:               Used       Total
+    Ethiopia                                       837        1021
+    Kenya                                          825        1016
+    Mozambique                                     870        1111
+    Namibia                                        777        1000
+    Tanzania                                       878        1000
+    Uganda                                         802        1020
+    Cambodia                                       794        1007
+    Indonesia                                      801        1012
+    Malaysia                                       842        1009
+    Philippines                                    662         975
+    Thailand                                       964        1000
+    Vietnam                                        887         998
+
+Model Test User Model:
+                                                      
+  Test statistic                                96.744
+  Degrees of freedom                                22
+  P-value (Chi-square)                           0.000
+  Test statistic for each group:
+    Ethiopia                                     1.060
+    Kenya                                        2.702
+    Mozambique                                   5.516
+    Namibia                                      5.273
+    Tanzania                                     1.238
+    Uganda                                       2.069
+    Cambodia                                    16.758
+    Indonesia                                   15.915
+    Malaysia                                    13.047
+    Philippines                                  6.010
+    Thailand                                    19.603
+    Vietnam                                      7.552
+
+Model Test Baseline Model:
+
+  Test statistic                              4384.462
+  Degrees of freedom                                36
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.983
+  Tucker-Lewis Index (TLI)                       0.972
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -39528.098
+  Loglikelihood unrestricted model (H1)     -39479.726
+                                                      
+  Akaike (AIC)                               79228.196
+  Bayesian (BIC)                             79847.759
+  Sample-size adjusted Bayesian (SABIC)      79574.464
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.064
+  90 Percent confidence interval - lower         0.051
+  90 Percent confidence interval - upper         0.077
+  P-value H_0: RMSEA &lt;= 0.050                    0.035
+  P-value H_0: RMSEA &gt;= 0.080                    0.024
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.033
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+
+Group 1 [Ethiopia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.301    0.221
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.821   -0.726
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.747   -0.715
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.466    0.047   73.614    0.000    3.466    2.544
+   .H5f               1.694    0.039   43.342    0.000    1.694    1.498
+   .H5g               1.790    0.036   49.568    0.000    1.790    1.713
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.765    0.088   20.119    0.000    1.765    0.951
+   .H5f               0.605    0.057   10.676    0.000    0.605    0.473
+   .H5g               0.533    0.048   11.150    0.000    0.533    0.489
+    lf                0.091    0.011    8.518    0.000    1.000    1.000
+
+
+Group 2 [Kenya]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.277    0.236
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.755   -0.716
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.687   -0.694
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.208    0.041  102.925    0.000    4.208    3.583
+   .H5f               1.625    0.037   44.287    0.000    1.625    1.542
+   .H5g               1.518    0.034   44.040    0.000    1.518    1.533
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.303    0.065   19.902    0.000    1.303    0.944
+   .H5f               0.542    0.050   10.825    0.000    0.542    0.487
+   .H5g               0.508    0.043   11.769    0.000    0.508    0.518
+    lf                0.077    0.009    8.426    0.000    1.000    1.000
+
+
+Group 3 [Mozambique]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.268    0.192
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.732   -0.730
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.666   -0.716
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.524    0.047   74.271    0.000    3.524    2.518
+   .H5f               1.599    0.034   47.038    0.000    1.599    1.595
+   .H5g               1.439    0.032   45.628    0.000    1.439    1.547
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.887    0.092   20.604    0.000    1.887    0.963
+   .H5f               0.470    0.044   10.613    0.000    0.470    0.467
+   .H5g               0.422    0.038   11.248    0.000    0.422    0.487
+    lf                0.072    0.008    8.549    0.000    1.000    1.000
+
+
+Group 4 [Namibia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.259    0.252
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.705   -0.702
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.642   -0.792
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.398    0.037  119.346    0.000    4.398    4.282
+   .H5f               1.656    0.036   46.003    0.000    1.656    1.650
+   .H5g               1.373    0.029   47.228    0.000    1.373    1.694
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.988    0.051   19.337    0.000    0.988    0.937
+   .H5f               0.510    0.043   11.899    0.000    0.510    0.507
+   .H5g               0.245    0.031    7.988    0.000    0.245    0.373
+    lf                0.067    0.008    8.600    0.000    1.000    1.000
+
+
+Group 5 [Tanzania]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.271    0.233
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.738   -0.773
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.671   -0.807
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.246    0.039  108.566    0.000    4.246    3.664
+   .H5f               1.600    0.032   49.664    0.000    1.600    1.676
+   .H5g               1.490    0.028   53.047    0.000    1.490    1.790
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.270    0.061   20.670    0.000    1.270    0.945
+   .H5f               0.367    0.038    9.761    0.000    0.367    0.403
+   .H5g               0.242    0.030    8.099    0.000    0.242    0.349
+    lf                0.073    0.008    8.960    0.000    1.000    1.000
+
+
+Group 6 [Uganda]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.271    0.218
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.738   -0.603
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.672   -0.612
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.883    0.044   88.736    0.000    3.883    3.133
+   .H5f               1.948    0.043   45.041    0.000    1.948    1.590
+   .H5g               1.731    0.039   44.654    0.000    1.731    1.577
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.462    0.075   19.552    0.000    1.462    0.952
+   .H5f               0.955    0.071   13.369    0.000    0.955    0.637
+   .H5g               0.754    0.058   13.020    0.000    0.754    0.626
+    lf                0.073    0.010    7.540    0.000    1.000    1.000
+
+
+Group 7 [Cambodia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.346    0.241
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.942   -0.767
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.857   -0.743
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.742    0.051   73.411    0.000    3.742    2.605
+   .H5f               1.795    0.044   41.183    0.000    1.795    1.462
+   .H5g               1.729    0.041   42.238    0.000    1.729    1.499
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.943    0.099   19.586    0.000    1.943    0.942
+   .H5f               0.620    0.067    9.239    0.000    0.620    0.411
+   .H5g               0.596    0.058   10.321    0.000    0.596    0.448
+    lf                0.119    0.014    8.657    0.000    1.000    1.000
+
+
+Group 8 [Indonesia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.187    0.265
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.509   -0.577
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.463   -0.831
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.732    0.025  190.203    0.000    4.732    6.721
+   .H5f               1.382    0.031   44.319    0.000    1.382    1.566
+   .H5g               1.160    0.020   58.859    0.000    1.160    2.080
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.461    0.024   19.581    0.000    0.461    0.930
+   .H5f               0.520    0.033   15.892    0.000    0.520    0.667
+   .H5g               0.096    0.017    5.800    0.000    0.096    0.310
+    lf                0.035    0.004    8.469    0.000    1.000    1.000
+
+
+Group 9 [Malaysia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.237    0.285
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.646   -0.841
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.588   -0.763
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.553    0.029  159.063    0.000    4.553    5.482
+   .H5f               1.363    0.026   51.545    0.000    1.363    1.776
+   .H5g               1.361    0.027   51.252    0.000    1.361    1.766
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.634    0.031   20.129    0.000    0.634    0.919
+   .H5f               0.172    0.026    6.641    0.000    0.172    0.292
+   .H5g               0.248    0.024   10.459    0.000    0.248    0.418
+    lf                0.056    0.006    9.025    0.000    1.000    1.000
+
+
+Group 10 [Philippines]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.255    0.226
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.695   -0.626
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.632   -0.676
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.148    0.044   94.702    0.000    4.148    3.681
+   .H5f               2.150    0.043   49.813    0.000    2.150    1.936
+   .H5g               1.589    0.036   43.696    0.000    1.589    1.698
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.205    0.068   17.793    0.000    1.205    0.949
+   .H5f               0.750    0.061   12.295    0.000    0.750    0.609
+   .H5g               0.476    0.045   10.511    0.000    0.476    0.543
+    lf                0.065    0.009    7.568    0.000    1.000    1.000
+
+
+Group 11 [Thailand]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.291    0.297
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.794   -0.862
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.722   -0.852
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.356    0.032  138.052    0.000    4.356    4.446
+   .H5f               1.368    0.030   46.111    0.000    1.368    1.485
+   .H5g               1.279    0.027   46.811    0.000    1.279    1.508
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.875    0.040   21.621    0.000    0.875    0.912
+   .H5f               0.219    0.034    6.383    0.000    0.219    0.258
+   .H5g               0.198    0.029    6.912    0.000    0.198    0.275
+    lf                0.085    0.009    9.367    0.000    1.000    1.000
+
+
+Group 12 [Vietnam]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.232    0.279
+    H5f     (.p2.)   -2.727    0.143  -19.052    0.000   -0.634   -0.808
+    H5g     (.p3.)   -2.481    0.131  -18.972    0.000   -0.577   -0.733
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.605    0.028  164.694    0.000    4.605    5.530
+   .H5f               1.287    0.026   48.925    0.000    1.287    1.643
+   .H5g               1.419    0.026   53.707    0.000    1.419    1.803
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.640    0.031   20.606    0.000    0.640    0.922
+   .H5f               0.213    0.027    7.930    0.000    0.213    0.346
+   .H5g               0.287    0.025   11.563    0.000    0.287    0.463
+    lf                0.054    0.006    8.973    0.000    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="comparison-between-constrained-and-unconstrained-models-2" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-between-constrained-and-unconstrained-models-2">Comparison between constrained and unconstrained models</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(cesd_country_metric_model, cesd_country_cfa_model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Chi-Squared Difference Test
+
+                          Df   AIC   BIC  Chisq Chisq diff    RMSEA Df diff
+cesd_country_cfa_model     0 79175 79954  0.000                            
+cesd_country_metric_model 22 79228 79848 96.744     96.744 0.064047      22
+                          Pr(&gt;Chisq)    
+cesd_country_cfa_model                  
+cesd_country_metric_model  2.378e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+####################### Model Fit Indices ###########################
+                            chisq df pvalue rmsea    cfi    tli  srmr
+cesd_country_cfa_model      .000†        NA .000† 1.000† 1.000† .000†
+cesd_country_metric_model 96.744  22   .000 .064   .983   .972  .033 
+                                 aic        bic
+cesd_country_cfa_model    79175.452† 79953.508 
+cesd_country_metric_model 79228.196  79847.759†
+
+################## Differences in Fit Indices #######################
+                                                   df rmsea    cfi    tli  srmr
+cesd_country_metric_model - cesd_country_cfa_model 22 0.064 -0.017 -0.028 0.033
+                                                      aic      bic
+cesd_country_metric_model - cesd_country_cfa_model 52.744 -105.748</code></pre>
+</div>
+</div>
+</section>
 </section>
 
 </main>
