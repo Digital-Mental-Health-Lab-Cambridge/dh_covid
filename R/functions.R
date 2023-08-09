@@ -196,7 +196,7 @@ conf_fact_analysis <- function(data, model, group = NULL, groups_constrained = F
         cfa_model <- cfa(
             model,
             data,
-            estimator = "ML",
+            missing = "ml",
             group = group,
             group.equal = "loadings"
         )
@@ -204,7 +204,7 @@ conf_fact_analysis <- function(data, model, group = NULL, groups_constrained = F
         cfa_model <- cfa(
             model,
             data,
-            estimator = "ML",
+            missing = "ml",
             group = group
         )
     }
@@ -219,10 +219,12 @@ MZ_mean_impute <- function(data){
 }
 
 cfa_calc <- function(data, model, new_var, old_vars){
-    all_NA <- rowSums(is.na(data[, old_vars])) > 0
-
-    data[!all_NA, new_var] <- lavPredict(model)
+    data[, new_var] <- lavPredict(model)
     data %<>% select(-all_of(old_vars))
 
     return(data)
 }
+
+#multiple_imputation <- function(data){
+#
+#}

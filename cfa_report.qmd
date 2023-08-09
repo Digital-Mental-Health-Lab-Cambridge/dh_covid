@@ -76,8 +76,4 @@ summary(cesd_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
 summary(cesd_country_metric_model, fit.measures = TRUE, standardized = TRUE)
 ```
 
-### Comparison between constrained and unconstrained models
-
-```{r cesd_comp}
-summary(compareFit(cesd_country_metric_model, cesd_country_cfa_model))
-```
+As this model did not converge, we cannot compare the fit of the two models.

@@ -79,23 +79,18 @@ list(
     ),
 
     tar_target(
-        data_MZexclude,
-        data_clean %>% filter(COUNTRY != "Mozambique")
-    ),
-
-    tar_target(
-        swbs_country_cfa_model_MZexclude,
+        swbs_country_cfa_model,
         conf_fact_analysis(
-            data_MZexclude,
+            data_clean,
             "lf =~ H4a + H4b + H4c + H4d + H4e + H4f",
             group = "COUNTRY"
         )
     ),
 
     tar_target(
-        swbs_country_metric_model_MZexclude,
+        swbs_country_metric_model,
         conf_fact_analysis(
-            data_MZexclude,
+            data_clean,
             "lf =~ H4a + H4b + H4c + H4d + H4e + H4f",
             group = "COUNTRY",
             TRUE
@@ -106,7 +101,7 @@ list(
         anx_country_cfa_model,
         conf_fact_analysis(
             data_clean,
-            "lf =~ H4_NEW_a + H4_NEW_c + H4_NEW_f + H4_NEW_g",
+            "lf =~ H4_NEW_a + H4_NEW_b + H4_NEW_c + H4_NEW_d + H4_NEW_e + H4_NEW_f + H4_NEW_g",
             group = "COUNTRY"
         )
     ),
@@ -115,7 +110,7 @@ list(
         anx_country_metric_model,
         conf_fact_analysis(
             data_clean,
-            "lf =~ H4_NEW_a + H4_NEW_c + H4_NEW_f + H4_NEW_g",
+            "lf =~ H4_NEW_a + H4_NEW_b + H4_NEW_c + H4_NEW_d + H4_NEW_e + H4_NEW_f + H4_NEW_g",
             group = "COUNTRY",
             TRUE
         )
@@ -125,7 +120,7 @@ list(
         cesd_country_cfa_model,
         conf_fact_analysis(
             data_clean,
-            "lf =~ H5b + H5f + H5g",
+            "lf =~ H5a + H5b + H5f + H5g",
             group = "COUNTRY"
         )
     ),
@@ -134,7 +129,7 @@ list(
         cesd_country_metric_model,
         conf_fact_analysis(
             data_clean,
-            "lf =~ H5b + H5f + H5g",
+            "lf =~ H5a + H5b + H5f + H5g",
             group = "COUNTRY",
             TRUE
         )
@@ -155,7 +150,7 @@ list(
     tar_target(
         swbs_cfa_model,
         conf_fact_analysis(
-            data_MZmeanimpute,
+            data_clean,
             "lf =~ H4a + H4b + H4c + H4d + H4e + H4f"
         )
     ),
@@ -168,5 +163,12 @@ list(
             "CW_SWBS",
             c("H4a", "H4b", "H4c", "H4d", "H4e", "H4f")
         )
-    )
+    )#,
+
+    #tar_target(
+    #    data_mi,
+    #    multiple_imputation(
+    #        data_swbs_calc
+    #    )
+    #)
 )
