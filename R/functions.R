@@ -219,7 +219,7 @@ MZ_mean_impute <- function(data){
 }
 
 cfa_calc <- function(data, model, new_var, old_vars){
-    data[, new_var] <- lavPredict(model)
+    data[, new_var] <- as.numeric(lavPredict(model)) %>% rescale(c(0, 1))
     data %<>% select(-all_of(old_vars))
 
     return(data)

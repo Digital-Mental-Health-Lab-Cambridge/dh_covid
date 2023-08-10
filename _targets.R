@@ -7,6 +7,7 @@ library(lavaan)
 library(magrittr)
 library(quarto)
 library(reshape2)
+library(scales)
 library(svglite)
 
 source("R\\functions.R")
@@ -162,6 +163,60 @@ list(
             swbs_cfa_model,
             "CW_SWBS",
             c("H4a", "H4b", "H4c", "H4d", "H4e", "H4f")
+        )
+    ),
+
+    tar_target(
+        anx_cfa_model,
+        conf_fact_analysis(
+            data_swbs_calc,
+            "lf =~ H4_NEW_a + H4_NEW_b + H4_NEW_c + H4_NEW_d + H4_NEW_e + H4_NEW_f + H4_NEW_g"
+        )
+    ),
+
+    tar_target(
+        data_swbs_anx_calc,
+        cfa_calc(
+            data_swbs_calc,
+            anx_cfa_model,
+            "ANX",
+            c("H4_NEW_a", "H4_NEW_b", "H4_NEW_c", "H4_NEW_d", "H4_NEW_e", "H4_NEW_f", "H4_NEW_g")
+        )
+    ),
+
+    tar_target(
+        cesd_cfa_model,
+        conf_fact_analysis(
+            data_swbs_anx_calc,
+            "lf =~ H5a + H5b + H5f + H5g"
+        )
+    ),
+
+    tar_target(
+        data_swbs_anx_cesd_calc,
+        cfa_calc(
+            data_swbs_anx_calc,
+            cesd_cfa_model,
+            "CES_D",
+            c("H5a", "H5b", "H5f", "H5g")
+        )
+    ),
+
+    tar_target(
+        paykel_cfa_model,
+        conf_fact_analysis(
+            data_swbs_anx_cesd_calc,
+            "lf =~ H7a + H7b + H7c + H7d + H7e"
+        )
+    ),
+
+    tar_target(
+        data_wb_vars_calc,
+        cfa_calc(
+            data_swbs_anx_cesd_calc,
+            paykel_cfa_model,
+            "PAYKEL",
+            c("H7a", "H7b", "H7c", "H7d", "H7e")
         )
     )#,
 
