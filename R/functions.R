@@ -35,14 +35,14 @@ clean_data <- function(data){
         L18, # Frequency of caregiver's internet use
         contains("L23"), # Caregiver's internet literacy
         contains("L36"), # Caregiver's societal attitudes
+        L50, # Caregiver life satisfaction ladder
         contains("L39"), # Caregiver CW-SWBS
         contains("L51"), # Caregiver anxiety scale
         contains("L40"), # Caregiver abridged CES-D
         L41, # Caregiver self-harm
         contains("L42"), # Caregiver Paykel suicide scale
         L43, # Caregiver's alcohol intake
-        L45_NEW, # Caregiver's corporal punishment attitude
-        contains("L46") # Violent behaviours
+        L45_NEW # Caregiver's corporal punishment attitude
     )
 
     # Set 888 and 999 values to NA
@@ -67,8 +67,8 @@ clean_data <- function(data){
     # Make the language variable categorical
     data_clean$Language <- as.character(data_clean$Language)
 
-    # Delete all responses for H4f in Mozambique (because of a translation error)
-    data_clean[data_clean$COUNTRY == "Mozambique", ]$H4f <- NA
+    # Delete all responses for H4f and L39f in Mozambique (because of a translation error)
+    data_clean[data_clean$COUNTRY == "Mozambique", c("H4f", "L39f")] <- NA
 
     return(data_clean)
 }
@@ -183,12 +183,6 @@ plot_language_NA <- function(NA_by_language){
     names(language_NA_plots) <- names(NA_by_language)
 
     return(language_NA_plots)
-}
-
-MZ_mean_impute <- function(data){
-    data[data$COUNTRY == "Mozambique", ]$H4f <- mean(data$H4f, na.rm = TRUE)
-
-    return(data)
 }
 
 conf_fact_analysis <- function(data, model, group = NULL, groups_constrained = FALSE){

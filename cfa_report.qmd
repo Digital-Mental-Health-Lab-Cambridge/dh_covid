@@ -8,40 +8,43 @@ format:
         toc: true
 ---
 
-## Loading dependency and targets
+## Loading dependencies and targets
 
 ```{r dependencies}
 library(targets)
 library(lavaan)
 library(semTools)
 
-swbs_country_cfa_model_MZexclude <- tar_read(swbs_country_cfa_model_MZexclude)
-swbs_country_metric_model_MZexclude <- tar_read(swbs_country_metric_model_MZexclude)
+swbs_country_cfa_model <- tar_read(swbs_country_cfa_model)
+swbs_country_metric_model <- tar_read(swbs_country_metric_model)
 
 anx_country_cfa_model <- tar_read(anx_country_cfa_model)
 anx_country_metric_model <- tar_read(anx_country_metric_model)
 
 cesd_country_cfa_model <- tar_read(cesd_country_cfa_model)
 cesd_country_metric_model <- tar_read(cesd_country_metric_model)
+
+int_lit_country_cfa_model <- tar_read(int_lit_country_cfa_model)
+int_lit_country_metric_model <- tar_read(int_lit_country_metric_model)
 ```
 
 ## CW-SWBS
 ### Unconstrained CFA summary
 
 ```{r swbs_uc}
-summary(swbs_country_cfa_model_MZexclude, fit.measures = TRUE, standardized = TRUE)
+summary(swbs_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
 ```
 
 ### Constrained CFA summary
 
 ```{r swbs_c}
-summary(swbs_country_metric_model_MZexclude, fit.measures = TRUE, standardized = TRUE)
+summary(swbs_country_metric_model, fit.measures = TRUE, standardized = TRUE)
 ``` 
 
 ### Comparison between constrained and unconstrained models
 
 ```{r swbs_comp}
-summary(compareFit(swbs_country_metric_model_MZexclude, swbs_country_cfa_model_MZexclude))
+summary(compareFit(swbs_country_metric_model, swbs_country_cfa_model))
 ```
 
 ## Anxiety scale
@@ -77,3 +80,22 @@ summary(cesd_country_metric_model, fit.measures = TRUE, standardized = TRUE)
 ```
 
 As this model did not converge, we cannot compare the fit of the two models.
+
+## Parental internet literacy
+### Unconstrained CFA summary
+
+```{r int_lit_uc}
+summary(int_lit_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Constrained CFA summary
+
+```{r int_lit_c}
+summary(int_lit_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained and unconstrained models
+
+```{r int_lit_comp}
+summary(compareFit(int_lit_country_metric_model, int_lit_country_cfa_model))
+```

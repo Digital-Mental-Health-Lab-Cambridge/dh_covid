@@ -110,7 +110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#loading-dependency-and-targets" id="toc-loading-dependency-and-targets" class="nav-link active" data-scroll-target="#loading-dependency-and-targets">Loading dependency and targets</a></li>
+  <li><a href="#loading-dependencies-and-targets" id="toc-loading-dependencies-and-targets" class="nav-link active" data-scroll-target="#loading-dependencies-and-targets">Loading dependencies and targets</a></li>
   <li><a href="#cw-swbs" id="toc-cw-swbs" class="nav-link" data-scroll-target="#cw-swbs">CW-SWBS</a>
   <ul class="collapse">
   <li><a href="#unconstrained-cfa-summary" id="toc-unconstrained-cfa-summary" class="nav-link" data-scroll-target="#unconstrained-cfa-summary">Unconstrained CFA summary</a></li>
@@ -127,6 +127,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#unconstrained-cfa-summary-2" id="toc-unconstrained-cfa-summary-2" class="nav-link" data-scroll-target="#unconstrained-cfa-summary-2">Unconstrained CFA summary</a></li>
   <li><a href="#constrained-cfa-summary-2" id="toc-constrained-cfa-summary-2" class="nav-link" data-scroll-target="#constrained-cfa-summary-2">Constrained CFA summary</a></li>
+  </ul></li>
+  <li><a href="#parental-internet-literacy" id="toc-parental-internet-literacy" class="nav-link" data-scroll-target="#parental-internet-literacy">Parental internet literacy</a>
+  <ul class="collapse">
+  <li><a href="#unconstrained-cfa-summary-3" id="toc-unconstrained-cfa-summary-3" class="nav-link" data-scroll-target="#unconstrained-cfa-summary-3">Unconstrained CFA summary</a></li>
+  <li><a href="#constrained-cfa-summary-3" id="toc-constrained-cfa-summary-3" class="nav-link" data-scroll-target="#constrained-cfa-summary-3">Constrained CFA summary</a></li>
+  <li><a href="#comparison-between-constrained-and-unconstrained-models-2" id="toc-comparison-between-constrained-and-unconstrained-models-2" class="nav-link" data-scroll-target="#comparison-between-constrained-and-unconstrained-models-2">Comparison between constrained and unconstrained models</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -162,8 +168,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="loading-dependency-and-targets" class="level2">
-<h2 class="anchored" data-anchor-id="loading-dependency-and-targets">Loading dependency and targets</h2>
+<section id="loading-dependencies-and-targets" class="level2">
+<h2 class="anchored" data-anchor-id="loading-dependencies-and-targets">Loading dependencies and targets</h2>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -195,14 +201,17 @@ lavaan is FREE software! Please report any bugs.</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>swbs_country_cfa_model_MZexclude <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(swbs_country_cfa_model_MZexclude)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>swbs_country_metric_model_MZexclude <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(swbs_country_metric_model_MZexclude)</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>swbs_country_cfa_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(swbs_country_cfa_model)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>swbs_country_metric_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(swbs_country_metric_model)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>anx_country_cfa_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(anx_country_cfa_model)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>anx_country_metric_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(anx_country_metric_model)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>cesd_country_cfa_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cesd_country_cfa_model)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>cesd_country_metric_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cesd_country_metric_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>cesd_country_metric_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cesd_country_metric_model)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>int_lit_country_cfa_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(int_lit_country_cfa_model)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>int_lit_country_metric_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(int_lit_country_metric_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -213,7 +222,7 @@ lavaan is FREE software! Please report any bugs.</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swbs_country_cfa_model_MZexclude, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swbs_country_cfa_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in lav_fit_cfi_lavobject(lavobject = object, fit.measures =
@@ -726,7 +735,7 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swbs_country_metric_model_MZexclude, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swbs_country_metric_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>starting values:
@@ -1294,7 +1303,7 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(swbs_country_metric_model_MZexclude, swbs_country_cfa_model_MZexclude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(swbs_country_metric_model, swbs_country_cfa_model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>starting values:
@@ -1371,38 +1380,28 @@ fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
 
 Chi-Squared Difference Test
 
-                                     Df    AIC    BIC  Chisq Chisq diff  RMSEA
-swbs_country_cfa_model_MZexclude    108 158532 160131 590.36                  
-swbs_country_metric_model_MZexclude 163 158643 159835 811.02     220.66 0.0546
-                                    Df diff Pr(&gt;Chisq)    
-swbs_country_cfa_model_MZexclude                          
-swbs_country_metric_model_MZexclude      55  &lt; 2.2e-16 ***
+                           Df    AIC    BIC  Chisq Chisq diff  RMSEA Df diff
+swbs_country_cfa_model    108 158532 160131 590.36                          
+swbs_country_metric_model 163 158643 159835 811.02     220.66 0.0546      55
+                          Pr(&gt;Chisq)    
+swbs_country_cfa_model                  
+swbs_country_metric_model  &lt; 2.2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ####################### Model Fit Indices ###########################
-                                       chisq  df pvalue rmsea   cfi   tli  srmr
-swbs_country_cfa_model_MZexclude    590.364† 108   .000 .066  .957† .928  .036†
-swbs_country_metric_model_MZexclude 811.021  163   .000 .063† .942  .936† .056 
-                                            aic         bic
-swbs_country_cfa_model_MZexclude    158532.429† 160131.465 
-swbs_country_metric_model_MZexclude 158643.086  159834.960†
+                             chisq  df pvalue rmsea   cfi   tli  srmr
+swbs_country_cfa_model    590.364† 108   .000 .066  .957† .928  .036†
+swbs_country_metric_model 811.021  163   .000 .063† .942  .936† .056 
+                                  aic         bic
+swbs_country_cfa_model    158532.429† 160131.465 
+swbs_country_metric_model 158643.086  159834.960†
 
 ################## Differences in Fit Indices #######################
-                                                                       df
-swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 55
-                                                                        rmsea
-swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude -0.004
-                                                                          cfi
-swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude -0.015
-                                                                         tli
-swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 0.008
-                                                                       srmr
-swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 0.02
-                                                                           aic
-swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude 110.657
-                                                                            bic
-swbs_country_metric_model_MZexclude - swbs_country_cfa_model_MZexclude -296.505</code></pre>
+                                                   df  rmsea    cfi   tli srmr
+swbs_country_metric_model - swbs_country_cfa_model 55 -0.004 -0.015 0.008 0.02
+                                                       aic      bic
+swbs_country_metric_model - swbs_country_cfa_model 110.657 -296.505</code></pre>
 </div>
 </div>
 </section>
@@ -3504,6 +3503,1453 @@ Variances:
 </div>
 </div>
 <p>As this model did not converge, we cannot compare the fit of the two models.</p>
+</section>
+</section>
+<section id="parental-internet-literacy" class="level2">
+<h2 class="anchored" data-anchor-id="parental-internet-literacy">Parental internet literacy</h2>
+<section id="unconstrained-cfa-summary-3" class="level3">
+<h3 class="anchored" data-anchor-id="unconstrained-cfa-summary-3">Unconstrained CFA summary</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(int_lit_country_cfa_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_cfi_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust CFI failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_rmsea_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 184 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                       324
+
+  Number of observations per group:               Used       Total
+    Ethiopia                                       133        1021
+    Kenya                                          505        1016
+    Mozambique                                     506        1111
+    Namibia                                        877        1000
+    Tanzania                                       393        1000
+    Uganda                                         476        1020
+    Cambodia                                       614        1007
+    Indonesia                                      720        1012
+    Malaysia                                       975        1009
+    Philippines                                    707         975
+    Thailand                                       899        1000
+    Vietnam                                        891         998
+  Number of missing patterns per group:                           
+    Ethiopia                                        11            
+    Kenya                                            7            
+    Mozambique                                      42            
+    Namibia                                         17            
+    Tanzania                                         7            
+    Uganda                                           8            
+    Cambodia                                        12            
+    Indonesia                                       25            
+    Malaysia                                        36            
+    Philippines                                     27            
+    Thailand                                        34            
+    Vietnam                                         19            
+
+Model Test User Model:
+                                                      
+  Test statistic                              3636.101
+  Degrees of freedom                               324
+  P-value (Chi-square)                           0.000
+  Test statistic for each group:
+    Ethiopia                                    77.822
+    Kenya                                       94.954
+    Mozambique                                 170.497
+    Namibia                                    467.767
+    Tanzania                                   172.040
+    Uganda                                     110.173
+    Cambodia                                   264.561
+    Indonesia                                  579.544
+    Malaysia                                   257.066
+    Philippines                                206.339
+    Thailand                                   624.018
+    Vietnam                                    611.319
+
+Model Test Baseline Model:
+
+  Test statistic                             27182.685
+  Degrees of freedom                               432
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.876
+  Tucker-Lewis Index (TLI)                       0.835
+                                                      
+  Robust Comparative Fit Index (CFI)                NA
+  Robust Tucker-Lewis Index (TLI)                   NA
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -85686.796
+  Loglikelihood unrestricted model (H1)     -83868.746
+                                                      
+  Akaike (AIC)                              172021.593
+  Bayesian (BIC)                            174272.893
+  Sample-size adjusted Bayesian (SABIC)     173243.287
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.126
+  90 Percent confidence interval - lower         0.123
+  90 Percent confidence interval - upper         0.130
+  P-value H_0: RMSEA &lt;= 0.050                    0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000
+                                                      
+  Robust RMSEA                                      NA
+  90 Percent confidence interval - lower            NA
+  90 Percent confidence interval - upper            NA
+  P-value H_0: Robust RMSEA &lt;= 0.050                NA
+  P-value H_0: Robust RMSEA &gt;= 0.080                NA
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.082
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Ethiopia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.716    0.576
+    L23b              0.900       NA                      0.645    0.533
+    L23c              1.263       NA                      0.904    0.759
+    L23d              1.134       NA                      0.812    0.702
+    L23e              1.114       NA                      0.797    0.717
+    L23f              1.114       NA                      0.798    0.586
+    L23g              1.121       NA                      0.803    0.565
+    L23h              0.000       NA                      0.000    0.000
+    L23i              1.013       NA                      0.725    0.594
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.911       NA                      2.911    2.344
+   .L23b              2.762       NA                      2.762    2.282
+   .L23c              3.002       NA                      3.002    2.520
+   .L23d              3.166       NA                      3.166    2.736
+   .L23e              3.213       NA                      3.213    2.891
+   .L23f              2.639       NA                      2.639    1.939
+   .L23g              2.371       NA                      2.371    1.667
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.617       NA                      2.617    2.142
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              1.030       NA                      1.030    0.668
+   .L23b              1.049       NA                      1.049    0.716
+   .L23c              0.601       NA                      0.601    0.424
+   .L23d              0.680       NA                      0.680    0.508
+   .L23e              0.599       NA                      0.599    0.485
+   .L23f              1.215       NA                      1.215    0.656
+   .L23g              1.378       NA                      1.378    0.681
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              0.967       NA                      0.967    0.648
+    lf                0.513       NA                      1.000    1.000
+
+
+Group 2 [Kenya]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.843    0.665
+    L23b              0.772       NA                      0.651    0.531
+    L23c              1.011       NA                      0.852    0.665
+    L23d              0.664       NA                      0.560    0.564
+    L23e              0.507       NA                      0.427    0.501
+    L23f              1.056       NA                      0.890    0.677
+    L23g              0.934       NA                      0.787    0.603
+    L23h              0.000       NA                      0.000    0.000
+    L23i              0.804       NA                      0.678    0.533
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.857       NA                      2.857    2.254
+   .L23b              1.966       NA                      1.966    1.605
+   .L23c              2.760       NA                      2.760    2.153
+   .L23d              3.417       NA                      3.417    3.444
+   .L23e              3.589       NA                      3.589    4.208
+   .L23f              2.283       NA                      2.283    1.737
+   .L23g              2.201       NA                      2.201    1.685
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.667       NA                      2.667    2.097
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.897       NA                      0.897    0.558
+   .L23b              1.077       NA                      1.077    0.718
+   .L23c              0.917       NA                      0.917    0.558
+   .L23d              0.671       NA                      0.671    0.682
+   .L23e              0.545       NA                      0.545    0.749
+   .L23f              0.935       NA                      0.935    0.541
+   .L23g              1.086       NA                      1.086    0.637
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              1.158       NA                      1.158    0.716
+    lf                0.711       NA                      1.000    1.000
+
+
+Group 3 [Mozambique]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.946    0.720
+    L23b              1.115       NA                      1.055    0.772
+    L23c              1.083       NA                      1.024    0.789
+    L23d              1.042       NA                      0.985    0.785
+    L23e              0.948       NA                      0.897    0.767
+    L23f              1.142       NA                      1.080    0.785
+    L23g              1.077       NA                      1.018    0.713
+    L23h              0.000       NA                      0.000    0.000
+    L23i              0.923       NA                      0.873    0.686
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.670       NA                      2.670    2.032
+   .L23b              2.683       NA                      2.683    1.964
+   .L23c              2.772       NA                      2.772    2.136
+   .L23d              2.972       NA                      2.972    2.367
+   .L23e              3.057       NA                      3.057    2.615
+   .L23f              2.710       NA                      2.710    1.971
+   .L23g              2.557       NA                      2.557    1.791
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.488       NA                      2.488    1.955
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.831       NA                      0.831    0.482
+   .L23b              0.755       NA                      0.755    0.404
+   .L23c              0.636       NA                      0.636    0.377
+   .L23d              0.605       NA                      0.605    0.384
+   .L23e              0.563       NA                      0.563    0.412
+   .L23f              0.725       NA                      0.725    0.383
+   .L23g              1.001       NA                      1.001    0.491
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              0.858       NA                      0.858    0.530
+    lf                0.895       NA                      1.000    1.000
+
+
+Group 4 [Namibia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.928    0.810
+    L23b              1.095       NA                      1.016    0.807
+    L23c              1.049       NA                      0.974    0.840
+    L23d              0.803       NA                      0.745    0.774
+    L23e              0.816       NA                      0.757    0.778
+    L23f              1.017       NA                      0.944    0.785
+    L23g              0.923       NA                      0.857    0.721
+    L23h              0.000       NA                      0.000    0.000
+    L23i              0.809       NA                      0.751    0.638
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              3.210       NA                      3.210    2.803
+   .L23b              3.025       NA                      3.025    2.404
+   .L23c              3.153       NA                      3.153    2.719
+   .L23d              3.424       NA                      3.424    3.553
+   .L23e              3.452       NA                      3.452    3.549
+   .L23f              3.072       NA                      3.072    2.553
+   .L23g              3.140       NA                      3.140    2.642
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.900       NA                      2.900    2.464
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.450       NA                      0.450    0.343
+   .L23b              0.551       NA                      0.551    0.348
+   .L23c              0.396       NA                      0.396    0.294
+   .L23d              0.372       NA                      0.372    0.401
+   .L23e              0.373       NA                      0.373    0.394
+   .L23f              0.556       NA                      0.556    0.384
+   .L23g              0.679       NA                      0.679    0.480
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              0.822       NA                      0.822    0.593
+    lf                0.861       NA                      1.000    1.000
+
+
+Group 5 [Tanzania]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.800    0.619
+    L23b              1.059       NA                      0.848    0.676
+    L23c              1.195       NA                      0.956    0.758
+    L23d              1.002       NA                      0.802    0.636
+    L23e              1.046       NA                      0.837    0.674
+    L23f              0.700       NA                      0.560    0.457
+    L23g              0.617       NA                      0.494    0.442
+    L23h              0.000       NA                      0.000    0.000
+    L23i              0.876       NA                      0.701    0.570
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.621       NA                      2.621    2.028
+   .L23b              2.407       NA                      2.407    1.920
+   .L23c              2.904       NA                      2.904    2.300
+   .L23d              2.856       NA                      2.856    2.264
+   .L23e              3.028       NA                      3.028    2.439
+   .L23f              1.999       NA                      1.999    1.632
+   .L23g              1.763       NA                      1.763    1.578
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.672       NA                      2.672    2.170
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              1.030       NA                      1.030    0.617
+   .L23b              0.853       NA                      0.853    0.543
+   .L23c              0.679       NA                      0.679    0.426
+   .L23d              0.948       NA                      0.948    0.596
+   .L23e              0.841       NA                      0.841    0.545
+   .L23f              1.186       NA                      1.186    0.791
+   .L23g              1.006       NA                      1.006    0.805
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              1.024       NA                      1.024    0.675
+    lf                0.641       NA                      1.000    1.000
+
+
+Group 6 [Uganda]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.932    0.726
+    L23b              0.648       NA                      0.604    0.516
+    L23c              0.866       NA                      0.807    0.656
+    L23d              0.787       NA                      0.733    0.649
+    L23e              0.814       NA                      0.759    0.673
+    L23f              0.834       NA                      0.778    0.597
+    L23g              0.715       NA                      0.667    0.516
+    L23h              0.000       NA                      0.000    0.000
+    L23i              0.804       NA                      0.749    0.595
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.489       NA                      2.489    1.939
+   .L23b              1.829       NA                      1.829    1.563
+   .L23c              2.667       NA                      2.667    2.168
+   .L23d              3.208       NA                      3.208    2.840
+   .L23e              3.227       NA                      3.227    2.863
+   .L23f              2.072       NA                      2.072    1.590
+   .L23g              2.232       NA                      2.232    1.728
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.705       NA                      2.705    2.148
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.780       NA                      0.780    0.473
+   .L23b              1.004       NA                      1.004    0.734
+   .L23c              0.862       NA                      0.862    0.569
+   .L23d              0.738       NA                      0.738    0.578
+   .L23e              0.694       NA                      0.694    0.546
+   .L23f              1.093       NA                      1.093    0.644
+   .L23g              1.223       NA                      1.223    0.733
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              1.025       NA                      1.025    0.646
+    lf                0.869       NA                      1.000    1.000
+
+
+Group 7 [Cambodia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               1.276    0.824
+    L23b              0.987       NA                      1.259    0.834
+    L23c              0.895       NA                      1.142    0.795
+    L23d              0.584       NA                      0.744    0.592
+    L23e              0.765       NA                      0.976    0.684
+    L23f              0.833       NA                      1.063    0.718
+    L23g              0.811       NA                      1.035    0.737
+    L23h              0.986       NA                      1.258    0.816
+    L23i              0.220       NA                      0.281    0.247
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.166       NA                      2.166    1.400
+   .L23b              2.105       NA                      2.105    1.394
+   .L23c              2.147       NA                      2.147    1.496
+   .L23d              2.601       NA                      2.601    2.069
+   .L23e              2.589       NA                      2.589    1.813
+   .L23f              2.354       NA                      2.354    1.591
+   .L23g              1.957       NA                      1.957    1.394
+   .L23h              1.961       NA                      1.961    1.271
+   .L23i              2.141       NA                      2.141    1.883
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.768       NA                      0.768    0.321
+   .L23b              0.696       NA                      0.696    0.305
+   .L23c              0.757       NA                      0.757    0.367
+   .L23d              1.026       NA                      1.026    0.649
+   .L23e              1.086       NA                      1.086    0.533
+   .L23f              1.060       NA                      1.060    0.484
+   .L23g              0.899       NA                      0.899    0.456
+   .L23h              0.796       NA                      0.796    0.335
+   .L23i              1.215       NA                      1.215    0.939
+    lf                1.627       NA                      1.000    1.000
+
+
+Group 8 [Indonesia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.928    0.733
+    L23b              1.150       NA                      1.067    0.796
+    L23c              1.149       NA                      1.066    0.818
+    L23d              0.709       NA                      0.658    0.580
+    L23e              0.702       NA                      0.652    0.580
+    L23f              1.086       NA                      1.008    0.722
+    L23g              0.883       NA                      0.820    0.628
+    L23h              0.803       NA                      0.745    0.572
+    L23i              0.575       NA                      0.534    0.499
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.605       NA                      2.605    2.058
+   .L23b              2.435       NA                      2.435    1.816
+   .L23c              2.559       NA                      2.559    1.964
+   .L23d              2.912       NA                      2.912    2.565
+   .L23e              2.951       NA                      2.951    2.628
+   .L23f              2.508       NA                      2.508    1.797
+   .L23g              2.218       NA                      2.218    1.698
+   .L23h              1.839       NA                      1.839    1.412
+   .L23i              2.188       NA                      2.188    2.043
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.740       NA                      0.740    0.462
+   .L23b              0.659       NA                      0.659    0.366
+   .L23c              0.561       NA                      0.561    0.330
+   .L23d              0.856       NA                      0.856    0.664
+   .L23e              0.836       NA                      0.836    0.663
+   .L23f              0.933       NA                      0.933    0.479
+   .L23g              1.035       NA                      1.035    0.606
+   .L23h              1.141       NA                      1.141    0.673
+   .L23i              0.862       NA                      0.862    0.751
+    lf                0.862       NA                      1.000    1.000
+
+
+Group 9 [Malaysia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.743    0.725
+    L23b              1.084       NA                      0.805    0.756
+    L23c              1.030       NA                      0.765    0.729
+    L23d              0.692       NA                      0.514    0.591
+    L23e              0.753       NA                      0.560    0.614
+    L23f              0.965       NA                      0.717    0.687
+    L23g              0.767       NA                      0.570    0.488
+    L23h              0.000       NA                      0.000    0.000
+    L23i              0.649       NA                      0.482    0.485
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.981       NA                      2.981    2.908
+   .L23b              2.768       NA                      2.768    2.598
+   .L23c              2.999       NA                      2.999    2.855
+   .L23d              3.212       NA                      3.212    3.694
+   .L23e              3.180       NA                      3.180    3.490
+   .L23f              2.930       NA                      2.930    2.809
+   .L23g              2.276       NA                      2.276    1.948
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.669       NA                      2.669    2.685
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.498       NA                      0.498    0.475
+   .L23b              0.487       NA                      0.487    0.429
+   .L23c              0.518       NA                      0.518    0.469
+   .L23d              0.492       NA                      0.492    0.651
+   .L23e              0.517       NA                      0.517    0.623
+   .L23f              0.575       NA                      0.575    0.528
+   .L23g              1.040       NA                      1.040    0.762
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              0.756       NA                      0.756    0.765
+    lf                0.552       NA                      1.000    1.000
+
+
+Group 10 [Philippines]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.992    0.683
+    L23b              1.183       NA                      1.174    0.769
+    L23c              1.125       NA                      1.117    0.761
+    L23d              0.686       NA                      0.681    0.619
+    L23e              0.754       NA                      0.748    0.683
+    L23f              1.128       NA                      1.119    0.755
+    L23g              1.019       NA                      1.011    0.729
+    L23h              0.000       NA                      0.000    0.000
+    L23i              0.319       NA                      0.317    0.295
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.986       NA                      2.986    2.056
+   .L23b              2.889       NA                      2.889    1.894
+   .L23c              3.054       NA                      3.054    2.082
+   .L23d              3.384       NA                      3.384    3.077
+   .L23e              3.414       NA                      3.414    3.117
+   .L23f              3.037       NA                      3.037    2.048
+   .L23g              3.117       NA                      3.117    2.245
+   .L23h              0.000       NA                      0.000    0.000
+   .L23i              2.120       NA                      2.120    1.974
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              1.124       NA                      1.124    0.533
+   .L23b              0.949       NA                      0.949    0.408
+   .L23c              0.905       NA                      0.905    0.420
+   .L23d              0.747       NA                      0.747    0.617
+   .L23e              0.640       NA                      0.640    0.533
+   .L23f              0.947       NA                      0.947    0.431
+   .L23g              0.904       NA                      0.904    0.469
+   .L23h              0.500       NA                      0.500    1.000
+   .L23i              1.053       NA                      1.053    0.913
+    lf                0.985       NA                      1.000    1.000
+
+
+Group 11 [Thailand]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.791    0.786
+    L23b              1.231       NA                      0.974    0.828
+    L23c              1.091       NA                      0.863    0.850
+    L23d              0.689       NA                      0.545    0.632
+    L23e              0.810       NA                      0.641    0.720
+    L23f              0.731       NA                      0.578    0.608
+    L23g              0.969       NA                      0.766    0.559
+    L23h              1.015       NA                      0.803    0.555
+    L23i              0.694       NA                      0.549    0.576
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.969       NA                      2.969    2.952
+   .L23b              3.100       NA                      3.100    2.637
+   .L23c              2.949       NA                      2.949    2.903
+   .L23d              3.153       NA                      3.153    3.654
+   .L23e              3.064       NA                      3.064    3.443
+   .L23f              2.914       NA                      2.914    3.066
+   .L23g              2.577       NA                      2.577    1.881
+   .L23h              2.199       NA                      2.199    1.521
+   .L23i              2.476       NA                      2.476    2.601
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.386       NA                      0.386    0.382
+   .L23b              0.434       NA                      0.434    0.314
+   .L23c              0.286       NA                      0.286    0.278
+   .L23d              0.447       NA                      0.447    0.601
+   .L23e              0.381       NA                      0.381    0.481
+   .L23f              0.569       NA                      0.569    0.630
+   .L23g              1.290       NA                      1.290    0.687
+   .L23h              1.446       NA                      1.446    0.692
+   .L23i              0.605       NA                      0.605    0.668
+    lf                0.626       NA                      1.000    1.000
+
+
+Group 12 [Vietnam]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.894    0.746
+    L23b              1.147       NA                      1.026    0.768
+    L23c              0.688       NA                      0.615    0.639
+    L23d              0.578       NA                      0.517    0.599
+    L23e              0.558       NA                      0.499    0.529
+    L23f              0.963       NA                      0.861    0.680
+    L23g              0.873       NA                      0.781    0.513
+    L23h              0.857       NA                      0.766    0.502
+    L23i              0.468       NA                      0.418    0.381
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              3.026       NA                      3.026    2.523
+   .L23b              2.992       NA                      2.992    2.240
+   .L23c              3.202       NA                      3.202    3.325
+   .L23d              3.346       NA                      3.346    3.876
+   .L23e              3.263       NA                      3.263    3.460
+   .L23f              3.062       NA                      3.062    2.418
+   .L23g              2.182       NA                      2.182    1.434
+   .L23h              1.904       NA                      1.904    1.247
+   .L23i              2.495       NA                      2.495    2.275
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.638       NA                      0.638    0.444
+   .L23b              0.732       NA                      0.732    0.410
+   .L23c              0.548       NA                      0.548    0.591
+   .L23d              0.478       NA                      0.478    0.642
+   .L23e              0.640       NA                      0.640    0.720
+   .L23f              0.862       NA                      0.862    0.538
+   .L23g              1.707       NA                      1.707    0.737
+   .L23h              1.745       NA                      1.745    0.748
+   .L23i              1.028       NA                      1.028    0.855
+    lf                0.800       NA                      1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="constrained-cfa-summary-3" class="level3">
+<h3 class="anchored" data-anchor-id="constrained-cfa-summary-3">Constrained CFA summary</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(int_lit_country_metric_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>starting values:
+  [1] 1.5490400 1.4627409 1.4310194 1.3406190 1.2079947 1.8484001 2.0165493
+  [8]        NA 1.4190627 2.9083969 2.7538462 3.0000000 3.1550388 3.1908397
+ [15] 2.6201550 2.3587786 0.0000000 2.5423729 1.6073954 1.5008523 1.6421521
+ [22] 0.9837103 0.7265083 1.7277365 1.7072097        NA 1.6156381 2.8574257
+ [29] 1.9662698 2.7569721 3.4143426 3.5873016 2.2831683 2.2007952 0.0000000
+ [36] 2.6666667 1.7290286 1.8576022 1.6778636 1.5670369 1.3663951 1.9049722
+ [43] 2.0383798        NA 1.5367599 2.6585366 2.6740443 2.7571429 2.9503106
+ [50] 3.0415800 2.7086777 2.5368421 0.0000000 2.4009780 1.3104430 1.5830066
+ [57] 1.3447557 0.9254700 0.9449340 1.4494035 1.4118356        NA 1.4053336
+ [64] 3.2078071 3.0228833 3.1490826 3.4243119 3.4518349 3.0688073 3.1403913
+ [71] 0.0000000 2.9126984 1.6726038 1.5706357 1.5925666 1.5870852 1.5398892
+ [78] 1.5000098 1.2493444        NA 1.5055227 2.6214834 2.4128205 2.9079284
+ [85] 2.8618926 3.0306122 2.0000000 1.7633588 0.0000000 2.6666667 1.6490493
+ [92] 1.3680991 1.5146261 1.2712285 1.2704145 1.6977361 1.6653996        NA
+ [99] 1.6056413 2.4894958 1.8273684 2.6673684 3.2025316 3.2273684 2.0736842
+[106] 2.2278481 0.0000000 2.7060241 2.3948823 2.2714462 2.0544378 1.5779470
+[113] 2.0306481 2.1769965 1.9561107 2.4084573 1.2922903 2.1633987 2.0980392
+[120] 2.1435563 2.5986949 2.5833333 2.3453355 1.9459016 1.9982332 2.1371237
+[127] 1.5884130 1.7886579 1.6864498 1.2857175 1.2610847 1.9397452 1.7057846
+[134] 1.8360559 1.1315294 2.5949367 2.4229137 2.5472496 2.9060309 2.9497908
+[141] 2.5007052 2.2184874 1.7777778 2.1686047 1.0380065 1.1296193 1.0978215
+[148] 0.7536508 0.8234224 1.0842524 1.3616960        NA 0.9849402 2.9716981
+[155] 2.7651357 2.9968783 3.2118998 3.1736402 2.9343750 2.2726327 0.0000000
+[162] 2.6637650 2.1050217 2.3249443 2.1466895 1.2109367 1.1993149 2.2015435
+[169] 1.9270850        NA 1.1486513 2.9636099 2.8750000 3.0447330 3.3787661
+[176] 3.4114286 3.0330460 3.1141227 0.0000000 2.0909091 1.0072905 1.3813135
+[183] 1.0314402 0.7419945 0.7898964 0.9030611 1.8829095 2.3100693 0.8948926
+[190] 2.9695260 3.0979730 2.9447576 3.1476888 3.0597520 2.9135802 2.5823928
+[197] 2.0711610 2.4511905 1.4368854 1.7850944 0.9258713 0.7445650 0.8881610
+[204] 1.6054041 2.3162191 2.3393365 1.1991703 3.0203390 2.9921260 3.2033898
+[211] 3.3468468 3.2626832 3.0619369 2.1833521 1.8833333 2.4544180</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_start(start.method = lavoptions$start, lavpartable = lavpartable, : lavaan WARNING: some starting values are non-finite; replacing them with 0.5; please provide better starting values.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_cfi_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust CFI failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>starting values:
+  [1] 1.5490400 1.4627409 1.4310194 1.3406190 1.2079947 1.8484001 2.0165493
+  [8]        NA 1.4190627 2.9083969 2.7538462 3.0000000 3.1550388 3.1908397
+ [15] 2.6201550 2.3587786 0.0000000 2.5423729 1.6073954 1.5008523 1.6421521
+ [22] 0.9837103 0.7265083 1.7277365 1.7072097        NA 1.6156381 2.8574257
+ [29] 1.9662698 2.7569721 3.4143426 3.5873016 2.2831683 2.2007952 0.0000000
+ [36] 2.6666667 1.7290286 1.8576022 1.6778636 1.5670369 1.3663951 1.9049722
+ [43] 2.0383798        NA 1.5367599 2.6585366 2.6740443 2.7571429 2.9503106
+ [50] 3.0415800 2.7086777 2.5368421 0.0000000 2.4009780 1.3104430 1.5830066
+ [57] 1.3447557 0.9254700 0.9449340 1.4494035 1.4118356        NA 1.4053336
+ [64] 3.2078071 3.0228833 3.1490826 3.4243119 3.4518349 3.0688073 3.1403913
+ [71] 0.0000000 2.9126984 1.6726038 1.5706357 1.5925666 1.5870852 1.5398892
+ [78] 1.5000098 1.2493444        NA 1.5055227 2.6214834 2.4128205 2.9079284
+ [85] 2.8618926 3.0306122 2.0000000 1.7633588 0.0000000 2.6666667 1.6490493
+ [92] 1.3680991 1.5146261 1.2712285 1.2704145 1.6977361 1.6653996        NA
+ [99] 1.6056413 2.4894958 1.8273684 2.6673684 3.2025316 3.2273684 2.0736842
+[106] 2.2278481 0.0000000 2.7060241 2.3948823 2.2714462 2.0544378 1.5779470
+[113] 2.0306481 2.1769965 1.9561107 2.4084573 1.2922903 2.1633987 2.0980392
+[120] 2.1435563 2.5986949 2.5833333 2.3453355 1.9459016 1.9982332 2.1371237
+[127] 1.5884130 1.7886579 1.6864498 1.2857175 1.2610847 1.9397452 1.7057846
+[134] 1.8360559 1.1315294 2.5949367 2.4229137 2.5472496 2.9060309 2.9497908
+[141] 2.5007052 2.2184874 1.7777778 2.1686047 1.0380065 1.1296193 1.0978215
+[148] 0.7536508 0.8234224 1.0842524 1.3616960        NA 0.9849402 2.9716981
+[155] 2.7651357 2.9968783 3.2118998 3.1736402 2.9343750 2.2726327 0.0000000
+[162] 2.6637650 2.1050217 2.3249443 2.1466895 1.2109367 1.1993149 2.2015435
+[169] 1.9270850        NA 1.1486513 2.9636099 2.8750000 3.0447330 3.3787661
+[176] 3.4114286 3.0330460 3.1141227 0.0000000 2.0909091 1.0072905 1.3813135
+[183] 1.0314402 0.7419945 0.7898964 0.9030611 1.8829095 2.3100693 0.8948926
+[190] 2.9695260 3.0979730 2.9447576 3.1476888 3.0597520 2.9135802 2.5823928
+[197] 2.0711610 2.4511905 1.4368854 1.7850944 0.9258713 0.7445650 0.8881610
+[204] 1.6054041 2.3162191 2.3393365 1.1991703 3.0203390 2.9921260 3.2033898
+[211] 3.3468468 3.2626832 3.0619369 2.1833521 1.8833333 2.4544180</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_start(start.method = lavoptions$start, lavpartable = lavpartable, : lavaan WARNING: some starting values are non-finite; replacing them with 0.5; please provide better starting values.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_rmsea_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 117 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                       324
+  Number of equality constraints                    88
+
+  Number of observations per group:               Used       Total
+    Ethiopia                                       133        1021
+    Kenya                                          505        1016
+    Mozambique                                     506        1111
+    Namibia                                        877        1000
+    Tanzania                                       393        1000
+    Uganda                                         476        1020
+    Cambodia                                       614        1007
+    Indonesia                                      720        1012
+    Malaysia                                       975        1009
+    Philippines                                    707         975
+    Thailand                                       899        1000
+    Vietnam                                        891         998
+  Number of missing patterns per group:                           
+    Ethiopia                                        11            
+    Kenya                                            7            
+    Mozambique                                      42            
+    Namibia                                         17            
+    Tanzania                                         7            
+    Uganda                                           8            
+    Cambodia                                        12            
+    Indonesia                                       25            
+    Malaysia                                        36            
+    Philippines                                     27            
+    Thailand                                        34            
+    Vietnam                                         19            
+
+Model Test User Model:
+                                                      
+  Test statistic                              4336.975
+  Degrees of freedom                               412
+  P-value (Chi-square)                           0.000
+  Test statistic for each group:
+    Ethiopia                                    95.184
+    Kenya                                      156.677
+    Mozambique                                 228.395
+    Namibia                                    493.961
+    Tanzania                                   237.378
+    Uganda                                     177.810
+    Cambodia                                   368.517
+    Indonesia                                  611.694
+    Malaysia                                   266.026
+    Philippines                                283.644
+    Thailand                                   706.029
+    Vietnam                                    711.660
+
+Model Test Baseline Model:
+
+  Test statistic                             27182.685
+  Degrees of freedom                               432
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.853
+  Tucker-Lewis Index (TLI)                       0.846
+                                                      
+  Robust Comparative Fit Index (CFI)                NA
+  Robust Tucker-Lewis Index (TLI)                   NA
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -86037.233
+  Loglikelihood unrestricted model (H1)     -83868.746
+                                                      
+  Akaike (AIC)                              172546.466
+  Bayesian (BIC)                            174186.302
+  Sample-size adjusted Bayesian (SABIC)     173436.342
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.122
+  90 Percent confidence interval - lower         0.119
+  90 Percent confidence interval - upper         0.125
+  P-value H_0: RMSEA &lt;= 0.050                    0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000
+                                                      
+  Robust RMSEA                                      NA
+  90 Percent confidence interval - lower            NA
+  90 Percent confidence interval - upper            NA
+  P-value H_0: Robust RMSEA &lt;= 0.050                NA
+  P-value H_0: Robust RMSEA &gt;= 0.080                NA
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.202
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Ethiopia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.861    0.657
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    0.928    0.685
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.875    0.752
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.637    0.582
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.665    0.622
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.825    0.603
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.766    0.550
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.886    0.747
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.532    0.460
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.913    0.114   25.514    0.000    2.913    2.223
+   .L23b              2.767    0.118   23.379    0.000    2.767    2.043
+   .L23c              3.001    0.102   29.553    0.000    3.001    2.580
+   .L23d              3.163    0.096   32.944    0.000    3.163    2.890
+   .L23e              3.210    0.093   34.414    0.000    3.210    3.000
+   .L23f              2.637    0.120   21.969    0.000    2.637    1.926
+   .L23g              2.371    0.122   19.512    0.000    2.371    1.702
+   .L23h              0.044                               0.044    0.037
+   .L23i              2.599    0.105   24.663    0.000    2.599    2.249
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.975    0.138    7.065    0.000    0.975    0.568
+   .L23b              0.973    0.142    6.833    0.000    0.973    0.530
+   .L23c              0.588    0.093    6.324    0.000    0.588    0.434
+   .L23d              0.792    0.109    7.299    0.000    0.792    0.662
+   .L23e              0.702    0.098    7.187    0.000    0.702    0.613
+   .L23f              1.193    0.165    7.242    0.000    1.193    0.637
+   .L23g              1.354    0.182    7.462    0.000    1.354    0.698
+   .L23h              0.622                               0.622    0.442
+   .L23i              1.053    0.144    7.332    0.000    1.053    0.788
+    lf                0.741    0.111    6.692    0.000    1.000    1.000
+
+
+Group 2 [Kenya]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.774    0.628
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    0.834    0.628
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.786    0.631
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.572    0.579
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.598    0.636
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.742    0.592
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.688    0.540
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.796    0.734
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.478    0.394
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.857    0.055   52.124    0.000    2.857    2.320
+   .L23b              1.966    0.059   33.244    0.000    1.966    1.480
+   .L23c              2.759    0.056   49.672    0.000    2.759    2.215
+   .L23d              3.417    0.044   77.514    0.000    3.417    3.457
+   .L23e              3.590    0.042   85.740    0.000    3.590    3.818
+   .L23f              2.283    0.056   40.931    0.000    2.283    1.821
+   .L23g              2.201    0.057   38.727    0.000    2.201    1.726
+   .L23h             -0.052                              -0.052   -0.048
+   .L23i              2.667    0.056   47.810    0.000    2.667    2.200
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.919    0.066   13.845    0.000    0.919    0.606
+   .L23b              1.067    0.077   13.831    0.000    1.067    0.605
+   .L23c              0.933    0.068   13.784    0.000    0.933    0.601
+   .L23d              0.649    0.046   14.241    0.000    0.649    0.665
+   .L23e              0.527    0.038   13.706    0.000    0.527    0.596
+   .L23f              1.021    0.072   14.112    0.000    1.021    0.650
+   .L23g              1.152    0.079   14.532    0.000    1.152    0.709
+   .L23h              0.543                               0.543    0.461
+   .L23i              1.241    0.084   14.713    0.000    1.241    0.845
+    lf                0.598    0.049   12.275    0.000    1.000    1.000
+
+
+Group 3 [Mozambique]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               1.082    0.774
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    1.167    0.813
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    1.100    0.817
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.800    0.697
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.836    0.735
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    1.038    0.765
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.963    0.685
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    1.114    0.902
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.668    0.569
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.672    0.063   42.677    0.000    2.672    1.911
+   .L23b              2.685    0.064   41.898    0.000    2.685    1.871
+   .L23c              2.773    0.060   45.968    0.000    2.773    2.060
+   .L23d              2.968    0.052   57.285    0.000    2.968    2.583
+   .L23e              3.056    0.051   59.586    0.000    3.056    2.687
+   .L23f              2.710    0.061   44.403    0.000    2.710    1.997
+   .L23g              2.555    0.064   40.103    0.000    2.555    1.818
+   .L23h             -0.122                              -0.122   -0.099
+   .L23i              2.465    0.057   43.614    0.000    2.465    2.097
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.783    0.059   13.321    0.000    0.783    0.401
+   .L23b              0.698    0.055   12.639    0.000    0.698    0.339
+   .L23c              0.603    0.048   12.647    0.000    0.603    0.333
+   .L23d              0.680    0.048   14.043    0.000    0.680    0.515
+   .L23e              0.594    0.043   13.707    0.000    0.594    0.459
+   .L23f              0.765    0.058   13.292    0.000    0.765    0.415
+   .L23g              1.048    0.075   14.018    0.000    1.048    0.531
+   .L23h              0.283                               0.283    0.186
+   .L23i              0.934    0.069   13.556    0.000    0.934    0.676
+    lf                1.171    0.085   13.747    0.000    1.000    1.000
+
+
+Group 4 [Namibia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.970    0.825
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    1.046    0.818
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.986    0.844
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.718    0.760
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.750    0.774
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.930    0.779
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.863    0.723
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.998    0.816
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.599    0.543
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              3.210    0.040   80.701    0.000    3.210    2.729
+   .L23b              3.026    0.043   69.985    0.000    3.026    2.365
+   .L23c              3.153    0.039   79.855    0.000    3.153    2.700
+   .L23d              3.424    0.032  107.172    0.000    3.424    3.624
+   .L23e              3.452    0.033  105.403    0.000    3.452    3.564
+   .L23f              3.072    0.040   76.072    0.000    3.072    2.572
+   .L23g              3.140    0.040   77.673    0.000    3.140    2.629
+   .L23h              0.000                               0.000    0.000
+   .L23i              2.902    0.039   73.676    0.000    2.902    2.629
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.443    0.025   17.399    0.000    0.443    0.320
+   .L23b              0.542    0.031   17.462    0.000    0.542    0.331
+   .L23c              0.392    0.023   16.782    0.000    0.392    0.287
+   .L23d              0.377    0.021   18.288    0.000    0.377    0.423
+   .L23e              0.376    0.021   18.104    0.000    0.376    0.401
+   .L23f              0.561    0.031   18.346    0.000    0.561    0.393
+   .L23g              0.681    0.036   19.059    0.000    0.681    0.478
+   .L23h              0.500                               0.500    0.334
+   .L23i              0.860    0.046   18.679    0.000    0.860    0.706
+    lf                0.941    0.052   18.004    0.000    1.000    1.000
+
+
+Group 5 [Tanzania]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.833    0.639
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    0.899    0.708
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.847    0.697
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.616    0.515
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.644    0.550
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.799    0.599
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.741    0.604
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.857    0.771
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.515    0.438
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.621    0.066   39.804    0.000    2.621    2.011
+   .L23b              2.407    0.064   37.510    0.000    2.407    1.897
+   .L23c              2.904    0.061   47.323    0.000    2.904    2.391
+   .L23d              2.858    0.061   47.204    0.000    2.858    2.386
+   .L23e              3.029    0.059   51.244    0.000    3.029    2.588
+   .L23f              1.998    0.067   29.660    0.000    1.998    1.498
+   .L23g              1.763    0.062   28.482    0.000    1.763    1.437
+   .L23h              0.000                               0.000    0.000
+   .L23i              2.672    0.062   43.316    0.000    2.672    2.276
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              1.004    0.082   12.198    0.000    1.004    0.591
+   .L23b              0.802    0.070   11.398    0.000    0.802    0.498
+   .L23c              0.758    0.066   11.522    0.000    0.758    0.514
+   .L23d              1.055    0.081   13.021    0.000    1.055    0.735
+   .L23e              0.956    0.074   12.857    0.000    0.956    0.698
+   .L23f              1.142    0.091   12.482    0.000    1.142    0.642
+   .L23g              0.957    0.077   12.471    0.000    0.957    0.635
+   .L23h              0.500                               0.500    0.405
+   .L23i              1.114    0.087   12.760    0.000    1.114    0.808
+    lf                0.694    0.062   11.132    0.000    1.000    1.000
+
+
+Group 6 [Uganda]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.835    0.676
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    0.901    0.675
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.849    0.679
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.618    0.568
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.645    0.595
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.801    0.618
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.743    0.559
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.859    0.772
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.516    0.436
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.489    0.057   43.981    0.000    2.489    2.016
+   .L23b              1.830    0.061   29.908    0.000    1.830    1.372
+   .L23c              2.668    0.057   46.574    0.000    2.668    2.136
+   .L23d              3.207    0.050   64.206    0.000    3.207    2.948
+   .L23e              3.227    0.050   64.890    0.000    3.227    2.976
+   .L23f              2.072    0.059   34.853    0.000    2.072    1.599
+   .L23g              2.232    0.061   36.604    0.000    2.232    1.680
+   .L23h              0.000                               0.000    0.000
+   .L23i              2.705    0.057   47.075    0.000    2.705    2.288
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.828    0.063   13.064    0.000    0.828    0.543
+   .L23b              0.969    0.074   13.057    0.000    0.969    0.544
+   .L23c              0.840    0.064   13.069    0.000    0.840    0.538
+   .L23d              0.803    0.057   14.011    0.000    0.803    0.678
+   .L23e              0.759    0.055   13.834    0.000    0.759    0.646
+   .L23f              1.040    0.076   13.712    0.000    1.040    0.619
+   .L23g              1.213    0.086   14.168    0.000    1.213    0.687
+   .L23h              0.500                               0.500    0.404
+   .L23i              1.133    0.082   13.749    0.000    1.133    0.810
+    lf                0.697    0.057   12.222    0.000    1.000    1.000
+
+
+Group 7 [Cambodia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               1.149    0.785
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    1.240    0.826
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    1.168    0.803
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.850    0.646
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.888    0.648
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    1.102    0.733
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    1.023    0.734
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    1.183    0.793
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.710    0.521
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.166    0.059   36.617    0.000    2.166    1.479
+   .L23b              2.105    0.061   34.722    0.000    2.105    1.402
+   .L23c              2.147    0.059   36.549    0.000    2.147    1.476
+   .L23d              2.601    0.053   48.947    0.000    2.601    1.976
+   .L23e              2.589    0.055   46.780    0.000    2.589    1.890
+   .L23f              2.354    0.061   38.759    0.000    2.354    1.566
+   .L23g              1.957    0.056   34.724    0.000    1.957    1.404
+   .L23h              1.963    0.061   32.025    0.000    1.963    1.316
+   .L23i              2.148    0.056   38.683    0.000    2.148    1.577
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.824    0.055   14.976    0.000    0.824    0.384
+   .L23b              0.717    0.051   14.151    0.000    0.717    0.318
+   .L23c              0.754    0.051   14.767    0.000    0.754    0.356
+   .L23d              1.010    0.061   16.425    0.000    1.010    0.583
+   .L23e              1.088    0.066   16.365    0.000    1.088    0.580
+   .L23f              1.045    0.067   15.689    0.000    1.045    0.463
+   .L23g              0.897    0.057   15.635    0.000    0.897    0.462
+   .L23h              0.827    0.059   14.044    0.000    0.827    0.372
+   .L23i              1.351    0.082   16.561    0.000    1.351    0.728
+    lf                1.321    0.088   15.046    0.000    1.000    1.000
+
+
+Group 8 [Indonesia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.955    0.745
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    1.030    0.778
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.971    0.778
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.707    0.613
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.738    0.634
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.916    0.680
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.850    0.644
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.983    0.673
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.590    0.539
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.605    0.048   54.291    0.000    2.605    2.031
+   .L23b              2.434    0.050   49.033    0.000    2.434    1.837
+   .L23c              2.558    0.047   54.765    0.000    2.558    2.050
+   .L23d              2.913    0.043   67.567    0.000    2.913    2.527
+   .L23e              2.951    0.043   67.939    0.000    2.951    2.536
+   .L23f              2.507    0.050   49.692    0.000    2.507    1.861
+   .L23g              2.218    0.049   44.973    0.000    2.218    1.681
+   .L23h              1.857    0.091   20.376    0.000    1.857    1.272
+   .L23i              2.190    0.041   52.791    0.000    2.190    2.002
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.732    0.046   16.019    0.000    0.732    0.445
+   .L23b              0.694    0.046   15.145    0.000    0.694    0.395
+   .L23c              0.613    0.040   15.255    0.000    0.613    0.394
+   .L23d              0.829    0.048   17.346    0.000    0.829    0.624
+   .L23e              0.810    0.047   17.241    0.000    0.810    0.598
+   .L23f              0.976    0.058   16.767    0.000    0.976    0.538
+   .L23g              1.018    0.059   17.189    0.000    1.018    0.585
+   .L23h              1.166    0.136    8.592    0.000    1.166    0.547
+   .L23i              0.849    0.048   17.631    0.000    0.849    0.709
+    lf                0.913    0.058   15.736    0.000    1.000    1.000
+
+
+Group 9 [Malaysia]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.734    0.719
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    0.792    0.748
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.746    0.717
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.543    0.614
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.567    0.621
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.704    0.681
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.653    0.541
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.755    0.730
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.453    0.461
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.981    0.033   90.549    0.000    2.981    2.919
+   .L23b              2.768    0.034   81.197    0.000    2.768    2.615
+   .L23c              2.999    0.033   89.633    0.000    2.999    2.884
+   .L23d              3.212    0.029  112.673    0.000    3.212    3.632
+   .L23e              3.180    0.029  107.868    0.000    3.180    3.480
+   .L23f              2.931    0.033   88.102    0.000    2.931    2.836
+   .L23g              2.276    0.039   58.529    0.000    2.276    1.885
+   .L23h              0.000                               0.000    0.000
+   .L23i              2.669    0.032   82.795    0.000    2.669    2.718
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.504    0.027   18.331    0.000    0.504    0.483
+   .L23b              0.495    0.028   17.650    0.000    0.495    0.441
+   .L23c              0.525    0.029   18.410    0.000    0.525    0.485
+   .L23d              0.488    0.025   19.886    0.000    0.488    0.623
+   .L23e              0.514    0.026   19.761    0.000    0.514    0.615
+   .L23f              0.572    0.030   18.997    0.000    0.572    0.536
+   .L23g              1.031    0.050   20.537    0.000    1.031    0.707
+   .L23h              0.500                               0.500    0.467
+   .L23i              0.759    0.037   20.559    0.000    0.759    0.787
+    lf                0.539    0.031   17.483    0.000    1.000    1.000
+
+
+Group 10 [Philippines]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               1.033    0.700
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    1.114    0.747
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    1.050    0.736
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.764    0.669
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.798    0.713
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.990    0.700
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.919    0.686
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    1.063    0.833
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.638    0.519
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.987    0.056   53.358    0.000    2.987    2.024
+   .L23b              2.888    0.056   51.229    0.000    2.888    1.936
+   .L23c              3.054    0.054   56.558    0.000    3.054    2.140
+   .L23d              3.385    0.043   78.406    0.000    3.385    2.963
+   .L23e              3.415    0.042   80.887    0.000    3.415    3.052
+   .L23f              3.037    0.053   56.797    0.000    3.037    2.147
+   .L23g              3.116    0.050   61.723    0.000    3.116    2.328
+   .L23h              0.000                               0.000    0.000
+   .L23i              2.150    0.048   44.715    0.000    2.150    1.751
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              1.110    0.068   16.317    0.000    1.110    0.510
+   .L23b              0.986    0.063   15.595    0.000    0.986    0.443
+   .L23c              0.935    0.059   15.815    0.000    0.935    0.459
+   .L23d              0.722    0.043   16.721    0.000    0.722    0.553
+   .L23e              0.615    0.038   16.204    0.000    0.615    0.491
+   .L23f              1.021    0.063   16.309    0.000    1.021    0.510
+   .L23g              0.948    0.057   16.532    0.000    0.948    0.529
+   .L23h              0.500                               0.500    0.307
+   .L23i              1.101    0.065   16.965    0.000    1.101    0.730
+    lf                1.067    0.069   15.476    0.000    1.000    1.000
+
+
+Group 11 [Thailand]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.807    0.791
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    0.871    0.781
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.821    0.830
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.597    0.672
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.624    0.717
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.774    0.717
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.718    0.533
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.831    0.567
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.499    0.537
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              2.970    0.034   86.945    0.000    2.970    2.911
+   .L23b              3.100    0.037   83.045    0.000    3.100    2.779
+   .L23c              2.949    0.033   89.113    0.000    2.949    2.982
+   .L23d              3.153    0.030  105.974    0.000    3.153    3.550
+   .L23e              3.064    0.029  105.127    0.000    3.064    3.520
+   .L23f              2.914    0.036   80.668    0.000    2.914    2.698
+   .L23g              2.577    0.045   57.041    0.000    2.577    1.913
+   .L23h              2.192    0.080   27.356    0.000    2.192    1.497
+   .L23i              2.475    0.032   77.831    0.000    2.475    2.664
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.389    0.022   17.430    0.000    0.389    0.374
+   .L23b              0.486    0.028   17.340    0.000    0.486    0.391
+   .L23c              0.305    0.019   16.153    0.000    0.305    0.311
+   .L23d              0.432    0.023   19.170    0.000    0.432    0.548
+   .L23e              0.368    0.020   18.521    0.000    0.368    0.486
+   .L23f              0.568    0.031   18.613    0.000    0.568    0.487
+   .L23g              1.299    0.064   20.159    0.000    1.299    0.716
+   .L23h              1.454    0.132   10.982    0.000    1.454    0.678
+   .L23i              0.615    0.031   19.620    0.000    0.615    0.712
+    lf                0.652    0.037   17.730    0.000    1.000    1.000
+
+
+Group 12 [Vietnam]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    L23a              1.000                               0.772    0.672
+    L23b    (.p2.)    1.079    0.017   64.962    0.000    0.832    0.662
+    L23c    (.p3.)    1.016    0.016   64.910    0.000    0.784    0.739
+    L23d    (.p4.)    0.740    0.014   53.488    0.000    0.571    0.652
+    L23e    (.p5.)    0.773    0.014   55.447    0.000    0.596    0.611
+    L23f    (.p6.)    0.959    0.017   57.299    0.000    0.740    0.612
+    L23g    (.p7.)    0.890    0.017   51.261    0.000    0.687    0.459
+    L23h    (.p8.)    1.029    0.033   31.330    0.000    0.794    0.513
+    L23i    (.p9.)    0.618    0.016   38.103    0.000    0.477    0.428
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              3.024    0.039   78.481    0.000    3.024    2.635
+   .L23b              2.992    0.042   70.940    0.000    2.992    2.378
+   .L23c              3.201    0.036   89.813    0.000    3.201    3.015
+   .L23d              3.346    0.029  113.972    0.000    3.346    3.823
+   .L23e              3.263    0.033   99.556    0.000    3.263    3.341
+   .L23f              3.063    0.041   75.481    0.000    3.063    2.532
+   .L23g              2.183    0.050   43.537    0.000    2.183    1.460
+   .L23h              1.905    0.071   26.809    0.000    1.905    1.230
+   .L23i              2.500    0.041   60.886    0.000    2.500    2.246
+    lf                0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .L23a              0.722    0.040   17.954    0.000    0.722    0.548
+   .L23b              0.890    0.049   18.043    0.000    0.890    0.562
+   .L23c              0.512    0.030   16.911    0.000    0.512    0.454
+   .L23d              0.440    0.024   18.447    0.000    0.440    0.575
+   .L23e              0.598    0.032   18.941    0.000    0.598    0.627
+   .L23f              0.916    0.049   18.884    0.000    0.916    0.626
+   .L23g              1.764    0.088   20.084    0.000    1.764    0.789
+   .L23h              1.769    0.130   13.639    0.000    1.769    0.737
+   .L23i              1.012    0.056   18.203    0.000    1.012    0.817
+    lf                0.596    0.036   16.388    0.000    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="comparison-between-constrained-and-unconstrained-models-2" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-between-constrained-and-unconstrained-models-2">Comparison between constrained and unconstrained models</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(int_lit_country_metric_model, int_lit_country_cfa_model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>starting values:
+  [1] 1.5490400 1.4627409 1.4310194 1.3406190 1.2079947 1.8484001 2.0165493
+  [8]        NA 1.4190627 2.9083969 2.7538462 3.0000000 3.1550388 3.1908397
+ [15] 2.6201550 2.3587786 0.0000000 2.5423729 1.6073954 1.5008523 1.6421521
+ [22] 0.9837103 0.7265083 1.7277365 1.7072097        NA 1.6156381 2.8574257
+ [29] 1.9662698 2.7569721 3.4143426 3.5873016 2.2831683 2.2007952 0.0000000
+ [36] 2.6666667 1.7290286 1.8576022 1.6778636 1.5670369 1.3663951 1.9049722
+ [43] 2.0383798        NA 1.5367599 2.6585366 2.6740443 2.7571429 2.9503106
+ [50] 3.0415800 2.7086777 2.5368421 0.0000000 2.4009780 1.3104430 1.5830066
+ [57] 1.3447557 0.9254700 0.9449340 1.4494035 1.4118356        NA 1.4053336
+ [64] 3.2078071 3.0228833 3.1490826 3.4243119 3.4518349 3.0688073 3.1403913
+ [71] 0.0000000 2.9126984 1.6726038 1.5706357 1.5925666 1.5870852 1.5398892
+ [78] 1.5000098 1.2493444        NA 1.5055227 2.6214834 2.4128205 2.9079284
+ [85] 2.8618926 3.0306122 2.0000000 1.7633588 0.0000000 2.6666667 1.6490493
+ [92] 1.3680991 1.5146261 1.2712285 1.2704145 1.6977361 1.6653996        NA
+ [99] 1.6056413 2.4894958 1.8273684 2.6673684 3.2025316 3.2273684 2.0736842
+[106] 2.2278481 0.0000000 2.7060241 2.3948823 2.2714462 2.0544378 1.5779470
+[113] 2.0306481 2.1769965 1.9561107 2.4084573 1.2922903 2.1633987 2.0980392
+[120] 2.1435563 2.5986949 2.5833333 2.3453355 1.9459016 1.9982332 2.1371237
+[127] 1.5884130 1.7886579 1.6864498 1.2857175 1.2610847 1.9397452 1.7057846
+[134] 1.8360559 1.1315294 2.5949367 2.4229137 2.5472496 2.9060309 2.9497908
+[141] 2.5007052 2.2184874 1.7777778 2.1686047 1.0380065 1.1296193 1.0978215
+[148] 0.7536508 0.8234224 1.0842524 1.3616960        NA 0.9849402 2.9716981
+[155] 2.7651357 2.9968783 3.2118998 3.1736402 2.9343750 2.2726327 0.0000000
+[162] 2.6637650 2.1050217 2.3249443 2.1466895 1.2109367 1.1993149 2.2015435
+[169] 1.9270850        NA 1.1486513 2.9636099 2.8750000 3.0447330 3.3787661
+[176] 3.4114286 3.0330460 3.1141227 0.0000000 2.0909091 1.0072905 1.3813135
+[183] 1.0314402 0.7419945 0.7898964 0.9030611 1.8829095 2.3100693 0.8948926
+[190] 2.9695260 3.0979730 2.9447576 3.1476888 3.0597520 2.9135802 2.5823928
+[197] 2.0711610 2.4511905 1.4368854 1.7850944 0.9258713 0.7445650 0.8881610
+[204] 1.6054041 2.3162191 2.3393365 1.1991703 3.0203390 2.9921260 3.2033898
+[211] 3.3468468 3.2626832 3.0619369 2.1833521 1.8833333 2.4544180</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_start(start.method = lavoptions$start, lavpartable = lavpartable, : lavaan WARNING: some starting values are non-finite; replacing them with 0.5; please provide better starting values.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_cfi_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust CFI failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>starting values:
+  [1] 1.5490400 1.4627409 1.4310194 1.3406190 1.2079947 1.8484001 2.0165493
+  [8]        NA 1.4190627 2.9083969 2.7538462 3.0000000 3.1550388 3.1908397
+ [15] 2.6201550 2.3587786 0.0000000 2.5423729 1.6073954 1.5008523 1.6421521
+ [22] 0.9837103 0.7265083 1.7277365 1.7072097        NA 1.6156381 2.8574257
+ [29] 1.9662698 2.7569721 3.4143426 3.5873016 2.2831683 2.2007952 0.0000000
+ [36] 2.6666667 1.7290286 1.8576022 1.6778636 1.5670369 1.3663951 1.9049722
+ [43] 2.0383798        NA 1.5367599 2.6585366 2.6740443 2.7571429 2.9503106
+ [50] 3.0415800 2.7086777 2.5368421 0.0000000 2.4009780 1.3104430 1.5830066
+ [57] 1.3447557 0.9254700 0.9449340 1.4494035 1.4118356        NA 1.4053336
+ [64] 3.2078071 3.0228833 3.1490826 3.4243119 3.4518349 3.0688073 3.1403913
+ [71] 0.0000000 2.9126984 1.6726038 1.5706357 1.5925666 1.5870852 1.5398892
+ [78] 1.5000098 1.2493444        NA 1.5055227 2.6214834 2.4128205 2.9079284
+ [85] 2.8618926 3.0306122 2.0000000 1.7633588 0.0000000 2.6666667 1.6490493
+ [92] 1.3680991 1.5146261 1.2712285 1.2704145 1.6977361 1.6653996        NA
+ [99] 1.6056413 2.4894958 1.8273684 2.6673684 3.2025316 3.2273684 2.0736842
+[106] 2.2278481 0.0000000 2.7060241 2.3948823 2.2714462 2.0544378 1.5779470
+[113] 2.0306481 2.1769965 1.9561107 2.4084573 1.2922903 2.1633987 2.0980392
+[120] 2.1435563 2.5986949 2.5833333 2.3453355 1.9459016 1.9982332 2.1371237
+[127] 1.5884130 1.7886579 1.6864498 1.2857175 1.2610847 1.9397452 1.7057846
+[134] 1.8360559 1.1315294 2.5949367 2.4229137 2.5472496 2.9060309 2.9497908
+[141] 2.5007052 2.2184874 1.7777778 2.1686047 1.0380065 1.1296193 1.0978215
+[148] 0.7536508 0.8234224 1.0842524 1.3616960        NA 0.9849402 2.9716981
+[155] 2.7651357 2.9968783 3.2118998 3.1736402 2.9343750 2.2726327 0.0000000
+[162] 2.6637650 2.1050217 2.3249443 2.1466895 1.2109367 1.1993149 2.2015435
+[169] 1.9270850        NA 1.1486513 2.9636099 2.8750000 3.0447330 3.3787661
+[176] 3.4114286 3.0330460 3.1141227 0.0000000 2.0909091 1.0072905 1.3813135
+[183] 1.0314402 0.7419945 0.7898964 0.9030611 1.8829095 2.3100693 0.8948926
+[190] 2.9695260 3.0979730 2.9447576 3.1476888 3.0597520 2.9135802 2.5823928
+[197] 2.0711610 2.4511905 1.4368854 1.7850944 0.9258713 0.7445650 0.8881610
+[204] 1.6054041 2.3162191 2.3393365 1.1991703 3.0203390 2.9921260 3.2033898
+[211] 3.3468468 3.2626832 3.0619369 2.1833521 1.8833333 2.4544180</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_start(start.method = lavoptions$start, lavpartable = lavpartable, : lavaan WARNING: some starting values are non-finite; replacing them with 0.5; please provide better starting values.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_rmsea_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_cfi_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust CFI failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lav_fit_rmsea_lavobject(lavobject = object, fit.measures =
+fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Chi-Squared Difference Test
+
+                              Df    AIC    BIC  Chisq Chisq diff   RMSEA
+int_lit_country_cfa_model    324 172022 174273 3636.1                   
+int_lit_country_metric_model 412 172546 174186 4337.0     700.87 0.10421
+                             Df diff Pr(&gt;Chisq)    
+int_lit_country_cfa_model                          
+int_lit_country_metric_model      88  &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+####################### Model Fit Indices ###########################
+                                 chisq  df pvalue rmsea   cfi   tli  srmr
+int_lit_country_cfa_model    3636.101† 324   .000 .126  .876† .835  .082†
+int_lit_country_metric_model 4336.975  412   .000 .122† .853  .846† .202 
+                                     aic         bic
+int_lit_country_cfa_model    172021.593† 174272.893 
+int_lit_country_metric_model 172546.466  174186.302†
+
+################## Differences in Fit Indices #######################
+                                                         df  rmsea    cfi   tli
+int_lit_country_metric_model - int_lit_country_cfa_model 88 -0.004 -0.023 0.011
+                                                         srmr     aic     bic
+int_lit_country_metric_model - int_lit_country_cfa_model 0.12 524.873 -86.591</code></pre>
+</div>
+</div>
 </section>
 </section>
 
