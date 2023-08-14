@@ -64,11 +64,27 @@ clean_data <- function(data){
         `13` = "Vietnam"
     ))
 
-    # Make the language variable categorical
-    data_clean$Language <- as.character(data_clean$Language)
+    # Convert variables to factors as necessary
+    for(var in c("COUNTRY", "Language", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "A1", "A4", "B3_1", "B3_2", "B3_3", "B3_4", "B3_6", "B3_7", "B3_8", "B3_9", "B3_10", "B3_other", "B3_999", "B3_888", "CO2", "CO3", "H6", "L4", "L8", "L9", "L11", "L12", "L14", "L36a", "L36b", "L36c", "L36f", "L41")){
+        data_clean[, var] <- as.factor(data_clean[, var])
+    }
 
     # Delete all responses for H4f and L39f in Mozambique (because of a translation error)
     data_clean[data_clean$COUNTRY == "Mozambique", c("H4f", "L39f")] <- NA
+
+    # Setting all B3_... variables to NA if B3_888 or B3_999 is 1
+    data_clean %<>% mutate(
+        B3_1 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_1),
+        B3_2 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_2),
+        B3_3 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_3),
+        B3_4 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_4),
+        B3_6 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_6),
+        B3_7 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_7),
+        B3_8 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_8),
+        B3_9 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_9),
+        B3_10 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_10),
+        B3_other = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_other)
+    )
 
     return(data_clean)
 }
@@ -202,23 +218,84 @@ conf_fact_analysis <- function(data, model, group = NULL, groups_constrained = F
             group = group
         )
     }
- 
-    return(cfa_model)
+
+    if(is.null(group)){
+        cfa_prediction <- rescale(as.vector(lavPredict(cfa_model)), c(0, 1))
+        return(cfa_prediction)
+    } else {
+        return(cfa_model)
+    }
 }
 
-MZ_mean_impute <- function(data){
-    data[data$COUNTRY == "Mozambique", ]$H4f <- mean(data$H4f, na.rm = TRUE)
+cfa_calc <- function(data, prediction, new_var, old_vars){
+    data[, new_var] = prediction
 
-    return(data)
-}
-
-cfa_calc <- function(data, model, new_var, old_vars){
-    data[, new_var] <- as.numeric(lavPredict(model)) %>% rescale(c(0, 1))
     data %<>% select(-all_of(old_vars))
 
     return(data)
 }
 
-#multiple_imputation <- function(data){
-#
-#}
+multinomial_data_prep <- function(data){
+    data %<>%
+        mutate(
+            CONNECTION = case_when(
+                CO2 == 0 ~ "No lockdown",
+                CO2 == 1 & CO3 == 0 ~ "Lockdown, no connection",
+                CO2 == 1 & CO3 == 1 ~ "Lockdown, connection maintained"
+            )
+        ) %>%
+        select(-CO2, -CO3)
+
+    data$CONNECTION %<>% as.factor() %>% relevel("No lockdown")
+    
+    return(data)
+}
+
+multiple_imputation <- function(data){
+    methods <- make.method(data)
+    methods[] <- "pmm"
+    methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")] <- ""
+
+    predictorMatrix <- make.predictorMatrix(data)
+    predictorMatrix[, "id_new"] <- 0
+
+    cl <- makeCluster(detectCores() - 2)
+
+    clusterSetRNGStream(cl, 2903)
+
+    clusterExport(cl, c("data", "methods", "predictorMatrix"), envir = environment())
+
+    clusterEvalQ(cl, library(mice))
+
+    imp_pars <- parLapply(cl = cl, X = 1:(detectCores() - 2), fun = function(no){ 
+        mice(data, vis = "monotone", method = methods, predictorMatrix = predictorMatrix, m = 1, maxit = 20)
+    })
+
+    data_imputed <- imp_pars[[1]]
+    for(i in 2:length(imp_pars)){
+        data_imputed <- ibind(data_imputed, imp_pars[[i]])
+    }
+
+    return(data_imputed)
+}
+
+linear_mixed_model <- function(data, dep_var, ind_vars){
+    model_fit <- with(data, lmer(as.formula(paste0(dep_var, " ~ (", ind_vars, " | COUNTRY)"))))
+    results <- summary(pool(model_fit))
+
+    return(results)
+}
+
+logistic_mixed_model <- function(data, dep_var, ind_vars){
+    model_fit <- with(data, glmer(as.formula(paste0(dep_var, "~ (", ind_vars, " | COUNTRY)")), family = "binomial"))
+    results <- summary(pool(model_fit))
+
+    return(results)
+}
+
+multinomial_mixed_model <- function(data, dep_var, ind_vars){
+    model_fit <- with(data, mclogit(as.formula(paste0(dep_var, " ~ (", ind_vars, " | COUNTRY)"))))
+    results <- summary(pool(model_fit))
+
+    return(results)
+}

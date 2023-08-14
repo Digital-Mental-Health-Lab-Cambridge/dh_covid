@@ -1,0 +1,31 @@
+---
+title: "mice_report"
+author: "Thomas E. Metherell"
+date: "2023-08-14"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependencies and target
+
+```{r dependencies}
+library(targets)
+library(mice)
+
+data_imputed <- tar_read(data_imputed)
+data_imputed_multi <- tar_read(data_imputed_multi)
+```
+
+## Plots to verify convergence (data for linear models)
+
+```{r plots}
+plot(data_imputed)
+```
+
+## Plots to verify convergence (data for multinomial models)
+
+```{r plots_multi}
+plot(data_imputed_multi)
+```

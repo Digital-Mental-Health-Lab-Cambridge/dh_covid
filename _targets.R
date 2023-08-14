@@ -1,16 +1,23 @@
 library(targets)
 library(tarchetypes)
+library(broom.mixed)
 library(data.table)
 library(dplyr)
 library(ggplot2)
 library(lavaan)
+library(lme4)
 library(magrittr)
+library(mclogit)
+library(mice)
+library(parallel)
 library(quarto)
 library(reshape2)
 library(scales)
 library(svglite)
 
 source("R\\functions.R")
+
+set.seed(2578)
 
 list(
     tar_target(
@@ -161,7 +168,7 @@ list(
     ),
 
     tar_target(
-        swbs_cfa_model,
+        swbs_cfa,
         conf_fact_analysis(
             data_clean,
             "lf =~ H4a + H4b + H4c + H4d + H4e + H4f"
@@ -169,172 +176,218 @@ list(
     ),
 
     tar_target(
-        data_calc1,
-        cfa_calc(
-            data_clean,
-            swbs_cfa_model,
-            "CW_SWBS",
-            c("H4a", "H4b", "H4c", "H4d", "H4e", "H4f")
-        )
-    ),
-
-    tar_target(
-        anx_cfa_model,
+        anx_cfa,
         conf_fact_analysis(
-            data_calc1,
+            data_clean,
             "lf =~ H4_NEW_a + H4_NEW_b + H4_NEW_c + H4_NEW_d + H4_NEW_e + H4_NEW_f + H4_NEW_g"
         )
     ),
 
     tar_target(
-        data_calc2,
-        cfa_calc(
-            data_calc1,
-            anx_cfa_model,
-            "ANX",
-            c("H4_NEW_a", "H4_NEW_b", "H4_NEW_c", "H4_NEW_d", "H4_NEW_e", "H4_NEW_f", "H4_NEW_g")
-        )
-    ),
-
-    tar_target(
-        cesd_cfa_model,
+        cesd_cfa,
         conf_fact_analysis(
-            data_calc2,
+            data_clean,
             "lf =~ H5a + H5b + H5f + H5g"
         )
     ),
 
     tar_target(
-        data_calc3,
-        cfa_calc(
-            data_calc2,
-            cesd_cfa_model,
-            "CES_D",
-            c("H5a", "H5b", "H5f", "H5g")
-        )
-    ),
-
-    tar_target(
-        paykel_cfa_model,
+        paykel_cfa,
         conf_fact_analysis(
-            data_calc3,
+            data_clean,
             "lf =~ H7a + H7b + H7c + H7d + H7e"
         )
     ),
 
     tar_target(
-        data_calc4,
-        cfa_calc(
-            data_calc3,
-            paykel_cfa_model,
-            "PAYKEL",
-            c("H7a", "H7b", "H7c", "H7d", "H7e")
-        )
-    ),
-
-    tar_target(
-        data_calc5,
-        data_calc4 %>%
-            rowwise() %>%
-            mutate(INCOME = sum(L52a, L52b, L52c),
-                   DIFFS = if_else(if_any(starts_with("L16"), ~. == 1), 1, 0)) %>%
-            select(-contains("L52"), -contains("L16"))
-    ),
-
-    tar_target(
-        int_lit_cfa_model,
+        cg_int_lit_cfa,
         conf_fact_analysis(
-            data_calc5,
+            data_clean,
             "lf =~ L23a + L23b + L23c + L23d + L23e + L23f + L23g + L23h + L23i"
         )
     ),
 
     tar_target(
-        data_calc6,
-        cfa_calc(
-            data_calc5,
-            int_lit_cfa_model,
-            "CG_INT_LIT",
-            c("L23a", "L23b", "L23c", "L23d", "L23e", "L23f", "L23g", "L23h", "L23i")
-        )
-    ),
-
-    tar_target(
-        cg_swbs_cfa_model,
+        cg_swbs_cfa,
         conf_fact_analysis(
-            data_calc6,
+            data_clean,
             "lf =~ L39a + L39b + L39c + L39d + L39e + L39f"
         )
     ),
     
     tar_target(
-        data_calc7,
-        cfa_calc(
-            data_calc6,
-            cg_swbs_cfa_model,
-            "CG_CW_SWBS",
-            c("L39a", "L39b", "L39c", "L39d", "L39e", "L39f")
-        )
-    ),
-
-    tar_target(
-        cg_anx_cfa_model,
+        cg_anx_cfa,
         conf_fact_analysis(
-            data_calc7,
+            data_clean,
             "lf =~ L51a + L51b + L51c + L51d + L51e + L51f + L51g"
         )
     ),
 
     tar_target(
-        data_calc8,
-        cfa_calc(
-            data_calc7,
-            cg_anx_cfa_model,
-            "CG_ANX",
-            c("L51a", "L51b", "L51c", "L51d", "L51e", "L51f", "L51g")
-        )
-    ),
-
-    tar_target(
-        cg_cesd_cfa_model,
+        cg_cesd_cfa,
         conf_fact_analysis(
-            data_calc8,
+            data_clean,
             "lf =~ L40a + L40b + L40f + L40g"
         )
     ),
 
     tar_target(
-        data_calc9,
-        cfa_calc(
-            data_calc8,
-            cg_cesd_cfa_model,
-            "CG_CES_D",
-            c("L40a", "L40b", "L40f", "L40g")
-        )
-    ),
-
-    tar_target(
-        cg_paykel_cfa_model,
+        cg_paykel_cfa,
         conf_fact_analysis(
-            data_calc9,
+            data_clean,
             "lf =~ L42a + L42b + L42c + L42d + L42e"
         )
     ),
 
     tar_target(
         data_vars_calc,
-        cfa_calc(
-            data_calc9,
-            cg_paykel_cfa_model,
-            "CG_PAYKEL",
-            c("L42a", "L42b", "L42c", "L42d", "L42e")
-        )
-    )#,
+        data_clean %>%
+            cfa_calc(swbs_cfa, "CW_SWBS", c("H4a", "H4b", "H4c", "H4d", "H4e", "H4f")) %>%
+            cfa_calc(anx_cfa, "ANX", c("H4_NEW_a", "H4_NEW_b", "H4_NEW_c", "H4_NEW_d", "H4_NEW_e", "H4_NEW_f", "H4_NEW_g")) %>%
+            cfa_calc(cesd_cfa, "CES_D", c("H5a", "H5b", "H5f", "H5g")) %>%
+            cfa_calc(paykel_cfa, "PAYKEL", c("H7a", "H7b", "H7c", "H7d", "H7e")) %>%
+            cfa_calc(cg_int_lit_cfa, "CG_INT_LIT", c("L23a", "L23b", "L23c", "L23d", "L23e", "L23f", "L23g", "L23h", "L23i")) %>%
+            cfa_calc(cg_swbs_cfa, "CG_CW_SWBS", c("L39a", "L39b", "L39c", "L39d", "L39e", "L39f")) %>%
+            cfa_calc(cg_anx_cfa, "CG_ANX", c("L51a", "L51b", "L51c", "L51d", "L51e", "L51f", "L51g")) %>%
+            cfa_calc(cg_cesd_cfa, "CG_CES_D", c("L40a", "L40b", "L40f", "L40g")) %>%
+            cfa_calc(cg_paykel_cfa, "CG_PAYKEL", c("L42a", "L42b", "L42c", "L42d", "L42e")) %>%
+            rowwise() %>%
+            mutate(INCOME = sum(L52a, L52b, L52c),
+                   DIFFS = if_else(if_any(starts_with("L16"), ~. == 1), 1, 0)) %>%
+            select(-contains("L52"), -contains("L16"))
+    ),
 
-    #tar_target(
-    #    data_mi,
-    #    multiple_imputation(
-    #        data_swbs_calc
-    #    )
-    #)
+    tar_target(    
+        data_for_multinomial,
+        multinomial_data_prep(
+            data_vars_calc
+        )
+    ),
+
+    tar_target(
+        data_imputed,
+        multiple_imputation(
+            data_vars_calc
+        )
+    ),
+
+    tar_target(
+        data_imputed_multi,
+        multiple_imputation(
+            data_for_multinomial
+        )
+    ),
+
+    tar_quarto(
+        mice_report,
+        "mice_report.Qmd"
+    ),
+
+    tar_target(
+        lockdown_ls_model,
+        linear_mixed_model(
+            data_imputed,
+            "H1",
+            "CO2 + A1 + A4 + INCOME"
+        )
+    ),
+
+    tar_target(
+        lockdown_swbs_model,
+        linear_mixed_model(
+            data_imputed,
+            "CW_SWBS",
+            "CO2 + A1 + A4 + INCOME"
+        )
+    ),
+
+    tar_target(
+        lockdown_anx_model,
+        linear_mixed_model(
+            data_imputed,
+            "ANX",
+            "CO2 + A1 + A4 + INCOME"
+        )
+    ),
+
+    tar_target(
+        lockdown_cesd_model,
+        linear_mixed_model(
+            data_imputed,
+            "CES_D",
+            "CO2 + A1 + A4 + INCOME"
+        )
+    ),
+
+    tar_target(
+        lockdown_sh_model,
+        logistic_mixed_model(
+            data_imputed,
+            "H6",
+            "CO2 + A1 + A4 + INCOME"
+        )
+    ),
+
+    tar_target(
+        lockdown_paykel_model,
+        linear_mixed_model(
+            data_imputed,
+            "PAYKEL",
+            "CO2 + A1 + A4 + INCOME"
+        )
+    ),
+
+    tar_target(
+        connection_ls_model,
+        multinomial_mixed_model(
+            data_imputed_multi,
+            "H1",
+            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+        )
+    ),
+
+    tar_target(
+        connection_swbs_model,
+        multinomial_mixed_model(
+            data_imputed_multi,
+            "CW_SWBS",
+            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+        )
+    ),
+
+    tar_target(
+        connection_anx_model,
+        multinomial_mixed_model(
+            data_imputed_multi,
+            "ANX",
+            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+        )
+    ),
+
+    tar_target(
+        connection_cesd_model,
+        multinomial_mixed_model(
+            data_imputed_multi,
+            "CES_D",
+            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+        )
+    ),
+
+    tar_target(
+        connection_sh_model,
+        multinomial_mixed_model(
+            data_imputed_multi,
+            "H6",
+            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+        )
+    ),
+
+    tar_target(
+        connection_paykel_model,
+        multinomial_mixed_model(
+            data_imputed_multi,
+            "PAYKEL",
+            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+        )
+    )
 )
