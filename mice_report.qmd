@@ -15,7 +15,7 @@ library(targets)
 library(mice)
 
 data_imputed <- tar_read(data_imputed)
-data_imputed_multi <- tar_read(data_imputed_multi)
+# data_imputed_multi <- tar_read(data_imputed_multi)
 ```
 
 ## Plots to verify convergence (data for linear models)
@@ -27,5 +27,5 @@ plot(data_imputed)
 ## Plots to verify convergence (data for multinomial models)
 
 ```{r plots_multi}
-plot(data_imputed_multi)
+# plot(data_imputed_multi)
 ```

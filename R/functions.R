@@ -228,7 +228,7 @@ conf_fact_analysis <- function(data, model, group = NULL, groups_constrained = F
 }
 
 cfa_calc <- function(data, prediction, new_var, old_vars){
-    data[, new_var] = prediction
+    data[, new_var] <- prediction
 
     data %<>% select(-all_of(old_vars))
 
@@ -252,12 +252,19 @@ multinomial_data_prep <- function(data){
 }
 
 multiple_imputation <- function(data){
+    varnames <- names(data)
+    varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")]
+    
+    # Add group means!
+
     methods <- make.method(data)
-    methods[] <- "pmm"
+    methods[] <- "2l.pmm"
     methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")] <- ""
 
     predictorMatrix <- make.predictorMatrix(data)
     predictorMatrix[, "id_new"] <- 0
+    predictorMatrix[, "COUNTRY"] <- -2
+    predictorMatrix[predictorMatrix == 1] <- 3
 
     cl <- makeCluster(detectCores() - 2)
 
