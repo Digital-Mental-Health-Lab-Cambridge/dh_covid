@@ -255,7 +255,14 @@ multiple_imputation <- function(data){
     varnames <- names(data)
     varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")]
     
-    # Add group means!
+
+    data %<>% group_by(COUNTRY)
+    for(i in varnames){
+        data %<>% mutate(
+            "{i}_GRP" := mean(get(!!i), na.rm = TRUE)
+        )
+    }
+    data %<>% ungroup()
 
     methods <- make.method(data)
     methods[] <- "2l.pmm"
