@@ -220,22 +220,6 @@ cfa_calc <- function(data, prediction, new_var, old_vars){
     return(data)
 }
 
-multinomial_data_prep <- function(data){
-    data %<>%
-        mutate(
-            CONNECTION = case_when(
-                CO2 == 0 ~ "No lockdown",
-                CO2 == 1 & CO3 == 0 ~ "Lockdown, no connection",
-                CO2 == 1 & CO3 == 1 ~ "Lockdown, connection maintained"
-            )
-        ) %>%
-        select(-CO2, -CO3)
-
-    data$CONNECTION %<>% as.factor() %>% relevel("No lockdown")
-    
-    return(data)
-}
-
 multiple_imputation <- function(data){
     varnames <- names(data)
     varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")]
@@ -282,6 +266,19 @@ multiple_imputation <- function(data){
     }
 
     return(data_imputed)
+}
+
+combine_lockdown_vars <- function(data){
+    data_long <- complete(data, "long", include = TRUE)
+
+    long$CONNECTION <- with(long, case_when(
+        CO2 == 0 ~ "No lockdown",
+        CO2 == 1 & CO3 == 0 ~ "Lockdown, no connection",
+        CO2 == 1 & CO3 == 1 ~ "Lockdown, connection maintained",
+        TRUE ~ NA
+    ))
+
+    return(as.mids(data_long))
 }
 
 linear_mixed_model <- function(data, dep_var, ind_vars){

@@ -230,24 +230,17 @@ list(
             select(-contains("L52"), -contains("L16"))
     ),
 
-    tar_target(    
-        data_for_multinomial,
-        multinomial_data_prep(
+    tar_target(
+        data_imputed_precombine,
+        multiple_imputation(
             data_vars_calc
         )
     ),
 
     tar_target(
         data_imputed,
-        multiple_imputation(
-            data_vars_calc
-        )
-    ),
-
-    tar_target(
-        data_imputed_multi,
-        multiple_imputation(
-            data_for_multinomial
+        combine_lockdown_vars(
+            data_imputed_precombine
         )
     ),
 
@@ -313,7 +306,7 @@ list(
     tar_target(
         connection_ls_model,
         multinomial_mixed_model(
-            data_imputed_multi,
+            data_imputed,
             "H1",
             "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
@@ -322,7 +315,7 @@ list(
     tar_target(
         connection_swbs_model,
         multinomial_mixed_model(
-            data_imputed_multi,
+            data_imputed,
             "CW_SWBS",
             "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
@@ -331,7 +324,7 @@ list(
     tar_target(
         connection_anx_model,
         multinomial_mixed_model(
-            data_imputed_multi,
+            data_imputed,
             "ANX",
             "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
@@ -340,7 +333,7 @@ list(
     tar_target(
         connection_cesd_model,
         multinomial_mixed_model(
-            data_imputed_multi,
+            data_imputed,
             "CES_D",
             "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
@@ -349,7 +342,7 @@ list(
     tar_target(
         connection_sh_model,
         multinomial_mixed_model(
-            data_imputed_multi,
+            data_imputed,
             "H6",
             "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
@@ -358,7 +351,7 @@ list(
     tar_target(
         connection_paykel_model,
         multinomial_mixed_model(
-            data_imputed_multi,
+            data_imputed,
             "PAYKEL",
             "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
