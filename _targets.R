@@ -144,25 +144,6 @@ list(
         )
     ),
 
-    tar_target(
-        int_lit_country_cfa_model,
-        conf_fact_analysis(
-            data_clean,
-            "lf =~ L23a + L23b + L23c + L23d + L23e + L23f + L23g + L23h + L23i",
-            group = "COUNTRY"
-        )
-    ),
-
-    tar_target(
-        int_lit_country_metric_model,
-        conf_fact_analysis(
-            data_clean,
-            "lf =~ L23a + L23b + L23c + L23d + L23e + L23f + L23g + L23h + L23i",
-            group = "COUNTRY",
-            TRUE
-        )
-    ),
-
     tar_quarto(
         cfa_report,
         "cfa_report.Qmd"
@@ -197,14 +178,6 @@ list(
         conf_fact_analysis(
             data_clean,
             "lf =~ H7a + H7b + H7c + H7d + H7e"
-        )
-    ),
-
-    tar_target(
-        cg_int_lit_cfa,
-        conf_fact_analysis(
-            data_clean,
-            "lf =~ L23a + L23b + L23c + L23d + L23e + L23f + L23g + L23h + L23i"
         )
     ),
 
@@ -247,7 +220,6 @@ list(
             cfa_calc(anx_cfa, "ANX", c("H4_NEW_a", "H4_NEW_b", "H4_NEW_c", "H4_NEW_d", "H4_NEW_e", "H4_NEW_f", "H4_NEW_g")) %>%
             cfa_calc(cesd_cfa, "CES_D", c("H5a", "H5b", "H5f", "H5g")) %>%
             cfa_calc(paykel_cfa, "PAYKEL", c("H7a", "H7b", "H7c", "H7d", "H7e")) %>%
-            cfa_calc(cg_int_lit_cfa, "CG_INT_LIT", c("L23a", "L23b", "L23c", "L23d", "L23e", "L23f", "L23g", "L23h", "L23i")) %>%
             cfa_calc(cg_swbs_cfa, "CG_CW_SWBS", c("L39a", "L39b", "L39c", "L39d", "L39e", "L39f")) %>%
             cfa_calc(cg_anx_cfa, "CG_ANX", c("L51a", "L51b", "L51c", "L51d", "L51e", "L51f", "L51g")) %>%
             cfa_calc(cg_cesd_cfa, "CG_CES_D", c("L40a", "L40b", "L40f", "L40g")) %>%

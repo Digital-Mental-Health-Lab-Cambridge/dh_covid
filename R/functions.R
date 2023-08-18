@@ -12,10 +12,7 @@ clean_data <- function(data){
         ECS_SELECTED_CH_GENDER, # Selected child's gender
         ECS_SELECTED_CH_AGE, # Selected child's age
         A1, # Classification of local area/neighbourhood
-        A4, # Highest level of education completed
         B1, # Frequency of internet usage
-        contains("B2") & !contains("B2x"), # Frequency of internet usage in different locations
-        contains("B3"), # Reasons for inability to use internet
         CO2, # Occurrence of lockdown
         CO3, # Ability to stay in touch with others during lockdown
         H1, # Life satisfaction ladder
@@ -33,7 +30,6 @@ clean_data <- function(data){
         L14, # Type of school attended
         contains("L16"), # Child's difficulties
         L18, # Frequency of caregiver's internet use
-        contains("L23"), # Caregiver's internet literacy
         contains("L36"), # Caregiver's societal attitudes
         L50, # Caregiver life satisfaction ladder
         contains("L39"), # Caregiver CW-SWBS
@@ -48,43 +44,32 @@ clean_data <- function(data){
     # Set 888 and 999 values to NA
     is.na(data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime"))]) <- data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime"))] > 887
 
-    # Recode country names
-    data_clean %<>% mutate(COUNTRY = recode(COUNTRY,
-        `1` = "Ethiopia", 
-        `2` = "Kenya", 
-        `3` = "Mozambique", 
-        `4` = "Namibia",
-        `6` = "Tanzania", 
-        `7` = "Uganda", 
-        `8` = "Cambodia", 
-        `9` = "Indonesia",
-        `10` = "Malaysia", 
-        `11` = "Philippines",
-        `12` = "Thailand", 
-        `13` = "Vietnam"
-    ))
+    # Delete all responses for H4f and L39f in Mozambique (because of a translation error)
+    data_clean[data_clean$COUNTRY == 3, c("H4f", "L39f")] <- NA
 
-    # Convert variables to factors as necessary
-    for(var in c("COUNTRY", "Language", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "A1", "A4", "B3_1", "B3_2", "B3_3", "B3_4", "B3_6", "B3_7", "B3_8", "B3_9", "B3_10", "B3_other", "B3_999", "B3_888", "CO2", "CO3", "H6", "L4", "L8", "L9", "L11", "L12", "L14", "L36a", "L36b", "L36c", "L36f", "L41")){
+    # Set CO2 to 0 for all responses in Tanzania (there were no lockdowns in the country)
+    data_clean[data_clean$COUNTRY == 6, "CO2"] <- 0
+
+    # Merging sparse categories in marital status (L8), caregiver's relationship to study child (L9) and type of school attended (L14)
+    data_clean %<>% mutate(
+        L8 = case_match(L8,
+            3:6 ~ 1L,
+            .default = L8
+        ),
+        L9 = case_match(L9,
+            4:6 ~ 3L,
+            .default = L9
+        ),
+        L14 = case_match(L14,
+            3:5 ~ 1L,
+            .default = L14
+        )
+    )
+
+    # Converting variables to factors as necessary
+    for(var in c("Language", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "A1", "CO2", "CO3", "H6", "L4", "L8", "L9", "L11", "L12", "L14", "L36a", "L36b", "L36c", "L36f", "L41")){
         data_clean[, var] <- as.factor(data_clean[, var])
     }
-
-    # Delete all responses for H4f and L39f in Mozambique (because of a translation error)
-    data_clean[data_clean$COUNTRY == "Mozambique", c("H4f", "L39f")] <- NA
-
-    # Setting all B3_... variables to NA if B3_888 or B3_999 is 1
-    data_clean %<>% mutate(
-        B3_1 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_1),
-        B3_2 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_2),
-        B3_3 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_3),
-        B3_4 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_4),
-        B3_6 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_6),
-        B3_7 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_7),
-        B3_8 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_8),
-        B3_9 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_9),
-        B3_10 = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_10),
-        B3_other = if_else(B3_888 == 1 | B3_999 == 1, NA, B3_other)
-    )
 
     return(data_clean)
 }
@@ -255,23 +240,28 @@ multiple_imputation <- function(data){
     varnames <- names(data)
     varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")]
     
-
-    data %<>% group_by(COUNTRY)
     for(i in varnames){
         data %<>% mutate(
-            "{i}_GRP" := mean(get(!!i), na.rm = TRUE)
+            "{i}_GRP" := NA
         )
+
+        if(is.numeric(unlist(data[, i]))){
+            data[, i] <- rescale(unlist(data[, i]), c(0, 1))
+        }
     }
-    data %<>% ungroup()
 
     methods <- make.method(data)
     methods[] <- "2l.pmm"
     methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")] <- ""
+    methods[paste(varnames, "GRP", sep = "_")] <- "2l.groupmean"
 
     predictorMatrix <- make.predictorMatrix(data)
-    predictorMatrix[, "id_new"] <- 0
+    predictorMatrix[paste(varnames, "GRP", sep = "_"), ] <- 0
     predictorMatrix[, "COUNTRY"] <- -2
     predictorMatrix[predictorMatrix == 1] <- 3
+    predictorMatrix[paste(varnames, "GRP", sep = "_"), varnames] <- diag(2, length(varnames))
+    predictorMatrix[, c("id_new", "CO2", "CO3", "Language", "intStartTime")] <- 0
+    predictorMatrix[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE"), ] <- 0
 
     cl <- makeCluster(detectCores() - 2)
 
@@ -280,9 +270,10 @@ multiple_imputation <- function(data){
     clusterExport(cl, c("data", "methods", "predictorMatrix"), envir = environment())
 
     clusterEvalQ(cl, library(mice))
+    clusterEvalQ(cl, library(miceadds))
 
     imp_pars <- parLapply(cl = cl, X = 1:(detectCores() - 2), fun = function(no){ 
-        mice(data, vis = "monotone", method = methods, predictorMatrix = predictorMatrix, m = 1, maxit = 20)
+        mice(data, vis = rev(names(data)), method = methods, predictorMatrix = predictorMatrix, m = 1, maxit = 20)
     })
 
     data_imputed <- imp_pars[[1]]
