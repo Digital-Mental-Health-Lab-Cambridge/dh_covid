@@ -7,7 +7,6 @@ library(ggplot2)
 library(lavaan)
 library(lme4)
 library(magrittr)
-library(mclogit)
 library(mice)
 library(miceadds)
 library(parallel)
@@ -229,18 +228,11 @@ list(
                    DIFFS = if_else(if_any(starts_with("L16"), ~. == 1), 1, 0)) %>%
             select(-contains("L52"), -contains("L16"))
     ),
-
+    
     tar_target(
-        data_imputed_precombine,
+        list_imputed_data,
         multiple_imputation(
             data_vars_calc
-        )
-    ),
-
-    tar_target(
-        data_imputed,
-        combine_lockdown_vars(
-            data_imputed_precombine
         )
     ),
 
@@ -250,110 +242,63 @@ list(
     ),
 
     tar_target(
-        lockdown_ls_model,
-        linear_mixed_model(
-            data_imputed,
-            "H1",
-            "CO2 + A1 + A4 + INCOME"
-        )
-    ),
-
-    tar_target(
-        lockdown_swbs_model,
-        linear_mixed_model(
-            data_imputed,
-            "CW_SWBS",
-            "CO2 + A1 + A4 + INCOME"
-        )
-    ),
-
-    tar_target(
-        lockdown_anx_model,
-        linear_mixed_model(
-            data_imputed,
-            "ANX",
-            "CO2 + A1 + A4 + INCOME"
-        )
-    ),
-
-    tar_target(
-        lockdown_cesd_model,
-        linear_mixed_model(
-            data_imputed,
-            "CES_D",
-            "CO2 + A1 + A4 + INCOME"
-        )
-    ),
-
-    tar_target(
-        lockdown_sh_model,
-        logistic_mixed_model(
-            data_imputed,
-            "H6",
-            "CO2 + A1 + A4 + INCOME"
-        )
-    ),
-
-    tar_target(
-        lockdown_paykel_model,
-        linear_mixed_model(
-            data_imputed,
-            "PAYKEL",
-            "CO2 + A1 + A4 + INCOME"
+        data_imputed,
+        imputations_delist(
+            list_imputed_data
         )
     ),
 
     tar_target(
         connection_ls_model,
-        multinomial_mixed_model(
+        linear_mixed_model(
             data_imputed,
             "H1",
-            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
     ),
 
     tar_target(
         connection_swbs_model,
-        multinomial_mixed_model(
+        linear_mixed_model(
             data_imputed,
             "CW_SWBS",
-            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
     ),
 
     tar_target(
         connection_anx_model,
-        multinomial_mixed_model(
+        linear_mixed_model(
             data_imputed,
             "ANX",
-            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
     ),
 
     tar_target(
         connection_cesd_model,
-        multinomial_mixed_model(
+        linear_mixed_model(
             data_imputed,
             "CES_D",
-            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
     ),
 
     tar_target(
         connection_sh_model,
-        multinomial_mixed_model(
+        logistic_mixed_model(
             data_imputed,
             "H6",
-            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
     ),
 
     tar_target(
         connection_paykel_model,
-        multinomial_mixed_model(
+        linear_mixed_model(
             data_imputed,
             "PAYKEL",
-            "CONNECTION + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + A4 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14"
         )
     )
 )

@@ -84,7 +84,7 @@
     },
     "RcppArmadillo": {
       "Package": "RcppArmadillo",
-      "Version": "0.12.6.1.0",
+      "Version": "0.12.6.3.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -94,7 +94,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "0df0f73e8b5620605e09f2324a800754"
+      "Hash": "4a4fc9c9d0d24ee8708bb17528372f30"
     },
     "RcppEigen": {
       "Package": "RcppEigen",
@@ -618,7 +618,7 @@
     },
     "glmnet": {
       "Package": "glmnet",
-      "Version": "4.1-7",
+      "Version": "4.1-8",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -632,7 +632,7 @@
         "survival",
         "utils"
       ],
-      "Hash": "06f12f72ce94e533751a041cef8b71bc"
+      "Hash": "eb6fc70e561aae41d5911a6726188f71"
     },
     "globals": {
       "Package": "globals",
@@ -944,38 +944,6 @@
       ],
       "Hash": "7ce2733a9826b3aeb1775d56fd305472"
     },
-    "mclogit": {
-      "Package": "mclogit",
-      "Version": "0.9.6",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "Matrix",
-        "memisc",
-        "methods",
-        "stats"
-      ],
-      "Hash": "a940a79acafab3eeb07fa8d632ea55fa"
-    },
-    "memisc": {
-      "Package": "memisc",
-      "Version": "0.99.31.6",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "MASS",
-        "R",
-        "data.table",
-        "grid",
-        "jsonlite",
-        "lattice",
-        "methods",
-        "stats",
-        "utils",
-        "yaml"
-      ],
-      "Hash": "9c1078f27f76f909655f4d5b689f9875"
-    },
     "memoise": {
       "Package": "memoise",
       "Version": "2.0.1",
@@ -1206,10 +1174,10 @@
     },
     "pan": {
       "Package": "pan",
-      "Version": "1.8",
+      "Version": "1.9",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "7dd72a850a16b0b92c8ac7bedb878541"
+      "Hash": "495d032ad6bfc725f37ce89e3d6dadb2"
     },
     "parallelly": {
       "Package": "parallelly",

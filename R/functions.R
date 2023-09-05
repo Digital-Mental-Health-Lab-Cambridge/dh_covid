@@ -52,6 +52,13 @@ clean_data <- function(data){
 
     # Merging sparse categories in marital status (L8), caregiver's relationship to study child (L9) and type of school attended (L14)
     data_clean %<>% mutate(
+        # Set CO3 to 1 for all rows where "CO2" is 0 (i.e. normal connections were maintained by default if no lockdown occurred)
+        CO3 = case_when(
+            CO2 == 0 ~ 1L,
+            TRUE ~ CO3
+        ),
+
+        # Merging sparse categories in marital status (L8), caregiver's relationship to study child (L9) and type of school attended (L14)
         L8 = case_match(L8,
             3:6 ~ 1L,
             .default = L8
@@ -63,13 +70,25 @@ clean_data <- function(data){
         L14 = case_match(L14,
             3:5 ~ 1L,
             .default = L14
+        ),
+
+        # Recoding binary variables to 0/1
+        ECS_SELECTED_CH_GENDER = case_match(ECS_SELECTED_CH_GENDER,
+            1 ~ 0L,
+            2 ~ 1L,
+            .default = ECS_SELECTED_CH_GENDER
+        ),
+        L8 = case_match(L8,
+            1 ~ 0L,
+            2 ~ 1L,
+            .default = L8
+        ),
+        L14 = case_match(L14,
+            1 ~ 0L,
+            2 ~ 1L,
+            .default = L14
         )
     )
-
-    # Converting variables to factors as necessary
-    for(var in c("Language", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "A1", "CO2", "CO3", "H6", "L4", "L8", "L9", "L11", "L12", "L14", "L36a", "L36b", "L36c", "L36f", "L41")){
-        data_clean[, var] <- as.factor(data_clean[, var])
-    }
 
     return(data_clean)
 }
@@ -93,6 +112,21 @@ country_missingness <- function(data){
                 country = unique(data$COUNTRY), 
                 missingness = rep(NA, length(unique(data$COUNTRY))),
                 proportion = rep(NA, length(unique(data$COUNTRY)))
+            ) %>% mutate(
+                country = case_match(country,
+                    1 ~ "Ethiopia",
+                    2 ~ "Kenya",
+                    3 ~ "Mozambique",
+                    4 ~ "Namibia",
+                    6 ~ "Tanzania",
+                    7 ~ "Uganda",
+                    8 ~ "Cambodia",
+                    9 ~ "Indonesia",
+                    10 ~ "Malaysia",
+                    11 ~ "Philippines",
+                    12 ~ "Thailand",
+                    13 ~ "Vietnam"
+                )
             )
         }
     )
@@ -218,67 +252,62 @@ cfa_calc <- function(data, prediction, new_var, old_vars){
     data %<>% select(-all_of(old_vars))
 
     return(data)
-}
+} 
 
 multiple_imputation <- function(data){
     varnames <- names(data)
     varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")]
     
     for(i in varnames){
-        data %<>% mutate(
-            "{i}_GRP" := NA
-        )
-
         if(is.numeric(unlist(data[, i]))){
             data[, i] <- rescale(unlist(data[, i]), c(0, 1))
         }
     }
 
     methods <- make.method(data)
-    methods[] <- "2l.pmm"
+    methods[] <- "pmm"
     methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")] <- ""
-    methods[paste(varnames, "GRP", sep = "_")] <- "2l.groupmean"
 
     predictorMatrix <- make.predictorMatrix(data)
-    predictorMatrix[paste(varnames, "GRP", sep = "_"), ] <- 0
-    predictorMatrix[, "COUNTRY"] <- -2
-    predictorMatrix[predictorMatrix == 1] <- 3
-    predictorMatrix[paste(varnames, "GRP", sep = "_"), varnames] <- diag(2, length(varnames))
-    predictorMatrix[, c("id_new", "CO2", "CO3", "Language", "intStartTime")] <- 0
+    predictorMatrix[, c("id_new", "COUNTRY", "CO2", "CO3", "Language", "intStartTime")] <- 0
     predictorMatrix[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE"), ] <- 0
 
-    cl <- makeCluster(detectCores() - 2)
+    list_imputed_data <- list()
 
-    clusterSetRNGStream(cl, 2903)
+    for(countryNo in 1:length(unique(data$COUNTRY))){
+        country_data <- data[data$COUNTRY == unique(data$COUNTRY)[countryNo], ]
 
-    clusterExport(cl, c("data", "methods", "predictorMatrix"), envir = environment())
+        cl <- makeCluster(detectCores() - 2)
 
-    clusterEvalQ(cl, library(mice))
-    clusterEvalQ(cl, library(miceadds))
+        clusterSetRNGStream(cl, 2903)
 
-    imp_pars <- parLapply(cl = cl, X = 1:(detectCores() - 2), fun = function(no){ 
-        mice(data, vis = rev(names(data)), method = methods, predictorMatrix = predictorMatrix, m = 1, maxit = 20)
-    })
+        clusterExport(cl, c("country_data", "methods", "predictorMatrix"), envir = environment())
 
-    data_imputed <- imp_pars[[1]]
-    for(i in 2:length(imp_pars)){
-        data_imputed <- ibind(data_imputed, imp_pars[[i]])
+        clusterEvalQ(cl, library(mice))
+        clusterEvalQ(cl, library(miceadds))
+
+        imp_pars <- parLapply(cl = cl, X = 1:(detectCores() - 2), fun = function(no){ 
+            mice(country_data, vis = rev(names(country_data)), method = methods, predictorMatrix = predictorMatrix, m = 1, maxit = 20)
+        })
+
+        data_imputed <- imp_pars[[1]]
+        for(i in 2:length(imp_pars)){
+            data_imputed <- ibind(data_imputed, imp_pars[[i]])
+        }
+
+        list_imputed_data[[countryNo]] <- data_imputed
+    }
+
+    return(list_imputed_data)
+}
+
+imputations_delist <- function(mids_list){
+    data_imputed <- mids_list[[1]]
+    for(i in 2:length(mids_list)){
+        data_imputed <- rbind(data_imputed, mids_list[[i]])
     }
 
     return(data_imputed)
-}
-
-combine_lockdown_vars <- function(data){
-    data_long <- complete(data, "long", include = TRUE)
-
-    long$CONNECTION <- with(long, case_when(
-        CO2 == 0 ~ "No lockdown",
-        CO2 == 1 & CO3 == 0 ~ "Lockdown, no connection",
-        CO2 == 1 & CO3 == 1 ~ "Lockdown, connection maintained",
-        TRUE ~ NA
-    ))
-
-    return(as.mids(data_long))
 }
 
 linear_mixed_model <- function(data, dep_var, ind_vars){
@@ -290,13 +319,6 @@ linear_mixed_model <- function(data, dep_var, ind_vars){
 
 logistic_mixed_model <- function(data, dep_var, ind_vars){
     model_fit <- with(data, glmer(as.formula(paste0(dep_var, "~ (", ind_vars, " | COUNTRY)")), family = "binomial"))
-    results <- summary(pool(model_fit))
-
-    return(results)
-}
-
-multinomial_mixed_model <- function(data, dep_var, ind_vars){
-    model_fit <- with(data, mclogit(as.formula(paste0(dep_var, " ~ (", ind_vars, " | COUNTRY)"))))
     results <- summary(pool(model_fit))
 
     return(results)

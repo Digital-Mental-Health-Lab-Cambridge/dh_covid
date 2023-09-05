@@ -1,7 +1,7 @@
 ---
 title: "mice_report"
 author: "Thomas E. Metherell"
-date: "2023-08-14"
+date: "2023-09-05"
 format:
     html:
         code-fold: true
@@ -10,22 +10,82 @@ format:
 
 ## Loading dependencies and target
 
-```{r dependencies}
+```{r}
 library(targets)
 library(mice)
 
-data_imputed <- tar_read(data_imputed)
-# data_imputed_multi <- tar_read(data_imputed_multi)
+list_imputed_data <- tar_read(list_imputed_data)
 ```
 
-## Plots to verify convergence (data for linear models)
+## MICE diagnostic plots
+### Ethiopia
 
-```{r plots}
-plot(data_imputed)
+```{r}
+plot(list_imputed_data[[1]])
 ```
 
-## Plots to verify convergence (data for multinomial models)
+### Kenya
 
-```{r plots_multi}
-# plot(data_imputed_multi)
+```{r}
+plot(list_imputed_data[[2]])
+```
+
+### Mozambique
+
+```{r}
+plot(list_imputed_data[[3]])
+```
+
+### Namibia
+
+```{r}
+plot(list_imputed_data[[4]])
+```
+
+### Tanzania
+
+```{r}
+plot(list_imputed_data[[5]])
+```
+
+### Uganda
+
+```{r}
+plot(list_imputed_data[[6]])
+```
+
+### Cambodia
+
+```{r}
+plot(list_imputed_data[[7]])
+```
+
+### Indonesia
+
+```{r}
+plot(list_imputed_data[[8]])
+```
+
+### Malaysia
+
+```{r}
+plot(list_imputed_data[[9]])
+```
+
+### Philippines
+
+```{r}
+plot(list_imputed_data[[10]])
+```
+
+### Thailand
+
+```{r}
+plot(list_imputed_data[[11]])
+```
+
+### Vietnam
+
+```{r}
+plot(list_imputed_data[[12]])
 ```
