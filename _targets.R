@@ -222,11 +222,7 @@ list(
             cfa_calc(cg_swbs_cfa, "CG_CW_SWBS", c("L39a", "L39b", "L39c", "L39d", "L39e", "L39f")) %>%
             cfa_calc(cg_anx_cfa, "CG_ANX", c("L51a", "L51b", "L51c", "L51d", "L51e", "L51f", "L51g")) %>%
             cfa_calc(cg_cesd_cfa, "CG_CES_D", c("L40a", "L40b", "L40f", "L40g")) %>%
-            cfa_calc(cg_paykel_cfa, "CG_PAYKEL", c("L42a", "L42b", "L42c", "L42d", "L42e")) %>%
-            rowwise() %>%
-            mutate(INCOME = sum(L52a, L52b, L52c),
-                   DIFFS = if_else(if_any(starts_with("L16"), ~. == 1), 1, 0)) %>%
-            select(-contains("L52"), -contains("L16"))
+            cfa_calc(cg_paykel_cfa, "CG_PAYKEL", c("L42a", "L42b", "L42c", "L42d", "L42e"))
     ),
     
     tar_target(

@@ -2,43 +2,43 @@ clean_data <- function(data){
     # Initialise new participant ID, as the original ID is not unique
     data$id_new <- seq_len(nrow(data))
 
-    # Select relevant variables
+    # Select relevant variables (eventual variable types: [B] = boolean, [N] = numeric, [UF] = unordered factor, [OF] = ordered factor)
     data_clean <- data %>% select(
-        id_new, # New participant ID
-        COUNTRY,
-        Language,
-        intStartTime, # Interview start time
-        ECS_SELECTED_CH, # Selected child
-        ECS_SELECTED_CH_GENDER, # Selected child's gender
-        ECS_SELECTED_CH_AGE, # Selected child's age
-        A1, # Classification of local area/neighbourhood
-        B1, # Frequency of internet usage
-        CO2, # Occurrence of lockdown
-        CO3, # Ability to stay in touch with others during lockdown
-        H1, # Life satisfaction ladder
-        contains("H4") & !contains("CH4"), # CW-SWBS and anxiety scale
-        contains("H5") & !contains("H5_") & !contains("CH5"), # Abridged CES-D
-        H6, # Self-harm
-        contains("H7") & !contains("CH7"), # Paykel suicide scale
-        L1, # Number of people in household
-        L4, # Sole caregiver status
-        contains("L52"), # Contextual household income
-        L8, # Caregiver marital status
-        L9, # Caregiver's relationship to child
-        L11, # Caregiver's highest level of education
-        L12, # Caregiver's employment
-        L14, # Type of school attended
-        contains("L16"), # Child's difficulties
-        L18, # Frequency of caregiver's internet use
-        contains("L36"), # Caregiver's societal attitudes
-        L50, # Caregiver life satisfaction ladder
-        contains("L39"), # Caregiver CW-SWBS
-        contains("L51"), # Caregiver anxiety scale
-        contains("L40"), # Caregiver abridged CES-D
-        L41, # Caregiver self-harm
-        contains("L42"), # Caregiver Paykel suicide scale
-        L43, # Caregiver's alcohol intake
-        L45_NEW # Caregiver's corporal punishment attitude
+        id_new, # New participant ID [UF]
+        COUNTRY, # [UF]
+        Language, # [UF]
+        intStartTime, # Interview start time [N]
+        ECS_SELECTED_CH, # Selected child [N]
+        ECS_SELECTED_CH_GENDER, # Selected child's gender [B]
+        ECS_SELECTED_CH_AGE, # Selected child's age [N]
+        A1, # Classification of local area/neighbourhood [UF]
+        B1, # Frequency of internet usage [N]
+        CO2, # Occurrence of lockdown [B]
+        CO3, # Ability to stay in touch with others during lockdown [B]
+        H1, # Life satisfaction ladder [N]
+        contains("H4") & !contains("CH4"), # CW-SWBS and anxiety scale [N, N]
+        contains("H5") & !contains("H5_") & !contains("CH5"), # Abridged CES-D [N]
+        H6, # Self-harm [B]
+        contains("H7") & !contains("CH7"), # Paykel suicide scale [N]
+        L1, # Number of people in household [N]
+        L4, # Sole caregiver status [B]
+        contains("L52"), # Contextual household income [OF]
+        L8, # Caregiver marital status [B]
+        L9, # Caregiver's relationship to child [UF]
+        L11, # Caregiver's highest level of education [OF]
+        L12, # Caregiver's employment [B]
+        L14, # Type of school attended [B]
+        contains("L16"), # Child's difficulties [B]
+        L18, # Frequency of caregiver's internet use [N]
+        contains("L36"), # Caregiver's societal attitudes [B]
+        L50, # Caregiver life satisfaction ladder [N]
+        contains("L39"), # Caregiver CW-SWBS [N]
+        contains("L51"), # Caregiver anxiety scale [N]
+        contains("L40"), # Caregiver abridged CES-D [N]
+        L41, # Caregiver self-harm [B]
+        contains("L42"), # Caregiver Paykel suicide scale [N]
+        L43, # Caregiver's alcohol intake [N]
+        L45_NEW # Caregiver's corporal punishment attitude [OF]
     )
 
     # Set 888 and 999 values to NA
@@ -50,41 +50,73 @@ clean_data <- function(data){
     # Set CO2 to 0 for all responses in Tanzania (there were no lockdowns in the country)
     data_clean[data_clean$COUNTRY == 6, "CO2"] <- 0
 
-    # Merging sparse categories in marital status (L8), caregiver's relationship to study child (L9) and type of school attended (L14)
-    data_clean %<>% mutate(
-        # Set CO3 to 1 for all rows where "CO2" is 0 (i.e. normal connections were maintained by default if no lockdown occurred)
-        CO3 = case_when(
-            CO2 == 0 ~ 1L,
-            TRUE ~ CO3
-        ),
+    data_clean %<>% 
+        mutate(
+            # Set CO3 to 1 for all rows where "CO2" is 0 (i.e. normal connections were maintained by default if no lockdown occurred)
+            CO3 = case_when(
+                CO2 == 0 ~ 1L,
+                TRUE ~ CO3
+            ),
 
-        # Merging sparse categories in marital status (L8), caregiver's relationship to study child (L9) and type of school attended (L14)
-        L8 = case_match(L8,
-            3:6 ~ 1L,
-            .default = L8
-        ),
-        L14 = case_match(L14,
-            3:5 ~ 1L,
-            .default = L14
-        ),
+            # Merging sparse categories in marital status (L8), caregiver's relationship to study child (L9) and type of school attended (L14)
+            L8 = case_match(L8,
+                3:6 ~ 1L,
+                .default = L8
+            ),
+            L9 = case_match(L9,
+                4:6 ~ 3L,
+                .default = L9
+            ),
+            L14 = case_match(L14,
+                3:5 ~ 1L,
+                .default = L14
+            ),
 
-        # Recoding binary variables to 0/1
-        ECS_SELECTED_CH_GENDER = case_match(ECS_SELECTED_CH_GENDER,
-            1 ~ 0L,
-            2 ~ 1L,
-            .default = ECS_SELECTED_CH_GENDER
-        ),
-        L8 = case_match(L8,
-            1 ~ 0L,
-            2 ~ 1L,
-            .default = L8
-        ),
-        L14 = case_match(L14,
-            1 ~ 0L,
-            2 ~ 1L,
-            .default = L14
-        )
-    )
+            # Setting "other" to NA in caregiver's highest level of education (L11)
+            L11 = case_match(L11,
+                7 ~ NA,
+                .default = L11
+            ),
+
+            # Combining income and difficulties variables
+            INCOME = rowSums(select(., L52a, L52b, L52c)),
+            DIFFS = if_else(
+                if_any(starts_with("L16"), ~. == 1),
+                1,
+                0
+            ),
+
+            # Recoding binary variables to 0/1
+            ECS_SELECTED_CH_GENDER = case_match(ECS_SELECTED_CH_GENDER,
+                1 ~ 0L,
+                2 ~ 1L,
+                .default = ECS_SELECTED_CH_GENDER
+            ),
+            L8 = case_match(L8,
+                1 ~ 0L,
+                2 ~ 1L,
+                .default = L8
+            ),
+            L14 = case_match(L14,
+                1 ~ 0L,
+                2 ~ 1L,
+                .default = L14
+            )
+        ) %>%
+
+        # Removing unnecessary variables
+        select(-contains("L52"), -contains("L16"))
+
+    # Making factor variables as necessary
+    ## Unordered
+    for(var in c("id_new",  "COUNTRY", "Language", "ECS_SELECTED_CH_GENDER", "A1", "L9")){
+        data_clean[, var] <- as.factor(data_clean[, var])
+    }
+
+    ### Ordered
+    data_clean$L11 %<>% ordered(levels = c(1, 2, 3))
+    data_clean$L45_NEW %<>% ordered(levels = c(1, 3, 2))
+    data_clean$INCOME %<>% ordered(levels = c(0, 1, 2, 3))
 
     return(data_clean)
 }
@@ -110,18 +142,18 @@ country_missingness <- function(data){
                 proportion = rep(NA, length(unique(data$COUNTRY)))
             ) %>% mutate(
                 country = case_match(country,
-                    1 ~ "Ethiopia",
-                    2 ~ "Kenya",
-                    3 ~ "Mozambique",
-                    4 ~ "Namibia",
-                    6 ~ "Tanzania",
-                    7 ~ "Uganda",
-                    8 ~ "Cambodia",
-                    9 ~ "Indonesia",
-                    10 ~ "Malaysia",
-                    11 ~ "Philippines",
-                    12 ~ "Thailand",
-                    13 ~ "Vietnam"
+                    "1" ~ "Ethiopia",
+                    "2" ~ "Kenya",
+                    "3" ~ "Mozambique",
+                    "4" ~ "Namibia",
+                    "6" ~ "Tanzania",
+                    "7" ~ "Uganda",
+                    "8" ~ "Cambodia",
+                    "9" ~ "Indonesia",
+                    "10" ~ "Malaysia",
+                    "11" ~ "Philippines",
+                    "12" ~ "Thailand",
+                    "13" ~ "Vietnam"
                 )
             )
         }
@@ -248,7 +280,7 @@ cfa_calc <- function(data, prediction, new_var, old_vars){
     data %<>% select(-all_of(old_vars))
 
     return(data)
-} 
+}
 
 multiple_imputation <- function(data){
     varnames <- names(data)
