@@ -338,15 +338,15 @@ imputations_delist <- function(mids_list){
     return(data_imputed)
 }
 
-linear_mixed_model <- function(data, dep_var, ind_vars){
-    model_fit <- with(data, lmer(as.formula(paste0(dep_var, " ~ (", ind_vars, " | COUNTRY)"))))
+linear_mixed_model <- function(data, formula){
+    model_fit <- with(data, lmer(as.formula(formula)))
     results <- summary(pool(model_fit))
 
     return(results)
 }
 
-logistic_mixed_model <- function(data, dep_var, ind_vars){
-    model_fit <- with(data, glmer(as.formula(paste0(dep_var, "~ (", ind_vars, " | COUNTRY)")), family = "binomial"))
+logistic_mixed_model <- function(data, formula){
+    model_fit <- with(data, glmer(as.formula(formula), family = "binomial"))
     results <- summary(pool(model_fit))
 
     return(results)
