@@ -63,10 +63,6 @@ clean_data <- function(data){
             3:6 ~ 1L,
             .default = L8
         ),
-        L9 = case_match(L9,
-            4:6 ~ 3L,
-            .default = L9
-        ),
         L14 = case_match(L14,
             3:5 ~ 1L,
             .default = L14
