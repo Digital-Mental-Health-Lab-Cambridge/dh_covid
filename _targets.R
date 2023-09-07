@@ -296,7 +296,7 @@ list(
         internet_ls_model,
         linear_mixed_model(
             data_imputed,
-            "H1 ~ B1*CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + (1 | COUNTRY)"
+            "H1 ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + (1 | COUNTRY)"
         )
     ),
 
@@ -304,7 +304,7 @@ list(
         internet_swbs_model,
         linear_mixed_model(
             data_imputed,
-            "CW_SWBS ~ B1*CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + (1 | COUNTRY)"
+            "CW_SWBS ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + (1 | COUNTRY)"
         )
     ),
 
@@ -312,7 +312,7 @@ list(
         internet_anx_model,
         linear_mixed_model(
             data_imputed,
-            "ANX ~ B1*CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + (1 | COUNTRY)"
+            "ANX ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + (1 | COUNTRY)"
         )
     ),
 
@@ -320,7 +320,7 @@ list(
         internet_cesd_model,
         linear_mixed_model(
             data_imputed,
-            "CES_D ~ B1*CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + (1 | COUNTRY)"
+            "CES_D ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + (1 | COUNTRY)"
         )
     ),
 
@@ -328,7 +328,7 @@ list(
         internet_sh_model,
         logistic_mixed_model(
             data_imputed,
-            "H6 ~ B1*CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + (1 | COUNTRY)"
+            "H6 ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + (1 | COUNTRY)"
         )
     ),
 
@@ -336,7 +336,7 @@ list(
         internet_paykel_model,
         linear_mixed_model(
             data_imputed,
-            "PAYKEL ~ B1*CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + (1 | COUNTRY)"
+            "PAYKEL ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + (1 | COUNTRY)"
         )
     )
 )
