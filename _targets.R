@@ -338,5 +338,10 @@ list(
             data_imputed,
             "PAYKEL ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + (1 | COUNTRY)"
         )
+    ),
+
+    tar_quarto(
+        models_report,
+        "models_report.Qmd"
     )
 )
