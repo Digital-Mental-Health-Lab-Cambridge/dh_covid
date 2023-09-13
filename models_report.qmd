@@ -8,7 +8,7 @@ format:
         toc: true
 ---
 
-## Loading dependency and targets
+## Loading dependencies and targets
 
 ```{r dependencies}
 library(targets)
