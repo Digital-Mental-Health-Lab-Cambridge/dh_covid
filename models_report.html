@@ -110,7 +110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#loading-dependency-and-targets" id="toc-loading-dependency-and-targets" class="nav-link active" data-scroll-target="#loading-dependency-and-targets">Loading dependency and targets</a></li>
+  <li><a href="#loading-dependencies-and-targets" id="toc-loading-dependencies-and-targets" class="nav-link active" data-scroll-target="#loading-dependencies-and-targets">Loading dependencies and targets</a></li>
   <li><a href="#rounding-values" id="toc-rounding-values" class="nav-link" data-scroll-target="#rounding-values">Rounding values</a></li>
   <li><a href="#models-for-ability-to-stay-connected-during-lockdown" id="toc-models-for-ability-to-stay-connected-during-lockdown" class="nav-link" data-scroll-target="#models-for-ability-to-stay-connected-during-lockdown">Models for ability to stay connected during lockdown</a>
   <ul class="collapse">
@@ -164,8 +164,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="loading-dependency-and-targets" class="level2">
-<h2 class="anchored" data-anchor-id="loading-dependency-and-targets">Loading dependency and targets</h2>
+<section id="loading-dependencies-and-targets" class="level2">
+<h2 class="anchored" data-anchor-id="loading-dependencies-and-targets">Loading dependencies and targets</h2>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -193,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(obj_name <span class="cf">in</span> <span class="fu">ls</span>()){</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(obj_name <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"connection_sh_model"</span>, <span class="st">"internet_sh_model"</span>)){</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    obj <span class="ot">&lt;-</span> <span class="fu">get</span>(obj_name)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(obj)){</span>
@@ -214,191 +214,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>connection_ls_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>connection_ls_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 34%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 12%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.469</td>
-<td style="text-align: right;">0.055</td>
-<td style="text-align: right;">8.483</td>
-<td style="text-align: right;">42.460</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">0.027</td>
-<td style="text-align: right;">0.054</td>
-<td style="text-align: right;">0.494</td>
-<td style="text-align: right;">35.090</td>
-<td style="text-align: right;">0.625</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO3</td>
-<td style="text-align: right;">0.025</td>
-<td style="text-align: right;">0.053</td>
-<td style="text-align: right;">0.469</td>
-<td style="text-align: right;">35.406</td>
-<td style="text-align: right;">0.642</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">1.152</td>
-<td style="text-align: right;">7890.070</td>
-<td style="text-align: right;">0.249</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">-6.523</td>
-<td style="text-align: right;">6587.175</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">-0.009</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-1.397</td>
-<td style="text-align: right;">3140.218</td>
-<td style="text-align: right;">0.162</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.013</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-3.440</td>
-<td style="text-align: right;">6938.888</td>
-<td style="text-align: right;">0.001</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">-0.016</td>
-<td style="text-align: right;">0.040</td>
-<td style="text-align: right;">-0.411</td>
-<td style="text-align: right;">7868.480</td>
-<td style="text-align: right;">0.681</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.361</td>
-<td style="text-align: right;">2176.227</td>
-<td style="text-align: right;">0.718</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">0.022</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">5.255</td>
-<td style="text-align: right;">1025.620</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.848</td>
-<td style="text-align: right;">1583.436</td>
-<td style="text-align: right;">0.397</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.428</td>
-<td style="text-align: right;">1476.725</td>
-<td style="text-align: right;">0.669</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.772</td>
-<td style="text-align: right;">4871.845</td>
-<td style="text-align: right;">0.440</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">-0.002</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.388</td>
-<td style="text-align: right;">4532.755</td>
-<td style="text-align: right;">0.698</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">2.085</td>
-<td style="text-align: right;">7243.988</td>
-<td style="text-align: right;">0.037</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.812</td>
-<td style="text-align: right;">4523.345</td>
-<td style="text-align: right;">0.070</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.867</td>
-<td style="text-align: right;">3860.574</td>
-<td style="text-align: right;">0.062</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.009</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.762</td>
-<td style="text-align: right;">6814.090</td>
-<td style="text-align: right;">0.078</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L50</td>
-<td style="text-align: right;">0.351</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">39.540</td>
-<td style="text-align: right;">2700.228</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2:CO3</td>
-<td style="text-align: right;">-0.024</td>
-<td style="text-align: right;">0.054</td>
-<td style="text-align: right;">-0.441</td>
-<td style="text-align: right;">35.767</td>
-<td style="text-align: right;">0.662</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: H1 ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50 + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.28      0.07     0.18     0.46 1.00    17220    30816
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -0.12      0.20    -0.50     0.27 1.34      166
+CO2                         0.07      0.18    -0.27     0.41 1.49      133
+CO3                         0.07      0.17    -0.28     0.40 1.49      134
+ECS_SELECTED_CH_GENDER1     0.01      0.01    -0.02     0.04 1.01     7222
+ECS_SELECTED_CH_AGE        -0.01      0.00    -0.01     0.00 1.01     5540
+A12                        -0.04      0.02    -0.09     0.01 1.02     1705
+A13                        -0.08      0.02    -0.11    -0.05 1.03     1553
+L1                         -0.14      0.16    -0.45     0.16 1.01     3268
+L4                         -0.02      0.02    -0.05     0.01 1.03     1362
+INCOME.L                    0.10      0.02     0.06     0.13 1.08      535
+INCOME.Q                    0.01      0.01    -0.02     0.03 1.02     1680
+INCOME.C                    0.01      0.02    -0.02     0.04 1.06      703
+L92                         0.01      0.02    -0.02     0.04 1.02     2153
+L93                        -0.02      0.02    -0.06     0.02 1.02     2428
+L11.L                       0.04      0.02     0.01     0.07 1.03     1275
+L11.Q                      -0.04      0.01    -0.07    -0.01 1.03     1543
+L12                         0.05      0.02     0.02     0.08 1.02     2636
+L14                        -0.04      0.02    -0.08     0.00 1.03     1467
+L50                         1.18      0.04     1.11     1.25 1.05      824
+CO2:CO3                    -0.04      0.18    -0.38     0.30 1.48      135
+                        Tail_ESS
+Intercept                    616
+CO2                          453
+CO3                          440
+ECS_SELECTED_CH_GENDER1    49418
+ECS_SELECTED_CH_AGE        51079
+A12                        25352
+A13                         7407
+L1                         21845
+L4                          7653
+INCOME.L                    2666
+INCOME.Q                    9483
+INCOME.C                    3469
+L92                        19219
+L93                        16189
+L11.L                       6782
+L11.Q                      11786
+L12                        49937
+L14                        11532
+L50                         4183
+CO2:CO3                      458
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     8.81      0.12     8.58     9.05 1.03     1247     9289
+zoi     0.15      0.00     0.14     0.15 1.01     7677    51674
+coi     0.95      0.01     0.94     0.96 1.02     1891    12913
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -407,191 +290,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>connection_swbs_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>connection_swbs_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.524</td>
-<td style="text-align: right;">0.035</td>
-<td style="text-align: right;">15.156</td>
-<td style="text-align: right;">53.184</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">0.027</td>
-<td style="text-align: right;">0.033</td>
-<td style="text-align: right;">0.800</td>
-<td style="text-align: right;">42.719</td>
-<td style="text-align: right;">0.428</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO3</td>
-<td style="text-align: right;">0.030</td>
-<td style="text-align: right;">0.034</td>
-<td style="text-align: right;">0.886</td>
-<td style="text-align: right;">41.723</td>
-<td style="text-align: right;">0.381</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">3.033</td>
-<td style="text-align: right;">11396.351</td>
-<td style="text-align: right;">0.002</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">7.440</td>
-<td style="text-align: right;">11950.553</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.066</td>
-<td style="text-align: right;">11785.783</td>
-<td style="text-align: right;">0.947</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">-2.451</td>
-<td style="text-align: right;">11540.242</td>
-<td style="text-align: right;">0.014</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.027</td>
-<td style="text-align: right;">0.184</td>
-<td style="text-align: right;">10556.370</td>
-<td style="text-align: right;">0.854</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">-1.901</td>
-<td style="text-align: right;">9339.917</td>
-<td style="text-align: right;">0.057</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">2.761</td>
-<td style="text-align: right;">1827.233</td>
-<td style="text-align: right;">0.006</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">1.480</td>
-<td style="text-align: right;">4162.407</td>
-<td style="text-align: right;">0.139</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">1.639</td>
-<td style="text-align: right;">2375.622</td>
-<td style="text-align: right;">0.101</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.924</td>
-<td style="text-align: right;">6419.034</td>
-<td style="text-align: right;">0.355</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.129</td>
-<td style="text-align: right;">4839.812</td>
-<td style="text-align: right;">0.259</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.711</td>
-<td style="text-align: right;">8469.289</td>
-<td style="text-align: right;">0.477</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">-1.999</td>
-<td style="text-align: right;">8076.624</td>
-<td style="text-align: right;">0.046</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.011</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">4.225</td>
-<td style="text-align: right;">7657.708</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.319</td>
-<td style="text-align: right;">5224.520</td>
-<td style="text-align: right;">0.187</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CG_CW_SWBS</td>
-<td style="text-align: right;">0.237</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">29.658</td>
-<td style="text-align: right;">6209.426</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2:CO3</td>
-<td style="text-align: right;">-0.023</td>
-<td style="text-align: right;">0.034</td>
-<td style="text-align: right;">-0.687</td>
-<td style="text-align: right;">42.202</td>
-<td style="text-align: right;">0.496</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: CW_SWBS ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.12      0.03     0.08     0.20 1.00    19867    33520
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                   0.08      0.17    -0.26     0.41 1.52      128
+CO2                         0.13      0.17    -0.18     0.45 1.63      117
+CO3                         0.14      0.17    -0.17     0.46 1.64      116
+ECS_SELECTED_CH_GENDER1     0.02      0.01    -0.00     0.05 1.00    18518
+ECS_SELECTED_CH_AGE         0.02      0.00     0.02     0.03 1.00   102470
+A12                         0.01      0.02    -0.03     0.06 1.00    19372
+A13                        -0.04      0.01    -0.06    -0.01 1.00    17253
+L1                          0.14      0.14    -0.13     0.41 1.00    16563
+L4                         -0.04      0.01    -0.07    -0.01 1.01     9518
+INCOME.L                    0.03      0.01     0.00     0.06 1.05      864
+INCOME.Q                    0.01      0.01    -0.02     0.03 1.02     1897
+INCOME.C                    0.02      0.01    -0.01     0.05 1.04      961
+L92                         0.03      0.02    -0.01     0.06 1.02     2443
+L93                         0.02      0.02    -0.02     0.06 1.03     1518
+L11.L                       0.00      0.01    -0.02     0.03 1.01     5140
+L11.Q                      -0.02      0.01    -0.05     0.00 1.01     3227
+L12                         0.05      0.01     0.02     0.07 1.01     3450
+L14                         0.01      0.02    -0.03     0.05 1.03     1393
+CG_CW_SWBS                  1.00      0.04     0.92     1.08 1.02     1857
+CO2:CO3                    -0.12      0.17    -0.44     0.19 1.62      117
+                        Tail_ESS
+Intercept                    380
+CO2                          311
+CO3                          300
+ECS_SELECTED_CH_GENDER1    53563
+ECS_SELECTED_CH_AGE        52636
+A12                        57629
+A13                        57945
+L1                         48377
+L4                         50371
+INCOME.L                    3974
+INCOME.Q                   17012
+INCOME.C                    4658
+L92                        19153
+L93                        11998
+L11.L                      56281
+L11.Q                      52885
+L12                        44154
+L14                         8616
+CG_CW_SWBS                 20453
+CO2:CO3                      290
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi    11.47      0.15    11.18    11.77 1.01     6730    51447
+zoi     0.06      0.00     0.06     0.07 1.00    97630    54414
+coi     0.99      0.00     0.99     1.00 1.01     5414    43153
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -600,191 +366,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>connection_anx_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>connection_anx_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.115</td>
-<td style="text-align: right;">0.048</td>
-<td style="text-align: right;">2.363</td>
-<td style="text-align: right;">105.770</td>
-<td style="text-align: right;">0.020</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">-0.011</td>
-<td style="text-align: right;">0.046</td>
-<td style="text-align: right;">-0.230</td>
-<td style="text-align: right;">81.821</td>
-<td style="text-align: right;">0.819</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO3</td>
-<td style="text-align: right;">-0.020</td>
-<td style="text-align: right;">0.046</td>
-<td style="text-align: right;">-0.439</td>
-<td style="text-align: right;">80.265</td>
-<td style="text-align: right;">0.662</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.015</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">3.783</td>
-<td style="text-align: right;">10412.520</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.012</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">9.802</td>
-<td style="text-align: right;">11368.275</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">-0.008</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">-1.175</td>
-<td style="text-align: right;">11982.135</td>
-<td style="text-align: right;">0.240</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.010</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-2.286</td>
-<td style="text-align: right;">11291.931</td>
-<td style="text-align: right;">0.022</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">0.077</td>
-<td style="text-align: right;">0.045</td>
-<td style="text-align: right;">1.715</td>
-<td style="text-align: right;">8644.984</td>
-<td style="text-align: right;">0.086</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.019</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">4.088</td>
-<td style="text-align: right;">8535.848</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.077</td>
-<td style="text-align: right;">2130.450</td>
-<td style="text-align: right;">0.939</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-0.078</td>
-<td style="text-align: right;">2082.737</td>
-<td style="text-align: right;">0.938</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.656</td>
-<td style="text-align: right;">4044.186</td>
-<td style="text-align: right;">0.512</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.223</td>
-<td style="text-align: right;">9563.579</td>
-<td style="text-align: right;">0.221</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-0.570</td>
-<td style="text-align: right;">8227.619</td>
-<td style="text-align: right;">0.569</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">1.913</td>
-<td style="text-align: right;">6789.265</td>
-<td style="text-align: right;">0.056</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">0.012</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">3.044</td>
-<td style="text-align: right;">9925.174</td>
-<td style="text-align: right;">0.002</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.081</td>
-<td style="text-align: right;">5880.239</td>
-<td style="text-align: right;">0.935</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.004</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-0.631</td>
-<td style="text-align: right;">10521.579</td>
-<td style="text-align: right;">0.528</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CG_ANX</td>
-<td style="text-align: right;">0.255</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">31.983</td>
-<td style="text-align: right;">3070.802</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2:CO3</td>
-<td style="text-align: right;">0.019</td>
-<td style="text-align: right;">0.046</td>
-<td style="text-align: right;">0.415</td>
-<td style="text-align: right;">80.642</td>
-<td style="text-align: right;">0.679</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: ANX ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.27      0.07     0.17     0.43 1.00    22588    35999
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -1.71      0.24    -2.21    -1.25 1.28      187
+CO2                        -0.02      0.23    -0.44     0.45 1.36      159
+CO3                        -0.06      0.23    -0.48     0.41 1.36      158
+ECS_SELECTED_CH_GENDER1     0.06      0.02     0.02     0.10 1.01     6663
+ECS_SELECTED_CH_AGE         0.05      0.01     0.04     0.06 1.00    62687
+A12                        -0.07      0.04    -0.14    -0.00 1.00    99257
+A13                        -0.04      0.02    -0.08     0.00 1.00    99157
+L1                          0.29      0.22    -0.14     0.71 1.01     3507
+L4                          0.07      0.02     0.02     0.11 1.01     4604
+INCOME.L                    0.01      0.02    -0.04     0.05 1.04     1083
+INCOME.Q                   -0.02      0.02    -0.07     0.02 1.04     1022
+INCOME.C                   -0.02      0.02    -0.06     0.03 1.02     2436
+L92                        -0.03      0.02    -0.08     0.02 1.01     4319
+L93                        -0.02      0.03    -0.08     0.04 1.01     3035
+L11.L                       0.03      0.02    -0.01     0.08 1.01     3995
+L11.Q                       0.07      0.02     0.03     0.11 1.00    16121
+L12                        -0.00      0.02    -0.04     0.04 1.01     3128
+L14                        -0.00      0.03    -0.06     0.05 1.00    21790
+CG_ANX                      1.10      0.04     1.02     1.18 1.03     1431
+CO2:CO3                     0.05      0.23    -0.42     0.48 1.37      157
+                        Tail_ESS
+Intercept                    373
+CO2                          298
+CO3                          294
+ECS_SELECTED_CH_GENDER1    48523
+ECS_SELECTED_CH_AGE        53079
+A12                        56214
+A13                        58636
+L1                         45863
+L4                         46438
+INCOME.L                    5997
+INCOME.Q                    4101
+INCOME.C                   16839
+L92                        56286
+L93                        29617
+L11.L                      52486
+L11.Q                      55120
+L12                        45721
+L14                        53557
+CG_ANX                      8923
+CO2:CO3                      308
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     3.08      0.04     3.01     3.16 1.01    10872    54440
+zoi     0.06      0.00     0.05     0.06 1.00   117181    52423
+coi     0.01      0.00     0.00     0.01 1.00   112458    45065
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -793,191 +442,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>connection_cesd_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>connection_cesd_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.721</td>
-<td style="text-align: right;">0.054</td>
-<td style="text-align: right;">13.437</td>
-<td style="text-align: right;">47.972</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">0.039</td>
-<td style="text-align: right;">0.052</td>
-<td style="text-align: right;">0.759</td>
-<td style="text-align: right;">41.833</td>
-<td style="text-align: right;">0.452</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO3</td>
-<td style="text-align: right;">0.037</td>
-<td style="text-align: right;">0.052</td>
-<td style="text-align: right;">0.709</td>
-<td style="text-align: right;">41.022</td>
-<td style="text-align: right;">0.482</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.544</td>
-<td style="text-align: right;">10141.951</td>
-<td style="text-align: right;">0.123</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">-0.009</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">-8.261</td>
-<td style="text-align: right;">10305.545</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">-0.785</td>
-<td style="text-align: right;">6338.342</td>
-<td style="text-align: right;">0.433</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.729</td>
-<td style="text-align: right;">8889.652</td>
-<td style="text-align: right;">0.466</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">-0.049</td>
-<td style="text-align: right;">0.042</td>
-<td style="text-align: right;">-1.167</td>
-<td style="text-align: right;">3308.245</td>
-<td style="text-align: right;">0.243</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">-0.008</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.879</td>
-<td style="text-align: right;">3061.938</td>
-<td style="text-align: right;">0.060</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">0.014</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">3.262</td>
-<td style="text-align: right;">1796.558</td>
-<td style="text-align: right;">0.001</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.755</td>
-<td style="text-align: right;">1048.733</td>
-<td style="text-align: right;">0.450</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.118</td>
-<td style="text-align: right;">2413.635</td>
-<td style="text-align: right;">0.264</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">-0.001</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.174</td>
-<td style="text-align: right;">4766.243</td>
-<td style="text-align: right;">0.862</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">-0.020</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-3.665</td>
-<td style="text-align: right;">7227.849</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.656</td>
-<td style="text-align: right;">5118.162</td>
-<td style="text-align: right;">0.098</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.699</td>
-<td style="text-align: right;">3565.643</td>
-<td style="text-align: right;">0.089</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.392</td>
-<td style="text-align: right;">5056.461</td>
-<td style="text-align: right;">0.695</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.002</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.311</td>
-<td style="text-align: right;">6343.721</td>
-<td style="text-align: right;">0.756</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CG_CES_D</td>
-<td style="text-align: right;">0.164</td>
-<td style="text-align: right;">0.010</td>
-<td style="text-align: right;">17.188</td>
-<td style="text-align: right;">2909.561</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2:CO3</td>
-<td style="text-align: right;">-0.042</td>
-<td style="text-align: right;">0.052</td>
-<td style="text-align: right;">-0.794</td>
-<td style="text-align: right;">41.026</td>
-<td style="text-align: right;">0.432</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: CES_D ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.23      0.06     0.14     0.37 1.00    19321    33573
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                   1.05      0.25     0.56     1.54 1.33      168
+CO2                         0.12      0.24    -0.34     0.57 1.40      149
+CO3                         0.13      0.24    -0.33     0.59 1.41      148
+ECS_SELECTED_CH_GENDER1    -0.03      0.02    -0.07     0.01 1.00    14359
+ECS_SELECTED_CH_AGE        -0.05      0.01    -0.06    -0.03 1.00    24753
+A12                        -0.02      0.04    -0.09     0.05 1.01    10076
+A13                         0.01      0.02    -0.03     0.06 1.01    10453
+L1                         -0.26      0.22    -0.69     0.18 1.01     3141
+L4                         -0.03      0.02    -0.07     0.02 1.02     2603
+INCOME.L                    0.09      0.02     0.04     0.13 1.03     1386
+INCOME.Q                    0.01      0.02    -0.03     0.06 1.04      938
+INCOME.C                    0.02      0.02    -0.03     0.06 1.02     1912
+L92                         0.01      0.03    -0.04     0.06 1.01     3054
+L93                        -0.09      0.03    -0.15    -0.03 1.00    16160
+L11.L                       0.04      0.02     0.00     0.09 1.01     5283
+L11.Q                      -0.04      0.02    -0.08     0.00 1.02     2542
+L12                        -0.00      0.02    -0.05     0.04 1.01     5019
+L14                        -0.03      0.03    -0.09     0.02 1.01     3665
+CG_CES_D                    0.76      0.05     0.66     0.86 1.02     2044
+CO2:CO3                    -0.15      0.24    -0.60     0.33 1.40      149
+                        Tail_ESS
+Intercept                    498
+CO2                          388
+CO3                          365
+ECS_SELECTED_CH_GENDER1    53132
+ECS_SELECTED_CH_AGE        52389
+A12                        57884
+A13                        59095
+L1                         40232
+L4                         44935
+INCOME.L                   15601
+INCOME.Q                    5726
+INCOME.C                   16215
+L92                        43324
+L93                        55166
+L11.L                      52560
+L11.Q                      14742
+L12                        55248
+L14                        48227
+CG_CES_D                   16039
+CO2:CO3                      434
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     3.07      0.04     2.99     3.16 1.02     2049    13758
+zoi     0.06      0.00     0.05     0.06 1.00    31267    53320
+coi     1.00      0.00     0.99     1.00 1.00    91345    41786
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -986,7 +518,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>connection_sh_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>connection_sh_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -1179,191 +711,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>connection_paykel_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>connection_paykel_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.070</td>
-<td style="text-align: right;">0.054</td>
-<td style="text-align: right;">1.284</td>
-<td style="text-align: right;">68.261</td>
-<td style="text-align: right;">0.203</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">-0.022</td>
-<td style="text-align: right;">0.052</td>
-<td style="text-align: right;">-0.434</td>
-<td style="text-align: right;">52.026</td>
-<td style="text-align: right;">0.666</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO3</td>
-<td style="text-align: right;">-0.024</td>
-<td style="text-align: right;">0.051</td>
-<td style="text-align: right;">-0.466</td>
-<td style="text-align: right;">52.206</td>
-<td style="text-align: right;">0.643</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.026</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">6.618</td>
-<td style="text-align: right;">6826.799</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">6.175</td>
-<td style="text-align: right;">7847.727</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">1.073</td>
-<td style="text-align: right;">6254.810</td>
-<td style="text-align: right;">0.284</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.489</td>
-<td style="text-align: right;">9155.374</td>
-<td style="text-align: right;">0.136</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">0.047</td>
-<td style="text-align: right;">0.045</td>
-<td style="text-align: right;">1.060</td>
-<td style="text-align: right;">11152.828</td>
-<td style="text-align: right;">0.289</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">1.825</td>
-<td style="text-align: right;">9512.511</td>
-<td style="text-align: right;">0.068</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">-0.027</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-5.604</td>
-<td style="text-align: right;">982.827</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.875</td>
-<td style="text-align: right;">1918.286</td>
-<td style="text-align: right;">0.061</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.274</td>
-<td style="text-align: right;">1258.606</td>
-<td style="text-align: right;">0.203</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.255</td>
-<td style="text-align: right;">4528.995</td>
-<td style="text-align: right;">0.799</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">0.010</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">1.625</td>
-<td style="text-align: right;">5396.912</td>
-<td style="text-align: right;">0.104</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">-0.011</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-2.460</td>
-<td style="text-align: right;">4408.995</td>
-<td style="text-align: right;">0.014</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.751</td>
-<td style="text-align: right;">5576.195</td>
-<td style="text-align: right;">0.453</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.467</td>
-<td style="text-align: right;">3811.563</td>
-<td style="text-align: right;">0.640</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.002</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-0.359</td>
-<td style="text-align: right;">5478.470</td>
-<td style="text-align: right;">0.720</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CG_PAYKEL</td>
-<td style="text-align: right;">0.099</td>
-<td style="text-align: right;">0.012</td>
-<td style="text-align: right;">8.356</td>
-<td style="text-align: right;">929.090</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2:CO3</td>
-<td style="text-align: right;">0.021</td>
-<td style="text-align: right;">0.052</td>
-<td style="text-align: right;">0.400</td>
-<td style="text-align: right;">52.521</td>
-<td style="text-align: right;">0.691</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: PAYKEL ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.21      0.06     0.13     0.35 1.00    20833    34226
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -2.13      0.23    -2.58    -1.68 1.18      259
+CO2                        -0.07      0.22    -0.49     0.37 1.22      223
+CO3                        -0.08      0.22    -0.50     0.35 1.22      223
+ECS_SELECTED_CH_GENDER1     0.07      0.02     0.03     0.11 1.00    23660
+ECS_SELECTED_CH_AGE         0.02      0.01     0.01     0.04 1.00    17335
+A12                         0.03      0.04    -0.05     0.11 1.01     6939
+A13                        -0.01      0.02    -0.05     0.04 1.00    70708
+L1                          0.37      0.23    -0.09     0.82 1.00    63095
+L4                          0.03      0.02    -0.02     0.08 1.01     8915
+INCOME.L                   -0.08      0.02    -0.13    -0.03 1.01     3097
+INCOME.Q                    0.03      0.02    -0.02     0.07 1.01     3568
+INCOME.C                   -0.02      0.02    -0.07     0.03 1.02     2634
+L92                         0.00      0.03    -0.05     0.05 1.01     5689
+L93                         0.03      0.03    -0.03     0.10 1.01     5990
+L11.L                      -0.04      0.02    -0.09     0.01 1.01    10311
+L11.Q                       0.02      0.02    -0.02     0.07 1.00    20694
+L12                         0.01      0.02    -0.04     0.06 1.01     7542
+L14                         0.00      0.03    -0.06     0.06 1.01     8244
+CG_PAYKEL                   0.34      0.06     0.22     0.46 1.03     1524
+CO2:CO3                     0.06      0.22    -0.38     0.48 1.22      227
+                        Tail_ESS
+Intercept                    707
+CO2                          569
+CO3                          530
+ECS_SELECTED_CH_GENDER1    54586
+ECS_SELECTED_CH_AGE        52717
+A12                        55365
+A13                        57017
+L1                         53053
+L4                         53633
+INCOME.L                   48683
+INCOME.Q                   51010
+INCOME.C                   18852
+L92                        55159
+L93                        57010
+L11.L                      56155
+L11.Q                      55144
+L12                        54840
+L14                        54189
+CG_PAYKEL                  13975
+CO2:CO3                      567
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     2.69      0.04     2.60     2.78 1.03     1452     9040
+zoi     0.14      0.00     0.14     0.15 1.01    10456    53152
+coi     0.11      0.01     0.09     0.12 1.01     6716    49343
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -1375,231 +790,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>internet_ls_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>internet_ls_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 34%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 12%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.479</td>
-<td style="text-align: right;">0.017</td>
-<td style="text-align: right;">28.381</td>
-<td style="text-align: right;">5324.527</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B1</td>
-<td style="text-align: right;">0.040</td>
-<td style="text-align: right;">0.010</td>
-<td style="text-align: right;">3.878</td>
-<td style="text-align: right;">1056.727</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">0.836</td>
-<td style="text-align: right;">300.200</td>
-<td style="text-align: right;">0.404</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">1.464</td>
-<td style="text-align: right;">7917.946</td>
-<td style="text-align: right;">0.143</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">-0.008</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">-7.187</td>
-<td style="text-align: right;">6412.845</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">-0.009</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-1.382</td>
-<td style="text-align: right;">3293.428</td>
-<td style="text-align: right;">0.167</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.012</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-2.988</td>
-<td style="text-align: right;">7371.121</td>
-<td style="text-align: right;">0.003</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">-0.013</td>
-<td style="text-align: right;">0.040</td>
-<td style="text-align: right;">-0.331</td>
-<td style="text-align: right;">7665.940</td>
-<td style="text-align: right;">0.740</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.264</td>
-<td style="text-align: right;">2393.400</td>
-<td style="text-align: right;">0.792</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">0.021</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">5.035</td>
-<td style="text-align: right;">1099.594</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.840</td>
-<td style="text-align: right;">1975.098</td>
-<td style="text-align: right;">0.401</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.371</td>
-<td style="text-align: right;">1530.534</td>
-<td style="text-align: right;">0.710</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.592</td>
-<td style="text-align: right;">5138.975</td>
-<td style="text-align: right;">0.554</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.492</td>
-<td style="text-align: right;">4818.272</td>
-<td style="text-align: right;">0.623</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.975</td>
-<td style="text-align: right;">6436.021</td>
-<td style="text-align: right;">0.048</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.845</td>
-<td style="text-align: right;">4565.004</td>
-<td style="text-align: right;">0.065</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.781</td>
-<td style="text-align: right;">3544.266</td>
-<td style="text-align: right;">0.075</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.009</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.721</td>
-<td style="text-align: right;">6690.684</td>
-<td style="text-align: right;">0.085</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L18</td>
-<td style="text-align: right;">-0.004</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">-0.593</td>
-<td style="text-align: right;">4858.023</td>
-<td style="text-align: right;">0.553</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36a</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">1.529</td>
-<td style="text-align: right;">490.598</td>
-<td style="text-align: right;">0.127</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36b</td>
-<td style="text-align: right;">-0.012</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-2.321</td>
-<td style="text-align: right;">408.077</td>
-<td style="text-align: right;">0.021</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36c</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.155</td>
-<td style="text-align: right;">801.608</td>
-<td style="text-align: right;">0.249</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36f</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">1.997</td>
-<td style="text-align: right;">1130.368</td>
-<td style="text-align: right;">0.046</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L50</td>
-<td style="text-align: right;">0.349</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">39.326</td>
-<td style="text-align: right;">2794.363</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B1:CO2</td>
-<td style="text-align: right;">-0.008</td>
-<td style="text-align: right;">0.013</td>
-<td style="text-align: right;">-0.598</td>
-<td style="text-align: right;">462.861</td>
-<td style="text-align: right;">0.550</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: H1 ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.26      0.07     0.17     0.43 1.00    19849    30061
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -0.10      0.09    -0.29     0.08 1.02     3168
+B1                          0.14      0.04     0.06     0.22 1.06      660
+CO2                         0.04      0.03    -0.02     0.11 1.14      319
+ECS_SELECTED_CH_GENDER1     0.01      0.01    -0.01     0.04 1.01     4595
+ECS_SELECTED_CH_AGE        -0.01      0.00    -0.02    -0.00 1.01     6353
+A12                        -0.04      0.03    -0.09     0.01 1.02     2000
+A13                        -0.08      0.02    -0.11    -0.05 1.02     2003
+L1                         -0.13      0.16    -0.43     0.18 1.01     3310
+L4                         -0.02      0.02    -0.05     0.01 1.03     1592
+INCOME.L                    0.09      0.02     0.06     0.13 1.08      530
+INCOME.Q                    0.00      0.01    -0.02     0.03 1.02     1715
+INCOME.C                    0.01      0.02    -0.02     0.04 1.06      664
+L92                         0.01      0.02    -0.03     0.04 1.02     2245
+L93                        -0.03      0.02    -0.07     0.01 1.02     2340
+L11.L                       0.03      0.02     0.00     0.07 1.04     1132
+L11.Q                      -0.04      0.01    -0.07    -0.01 1.03     1463
+L12                         0.05      0.02     0.02     0.08 1.02     1935
+L14                        -0.04      0.02    -0.08     0.01 1.03     1545
+L18                         0.00      0.03    -0.05     0.06 1.02     2198
+L36a                        0.03      0.02    -0.01     0.06 1.09      448
+L36b                       -0.03      0.02    -0.07     0.01 1.11      389
+L36c                       -0.02      0.02    -0.06     0.01 1.10      416
+L36f                        0.00      0.02    -0.03     0.04 1.08      501
+L50                         1.17      0.04     1.10     1.25 1.05      809
+B1:CO2                     -0.04      0.05    -0.14     0.06 1.11      397
+                        Tail_ESS
+Intercept                  26733
+B1                          3003
+CO2                          978
+ECS_SELECTED_CH_GENDER1    49037
+ECS_SELECTED_CH_AGE        50471
+A12                        26042
+A13                        18414
+L1                         41789
+L4                         10049
+INCOME.L                    2284
+INCOME.Q                    7817
+INCOME.C                    3313
+L92                        32572
+L93                        38516
+L11.L                       6628
+L11.Q                      12749
+L12                        10302
+L14                         9676
+L18                        16509
+L36a                         990
+L36b                        1306
+L36c                        1482
+L36f                        2098
+L50                         5375
+B1:CO2                      1638
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     8.83      0.12     8.59     9.07 1.03     1286     8260
+zoi     0.15      0.00     0.14     0.15 1.01     7102    48327
+coi     0.95      0.01     0.94     0.96 1.02     1999    14999
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -1608,231 +876,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>internet_swbs_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>internet_swbs_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.544</td>
-<td style="text-align: right;">0.012</td>
-<td style="text-align: right;">44.370</td>
-<td style="text-align: right;">8850.181</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B1</td>
-<td style="text-align: right;">0.021</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">3.024</td>
-<td style="text-align: right;">1823.400</td>
-<td style="text-align: right;">0.003</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-1.243</td>
-<td style="text-align: right;">1111.350</td>
-<td style="text-align: right;">0.214</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">3.374</td>
-<td style="text-align: right;">11546.194</td>
-<td style="text-align: right;">0.001</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">6.649</td>
-<td style="text-align: right;">11772.093</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.102</td>
-<td style="text-align: right;">11605.000</td>
-<td style="text-align: right;">0.919</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.004</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">-1.484</td>
-<td style="text-align: right;">11320.252</td>
-<td style="text-align: right;">0.138</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.027</td>
-<td style="text-align: right;">0.289</td>
-<td style="text-align: right;">10622.389</td>
-<td style="text-align: right;">0.773</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">-1.952</td>
-<td style="text-align: right;">9204.319</td>
-<td style="text-align: right;">0.051</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">2.201</td>
-<td style="text-align: right;">1520.744</td>
-<td style="text-align: right;">0.028</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">1.252</td>
-<td style="text-align: right;">4473.286</td>
-<td style="text-align: right;">0.211</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">1.586</td>
-<td style="text-align: right;">2639.433</td>
-<td style="text-align: right;">0.113</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.685</td>
-<td style="text-align: right;">6147.414</td>
-<td style="text-align: right;">0.493</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.911</td>
-<td style="text-align: right;">4470.097</td>
-<td style="text-align: right;">0.362</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">-0.001</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">-0.226</td>
-<td style="text-align: right;">7173.545</td>
-<td style="text-align: right;">0.821</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.004</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">-1.668</td>
-<td style="text-align: right;">8442.625</td>
-<td style="text-align: right;">0.095</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.011</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">3.899</td>
-<td style="text-align: right;">7839.034</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.451</td>
-<td style="text-align: right;">4936.077</td>
-<td style="text-align: right;">0.147</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L18</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">1.812</td>
-<td style="text-align: right;">8382.809</td>
-<td style="text-align: right;">0.070</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36a</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">1.389</td>
-<td style="text-align: right;">493.346</td>
-<td style="text-align: right;">0.165</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36b</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.395</td>
-<td style="text-align: right;">433.105</td>
-<td style="text-align: right;">0.164</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36c</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">-2.118</td>
-<td style="text-align: right;">1214.128</td>
-<td style="text-align: right;">0.034</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36f</td>
-<td style="text-align: right;">-0.001</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">-0.336</td>
-<td style="text-align: right;">659.891</td>
-<td style="text-align: right;">0.737</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CG_CW_SWBS</td>
-<td style="text-align: right;">0.235</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">29.441</td>
-<td style="text-align: right;">6717.667</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B1:CO2</td>
-<td style="text-align: right;">0.016</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">1.822</td>
-<td style="text-align: right;">1533.739</td>
-<td style="text-align: right;">0.069</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: CW_SWBS ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.13      0.03     0.08     0.21 1.00    19651    31127
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                   0.20      0.06     0.08     0.32 1.01     4031
+B1                          0.05      0.04    -0.02     0.12 1.04     1131
+CO2                        -0.05      0.03    -0.10     0.01 1.06      654
+ECS_SELECTED_CH_GENDER1     0.03      0.01     0.00     0.05 1.00    20827
+ECS_SELECTED_CH_AGE         0.02      0.00     0.01     0.03 1.00    25136
+A12                         0.02      0.02    -0.03     0.06 1.00    14896
+A13                        -0.03      0.01    -0.06    -0.00 1.00    20504
+L1                          0.14      0.14    -0.13     0.41 1.00    31532
+L4                         -0.04      0.01    -0.07    -0.01 1.01     6323
+INCOME.L                    0.03      0.01    -0.00     0.06 1.05      768
+INCOME.Q                    0.00      0.01    -0.02     0.03 1.02     1891
+INCOME.C                    0.02      0.01    -0.01     0.05 1.04     1048
+L92                         0.02      0.02    -0.01     0.05 1.02     2223
+L93                         0.02      0.02    -0.02     0.06 1.03     1358
+L11.L                      -0.00      0.01    -0.03     0.03 1.01     3651
+L11.Q                      -0.02      0.01    -0.04     0.01 1.01     3987
+L12                         0.04      0.01     0.02     0.07 1.01     3456
+L14                         0.01      0.02    -0.02     0.05 1.03     1369
+L18                         0.02      0.02    -0.03     0.06 1.01     3488
+L36a                        0.03      0.02    -0.01     0.06 1.10      438
+L36b                       -0.01      0.02    -0.04     0.03 1.13      337
+L36c                       -0.03      0.02    -0.06    -0.00 1.06      680
+L36f                       -0.00      0.02    -0.03     0.03 1.06      657
+CG_CW_SWBS                  1.00      0.04     0.92     1.07 1.02     2117
+B1:CO2                      0.10      0.04     0.01     0.18 1.05      910
+                        Tail_ESS
+Intercept                  39510
+B1                          5326
+CO2                         1933
+ECS_SELECTED_CH_GENDER1    49806
+ECS_SELECTED_CH_AGE        54611
+A12                        57608
+A13                        59689
+L1                         51815
+L4                         47672
+INCOME.L                    3706
+INCOME.Q                   15798
+INCOME.C                    5070
+L92                        21057
+L93                         8169
+L11.L                      46593
+L11.Q                      50522
+L12                        52346
+L14                         8618
+L18                        49743
+L36a                        1737
+L36b                        1510
+L36c                        4133
+L36f                        3503
+CG_CW_SWBS                 21385
+B1:CO2                      4423
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi    11.50      0.15    11.21    11.80 1.01     6045    48790
+zoi     0.06      0.00     0.06     0.07 1.00   136471    53673
+coi     0.99      0.00     0.99     1.00 1.01     5362    44083
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -1841,231 +962,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>internet_anx_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>internet_anx_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.066</td>
-<td style="text-align: right;">0.019</td>
-<td style="text-align: right;">3.542</td>
-<td style="text-align: right;">11335.971</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B1</td>
-<td style="text-align: right;">0.035</td>
-<td style="text-align: right;">0.011</td>
-<td style="text-align: right;">3.131</td>
-<td style="text-align: right;">4920.205</td>
-<td style="text-align: right;">0.002</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">0.949</td>
-<td style="text-align: right;">2419.738</td>
-<td style="text-align: right;">0.343</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.016</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">3.991</td>
-<td style="text-align: right;">10232.483</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.011</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">9.298</td>
-<td style="text-align: right;">11321.583</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">-1.004</td>
-<td style="text-align: right;">11954.671</td>
-<td style="text-align: right;">0.315</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.397</td>
-<td style="text-align: right;">11007.978</td>
-<td style="text-align: right;">0.163</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">0.079</td>
-<td style="text-align: right;">0.045</td>
-<td style="text-align: right;">1.772</td>
-<td style="text-align: right;">8440.305</td>
-<td style="text-align: right;">0.076</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.018</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">3.934</td>
-<td style="text-align: right;">7951.742</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.643</td>
-<td style="text-align: right;">1918.725</td>
-<td style="text-align: right;">0.520</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-0.093</td>
-<td style="text-align: right;">2177.876</td>
-<td style="text-align: right;">0.926</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.639</td>
-<td style="text-align: right;">3789.651</td>
-<td style="text-align: right;">0.523</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">-0.007</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.350</td>
-<td style="text-align: right;">10120.748</td>
-<td style="text-align: right;">0.177</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-0.831</td>
-<td style="text-align: right;">8124.662</td>
-<td style="text-align: right;">0.406</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.934</td>
-<td style="text-align: right;">5652.876</td>
-<td style="text-align: right;">0.350</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">0.014</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">3.400</td>
-<td style="text-align: right;">9898.114</td>
-<td style="text-align: right;">0.001</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">-0.002</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.386</td>
-<td style="text-align: right;">5976.557</td>
-<td style="text-align: right;">0.700</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-0.481</td>
-<td style="text-align: right;">10387.058</td>
-<td style="text-align: right;">0.631</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L18</td>
-<td style="text-align: right;">0.022</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">2.875</td>
-<td style="text-align: right;">7125.590</td>
-<td style="text-align: right;">0.004</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36a</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.557</td>
-<td style="text-align: right;">2009.730</td>
-<td style="text-align: right;">0.577</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36b</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">0.951</td>
-<td style="text-align: right;">359.506</td>
-<td style="text-align: right;">0.342</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36c</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.455</td>
-<td style="text-align: right;">657.893</td>
-<td style="text-align: right;">0.649</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36f</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.926</td>
-<td style="text-align: right;">1039.320</td>
-<td style="text-align: right;">0.355</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CG_ANX</td>
-<td style="text-align: right;">0.253</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">31.682</td>
-<td style="text-align: right;">3084.304</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B1:CO2</td>
-<td style="text-align: right;">-0.002</td>
-<td style="text-align: right;">0.014</td>
-<td style="text-align: right;">-0.109</td>
-<td style="text-align: right;">3713.672</td>
-<td style="text-align: right;">0.913</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: ANX ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.26      0.07     0.16     0.42 1.00    17596    28258
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -1.88      0.10    -2.07    -1.69 1.01    15457
+B1                          0.14      0.05     0.04     0.25 1.02     2911
+CO2                         0.03      0.04    -0.05     0.12 1.04     1186
+ECS_SELECTED_CH_GENDER1     0.07      0.02     0.03     0.10 1.01     6237
+ECS_SELECTED_CH_AGE         0.05      0.01     0.04     0.06 1.00   104697
+A12                        -0.07      0.04    -0.14     0.00 1.00    81905
+A13                        -0.03      0.02    -0.07     0.01 1.00    34704
+L1                          0.29      0.22    -0.14     0.72 1.01     3235
+L4                          0.06      0.02     0.02     0.11 1.01     4468
+INCOME.L                   -0.00      0.02    -0.05     0.04 1.04     1085
+INCOME.Q                   -0.02      0.02    -0.07     0.02 1.04     1129
+INCOME.C                   -0.01      0.02    -0.06     0.03 1.02     2092
+L92                        -0.03      0.02    -0.08     0.02 1.01     6141
+L93                        -0.03      0.03    -0.09     0.03 1.01     3430
+L11.L                       0.02      0.02    -0.03     0.06 1.01     3891
+L11.Q                       0.07      0.02     0.03     0.11 1.01    11857
+L12                        -0.01      0.02    -0.05     0.04 1.01     3586
+L14                         0.00      0.03    -0.06     0.06 1.01    14598
+L18                         0.06      0.04    -0.01     0.14 1.01     3905
+L36a                       -0.01      0.03    -0.06     0.03 1.04     1081
+L36b                        0.03      0.03    -0.03     0.08 1.07      580
+L36c                        0.01      0.02    -0.03     0.06 1.05      806
+L36f                        0.02      0.03    -0.03     0.07 1.04      958
+CG_ANX                      1.09      0.04     1.02     1.17 1.03     1463
+B1:CO2                     -0.00      0.07    -0.14     0.13 1.02     2001
+                        Tail_ESS
+Intercept                  28120
+B1                         26097
+CO2                         8482
+ECS_SELECTED_CH_GENDER1    55299
+ECS_SELECTED_CH_AGE        57220
+A12                        57311
+A13                        57648
+L1                         17609
+L4                         25386
+INCOME.L                    6209
+INCOME.Q                    6039
+INCOME.C                   14327
+L92                        52540
+L93                        43726
+L11.L                      43771
+L11.Q                      55786
+L12                        52554
+L14                        55037
+L18                        48552
+L36a                        3072
+L36b                        2399
+L36c                        3721
+L36f                        4727
+CG_ANX                      9991
+B1:CO2                     21425
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     3.09      0.04     3.01     3.17 1.01    11533    56554
+zoi     0.06      0.00     0.05     0.06 1.00    93639    54607
+coi     0.01      0.00     0.00     0.01 1.00    88297    43863
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -2074,231 +1048,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>internet_cesd_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>internet_cesd_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.758</td>
-<td style="text-align: right;">0.017</td>
-<td style="text-align: right;">45.788</td>
-<td style="text-align: right;">4888.936</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B1</td>
-<td style="text-align: right;">-0.011</td>
-<td style="text-align: right;">0.011</td>
-<td style="text-align: right;">-1.026</td>
-<td style="text-align: right;">1856.704</td>
-<td style="text-align: right;">0.305</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">-0.048</td>
-<td style="text-align: right;">829.363</td>
-<td style="text-align: right;">0.962</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.646</td>
-<td style="text-align: right;">10404.655</td>
-<td style="text-align: right;">0.100</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">-0.009</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">-7.736</td>
-<td style="text-align: right;">10710.340</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">-0.826</td>
-<td style="text-align: right;">6470.641</td>
-<td style="text-align: right;">0.409</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.984</td>
-<td style="text-align: right;">8691.326</td>
-<td style="text-align: right;">0.325</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">-0.049</td>
-<td style="text-align: right;">0.042</td>
-<td style="text-align: right;">-1.149</td>
-<td style="text-align: right;">3160.876</td>
-<td style="text-align: right;">0.250</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">-0.008</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.804</td>
-<td style="text-align: right;">2965.230</td>
-<td style="text-align: right;">0.071</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">0.013</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">3.110</td>
-<td style="text-align: right;">2146.193</td>
-<td style="text-align: right;">0.002</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.658</td>
-<td style="text-align: right;">923.611</td>
-<td style="text-align: right;">0.511</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">1.064</td>
-<td style="text-align: right;">2420.148</td>
-<td style="text-align: right;">0.288</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">-0.001</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.181</td>
-<td style="text-align: right;">4517.276</td>
-<td style="text-align: right;">0.856</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">-0.021</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-3.799</td>
-<td style="text-align: right;">6275.191</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.765</td>
-<td style="text-align: right;">5187.378</td>
-<td style="text-align: right;">0.445</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.523</td>
-<td style="text-align: right;">3888.539</td>
-<td style="text-align: right;">0.128</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.134</td>
-<td style="text-align: right;">5050.788</td>
-<td style="text-align: right;">0.894</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.002</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.338</td>
-<td style="text-align: right;">6218.877</td>
-<td style="text-align: right;">0.735</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L18</td>
-<td style="text-align: right;">0.020</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">2.819</td>
-<td style="text-align: right;">3605.904</td>
-<td style="text-align: right;">0.005</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36a</td>
-<td style="text-align: right;">-0.003</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-0.632</td>
-<td style="text-align: right;">613.716</td>
-<td style="text-align: right;">0.528</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36b</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.136</td>
-<td style="text-align: right;">360.472</td>
-<td style="text-align: right;">0.892</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36c</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.162</td>
-<td style="text-align: right;">518.399</td>
-<td style="text-align: right;">0.246</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36f</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.011</td>
-<td style="text-align: right;">1256.266</td>
-<td style="text-align: right;">0.312</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CG_CES_D</td>
-<td style="text-align: right;">0.162</td>
-<td style="text-align: right;">0.010</td>
-<td style="text-align: right;">16.898</td>
-<td style="text-align: right;">2607.992</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B1:CO2</td>
-<td style="text-align: right;">-0.002</td>
-<td style="text-align: right;">0.013</td>
-<td style="text-align: right;">-0.122</td>
-<td style="text-align: right;">1031.334</td>
-<td style="text-align: right;">0.903</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: CES_D ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.22      0.06     0.14     0.36 1.00    19221    31476
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                   1.16      0.10     0.97     1.35 1.01     6179
+B1                         -0.04      0.06    -0.15     0.07 1.02     1953
+CO2                        -0.02      0.04    -0.10     0.07 1.04     1033
+ECS_SELECTED_CH_GENDER1    -0.03      0.02    -0.07     0.01 1.00    23529
+ECS_SELECTED_CH_AGE        -0.04      0.01    -0.05    -0.03 1.00    96118
+A12                        -0.02      0.04    -0.09     0.05 1.01     7025
+A13                         0.02      0.02    -0.03     0.06 1.01     7597
+L1                         -0.25      0.22    -0.68     0.19 1.01     2902
+L4                         -0.02      0.02    -0.07     0.02 1.02     2523
+INCOME.L                    0.08      0.02     0.04     0.13 1.02     1679
+INCOME.Q                    0.01      0.02    -0.03     0.05 1.05      896
+INCOME.C                    0.01      0.02    -0.03     0.06 1.02     1985
+L92                         0.01      0.02    -0.04     0.06 1.01     3190
+L93                        -0.10      0.03    -0.15    -0.04 1.01    18641
+L11.L                       0.03      0.02    -0.02     0.07 1.01     5008
+L11.Q                      -0.03      0.02    -0.08     0.01 1.02     2588
+L12                        -0.01      0.02    -0.05     0.04 1.01     6061
+L14                        -0.03      0.03    -0.09     0.02 1.01     4521
+L18                         0.10      0.04     0.02     0.17 1.01     5051
+L36a                       -0.00      0.03    -0.05     0.05 1.06      694
+L36b                        0.01      0.03    -0.05     0.06 1.07      625
+L36c                       -0.02      0.02    -0.07     0.03 1.06      647
+L36f                       -0.02      0.03    -0.07     0.03 1.05      914
+CG_CES_D                    0.76      0.05     0.66     0.85 1.02     2145
+B1:CO2                     -0.01      0.07    -0.15     0.13 1.04     1217
+                        Tail_ESS
+Intercept                  36847
+B1                         21638
+CO2                         4943
+ECS_SELECTED_CH_GENDER1    53747
+ECS_SELECTED_CH_AGE        54310
+A12                        55554
+A13                        55319
+L1                         25666
+L4                         42265
+INCOME.L                   15149
+INCOME.Q                    4629
+INCOME.C                   38141
+L92                        52325
+L93                        59969
+L11.L                      58446
+L11.Q                      23064
+L12                        52307
+L14                        53143
+L18                        50682
+L36a                        3044
+L36b                        2537
+L36c                        2435
+L36f                        6310
+CG_CES_D                   19899
+B1:CO2                      7646
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     3.07      0.04     2.99     3.16 1.02     2207    10420
+zoi     0.06      0.00     0.05     0.06 1.00    36453    50472
+coi     1.00      0.00     0.99     1.00 1.00   104701    41593
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -2307,7 +1134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>internet_sh_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>internet_sh_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -2540,231 +1367,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>internet_paykel_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>internet_paykel_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.040</td>
-<td style="text-align: right;">0.021</td>
-<td style="text-align: right;">1.879</td>
-<td style="text-align: right;">11257.304</td>
-<td style="text-align: right;">0.060</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B1</td>
-<td style="text-align: right;">0.019</td>
-<td style="text-align: right;">0.011</td>
-<td style="text-align: right;">1.695</td>
-<td style="text-align: right;">3157.305</td>
-<td style="text-align: right;">0.090</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">-0.014</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">-1.502</td>
-<td style="text-align: right;">1651.088</td>
-<td style="text-align: right;">0.133</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.027</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">6.864</td>
-<td style="text-align: right;">6809.260</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">5.372</td>
-<td style="text-align: right;">6907.428</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">1.192</td>
-<td style="text-align: right;">6713.647</td>
-<td style="text-align: right;">0.233</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">-1.303</td>
-<td style="text-align: right;">8696.684</td>
-<td style="text-align: right;">0.193</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">0.049</td>
-<td style="text-align: right;">0.045</td>
-<td style="text-align: right;">1.102</td>
-<td style="text-align: right;">11294.404</td>
-<td style="text-align: right;">0.271</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">1.717</td>
-<td style="text-align: right;">9364.621</td>
-<td style="text-align: right;">0.086</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">-0.027</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-5.711</td>
-<td style="text-align: right;">948.397</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">2.026</td>
-<td style="text-align: right;">1614.796</td>
-<td style="text-align: right;">0.043</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">-0.006</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-1.264</td>
-<td style="text-align: right;">1207.075</td>
-<td style="text-align: right;">0.206</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.001</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.142</td>
-<td style="text-align: right;">4407.118</td>
-<td style="text-align: right;">0.887</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">0.010</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">1.665</td>
-<td style="text-align: right;">5781.647</td>
-<td style="text-align: right;">0.096</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">-0.010</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">-2.108</td>
-<td style="text-align: right;">3995.981</td>
-<td style="text-align: right;">0.035</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.699</td>
-<td style="text-align: right;">5831.554</td>
-<td style="text-align: right;">0.485</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.003</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.578</td>
-<td style="text-align: right;">3846.594</td>
-<td style="text-align: right;">0.563</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.001</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-0.228</td>
-<td style="text-align: right;">5125.523</td>
-<td style="text-align: right;">0.820</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L18</td>
-<td style="text-align: right;">-0.011</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">-1.452</td>
-<td style="text-align: right;">3312.032</td>
-<td style="text-align: right;">0.147</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36a</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">0.309</td>
-<td style="text-align: right;">734.795</td>
-<td style="text-align: right;">0.757</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36b</td>
-<td style="text-align: right;">-0.010</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">-1.661</td>
-<td style="text-align: right;">227.298</td>
-<td style="text-align: right;">0.098</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36c</td>
-<td style="text-align: right;">0.007</td>
-<td style="text-align: right;">0.006</td>
-<td style="text-align: right;">1.204</td>
-<td style="text-align: right;">180.785</td>
-<td style="text-align: right;">0.230</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36f</td>
-<td style="text-align: right;">0.011</td>
-<td style="text-align: right;">0.005</td>
-<td style="text-align: right;">2.105</td>
-<td style="text-align: right;">1237.199</td>
-<td style="text-align: right;">0.035</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CG_PAYKEL</td>
-<td style="text-align: right;">0.097</td>
-<td style="text-align: right;">0.012</td>
-<td style="text-align: right;">8.235</td>
-<td style="text-align: right;">1021.873</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B1:CO2</td>
-<td style="text-align: right;">0.024</td>
-<td style="text-align: right;">0.014</td>
-<td style="text-align: right;">1.678</td>
-<td style="text-align: right;">2352.065</td>
-<td style="text-align: right;">0.094</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: zero_one_inflated_beta 
+  Links: mu = logit; phi = identity; zoi = identity; coi = identity 
+Formula: PAYKEL ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 72000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.22      0.06     0.14     0.36 1.00    20518    33192
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -2.24      0.09    -2.42    -2.06 1.00    20702
+B1                          0.07      0.06    -0.05     0.18 1.01     3660
+CO2                        -0.03      0.05    -0.12     0.06 1.01     3621
+ECS_SELECTED_CH_GENDER1     0.08      0.02     0.03     0.12 1.00    19578
+ECS_SELECTED_CH_AGE         0.02      0.01     0.01     0.03 1.01    11442
+A12                         0.04      0.04    -0.04     0.11 1.01     8679
+A13                        -0.00      0.02    -0.05     0.04 1.00    92451
+L1                          0.37      0.23    -0.10     0.82 1.00    49260
+L4                          0.03      0.02    -0.02     0.08 1.01    15230
+INCOME.L                   -0.09      0.02    -0.13    -0.04 1.01     3048
+INCOME.Q                    0.03      0.02    -0.02     0.08 1.01     3262
+INCOME.C                   -0.02      0.02    -0.07     0.03 1.02     2392
+L92                        -0.00      0.03    -0.05     0.05 1.01     4289
+L93                         0.03      0.03    -0.03     0.10 1.01     5023
+L11.L                      -0.04      0.03    -0.09     0.01 1.00    14456
+L11.Q                       0.03      0.02    -0.02     0.07 1.00    20149
+L12                         0.01      0.02    -0.04     0.06 1.01     7786
+L14                         0.00      0.03    -0.06     0.06 1.01     6992
+L18                        -0.02      0.04    -0.10     0.06 1.01     5958
+L36a                        0.02      0.03    -0.03     0.07 1.02     2650
+L36b                       -0.03      0.03    -0.09     0.03 1.04     1090
+L36c                        0.04      0.03    -0.02     0.09 1.06      646
+L36f                        0.05      0.03    -0.00     0.10 1.02     1838
+CG_PAYKEL                   0.33      0.06     0.21     0.45 1.03     1531
+B1:CO2                      0.05      0.07    -0.10     0.19 1.01     3171
+                        Tail_ESS
+Intercept                  35088
+B1                         53468
+CO2                        52176
+ECS_SELECTED_CH_GENDER1    52586
+ECS_SELECTED_CH_AGE        53175
+A12                        57420
+A13                        58457
+L1                         52739
+L4                         53392
+INCOME.L                   39204
+INCOME.Q                   42956
+INCOME.C                   33720
+L92                        55483
+L93                        55611
+L11.L                      56880
+L11.Q                      54796
+L12                        53813
+L14                        48676
+L18                        50328
+L36a                       30699
+L36b                        5989
+L36c                        2804
+L36f                       21028
+CG_PAYKEL                   9334
+B1:CO2                     46106
+
+Family Specific Parameters: 
+    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi     2.70      0.05     2.61     2.79 1.03     1545     9078
+zoi     0.14      0.00     0.14     0.15 1.01    13056    50926
+coi     0.11      0.01     0.09     0.12 1.01     6141    50909
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>

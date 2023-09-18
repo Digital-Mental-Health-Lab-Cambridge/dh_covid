@@ -1,0 +1,73 @@
+---
+title: "descriptives_report"
+author: "Thomas E. Metherell"
+date: "2023-09-13"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependencies and target
+
+```{r dependencies}
+library(targets)
+library(mice)
+library(knitr)
+
+data_imputed <- tar_read(data_imputed)
+data_imputed_long <- complete(data_imputed, "long")
+```
+
+## Defining comparison function
+
+```{r function_def}
+lockdown_compare <- function(data, var){
+    print(paste("Lockdown mean:", mean(data[data$CO2 == 1, var])))
+    print(paste("No-lockdown mean:", mean(data[data$CO2 == 0, var])))
+    print(wilcox.test(data[data$CO2 == 1, var], data[data$CO2 == 0, var]))
+}
+```
+
+## Comparing means between lockdown and no-lockdown groups
+### Life satisfaction
+
+```{r ls}
+lockdown_compare(data_imputed_long, "H1")
+```
+
+### CW-SWBS
+
+```{r swbs}
+lockdown_compare(data_imputed_long, "CW_SWBS")
+```
+
+### Anxiety
+
+```{r anx}
+lockdown_compare(data_imputed_long, "ANX")
+```
+
+### CES-D
+
+```{r cesd}
+lockdown_compare(data_imputed_long, "CES_D")
+```
+
+### Self-harm
+
+```{r sh}
+lockdown_compare(data_imputed_long, "H6")
+```
+
+### Paykel suicide scale
+
+```{r paykel}
+lockdown_compare(data_imputed_long, "PAYKEL")
+```
+
+## Correlation matrix
+
+```{r correlation}
+cor(model.matrix(~ ., data_imputed_long[, -(1:7)])[, -1], method = "spearman")[, c("H1", "CW_SWBS", "ANX", "CES_D", "H6", "PAYKEL")] |> round(2) |> kable(format = "markdown")
+```

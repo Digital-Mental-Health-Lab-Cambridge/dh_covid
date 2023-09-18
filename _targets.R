@@ -1,8 +1,10 @@
 library(targets)
 library(tarchetypes)
+library(brms)
 library(broom.mixed)
 library(data.table)
 library(dplyr)
+library(future)
 library(ggplot2)
 library(lavaan)
 library(lme4)
@@ -244,35 +246,44 @@ list(
         )
     ),
 
+    tar_quarto(
+        descriptives_report,
+        "descriptives_report.Qmd"
+    ),
+
     tar_target(
         connection_ls_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "H1 ~ CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50 + (1 | COUNTRY)"
+            "H1",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50"
         )
     ),
 
     tar_target(
         connection_swbs_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "CW_SWBS ~ CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS + (1 | COUNTRY)"
+            "CW_SWBS",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS"
         )
     ),
 
     tar_target(
         connection_anx_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "ANX ~ CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX + (1 | COUNTRY)"
+            "ANX",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX"
         )
     ),
 
     tar_target(
         connection_cesd_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "CES_D ~ CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D + (1 | COUNTRY)"
+            "CES_D",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D"
         )
     ),
 
@@ -286,41 +297,46 @@ list(
 
     tar_target(
         connection_paykel_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "PAYKEL ~ CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL + (1 | COUNTRY)"
+            "PAYKEL",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL"
         )
     ),
 
     tar_target(
         internet_ls_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "H1 ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + (1 | COUNTRY)"
+            "H1", 
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50"
         )
     ),
 
     tar_target(
         internet_swbs_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "CW_SWBS ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + (1 | COUNTRY)"
+            "CW_SWBS",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS"
         )
     ),
 
     tar_target(
         internet_anx_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "ANX ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + (1 | COUNTRY)"
+            "ANX",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX"
         )
     ),
 
     tar_target(
         internet_cesd_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "CES_D ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + (1 | COUNTRY)"
+            "CES_D",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D"
         )
     ),
 
@@ -334,9 +350,10 @@ list(
 
     tar_target(
         internet_paykel_model,
-        linear_mixed_model(
+        zoib_mixed_model(
             data_imputed,
-            "PAYKEL ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + (1 | COUNTRY)"
+            "PAYKEL",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL"
         )
     ),
 

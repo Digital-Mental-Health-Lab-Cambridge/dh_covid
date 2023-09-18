@@ -32,7 +32,7 @@ internet_paykel_model <- tar_read(internet_paykel_model)
 ## Rounding values
 
 ```{r round}
-for(obj_name in ls()){
+for(obj_name in c("connection_sh_model", "internet_sh_model")){
     obj <- get(obj_name)
 
     for(i in 1:ncol(obj)){
@@ -49,25 +49,25 @@ for(obj_name in ls()){
 ### Life satisfaction
 
 ```{r conn_ls}
-connection_ls_model |> kable(format = "markdown")
+connection_ls_model
 ```
 
 ### CW-SWBS
 
 ```{r conn_swbs}
-connection_swbs_model |> kable(format = "markdown")
+connection_swbs_model
 ```
 
 ### Anxiety
 
 ```{r conn_anx}
-connection_anx_model |> kable(format = "markdown")
+connection_anx_model
 ```
 
 ### CES-D
 
 ```{r conn_cesd}
-connection_cesd_model |> kable(format = "markdown")
+connection_cesd_model
 ```
 
 ### Self-harm
@@ -79,32 +79,32 @@ connection_sh_model |> kable(format = "markdown")
 ### Paykel suicide scale
 
 ```{r conn_paykel}
-connection_paykel_model |> kable(format = "markdown")
+connection_paykel_model
 ```
 
 ## Models for internet use frequency
 ### Life satisfaction
 
 ```{r int_ls}
-internet_ls_model |> kable(format = "markdown")
+internet_ls_model
 ```
 
 ### CW-SWBS
 
 ```{r int_swbs}
-internet_swbs_model |> kable(format = "markdown")
+internet_swbs_model
 ```
 
 ### Anxiety
 
 ```{r int_anx}
-internet_anx_model |> kable(format = "markdown")
+internet_anx_model
 ```
 
 ### CES-D
 
 ```{r int_cesd}
-internet_cesd_model |> kable(format = "markdown")
+internet_cesd_model
 ```
 
 ### Self-harm
@@ -116,5 +116,5 @@ internet_sh_model |> kable(format = "markdown")
 ### Paykel suicide scale
 
 ```{r int_paykel}
-internet_paykel_model |> kable(format = "markdown")
+internet_paykel_model
 ```
