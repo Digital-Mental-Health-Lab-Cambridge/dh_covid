@@ -291,7 +291,8 @@ list(
         connection_sh_model,
         logistic_mixed_model(
             data_imputed,
-            "H6 ~ CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41 + (1 | COUNTRY)"
+            "H6",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41"
         )
     ),
 
@@ -344,7 +345,8 @@ list(
         internet_sh_model,
         logistic_mixed_model(
             data_imputed,
-            "H6 ~ B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + (1 | COUNTRY)"
+            "H6",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41"
         )
     ),
 

@@ -338,18 +338,18 @@ imputations_delist <- function(mids_list){
     return(data_imputed)
 }
 
-logistic_mixed_model <- function(data, formula){
-    model_fit <- with(data, glmer(as.formula(formula), family = "binomial"))
-    results <- summary(pool(model_fit))
+logistic_mixed_model <- function(data, y, formula_RHS){
+    plan(multisession, workers = availableCores() - 2)
 
-    return(results)
+    model_fit <- brm_multiple(bf(as.formula(paste(y, "~", formula_RHS, "+ (1 | COUNTRY)"))), data, family = bernoulli(), chains = 1)
+
+    return(model_fit)
 }
 
 zoib_mixed_model <- function(data, y, formula_RHS){
     plan(multisession, workers = availableCores() - 2)
 
-    model_fit <- brm_multiple(bf(as.formula(paste(y, "~", formula_RHS, "+ (1 | COUNTRY)"))), data, family = zero_one_inflated_beta())
-    results <- summary(model_fit)
+    model_fit <- brm_multiple(bf(as.formula(paste(y, "~", formula_RHS, "+ (1 | COUNTRY)"))), data, family = zero_one_inflated_beta(), chains = 1)
 
-    return(results)
+    return(model_fit)
 }

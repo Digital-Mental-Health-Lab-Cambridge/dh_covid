@@ -111,7 +111,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#loading-dependencies-and-targets" id="toc-loading-dependencies-and-targets" class="nav-link active" data-scroll-target="#loading-dependencies-and-targets">Loading dependencies and targets</a></li>
-  <li><a href="#rounding-values" id="toc-rounding-values" class="nav-link" data-scroll-target="#rounding-values">Rounding values</a></li>
   <li><a href="#models-for-ability-to-stay-connected-during-lockdown" id="toc-models-for-ability-to-stay-connected-during-lockdown" class="nav-link" data-scroll-target="#models-for-ability-to-stay-connected-during-lockdown">Models for ability to stay connected during lockdown</a>
   <ul class="collapse">
   <li><a href="#life-satisfaction" id="toc-life-satisfaction" class="nav-link" data-scroll-target="#life-satisfaction">Life satisfaction</a></li>
@@ -170,40 +169,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>connection_ls_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_ls_model)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>connection_swbs_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_swbs_model)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>connection_anx_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_anx_model)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>connection_cesd_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_cesd_model)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>connection_sh_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_sh_model)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>connection_paykel_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_paykel_model)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>internet_ls_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_ls_model)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>internet_swbs_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_swbs_model)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>internet_anx_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_anx_model)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>internet_cesd_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_cesd_model)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>internet_sh_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_sh_model)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>internet_paykel_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_paykel_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is bayesplot version 1.10.0</code></pre>
 </div>
-</section>
-<section id="rounding-values" class="level2">
-<h2 class="anchored" data-anchor-id="rounding-values">Rounding values</h2>
-<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>- Online documentation and vignettes at mc-stan.org/bayesplot</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>- bayesplot theme set to bayesplot::theme_default()</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   * Does _not_ affect other ggplot2 plots</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   * See ?bayesplot_theme_set for details on theme setting</code></pre>
+</div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(obj_name <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"connection_sh_model"</span>, <span class="st">"internet_sh_model"</span>)){</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    obj <span class="ot">&lt;-</span> <span class="fu">get</span>(obj_name)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(obj)){</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">is.numeric</span>(obj[, i])){</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            obj[, i] <span class="ot">&lt;-</span> <span class="fu">round</span>(obj[, i], <span class="dv">3</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assign</span>(obj_name, obj)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>connection_ls_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_ls_model)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>connection_swbs_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_swbs_model)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>connection_anx_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_anx_model)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>connection_cesd_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_cesd_model)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>connection_sh_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_sh_model)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>connection_paykel_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(connection_paykel_model)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>internet_ls_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_ls_model)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>internet_swbs_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_swbs_model)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>internet_anx_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_anx_model)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>internet_cesd_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_cesd_model)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>internet_sh_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_sh_model)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>internet_paykel_model <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(internet_paykel_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -214,70 +211,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>connection_ls_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(connection_ls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_ls-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_ls-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_ls-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_ls-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_ls-5.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(connection_ls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: H1 ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50 + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.28      0.07     0.18     0.46 1.00    17220    30816
+sd(Intercept)     0.28      0.07     0.18     0.46 1.00     4447     6519
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                  -0.12      0.20    -0.50     0.27 1.34      166
-CO2                         0.07      0.18    -0.27     0.41 1.49      133
-CO3                         0.07      0.17    -0.28     0.40 1.49      134
-ECS_SELECTED_CH_GENDER1     0.01      0.01    -0.02     0.04 1.01     7222
-ECS_SELECTED_CH_AGE        -0.01      0.00    -0.01     0.00 1.01     5540
-A12                        -0.04      0.02    -0.09     0.01 1.02     1705
-A13                        -0.08      0.02    -0.11    -0.05 1.03     1553
-L1                         -0.14      0.16    -0.45     0.16 1.01     3268
-L4                         -0.02      0.02    -0.05     0.01 1.03     1362
-INCOME.L                    0.10      0.02     0.06     0.13 1.08      535
-INCOME.Q                    0.01      0.01    -0.02     0.03 1.02     1680
-INCOME.C                    0.01      0.02    -0.02     0.04 1.06      703
-L92                         0.01      0.02    -0.02     0.04 1.02     2153
-L93                        -0.02      0.02    -0.06     0.02 1.02     2428
-L11.L                       0.04      0.02     0.01     0.07 1.03     1275
-L11.Q                      -0.04      0.01    -0.07    -0.01 1.03     1543
-L12                         0.05      0.02     0.02     0.08 1.02     2636
-L14                        -0.04      0.02    -0.08     0.00 1.03     1467
-L50                         1.18      0.04     1.11     1.25 1.05      824
-CO2:CO3                    -0.04      0.18    -0.38     0.30 1.48      135
+Intercept                  -0.12      0.20    -0.51     0.28 1.35       42
+CO2                         0.07      0.18    -0.27     0.41 1.49       33
+CO3                         0.07      0.17    -0.27     0.40 1.49       34
+ECS_SELECTED_CH_GENDER1     0.01      0.01    -0.02     0.04 1.01     2626
+ECS_SELECTED_CH_AGE        -0.01      0.00    -0.01     0.00 1.01     1645
+A12                        -0.04      0.03    -0.09     0.01 1.02      500
+A13                        -0.08      0.02    -0.11    -0.05 1.03      395
+L1                         -0.15      0.16    -0.45     0.16 1.01     1020
+L4                         -0.02      0.02    -0.05     0.01 1.03      364
+INCOME.L                    0.10      0.02     0.06     0.13 1.08      129
+INCOME.Q                    0.01      0.02    -0.02     0.03 1.02      479
+INCOME.C                    0.01      0.02    -0.02     0.04 1.06      182
+L92                         0.01      0.02    -0.02     0.04 1.02      593
+L93                        -0.02      0.02    -0.06     0.02 1.02      671
+L11.L                       0.04      0.02     0.01     0.07 1.03      324
+L11.Q                      -0.04      0.01    -0.07    -0.01 1.03      425
+L12                         0.05      0.02     0.02     0.08 1.02      711
+L14                        -0.04      0.02    -0.08     0.01 1.03      384
+L50                         1.18      0.04     1.11     1.25 1.05      219
+CO2:CO3                    -0.04      0.18    -0.38     0.30 1.48       34
                         Tail_ESS
-Intercept                    616
-CO2                          453
-CO3                          440
-ECS_SELECTED_CH_GENDER1    49418
-ECS_SELECTED_CH_AGE        51079
-A12                        25352
-A13                         7407
-L1                         21845
-L4                          7653
-INCOME.L                    2666
-INCOME.Q                    9483
-INCOME.C                    3469
-L92                        19219
-L93                        16189
-L11.L                       6782
-L11.Q                      11786
-L12                        49937
-L14                        11532
-L50                         4183
-CO2:CO3                      458
+Intercept                    162
+CO2                          125
+CO3                          112
+ECS_SELECTED_CH_GENDER1    12711
+ECS_SELECTED_CH_AGE        11803
+A12                        11625
+A13                         4234
+L1                         10939
+L4                          5609
+INCOME.L                     668
+INCOME.Q                    8348
+INCOME.C                    1170
+L92                        13398
+L93                        11302
+L11.L                       2414
+L11.Q                      12531
+L12                        11393
+L14                         3525
+L50                         1854
+CO2:CO3                      124
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     8.81      0.12     8.58     9.05 1.03     1247     9289
-zoi     0.15      0.00     0.14     0.15 1.01     7677    51674
-coi     0.95      0.01     0.94     0.96 1.02     1891    12913
+phi     8.81      0.12     8.58     9.05 1.03      335     3418
+zoi     0.15      0.00     0.14     0.15 1.01     2760    11666
+coi     0.95      0.01     0.94     0.96 1.02      528     8654
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -290,70 +311,94 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>connection_swbs_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(connection_swbs_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_swbs-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_swbs-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_swbs-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_swbs-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_swbs-5.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(connection_swbs_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: CW_SWBS ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.12      0.03     0.08     0.20 1.00    19867    33520
+sd(Intercept)     0.12      0.03     0.08     0.20 1.00     4754     8289
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                   0.08      0.17    -0.26     0.41 1.52      128
-CO2                         0.13      0.17    -0.18     0.45 1.63      117
-CO3                         0.14      0.17    -0.17     0.46 1.64      116
-ECS_SELECTED_CH_GENDER1     0.02      0.01    -0.00     0.05 1.00    18518
-ECS_SELECTED_CH_AGE         0.02      0.00     0.02     0.03 1.00   102470
-A12                         0.01      0.02    -0.03     0.06 1.00    19372
-A13                        -0.04      0.01    -0.06    -0.01 1.00    17253
-L1                          0.14      0.14    -0.13     0.41 1.00    16563
-L4                         -0.04      0.01    -0.07    -0.01 1.01     9518
-INCOME.L                    0.03      0.01     0.00     0.06 1.05      864
-INCOME.Q                    0.01      0.01    -0.02     0.03 1.02     1897
-INCOME.C                    0.02      0.01    -0.01     0.05 1.04      961
-L92                         0.03      0.02    -0.01     0.06 1.02     2443
-L93                         0.02      0.02    -0.02     0.06 1.03     1518
-L11.L                       0.00      0.01    -0.02     0.03 1.01     5140
-L11.Q                      -0.02      0.01    -0.05     0.00 1.01     3227
-L12                         0.05      0.01     0.02     0.07 1.01     3450
-L14                         0.01      0.02    -0.03     0.05 1.03     1393
-CG_CW_SWBS                  1.00      0.04     0.92     1.08 1.02     1857
-CO2:CO3                    -0.12      0.17    -0.44     0.19 1.62      117
+Intercept                   0.08      0.18    -0.26     0.41 1.54       32
+CO2                         0.13      0.17    -0.19     0.45 1.65       29
+CO3                         0.14      0.17    -0.17     0.46 1.66       29
+ECS_SELECTED_CH_GENDER1     0.02      0.01    -0.00     0.05 1.00    21832
+ECS_SELECTED_CH_AGE         0.02      0.00     0.02     0.03 1.00    28593
+A12                         0.01      0.02    -0.03     0.06 1.00    17910
+A13                        -0.04      0.01    -0.06    -0.01 1.01    17460
+L1                          0.14      0.14    -0.13     0.41 1.01     9763
+L4                         -0.04      0.01    -0.07    -0.01 1.01     4592
+INCOME.L                    0.03      0.01     0.00     0.06 1.05      230
+INCOME.Q                    0.01      0.01    -0.02     0.03 1.02      584
+INCOME.C                    0.02      0.01    -0.01     0.05 1.04      258
+L92                         0.03      0.02    -0.01     0.06 1.02      774
+L93                         0.02      0.02    -0.02     0.06 1.03      424
+L11.L                       0.00      0.01    -0.02     0.03 1.01     2064
+L11.Q                      -0.02      0.01    -0.05     0.00 1.02     1010
+L12                         0.05      0.01     0.02     0.07 1.01     1075
+L14                         0.01      0.02    -0.03     0.05 1.03      387
+CG_CW_SWBS                  1.00      0.04     0.92     1.08 1.03      425
+CO2:CO3                    -0.12      0.17    -0.44     0.20 1.65       29
                         Tail_ESS
-Intercept                    380
-CO2                          311
-CO3                          300
-ECS_SELECTED_CH_GENDER1    53563
-ECS_SELECTED_CH_AGE        52636
-A12                        57629
-A13                        57945
-L1                         48377
-L4                         50371
-INCOME.L                    3974
-INCOME.Q                   17012
-INCOME.C                    4658
-L92                        19153
-L93                        11998
-L11.L                      56281
-L11.Q                      52885
-L12                        44154
-L14                         8616
-CG_CW_SWBS                 20453
-CO2:CO3                      290
+Intercept                     95
+CO2                           73
+CO3                           73
+ECS_SELECTED_CH_GENDER1    14223
+ECS_SELECTED_CH_AGE        13301
+A12                        14007
+A13                        14187
+L1                         12127
+L4                         11729
+INCOME.L                    1419
+INCOME.Q                   12090
+INCOME.C                    2038
+L92                         8046
+L93                        10691
+L11.L                      13611
+L11.Q                      12764
+L12                        10906
+L14                         3143
+CG_CW_SWBS                 11025
+CO2:CO3                       70
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi    11.47      0.15    11.18    11.77 1.01     6730    51447
-zoi     0.06      0.00     0.06     0.07 1.00    97630    54414
-coi     0.99      0.00     0.99     1.00 1.01     5414    43153
+phi    11.47      0.15    11.19    11.77 1.01     2098    13878
+zoi     0.06      0.00     0.06     0.07 1.00    23955    12971
+coi     0.99      0.00     0.99     1.00 1.01     2120    11449
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -366,70 +411,94 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>connection_anx_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(connection_anx_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_anx-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_anx-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_anx-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_anx-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_anx-5.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(connection_anx_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: ANX ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.27      0.07     0.17     0.43 1.00    22588    35999
+sd(Intercept)     0.27      0.07     0.17     0.43 1.00     5674     9055
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                  -1.71      0.24    -2.21    -1.25 1.28      187
-CO2                        -0.02      0.23    -0.44     0.45 1.36      159
-CO3                        -0.06      0.23    -0.48     0.41 1.36      158
-ECS_SELECTED_CH_GENDER1     0.06      0.02     0.02     0.10 1.01     6663
-ECS_SELECTED_CH_AGE         0.05      0.01     0.04     0.06 1.00    62687
-A12                        -0.07      0.04    -0.14    -0.00 1.00    99257
-A13                        -0.04      0.02    -0.08     0.00 1.00    99157
-L1                          0.29      0.22    -0.14     0.71 1.01     3507
-L4                          0.07      0.02     0.02     0.11 1.01     4604
-INCOME.L                    0.01      0.02    -0.04     0.05 1.04     1083
-INCOME.Q                   -0.02      0.02    -0.07     0.02 1.04     1022
-INCOME.C                   -0.02      0.02    -0.06     0.03 1.02     2436
-L92                        -0.03      0.02    -0.08     0.02 1.01     4319
-L93                        -0.02      0.03    -0.08     0.04 1.01     3035
-L11.L                       0.03      0.02    -0.01     0.08 1.01     3995
-L11.Q                       0.07      0.02     0.03     0.11 1.00    16121
-L12                        -0.00      0.02    -0.04     0.04 1.01     3128
-L14                        -0.00      0.03    -0.06     0.05 1.00    21790
-CG_ANX                      1.10      0.04     1.02     1.18 1.03     1431
-CO2:CO3                     0.05      0.23    -0.42     0.48 1.37      157
+Intercept                  -1.71      0.24    -2.20    -1.25 1.28       47
+CO2                        -0.02      0.23    -0.44     0.45 1.36       40
+CO3                        -0.06      0.23    -0.48     0.41 1.36       40
+ECS_SELECTED_CH_GENDER1     0.06      0.02     0.02     0.10 1.01     3771
+ECS_SELECTED_CH_AGE         0.05      0.01     0.04     0.06 1.00    25646
+A12                        -0.07      0.03    -0.14    -0.00 1.00    26312
+A13                        -0.04      0.02    -0.08     0.00 1.00    26291
+L1                          0.29      0.22    -0.15     0.72 1.01     1192
+L4                          0.07      0.02     0.02     0.11 1.01     2409
+INCOME.L                    0.01      0.02    -0.04     0.05 1.04      293
+INCOME.Q                   -0.02      0.02    -0.07     0.02 1.04      264
+INCOME.C                   -0.02      0.02    -0.06     0.03 1.02      617
+L92                        -0.03      0.02    -0.08     0.02 1.01     1793
+L93                        -0.02      0.03    -0.08     0.03 1.02      797
+L11.L                       0.03      0.02    -0.01     0.08 1.01     1101
+L11.Q                       0.07      0.02     0.03     0.11 1.01     4002
+L12                        -0.00      0.02    -0.05     0.04 1.02      870
+L14                        -0.00      0.03    -0.06     0.05 1.00    26570
+CG_ANX                      1.10      0.04     1.02     1.18 1.03      431
+CO2:CO3                     0.05      0.23    -0.43     0.48 1.37       40
                         Tail_ESS
-Intercept                    373
-CO2                          298
-CO3                          294
-ECS_SELECTED_CH_GENDER1    48523
-ECS_SELECTED_CH_AGE        53079
-A12                        56214
-A13                        58636
-L1                         45863
-L4                         46438
-INCOME.L                    5997
-INCOME.Q                    4101
-INCOME.C                   16839
-L92                        56286
-L93                        29617
-L11.L                      52486
-L11.Q                      55120
-L12                        45721
-L14                        53557
-CG_ANX                      8923
-CO2:CO3                      308
+Intercept                    104
+CO2                           80
+CO3                           78
+ECS_SELECTED_CH_GENDER1    12661
+ECS_SELECTED_CH_AGE        12981
+A12                        12581
+A13                        14723
+L1                         12054
+L4                         12004
+INCOME.L                    4196
+INCOME.Q                    2582
+INCOME.C                   11054
+L92                        14577
+L93                        13244
+L11.L                      13157
+L11.Q                      13410
+L12                        11850
+L14                        13029
+CG_ANX                      3766
+CO2:CO3                       84
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     3.08      0.04     3.01     3.16 1.01    10872    54440
-zoi     0.06      0.00     0.05     0.06 1.00   117181    52423
-coi     0.01      0.00     0.00     0.01 1.00   112458    45065
+phi     3.08      0.04     3.01     3.16 1.01     5965    13411
+zoi     0.06      0.00     0.05     0.06 1.00    30819    11522
+coi     0.01      0.00     0.00     0.01 1.00    28631    10338
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -442,70 +511,94 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>connection_cesd_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(connection_cesd_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_cesd-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_cesd-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_cesd-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_cesd-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_cesd-5.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(connection_cesd_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: CES_D ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.23      0.06     0.14     0.37 1.00    19321    33573
+sd(Intercept)     0.23      0.06     0.14     0.37 1.00     4255     7707
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                   1.05      0.25     0.56     1.54 1.33      168
-CO2                         0.12      0.24    -0.34     0.57 1.40      149
-CO3                         0.13      0.24    -0.33     0.59 1.41      148
-ECS_SELECTED_CH_GENDER1    -0.03      0.02    -0.07     0.01 1.00    14359
-ECS_SELECTED_CH_AGE        -0.05      0.01    -0.06    -0.03 1.00    24753
-A12                        -0.02      0.04    -0.09     0.05 1.01    10076
-A13                         0.01      0.02    -0.03     0.06 1.01    10453
-L1                         -0.26      0.22    -0.69     0.18 1.01     3141
-L4                         -0.03      0.02    -0.07     0.02 1.02     2603
-INCOME.L                    0.09      0.02     0.04     0.13 1.03     1386
-INCOME.Q                    0.01      0.02    -0.03     0.06 1.04      938
-INCOME.C                    0.02      0.02    -0.03     0.06 1.02     1912
-L92                         0.01      0.03    -0.04     0.06 1.01     3054
-L93                        -0.09      0.03    -0.15    -0.03 1.00    16160
-L11.L                       0.04      0.02     0.00     0.09 1.01     5283
-L11.Q                      -0.04      0.02    -0.08     0.00 1.02     2542
-L12                        -0.00      0.02    -0.05     0.04 1.01     5019
-L14                        -0.03      0.03    -0.09     0.02 1.01     3665
-CG_CES_D                    0.76      0.05     0.66     0.86 1.02     2044
-CO2:CO3                    -0.15      0.24    -0.60     0.33 1.40      149
+Intercept                   1.05      0.25     0.56     1.55 1.35       41
+CO2                         0.12      0.24    -0.35     0.57 1.42       37
+CO3                         0.13      0.24    -0.34     0.58 1.42       36
+ECS_SELECTED_CH_GENDER1    -0.03      0.02    -0.07     0.01 1.00    18272
+ECS_SELECTED_CH_AGE        -0.05      0.01    -0.06    -0.03 1.00    22817
+A12                        -0.02      0.04    -0.09     0.05 1.01     7265
+A13                         0.01      0.02    -0.03     0.05 1.01    19664
+L1                         -0.26      0.22    -0.69     0.18 1.01      926
+L4                         -0.03      0.02    -0.07     0.02 1.02      627
+INCOME.L                    0.09      0.02     0.04     0.13 1.03      373
+INCOME.Q                    0.01      0.02    -0.03     0.06 1.05      232
+INCOME.C                    0.02      0.02    -0.03     0.06 1.02      518
+L92                         0.01      0.02    -0.04     0.06 1.01     1079
+L93                        -0.09      0.03    -0.15    -0.03 1.01     9998
+L11.L                       0.05      0.02     0.00     0.09 1.01     2318
+L11.Q                      -0.04      0.02    -0.08     0.00 1.02      594
+L12                        -0.00      0.02    -0.05     0.04 1.01     3388
+L14                        -0.03      0.03    -0.09     0.02 1.01     1086
+CG_CES_D                    0.76      0.05     0.66     0.86 1.02      634
+CO2:CO3                    -0.15      0.24    -0.59     0.33 1.42       37
                         Tail_ESS
-Intercept                    498
-CO2                          388
-CO3                          365
-ECS_SELECTED_CH_GENDER1    53132
-ECS_SELECTED_CH_AGE        52389
-A12                        57884
-A13                        59095
-L1                         40232
-L4                         44935
-INCOME.L                   15601
-INCOME.Q                    5726
-INCOME.C                   16215
-L92                        43324
-L93                        55166
-L11.L                      52560
-L11.Q                      14742
-L12                        55248
-L14                        48227
-CG_CES_D                   16039
-CO2:CO3                      434
+Intercept                    116
+CO2                           95
+CO3                           90
+ECS_SELECTED_CH_GENDER1    13351
+ECS_SELECTED_CH_AGE        13099
+A12                        14639
+A13                        14845
+L1                         11613
+L4                         12450
+INCOME.L                    8937
+INCOME.Q                    2289
+INCOME.C                   11231
+L92                        12746
+L93                        13703
+L11.L                      13557
+L11.Q                       6377
+L12                        13801
+L14                        12890
+CG_CES_D                   10552
+CO2:CO3                      106
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     3.07      0.04     2.99     3.16 1.02     2049    13758
-zoi     0.06      0.00     0.05     0.06 1.00    31267    53320
-coi     1.00      0.00     0.99     1.00 1.00    91345    41786
+phi     3.07      0.04     2.99     3.15 1.02      695     8356
+zoi     0.06      0.00     0.05     0.06 1.00    21369    12496
+coi     1.00      0.00     0.99     1.00 1.00    23715    10078
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -518,191 +611,92 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>connection_sh_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(connection_sh_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 34%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 12%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-2.415</td>
-<td style="text-align: right;">0.700</td>
-<td style="text-align: right;">-3.448</td>
-<td style="text-align: right;">93.654</td>
-<td style="text-align: right;">0.001</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">-0.328</td>
-<td style="text-align: right;">0.662</td>
-<td style="text-align: right;">-0.495</td>
-<td style="text-align: right;">76.541</td>
-<td style="text-align: right;">0.622</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO3</td>
-<td style="text-align: right;">-0.311</td>
-<td style="text-align: right;">0.660</td>
-<td style="text-align: right;">-0.471</td>
-<td style="text-align: right;">76.531</td>
-<td style="text-align: right;">0.639</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.026</td>
-<td style="text-align: right;">0.063</td>
-<td style="text-align: right;">0.418</td>
-<td style="text-align: right;">2834.154</td>
-<td style="text-align: right;">0.676</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.024</td>
-<td style="text-align: right;">0.020</td>
-<td style="text-align: right;">1.191</td>
-<td style="text-align: right;">1813.485</td>
-<td style="text-align: right;">0.234</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">0.147</td>
-<td style="text-align: right;">0.123</td>
-<td style="text-align: right;">1.198</td>
-<td style="text-align: right;">2190.429</td>
-<td style="text-align: right;">0.231</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.065</td>
-<td style="text-align: right;">0.070</td>
-<td style="text-align: right;">-0.928</td>
-<td style="text-align: right;">5377.050</td>
-<td style="text-align: right;">0.353</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">1.842</td>
-<td style="text-align: right;">0.618</td>
-<td style="text-align: right;">2.980</td>
-<td style="text-align: right;">1170.233</td>
-<td style="text-align: right;">0.003</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.109</td>
-<td style="text-align: right;">0.073</td>
-<td style="text-align: right;">1.498</td>
-<td style="text-align: right;">1264.715</td>
-<td style="text-align: right;">0.134</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">-0.261</td>
-<td style="text-align: right;">0.073</td>
-<td style="text-align: right;">-3.577</td>
-<td style="text-align: right;">512.229</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">-0.079</td>
-<td style="text-align: right;">0.068</td>
-<td style="text-align: right;">-1.168</td>
-<td style="text-align: right;">913.480</td>
-<td style="text-align: right;">0.243</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">-0.073</td>
-<td style="text-align: right;">0.073</td>
-<td style="text-align: right;">-1.003</td>
-<td style="text-align: right;">479.081</td>
-<td style="text-align: right;">0.317</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.114</td>
-<td style="text-align: right;">0.083</td>
-<td style="text-align: right;">1.385</td>
-<td style="text-align: right;">2914.514</td>
-<td style="text-align: right;">0.166</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">0.290</td>
-<td style="text-align: right;">0.092</td>
-<td style="text-align: right;">3.149</td>
-<td style="text-align: right;">1696.548</td>
-<td style="text-align: right;">0.002</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">-0.264</td>
-<td style="text-align: right;">0.075</td>
-<td style="text-align: right;">-3.503</td>
-<td style="text-align: right;">1464.043</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.005</td>
-<td style="text-align: right;">0.078</td>
-<td style="text-align: right;">-0.065</td>
-<td style="text-align: right;">723.254</td>
-<td style="text-align: right;">0.948</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.027</td>
-<td style="text-align: right;">0.074</td>
-<td style="text-align: right;">0.364</td>
-<td style="text-align: right;">637.158</td>
-<td style="text-align: right;">0.716</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.109</td>
-<td style="text-align: right;">0.085</td>
-<td style="text-align: right;">-1.291</td>
-<td style="text-align: right;">2946.441</td>
-<td style="text-align: right;">0.197</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L41</td>
-<td style="text-align: right;">0.896</td>
-<td style="text-align: right;">0.087</td>
-<td style="text-align: right;">10.247</td>
-<td style="text-align: right;">676.936</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CO2:CO3</td>
-<td style="text-align: right;">0.379</td>
-<td style="text-align: right;">0.667</td>
-<td style="text-align: right;">0.569</td>
-<td style="text-align: right;">77.350</td>
-<td style="text-align: right;">0.571</td>
-</tr>
-</tbody>
-</table>
+<p><img src="models_report_files/figure-html/conn_sh-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_sh-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_sh-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_sh-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_sh-5.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(connection_sh_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: bernoulli 
+  Links: mu = logit 
+Formula: H6 ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41 + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.76      0.20     0.48     1.24 1.01     4336     9630
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -2.48      0.73    -4.02    -1.17 1.30       46
+CO2                        -0.26      0.68    -1.44     1.23 1.35       41
+CO3                        -0.24      0.67    -1.43     1.23 1.36       41
+ECS_SELECTED_CH_GENDER1     0.03      0.06    -0.10     0.15 1.03      349
+ECS_SELECTED_CH_AGE         0.02      0.02    -0.02     0.06 1.04      275
+A12                         0.14      0.12    -0.10     0.38 1.04      306
+A13                        -0.07      0.07    -0.20     0.07 1.02      521
+L1                          1.81      0.62     0.53     3.00 1.05      199
+L4                          0.11      0.07    -0.03     0.25 1.05      206
+INCOME.L                   -0.26      0.07    -0.40    -0.12 1.10      114
+INCOME.Q                   -0.08      0.07    -0.21     0.05 1.07      150
+INCOME.C                   -0.07      0.07    -0.22     0.07 1.09      118
+L92                         0.12      0.08    -0.05     0.28 1.03      381
+L93                         0.29      0.09     0.11     0.47 1.04      243
+L11.L                      -0.27      0.08    -0.42    -0.12 1.05      211
+L11.Q                      -0.01      0.08    -0.16     0.15 1.08      144
+L12                         0.03      0.07    -0.12     0.17 1.08      133
+L14                        -0.11      0.09    -0.27     0.06 1.03      370
+L41                         0.90      0.09     0.73     1.07 1.08      137
+CO2:CO3                     0.31      0.68    -1.18     1.51 1.35       41
+                        Tail_ESS
+Intercept                    107
+CO2                           93
+CO3                           87
+ECS_SELECTED_CH_GENDER1    10854
+ECS_SELECTED_CH_AGE         1686
+A12                         4679
+A13                        12816
+L1                          1129
+L4                           907
+INCOME.L                     376
+INCOME.Q                     416
+INCOME.C                     457
+L92                         7883
+L93                         2324
+L11.L                       2777
+L11.Q                       1107
+L12                          350
+L14                         3197
+L41                          932
+CO2:CO3                       91
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -711,70 +705,94 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>connection_paykel_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(connection_paykel_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_paykel-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_paykel-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_paykel-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_paykel-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/conn_paykel-5.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(connection_paykel_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: PAYKEL ~ CO2 * CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.21      0.06     0.13     0.35 1.00    20833    34226
+sd(Intercept)     0.21      0.06     0.13     0.35 1.00     5157     8301
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                  -2.13      0.23    -2.58    -1.68 1.18      259
-CO2                        -0.07      0.22    -0.49     0.37 1.22      223
-CO3                        -0.08      0.22    -0.50     0.35 1.22      223
-ECS_SELECTED_CH_GENDER1     0.07      0.02     0.03     0.11 1.00    23660
-ECS_SELECTED_CH_AGE         0.02      0.01     0.01     0.04 1.00    17335
-A12                         0.03      0.04    -0.05     0.11 1.01     6939
-A13                        -0.01      0.02    -0.05     0.04 1.00    70708
-L1                          0.37      0.23    -0.09     0.82 1.00    63095
-L4                          0.03      0.02    -0.02     0.08 1.01     8915
-INCOME.L                   -0.08      0.02    -0.13    -0.03 1.01     3097
-INCOME.Q                    0.03      0.02    -0.02     0.07 1.01     3568
-INCOME.C                   -0.02      0.02    -0.07     0.03 1.02     2634
-L92                         0.00      0.03    -0.05     0.05 1.01     5689
-L93                         0.03      0.03    -0.03     0.10 1.01     5990
-L11.L                      -0.04      0.02    -0.09     0.01 1.01    10311
-L11.Q                       0.02      0.02    -0.02     0.07 1.00    20694
-L12                         0.01      0.02    -0.04     0.06 1.01     7542
-L14                         0.00      0.03    -0.06     0.06 1.01     8244
-CG_PAYKEL                   0.34      0.06     0.22     0.46 1.03     1524
-CO2:CO3                     0.06      0.22    -0.38     0.48 1.22      227
+Intercept                  -2.13      0.23    -2.58    -1.68 1.19       65
+CO2                        -0.07      0.22    -0.49     0.36 1.23       56
+CO3                        -0.08      0.22    -0.50     0.35 1.23       55
+ECS_SELECTED_CH_GENDER1     0.07      0.02     0.03     0.11 1.00    15257
+ECS_SELECTED_CH_AGE         0.02      0.01     0.01     0.04 1.00    24242
+A12                         0.03      0.04    -0.04     0.11 1.01     5879
+A13                        -0.01      0.02    -0.05     0.04 1.00    18825
+L1                          0.37      0.23    -0.10     0.82 1.00    20625
+L4                          0.03      0.03    -0.02     0.08 1.01     4807
+INCOME.L                   -0.08      0.02    -0.13    -0.03 1.01      925
+INCOME.Q                    0.03      0.02    -0.02     0.07 1.01      997
+INCOME.C                   -0.02      0.02    -0.07     0.03 1.02      683
+L92                         0.00      0.03    -0.05     0.05 1.01     2210
+L93                         0.03      0.03    -0.03     0.09 1.01     3537
+L11.L                      -0.04      0.02    -0.09     0.01 1.01     3256
+L11.Q                       0.02      0.02    -0.02     0.07 1.00    22095
+L12                         0.01      0.02    -0.04     0.06 1.01     2475
+L14                         0.00      0.03    -0.06     0.06 1.01     4620
+CG_PAYKEL                   0.34      0.06     0.23     0.45 1.03      410
+CO2:CO3                     0.06      0.22    -0.37     0.48 1.22       57
                         Tail_ESS
-Intercept                    707
-CO2                          569
-CO3                          530
-ECS_SELECTED_CH_GENDER1    54586
-ECS_SELECTED_CH_AGE        52717
-A12                        55365
-A13                        57017
-L1                         53053
-L4                         53633
-INCOME.L                   48683
-INCOME.Q                   51010
-INCOME.C                   18852
-L92                        55159
-L93                        57010
-L11.L                      56155
-L11.Q                      55144
-L12                        54840
-L14                        54189
-CG_PAYKEL                  13975
-CO2:CO3                      567
+Intercept                    210
+CO2                          158
+CO3                          151
+ECS_SELECTED_CH_GENDER1    13474
+ECS_SELECTED_CH_AGE        13120
+A12                        13740
+A13                        14642
+L1                         13037
+L4                         13103
+INCOME.L                   12805
+INCOME.Q                   12590
+INCOME.C                   10983
+L92                        13945
+L93                        14247
+L11.L                      13001
+L11.Q                      13440
+L12                        13441
+L14                        13382
+CG_PAYKEL                   7487
+CO2:CO3                      153
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     2.69      0.04     2.60     2.78 1.03     1452     9040
-zoi     0.14      0.00     0.14     0.15 1.01    10456    53152
-coi     0.11      0.01     0.09     0.12 1.01     6716    49343
+phi     2.69      0.04     2.61     2.78 1.03      403     9448
+zoi     0.14      0.00     0.14     0.15 1.01     2877    13391
+coi     0.11      0.01     0.09     0.12 1.01     3221    12831
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -790,80 +808,112 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>internet_ls_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_ls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_ls-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_ls-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_ls-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_ls-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_ls-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_ls-6.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_ls_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 1 divergent transitions after warmup. Increasing
+adapt_delta above 0.8 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: H1 ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.26      0.07     0.17     0.43 1.00    19849    30061
+sd(Intercept)     0.27      0.07     0.17     0.44 1.00     4913     7381
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                  -0.10      0.09    -0.29     0.08 1.02     3168
-B1                          0.14      0.04     0.06     0.22 1.06      660
-CO2                         0.04      0.03    -0.02     0.11 1.14      319
-ECS_SELECTED_CH_GENDER1     0.01      0.01    -0.01     0.04 1.01     4595
-ECS_SELECTED_CH_AGE        -0.01      0.00    -0.02    -0.00 1.01     6353
-A12                        -0.04      0.03    -0.09     0.01 1.02     2000
-A13                        -0.08      0.02    -0.11    -0.05 1.02     2003
-L1                         -0.13      0.16    -0.43     0.18 1.01     3310
-L4                         -0.02      0.02    -0.05     0.01 1.03     1592
-INCOME.L                    0.09      0.02     0.06     0.13 1.08      530
-INCOME.Q                    0.00      0.01    -0.02     0.03 1.02     1715
-INCOME.C                    0.01      0.02    -0.02     0.04 1.06      664
-L92                         0.01      0.02    -0.03     0.04 1.02     2245
-L93                        -0.03      0.02    -0.07     0.01 1.02     2340
-L11.L                       0.03      0.02     0.00     0.07 1.04     1132
-L11.Q                      -0.04      0.01    -0.07    -0.01 1.03     1463
-L12                         0.05      0.02     0.02     0.08 1.02     1935
-L14                        -0.04      0.02    -0.08     0.01 1.03     1545
-L18                         0.00      0.03    -0.05     0.06 1.02     2198
-L36a                        0.03      0.02    -0.01     0.06 1.09      448
-L36b                       -0.03      0.02    -0.07     0.01 1.11      389
-L36c                       -0.02      0.02    -0.06     0.01 1.10      416
-L36f                        0.00      0.02    -0.03     0.04 1.08      501
-L50                         1.17      0.04     1.10     1.25 1.05      809
-B1:CO2                     -0.04      0.05    -0.14     0.06 1.11      397
+Intercept                  -0.10      0.09    -0.29     0.08 1.02     1277
+B1                          0.14      0.04     0.06     0.22 1.06      168
+CO2                         0.04      0.03    -0.02     0.11 1.14       82
+ECS_SELECTED_CH_GENDER1     0.01      0.01    -0.01     0.04 1.01     2101
+ECS_SELECTED_CH_AGE        -0.01      0.00    -0.02    -0.00 1.01     1626
+A12                        -0.04      0.03    -0.09     0.01 1.02      539
+A13                        -0.08      0.02    -0.11    -0.04 1.02      536
+L1                         -0.13      0.16    -0.43     0.18 1.01     1012
+L4                         -0.02      0.02    -0.06     0.01 1.03      418
+INCOME.L                    0.09      0.02     0.06     0.13 1.08      133
+INCOME.Q                    0.00      0.01    -0.02     0.03 1.02      470
+INCOME.C                    0.01      0.02    -0.02     0.04 1.06      170
+L92                         0.01      0.02    -0.03     0.04 1.02      599
+L93                        -0.03      0.02    -0.07     0.02 1.02      630
+L11.L                       0.03      0.02     0.00     0.07 1.04      281
+L11.Q                      -0.04      0.01    -0.07    -0.01 1.03      444
+L12                         0.05      0.02     0.02     0.08 1.02      481
+L14                        -0.04      0.02    -0.08     0.00 1.03      404
+L18                         0.00      0.03    -0.05     0.06 1.02      627
+L36a                        0.03      0.02    -0.01     0.06 1.10      113
+L36b                       -0.03      0.02    -0.07     0.01 1.12       97
+L36c                       -0.02      0.02    -0.06     0.01 1.11      103
+L36f                        0.00      0.02    -0.03     0.04 1.09      123
+L50                         1.17      0.04     1.10     1.25 1.05      216
+B1:CO2                     -0.04      0.05    -0.14     0.06 1.11      100
                         Tail_ESS
-Intercept                  26733
-B1                          3003
-CO2                          978
-ECS_SELECTED_CH_GENDER1    49037
-ECS_SELECTED_CH_AGE        50471
-A12                        26042
-A13                        18414
-L1                         41789
-L4                         10049
-INCOME.L                    2284
-INCOME.Q                    7817
-INCOME.C                    3313
-L92                        32572
-L93                        38516
-L11.L                       6628
-L11.Q                      12749
-L12                        10302
-L14                         9676
-L18                        16509
-L36a                         990
-L36b                        1306
-L36c                        1482
-L36f                        2098
-L50                         5375
-B1:CO2                      1638
+Intercept                   6573
+B1                          1054
+CO2                          312
+ECS_SELECTED_CH_GENDER1    13123
+ECS_SELECTED_CH_AGE        12586
+A12                        11925
+A13                        11422
+L1                         12188
+L4                          9536
+INCOME.L                     689
+INCOME.Q                    9003
+INCOME.C                    1172
+L92                        12664
+L93                        13069
+L11.L                       2657
+L11.Q                       6788
+L12                         3958
+L14                         6545
+L18                        11740
+L36a                         319
+L36b                         359
+L36c                         369
+L36f                         862
+L50                         2165
+B1:CO2                       486
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     8.83      0.12     8.59     9.07 1.03     1286     8260
-zoi     0.15      0.00     0.14     0.15 1.01     7102    48327
-coi     0.95      0.01     0.94     0.96 1.02     1999    14999
+phi     8.83      0.12     8.59     9.08 1.03      374     5188
+zoi     0.15      0.00     0.14     0.15 1.01     3118    12168
+coi     0.95      0.01     0.94     0.96 1.02      524     3657
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -876,80 +926,107 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>internet_swbs_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_swbs_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_swbs-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_swbs-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_swbs-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_swbs-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_swbs-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_swbs-6.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_swbs_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: CW_SWBS ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.13      0.03     0.08     0.21 1.00    19651    31127
+sd(Intercept)     0.13      0.03     0.08     0.21 1.00     4948     8410
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                   0.20      0.06     0.08     0.32 1.01     4031
-B1                          0.05      0.04    -0.02     0.12 1.04     1131
-CO2                        -0.05      0.03    -0.10     0.01 1.06      654
-ECS_SELECTED_CH_GENDER1     0.03      0.01     0.00     0.05 1.00    20827
-ECS_SELECTED_CH_AGE         0.02      0.00     0.01     0.03 1.00    25136
-A12                         0.02      0.02    -0.03     0.06 1.00    14896
-A13                        -0.03      0.01    -0.06    -0.00 1.00    20504
-L1                          0.14      0.14    -0.13     0.41 1.00    31532
-L4                         -0.04      0.01    -0.07    -0.01 1.01     6323
-INCOME.L                    0.03      0.01    -0.00     0.06 1.05      768
-INCOME.Q                    0.00      0.01    -0.02     0.03 1.02     1891
-INCOME.C                    0.02      0.01    -0.01     0.05 1.04     1048
-L92                         0.02      0.02    -0.01     0.05 1.02     2223
-L93                         0.02      0.02    -0.02     0.06 1.03     1358
-L11.L                      -0.00      0.01    -0.03     0.03 1.01     3651
-L11.Q                      -0.02      0.01    -0.04     0.01 1.01     3987
-L12                         0.04      0.01     0.02     0.07 1.01     3456
-L14                         0.01      0.02    -0.02     0.05 1.03     1369
-L18                         0.02      0.02    -0.03     0.06 1.01     3488
-L36a                        0.03      0.02    -0.01     0.06 1.10      438
-L36b                       -0.01      0.02    -0.04     0.03 1.13      337
-L36c                       -0.03      0.02    -0.06    -0.00 1.06      680
-L36f                       -0.00      0.02    -0.03     0.03 1.06      657
-CG_CW_SWBS                  1.00      0.04     0.92     1.07 1.02     2117
-B1:CO2                      0.10      0.04     0.01     0.18 1.05      910
+Intercept                   0.20      0.06     0.08     0.32 1.01     1351
+B1                          0.05      0.04    -0.02     0.12 1.04      266
+CO2                        -0.05      0.03    -0.10     0.01 1.07      161
+ECS_SELECTED_CH_GENDER1     0.03      0.01     0.00     0.05 1.00    27336
+ECS_SELECTED_CH_AGE         0.02      0.00     0.01     0.03 1.00    24667
+A12                         0.02      0.02    -0.03     0.06 1.00    24120
+A13                        -0.03      0.01    -0.06    -0.00 1.00    23847
+L1                          0.14      0.14    -0.13     0.41 1.00    22273
+L4                         -0.04      0.01    -0.07    -0.01 1.01     1610
+INCOME.L                    0.03      0.01    -0.00     0.06 1.06      191
+INCOME.Q                    0.00      0.01    -0.02     0.03 1.02      502
+INCOME.C                    0.02      0.01    -0.01     0.05 1.04      240
+L92                         0.02      0.02    -0.01     0.05 1.02      586
+L93                         0.02      0.02    -0.02     0.06 1.03      331
+L11.L                      -0.00      0.02    -0.03     0.03 1.01     1096
+L11.Q                      -0.02      0.01    -0.04     0.01 1.01     1326
+L12                         0.04      0.01     0.02     0.07 1.01      923
+L14                         0.01      0.02    -0.02     0.05 1.03      369
+L18                         0.02      0.02    -0.03     0.06 1.02      825
+L36a                        0.03      0.02    -0.01     0.06 1.10      109
+L36b                       -0.01      0.02    -0.04     0.03 1.13       85
+L36c                       -0.03      0.02    -0.06    -0.00 1.06      175
+L36f                       -0.00      0.02    -0.03     0.03 1.06      171
+CG_CW_SWBS                  1.00      0.04     0.92     1.07 1.02      512
+B1:CO2                      0.10      0.05     0.01     0.19 1.05      231
                         Tail_ESS
-Intercept                  39510
-B1                          5326
-CO2                         1933
-ECS_SELECTED_CH_GENDER1    49806
-ECS_SELECTED_CH_AGE        54611
-A12                        57608
-A13                        59689
-L1                         51815
-L4                         47672
-INCOME.L                    3706
-INCOME.Q                   15798
-INCOME.C                    5070
-L92                        21057
-L93                         8169
-L11.L                      46593
-L11.Q                      50522
-L12                        52346
-L14                         8618
-L18                        49743
-L36a                        1737
-L36b                        1510
-L36c                        4133
-L36f                        3503
-CG_CW_SWBS                 21385
-B1:CO2                      4423
+Intercept                   8981
+B1                          1615
+CO2                          532
+ECS_SELECTED_CH_GENDER1    11923
+ECS_SELECTED_CH_AGE        13402
+A12                        13793
+A13                        14715
+L1                         13431
+L4                         11937
+INCOME.L                    1202
+INCOME.Q                   11822
+INCOME.C                    1479
+L92                        13053
+L93                         4945
+L11.L                      13569
+L11.Q                      14052
+L12                        12681
+L14                         5955
+L18                        12769
+L36a                         463
+L36b                         445
+L36c                        1200
+L36f                        1063
+CG_CW_SWBS                 12416
+B1:CO2                      1737
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi    11.50      0.15    11.21    11.80 1.01     6045    48790
-zoi     0.06      0.00     0.06     0.07 1.00   136471    53673
-coi     0.99      0.00     0.99     1.00 1.01     5362    44083
+phi    11.50      0.15    11.21    11.80 1.01    12389    12701
+zoi     0.06      0.00     0.06     0.07 1.00    33983    13066
+coi     0.99      0.00     0.99     1.00 1.01     1899    10965
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -962,80 +1039,107 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>internet_anx_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_anx_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_anx-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_anx-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_anx-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_anx-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_anx-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_anx-6.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_anx_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: ANX ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.26      0.07     0.16     0.42 1.00    17596    28258
+sd(Intercept)     0.26      0.07     0.16     0.42 1.00     4039     7047
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                  -1.88      0.10    -2.07    -1.69 1.01    15457
-B1                          0.14      0.05     0.04     0.25 1.02     2911
-CO2                         0.03      0.04    -0.05     0.12 1.04     1186
-ECS_SELECTED_CH_GENDER1     0.07      0.02     0.03     0.10 1.01     6237
-ECS_SELECTED_CH_AGE         0.05      0.01     0.04     0.06 1.00   104697
-A12                        -0.07      0.04    -0.14     0.00 1.00    81905
-A13                        -0.03      0.02    -0.07     0.01 1.00    34704
-L1                          0.29      0.22    -0.14     0.72 1.01     3235
-L4                          0.06      0.02     0.02     0.11 1.01     4468
-INCOME.L                   -0.00      0.02    -0.05     0.04 1.04     1085
-INCOME.Q                   -0.02      0.02    -0.07     0.02 1.04     1129
-INCOME.C                   -0.01      0.02    -0.06     0.03 1.02     2092
-L92                        -0.03      0.02    -0.08     0.02 1.01     6141
-L93                        -0.03      0.03    -0.09     0.03 1.01     3430
-L11.L                       0.02      0.02    -0.03     0.06 1.01     3891
-L11.Q                       0.07      0.02     0.03     0.11 1.01    11857
-L12                        -0.01      0.02    -0.05     0.04 1.01     3586
-L14                         0.00      0.03    -0.06     0.06 1.01    14598
-L18                         0.06      0.04    -0.01     0.14 1.01     3905
-L36a                       -0.01      0.03    -0.06     0.03 1.04     1081
-L36b                        0.03      0.03    -0.03     0.08 1.07      580
-L36c                        0.01      0.02    -0.03     0.06 1.05      806
-L36f                        0.02      0.03    -0.03     0.07 1.04      958
-CG_ANX                      1.09      0.04     1.02     1.17 1.03     1463
-B1:CO2                     -0.00      0.07    -0.14     0.13 1.02     2001
+Intercept                  -1.88      0.10    -2.06    -1.68 1.01     4248
+B1                          0.15      0.05     0.04     0.25 1.02      992
+CO2                         0.03      0.04    -0.05     0.12 1.04      323
+ECS_SELECTED_CH_GENDER1     0.07      0.02     0.03     0.10 1.01     4705
+ECS_SELECTED_CH_AGE         0.05      0.01     0.04     0.06 1.00    28812
+A12                        -0.07      0.04    -0.14     0.00 1.00    20882
+A13                        -0.03      0.02    -0.07     0.01 1.00    16777
+L1                          0.29      0.22    -0.14     0.72 1.01      945
+L4                          0.06      0.02     0.02     0.11 1.01     1639
+INCOME.L                   -0.00      0.02    -0.05     0.04 1.04      279
+INCOME.Q                   -0.02      0.02    -0.07     0.02 1.04      291
+INCOME.C                   -0.01      0.02    -0.06     0.03 1.02      568
+L92                        -0.03      0.02    -0.08     0.02 1.01     2452
+L93                        -0.03      0.03    -0.09     0.03 1.01     1322
+L11.L                       0.02      0.02    -0.03     0.07 1.01     1104
+L11.Q                       0.07      0.02     0.03     0.11 1.01     4835
+L12                        -0.00      0.02    -0.05     0.04 1.02      793
+L14                         0.00      0.03    -0.05     0.06 1.01    10458
+L18                         0.06      0.04    -0.01     0.14 1.02      914
+L36a                       -0.01      0.02    -0.06     0.03 1.04      254
+L36b                        0.03      0.03    -0.02     0.08 1.07      146
+L36c                        0.01      0.02    -0.03     0.06 1.05      238
+L36f                        0.02      0.03    -0.03     0.07 1.04      255
+CG_ANX                      1.09      0.04     1.02     1.17 1.03      447
+B1:CO2                     -0.00      0.07    -0.14     0.13 1.02      643
                         Tail_ESS
-Intercept                  28120
-B1                         26097
-CO2                         8482
-ECS_SELECTED_CH_GENDER1    55299
-ECS_SELECTED_CH_AGE        57220
-A12                        57311
-A13                        57648
-L1                         17609
-L4                         25386
-INCOME.L                    6209
-INCOME.Q                    6039
-INCOME.C                   14327
-L92                        52540
-L93                        43726
-L11.L                      43771
-L11.Q                      55786
-L12                        52554
-L14                        55037
-L18                        48552
-L36a                        3072
-L36b                        2399
-L36c                        3721
-L36f                        4727
-CG_ANX                      9991
-B1:CO2                     21425
+Intercept                   8091
+B1                         12758
+CO2                         8647
+ECS_SELECTED_CH_GENDER1    13335
+ECS_SELECTED_CH_AGE        14083
+A12                        14760
+A13                        13613
+L1                         12056
+L4                         13433
+INCOME.L                    4218
+INCOME.Q                    2342
+INCOME.C                   10383
+L92                        13080
+L93                        13838
+L11.L                      13697
+L11.Q                      14409
+L12                        12197
+L14                        13539
+L18                        14243
+L36a                         856
+L36b                         625
+L36c                        1332
+L36f                        1453
+CG_ANX                     10484
+B1:CO2                     10962
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     3.09      0.04     3.01     3.17 1.01    11533    56554
-zoi     0.06      0.00     0.05     0.06 1.00    93639    54607
-coi     0.01      0.00     0.00     0.01 1.00    88297    43863
+phi     3.09      0.04     3.01     3.17 1.01    10094    14000
+zoi     0.06      0.00     0.05     0.06 1.00    23927    12926
+coi     0.01      0.00     0.00     0.01 1.00    21932    10138
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -1048,80 +1152,107 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>internet_cesd_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_cesd_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_cesd-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_cesd-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_cesd-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_cesd-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_cesd-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_cesd-6.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_cesd_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: CES_D ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.22      0.06     0.14     0.36 1.00    19221    31476
+sd(Intercept)     0.22      0.06     0.14     0.36 1.00     4942     8149
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                   1.16      0.10     0.97     1.35 1.01     6179
-B1                         -0.04      0.06    -0.15     0.07 1.02     1953
-CO2                        -0.02      0.04    -0.10     0.07 1.04     1033
-ECS_SELECTED_CH_GENDER1    -0.03      0.02    -0.07     0.01 1.00    23529
-ECS_SELECTED_CH_AGE        -0.04      0.01    -0.05    -0.03 1.00    96118
-A12                        -0.02      0.04    -0.09     0.05 1.01     7025
-A13                         0.02      0.02    -0.03     0.06 1.01     7597
-L1                         -0.25      0.22    -0.68     0.19 1.01     2902
-L4                         -0.02      0.02    -0.07     0.02 1.02     2523
-INCOME.L                    0.08      0.02     0.04     0.13 1.02     1679
-INCOME.Q                    0.01      0.02    -0.03     0.05 1.05      896
-INCOME.C                    0.01      0.02    -0.03     0.06 1.02     1985
-L92                         0.01      0.02    -0.04     0.06 1.01     3190
-L93                        -0.10      0.03    -0.15    -0.04 1.01    18641
-L11.L                       0.03      0.02    -0.02     0.07 1.01     5008
-L11.Q                      -0.03      0.02    -0.08     0.01 1.02     2588
-L12                        -0.01      0.02    -0.05     0.04 1.01     6061
-L14                        -0.03      0.03    -0.09     0.02 1.01     4521
-L18                         0.10      0.04     0.02     0.17 1.01     5051
-L36a                       -0.00      0.03    -0.05     0.05 1.06      694
-L36b                        0.01      0.03    -0.05     0.06 1.07      625
-L36c                       -0.02      0.02    -0.07     0.03 1.06      647
-L36f                       -0.02      0.03    -0.07     0.03 1.05      914
-CG_CES_D                    0.76      0.05     0.66     0.85 1.02     2145
-B1:CO2                     -0.01      0.07    -0.15     0.13 1.04     1217
+Intercept                   1.16      0.10     0.96     1.36 1.01     4120
+B1                         -0.04      0.06    -0.15     0.07 1.03      485
+CO2                        -0.02      0.04    -0.10     0.07 1.05      253
+ECS_SELECTED_CH_GENDER1    -0.03      0.02    -0.07     0.01 1.00    19870
+ECS_SELECTED_CH_AGE        -0.04      0.01    -0.05    -0.03 1.00    31611
+A12                        -0.02      0.04    -0.09     0.05 1.01     2275
+A13                         0.02      0.02    -0.03     0.06 1.01     2051
+L1                         -0.25      0.22    -0.68     0.19 1.02      867
+L4                         -0.02      0.02    -0.07     0.02 1.02      656
+INCOME.L                    0.08      0.02     0.04     0.13 1.03      440
+INCOME.Q                    0.01      0.02    -0.03     0.05 1.05      233
+INCOME.C                    0.01      0.02    -0.03     0.06 1.02      536
+L92                         0.01      0.02    -0.04     0.06 1.01     1372
+L93                        -0.10      0.03    -0.15    -0.04 1.00    16586
+L11.L                       0.03      0.02    -0.02     0.07 1.01     1449
+L11.Q                      -0.03      0.02    -0.08     0.01 1.02      745
+L12                        -0.01      0.02    -0.05     0.04 1.01     1822
+L14                        -0.03      0.03    -0.09     0.02 1.01     1189
+L18                         0.10      0.04     0.02     0.17 1.01     1386
+L36a                       -0.00      0.03    -0.05     0.05 1.06      175
+L36b                        0.01      0.03    -0.05     0.06 1.07      163
+L36c                       -0.02      0.02    -0.07     0.03 1.06      171
+L36f                       -0.02      0.03    -0.07     0.03 1.05      238
+CG_CES_D                    0.75      0.05     0.66     0.85 1.02      632
+B1:CO2                     -0.01      0.07    -0.15     0.13 1.04      329
                         Tail_ESS
-Intercept                  36847
-B1                         21638
-CO2                         4943
-ECS_SELECTED_CH_GENDER1    53747
-ECS_SELECTED_CH_AGE        54310
-A12                        55554
-A13                        55319
-L1                         25666
-L4                         42265
-INCOME.L                   15149
-INCOME.Q                    4629
-INCOME.C                   38141
-L92                        52325
-L93                        59969
-L11.L                      58446
-L11.Q                      23064
-L12                        52307
-L14                        53143
-L18                        50682
-L36a                        3044
-L36b                        2537
-L36c                        2435
-L36f                        6310
-CG_CES_D                   19899
-B1:CO2                      7646
+Intercept                   9000
+B1                         11624
+CO2                         1444
+ECS_SELECTED_CH_GENDER1    12731
+ECS_SELECTED_CH_AGE        13030
+A12                        12793
+A13                        13306
+L1                         11873
+L4                         11386
+INCOME.L                    8594
+INCOME.Q                    1619
+INCOME.C                    8781
+L92                        13995
+L93                        15296
+L11.L                      15041
+L11.Q                      12288
+L12                        12305
+L14                        13646
+L18                        13926
+L36a                         993
+L36b                         808
+L36c                         867
+L36f                        3338
+CG_CES_D                   10691
+B1:CO2                      3186
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     3.07      0.04     2.99     3.16 1.02     2207    10420
-zoi     0.06      0.00     0.05     0.06 1.00    36453    50472
-coi     1.00      0.00     0.99     1.00 1.00   104701    41593
+phi     3.07      0.04     2.99     3.16 1.02      655    12161
+zoi     0.06      0.00     0.05     0.06 1.00    14851    12293
+coi     1.00      0.00     0.99     1.00 1.00    25590    10179
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -1134,231 +1265,110 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>internet_sh_model <span class="sc">|&gt;</span> <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_sh_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
-<colgroup>
-<col style="width: 34%">
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 12%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">df</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-2.770</td>
-<td style="text-align: right;">0.266</td>
-<td style="text-align: right;">-10.402</td>
-<td style="text-align: right;">7762.609</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B1</td>
-<td style="text-align: right;">0.134</td>
-<td style="text-align: right;">0.181</td>
-<td style="text-align: right;">0.737</td>
-<td style="text-align: right;">1832.700</td>
-<td style="text-align: right;">0.461</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CO2</td>
-<td style="text-align: right;">-0.018</td>
-<td style="text-align: right;">0.134</td>
-<td style="text-align: right;">-0.138</td>
-<td style="text-align: right;">740.183</td>
-<td style="text-align: right;">0.891</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ECS_SELECTED_CH_GENDER1</td>
-<td style="text-align: right;">0.034</td>
-<td style="text-align: right;">0.063</td>
-<td style="text-align: right;">0.539</td>
-<td style="text-align: right;">2633.777</td>
-<td style="text-align: right;">0.590</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ECS_SELECTED_CH_AGE</td>
-<td style="text-align: right;">0.018</td>
-<td style="text-align: right;">0.020</td>
-<td style="text-align: right;">0.880</td>
-<td style="text-align: right;">1668.107</td>
-<td style="text-align: right;">0.379</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">A12</td>
-<td style="text-align: right;">0.150</td>
-<td style="text-align: right;">0.123</td>
-<td style="text-align: right;">1.215</td>
-<td style="text-align: right;">2046.150</td>
-<td style="text-align: right;">0.225</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">A13</td>
-<td style="text-align: right;">-0.065</td>
-<td style="text-align: right;">0.071</td>
-<td style="text-align: right;">-0.912</td>
-<td style="text-align: right;">4905.494</td>
-<td style="text-align: right;">0.362</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L1</td>
-<td style="text-align: right;">1.848</td>
-<td style="text-align: right;">0.621</td>
-<td style="text-align: right;">2.977</td>
-<td style="text-align: right;">1141.824</td>
-<td style="text-align: right;">0.003</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L4</td>
-<td style="text-align: right;">0.103</td>
-<td style="text-align: right;">0.073</td>
-<td style="text-align: right;">1.404</td>
-<td style="text-align: right;">1303.434</td>
-<td style="text-align: right;">0.161</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.L</td>
-<td style="text-align: right;">-0.262</td>
-<td style="text-align: right;">0.074</td>
-<td style="text-align: right;">-3.555</td>
-<td style="text-align: right;">464.854</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">INCOME.Q</td>
-<td style="text-align: right;">-0.078</td>
-<td style="text-align: right;">0.067</td>
-<td style="text-align: right;">-1.155</td>
-<td style="text-align: right;">967.337</td>
-<td style="text-align: right;">0.248</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">INCOME.C</td>
-<td style="text-align: right;">-0.072</td>
-<td style="text-align: right;">0.073</td>
-<td style="text-align: right;">-0.992</td>
-<td style="text-align: right;">467.003</td>
-<td style="text-align: right;">0.322</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L92</td>
-<td style="text-align: right;">0.111</td>
-<td style="text-align: right;">0.083</td>
-<td style="text-align: right;">1.339</td>
-<td style="text-align: right;">2584.573</td>
-<td style="text-align: right;">0.181</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L93</td>
-<td style="text-align: right;">0.297</td>
-<td style="text-align: right;">0.093</td>
-<td style="text-align: right;">3.206</td>
-<td style="text-align: right;">1680.585</td>
-<td style="text-align: right;">0.001</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L11.L</td>
-<td style="text-align: right;">-0.248</td>
-<td style="text-align: right;">0.079</td>
-<td style="text-align: right;">-3.130</td>
-<td style="text-align: right;">1359.846</td>
-<td style="text-align: right;">0.002</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L11.Q</td>
-<td style="text-align: right;">-0.008</td>
-<td style="text-align: right;">0.079</td>
-<td style="text-align: right;">-0.101</td>
-<td style="text-align: right;">684.101</td>
-<td style="text-align: right;">0.920</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L12</td>
-<td style="text-align: right;">0.033</td>
-<td style="text-align: right;">0.074</td>
-<td style="text-align: right;">0.445</td>
-<td style="text-align: right;">706.843</td>
-<td style="text-align: right;">0.657</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L14</td>
-<td style="text-align: right;">-0.103</td>
-<td style="text-align: right;">0.085</td>
-<td style="text-align: right;">-1.217</td>
-<td style="text-align: right;">2800.990</td>
-<td style="text-align: right;">0.224</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L18</td>
-<td style="text-align: right;">-0.097</td>
-<td style="text-align: right;">0.124</td>
-<td style="text-align: right;">-0.784</td>
-<td style="text-align: right;">2155.009</td>
-<td style="text-align: right;">0.433</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36a</td>
-<td style="text-align: right;">0.021</td>
-<td style="text-align: right;">0.082</td>
-<td style="text-align: right;">0.251</td>
-<td style="text-align: right;">535.854</td>
-<td style="text-align: right;">0.802</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36b</td>
-<td style="text-align: right;">-0.052</td>
-<td style="text-align: right;">0.095</td>
-<td style="text-align: right;">-0.543</td>
-<td style="text-align: right;">200.025</td>
-<td style="text-align: right;">0.587</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L36c</td>
-<td style="text-align: right;">0.049</td>
-<td style="text-align: right;">0.085</td>
-<td style="text-align: right;">0.573</td>
-<td style="text-align: right;">177.470</td>
-<td style="text-align: right;">0.568</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">L36f</td>
-<td style="text-align: right;">0.081</td>
-<td style="text-align: right;">0.089</td>
-<td style="text-align: right;">0.918</td>
-<td style="text-align: right;">154.325</td>
-<td style="text-align: right;">0.360</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">L41</td>
-<td style="text-align: right;">0.889</td>
-<td style="text-align: right;">0.088</td>
-<td style="text-align: right;">10.104</td>
-<td style="text-align: right;">671.198</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">B1:CO2</td>
-<td style="text-align: right;">0.095</td>
-<td style="text-align: right;">0.227</td>
-<td style="text-align: right;">0.419</td>
-<td style="text-align: right;">919.304</td>
-<td style="text-align: right;">0.675</td>
-</tr>
-</tbody>
-</table>
+<p><img src="models_report_files/figure-html/int_sh-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_sh-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_sh-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_sh-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_sh-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_sh-6.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_sh_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 1 divergent transitions after warmup. Increasing
+adapt_delta above 0.8 may help. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: bernoulli 
+  Links: mu = logit 
+Formula: H6 ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + (1 | COUNTRY) 
+   Data: data (Number of observations: 12169) 
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
+
+Group-Level Effects: 
+~COUNTRY (Number of levels: 12) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.78      0.20     0.49     1.28 1.01     4559     8066
+
+Population-Level Effects: 
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -2.76      0.30    -3.35    -2.17 1.01     1322
+B1                          0.14      0.18    -0.22     0.49 1.04      268
+CO2                        -0.02      0.13    -0.29     0.24 1.07      152
+ECS_SELECTED_CH_GENDER1     0.03      0.06    -0.09     0.16 1.03      320
+ECS_SELECTED_CH_AGE         0.02      0.02    -0.02     0.06 1.05      206
+A12                         0.15      0.12    -0.10     0.38 1.04      268
+A13                        -0.06      0.07    -0.20     0.07 1.02      597
+L1                          1.82      0.63     0.54     3.01 1.06      184
+L4                          0.10      0.07    -0.04     0.25 1.05      204
+INCOME.L                   -0.26      0.07    -0.41    -0.12 1.10      108
+INCOME.Q                   -0.08      0.07    -0.21     0.05 1.06      168
+INCOME.C                   -0.07      0.07    -0.21     0.07 1.10      110
+L92                         0.11      0.08    -0.05     0.28 1.03      383
+L93                         0.30      0.09     0.12     0.48 1.05      235
+L11.L                      -0.25      0.08    -0.41    -0.09 1.05      233
+L11.Q                      -0.01      0.08    -0.16     0.14 1.08      135
+L12                         0.03      0.07    -0.11     0.17 1.07      143
+L14                        -0.10      0.08    -0.27     0.07 1.03      350
+L18                        -0.10      0.12    -0.34     0.15 1.04      258
+L36a                        0.02      0.08    -0.14     0.18 1.09      118
+L36b                       -0.05      0.09    -0.23     0.14 1.17       70
+L36c                        0.05      0.08    -0.12     0.21 1.18       65
+L36f                        0.08      0.09    -0.08     0.27 1.18       66
+L41                         0.89      0.09     0.72     1.06 1.08      136
+B1:CO2                      0.10      0.23    -0.34     0.55 1.06      182
+                        Tail_ESS
+Intercept                   8597
+B1                          2667
+CO2                          651
+ECS_SELECTED_CH_GENDER1     7880
+ECS_SELECTED_CH_AGE          921
+A12                         1737
+A13                        12111
+L1                          1117
+L4                           943
+INCOME.L                     494
+INCOME.Q                     470
+INCOME.C                     517
+L92                         4030
+L93                         1468
+L11.L                       3304
+L11.Q                        959
+L12                          492
+L14                         2536
+L18                         1930
+L36a                         487
+L36b                         184
+L36c                         140
+L36f                          75
+L41                          893
+B1:CO2                      1546
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </section>
@@ -1367,80 +1377,107 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>internet_paykel_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_paykel_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_paykel-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_paykel-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_paykel-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_paykel-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_paykel-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="models_report_files/figure-html/int_paykel-6.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_paykel_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Parts of the model have not converged (some Rhats are &gt; 1.05). Be
+careful when analysing the results! We recommend running more iterations and/or
+setting stronger priors.</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: zero_one_inflated_beta 
   Links: mu = logit; phi = identity; zoi = identity; coi = identity 
 Formula: PAYKEL ~ B1 * CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + (1 | COUNTRY) 
    Data: data (Number of observations: 12169) 
-  Draws: 72 chains, each with iter = 2000; warmup = 1000; thin = 1;
-         total post-warmup draws = 72000
+  Draws: 18 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 18000
 
 Group-Level Effects: 
 ~COUNTRY (Number of levels: 12) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.22      0.06     0.14     0.36 1.00    20518    33192
+sd(Intercept)     0.22      0.06     0.14     0.35 1.00     4994     8366
 
 Population-Level Effects: 
                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
-Intercept                  -2.24      0.09    -2.42    -2.06 1.00    20702
-B1                          0.07      0.06    -0.05     0.18 1.01     3660
-CO2                        -0.03      0.05    -0.12     0.06 1.01     3621
-ECS_SELECTED_CH_GENDER1     0.08      0.02     0.03     0.12 1.00    19578
-ECS_SELECTED_CH_AGE         0.02      0.01     0.01     0.03 1.01    11442
-A12                         0.04      0.04    -0.04     0.11 1.01     8679
-A13                        -0.00      0.02    -0.05     0.04 1.00    92451
-L1                          0.37      0.23    -0.10     0.82 1.00    49260
-L4                          0.03      0.02    -0.02     0.08 1.01    15230
-INCOME.L                   -0.09      0.02    -0.13    -0.04 1.01     3048
-INCOME.Q                    0.03      0.02    -0.02     0.08 1.01     3262
-INCOME.C                   -0.02      0.02    -0.07     0.03 1.02     2392
-L92                        -0.00      0.03    -0.05     0.05 1.01     4289
-L93                         0.03      0.03    -0.03     0.10 1.01     5023
-L11.L                      -0.04      0.03    -0.09     0.01 1.00    14456
-L11.Q                       0.03      0.02    -0.02     0.07 1.00    20149
-L12                         0.01      0.02    -0.04     0.06 1.01     7786
-L14                         0.00      0.03    -0.06     0.06 1.01     6992
-L18                        -0.02      0.04    -0.10     0.06 1.01     5958
-L36a                        0.02      0.03    -0.03     0.07 1.02     2650
-L36b                       -0.03      0.03    -0.09     0.03 1.04     1090
-L36c                        0.04      0.03    -0.02     0.09 1.06      646
-L36f                        0.05      0.03    -0.00     0.10 1.02     1838
-CG_PAYKEL                   0.33      0.06     0.21     0.45 1.03     1531
-B1:CO2                      0.05      0.07    -0.10     0.19 1.01     3171
+Intercept                  -2.24      0.09    -2.42    -2.07 1.01     4646
+B1                          0.07      0.06    -0.05     0.18 1.02      843
+CO2                        -0.03      0.05    -0.12     0.06 1.02      870
+ECS_SELECTED_CH_GENDER1     0.08      0.02     0.03     0.12 1.00    23020
+ECS_SELECTED_CH_AGE         0.02      0.01     0.01     0.03 1.01     4172
+A12                         0.04      0.04    -0.04     0.11 1.01    15807
+A13                        -0.00      0.02    -0.05     0.04 1.00    23306
+L1                          0.37      0.24    -0.10     0.83 1.00    24180
+L4                          0.03      0.02    -0.02     0.08 1.01     7748
+INCOME.L                   -0.09      0.02    -0.13    -0.04 1.01     1080
+INCOME.Q                    0.03      0.02    -0.02     0.08 1.01      933
+INCOME.C                   -0.02      0.02    -0.07     0.03 1.02      664
+L92                        -0.00      0.03    -0.05     0.05 1.01     1440
+L93                         0.03      0.03    -0.03     0.09 1.01     2437
+L11.L                      -0.04      0.03    -0.09     0.01 1.01    17494
+L11.Q                       0.03      0.02    -0.02     0.07 1.00    16229
+L12                         0.01      0.02    -0.04     0.06 1.01     3324
+L14                         0.00      0.03    -0.06     0.06 1.01     2280
+L18                        -0.02      0.04    -0.10     0.06 1.01     2112
+L36a                        0.02      0.03    -0.03     0.07 1.02      720
+L36b                       -0.03      0.03    -0.09     0.03 1.04      280
+L36c                        0.04      0.03    -0.02     0.09 1.06      167
+L36f                        0.05      0.03    -0.00     0.10 1.02      461
+CG_PAYKEL                   0.33      0.06     0.21     0.45 1.03      405
+B1:CO2                      0.05      0.07    -0.10     0.19 1.02      849
                         Tail_ESS
-Intercept                  35088
-B1                         53468
-CO2                        52176
-ECS_SELECTED_CH_GENDER1    52586
-ECS_SELECTED_CH_AGE        53175
-A12                        57420
-A13                        58457
-L1                         52739
-L4                         53392
-INCOME.L                   39204
-INCOME.Q                   42956
-INCOME.C                   33720
-L92                        55483
-L93                        55611
-L11.L                      56880
-L11.Q                      54796
-L12                        53813
-L14                        48676
-L18                        50328
-L36a                       30699
-L36b                        5989
-L36c                        2804
-L36f                       21028
-CG_PAYKEL                   9334
-B1:CO2                     46106
+Intercept                   8468
+B1                         13001
+CO2                        11616
+ECS_SELECTED_CH_GENDER1    13648
+ECS_SELECTED_CH_AGE        12784
+A12                        14483
+A13                        14666
+L1                         13252
+L4                         13172
+INCOME.L                   13371
+INCOME.Q                   12313
+INCOME.C                   12401
+L92                        15280
+L93                        13550
+L11.L                      14191
+L11.Q                      12388
+L12                        13392
+L14                        12607
+L18                        12325
+L36a                       13278
+L36b                        2260
+L36c                        1050
+L36f                       11567
+CG_PAYKEL                   9708
+B1:CO2                     11498
 
 Family Specific Parameters: 
     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-phi     2.70      0.05     2.61     2.79 1.03     1545     9078
-zoi     0.14      0.00     0.14     0.15 1.01    13056    50926
-coi     0.11      0.01     0.09     0.12 1.01     6141    50909
+phi     2.70      0.05     2.61     2.79 1.03      410    11522
+zoi     0.14      0.00     0.14     0.15 1.01     5453    12932
+coi     0.11      0.01     0.09     0.12 1.01     2682    13195
 
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential

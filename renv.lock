@@ -73,11 +73,12 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.5-4.1",
+      "Version": "1.6-1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
+        "grDevices",
         "graphics",
         "grid",
         "lattice",
@@ -85,7 +86,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "38082d362d317745fb932e13956dccbb"
+      "Hash": "cb6855ac711958ca734b75e631b2035d"
     },
     "QuickJSR": {
       "Package": "QuickJSR",
@@ -317,7 +318,7 @@
     },
     "brms": {
       "Package": "brms",
-      "Version": "2.20.1",
+      "Version": "2.20.3",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -348,7 +349,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "c30cc87dde669bd82d2348d25b848bad"
+      "Hash": "8ca13a1360af452fc19eaa212e77c22d"
     },
     "broom": {
       "Package": "broom",
