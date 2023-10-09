@@ -38,7 +38,8 @@ clean_data <- function(data){
         L41, # Caregiver self-harm [B]
         contains("L42"), # Caregiver Paykel suicide scale [N]
         L43, # Caregiver's alcohol intake [N]
-        L45_NEW # Caregiver's corporal punishment attitude [OF]
+        L45_NEW, # Caregiver's corporal punishment attitude [OF]
+        wgt_scaled # Survey weights scaled by country [N]
     )
 
     # Set 888 and 999 values to NA
@@ -284,7 +285,7 @@ cfa_calc <- function(data, prediction, new_var, old_vars){
 
 multiple_imputation <- function(data){
     varnames <- names(data)
-    varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")]
+    varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "wgt_scaled")]
     
     for(i in varnames){
         if(is.numeric(unlist(data[, i]))){
@@ -297,7 +298,7 @@ multiple_imputation <- function(data){
     methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE")] <- ""
 
     predictorMatrix <- make.predictorMatrix(data)
-    predictorMatrix[, c("id_new", "COUNTRY", "CO2", "CO3", "Language", "intStartTime")] <- 0
+    predictorMatrix[, c("id_new", "COUNTRY", "CO2", "CO3", "Language", "intStartTime", "wgt_scaled")] <- 0
     predictorMatrix[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE"), ] <- 0
 
     list_imputed_data <- list()
@@ -349,7 +350,7 @@ logistic_mixed_model <- function(data, y, formula_RHS){
 zoib_mixed_model <- function(data, y, formula_RHS){
     plan(multisession, workers = availableCores() - 2)
 
-    model_fit <- brm_multiple(bf(as.formula(paste(y, "~", formula_RHS, "+ (1 | COUNTRY)"))), data, family = zero_one_inflated_beta(), chains = 1)
+    model_fit <- brm_multiple(bf(as.formula(paste(y, "~", formula_RHS, "+ (1 | COUNTRY)")), as.formula(paste("phi ~", formula_RHS, "+ (1 | COUNTRY)")), as.formula(paste("zoi ~", formula_RHS, "+ (1 | COUNTRY)")), as.formula(paste("coi ~", formula_RHS, "+ (1 | COUNTRY)"))), data, family = zero_one_inflated_beta(), chains = 1)
 
     return(model_fit)
 }

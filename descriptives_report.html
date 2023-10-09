@@ -122,6 +122,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#paykel-suicide-scale" id="toc-paykel-suicide-scale" class="nav-link" data-scroll-target="#paykel-suicide-scale">Paykel suicide scale</a></li>
   </ul></li>
   <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix">Correlation matrix</a></li>
+  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots">Plots</a>
+  <ul class="collapse">
+  <li><a href="#proportion-of-children-facing-a-covid-19-lockdown-by-country" id="toc-proportion-of-children-facing-a-covid-19-lockdown-by-country" class="nav-link" data-scroll-target="#proportion-of-children-facing-a-covid-19-lockdown-by-country">Proportion of children facing a COVID-19 lockdown by country</a></li>
+  <li><a href="#mean-wellbeing-scores-by-country" id="toc-mean-wellbeing-scores-by-country" class="nav-link" data-scroll-target="#mean-wellbeing-scores-by-country">Mean wellbeing scores by country</a></li>
+  <li><a href="#internet-usage-by-country" id="toc-internet-usage-by-country" class="nav-link" data-scroll-target="#internet-usage-by-country">Internet usage by country</a></li>
+  <li><a href="#wellbeing-by-lockdown-status" id="toc-wellbeing-by-lockdown-status" class="nav-link" data-scroll-target="#wellbeing-by-lockdown-status">Wellbeing by lockdown status</a></li>
+  <li><a href="#internet-usage-by-lockdown-status" id="toc-internet-usage-by-lockdown-status" class="nav-link" data-scroll-target="#internet-usage-by-lockdown-status">Internet usage by lockdown status</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -162,7 +170,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -181,9 +190,11 @@ Attaching package: 'mice'</code></pre>
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data_imputed <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(data_imputed)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data_imputed_long <span class="ot">&lt;-</span> <span class="fu">complete</span>(data_imputed, <span class="st">"long"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>list_imputed_data <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(list_imputed_data)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>data_imputed <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(data_imputed)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>data_imputed_long <span class="ot">&lt;-</span> <span class="fu">complete</span>(data_imputed, <span class="st">"long"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -210,13 +221,13 @@ Attaching package: 'mice'</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lockdown_compare</span>(data_imputed_long, <span class="st">"H1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Lockdown mean: 0.717276665727621"
-[1] "No-lockdown mean: 0.669009041879981"
+<pre><code>[1] "Lockdown mean: 0.717105914424739"
+[1] "No-lockdown mean: 0.669250675452297"
 
     Wilcoxon rank sum test with continuity correction
 
 data:  data[data$CO2 == 1, var] and data[data$CO2 == 0, var]
-W = 6524305272, p-value &lt; 2.2e-16
+W = 6517802854, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -229,13 +240,13 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lockdown_compare</span>(data_imputed_long, <span class="st">"CW_SWBS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Lockdown mean: 0.766723070012726"
-[1] "No-lockdown mean: 0.764629521333166"
+<pre><code>[1] "Lockdown mean: 0.766765911049458"
+[1] "No-lockdown mean: 0.764584615261911"
 
     Wilcoxon rank sum test with continuity correction
 
 data:  data[data$CO2 == 1, var] and data[data$CO2 == 0, var]
-W = 5758386023, p-value = 0.9435
+W = 5760383567, p-value = 0.9657
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -248,13 +259,13 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lockdown_compare</span>(data_imputed_long, <span class="st">"ANX"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Lockdown mean: 0.23977072466251"
-[1] "No-lockdown mean: 0.21209805140618"
+<pre><code>[1] "Lockdown mean: 0.239997680066846"
+[1] "No-lockdown mean: 0.212040321127222"
 
     Wilcoxon rank sum test with continuity correction
 
 data:  data[data$CO2 == 1, var] and data[data$CO2 == 0, var]
-W = 6093099285, p-value &lt; 2.2e-16
+W = 6097448210, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -267,13 +278,13 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lockdown_compare</span>(data_imputed_long, <span class="st">"CES_D"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Lockdown mean: 0.844411287064846"
-[1] "No-lockdown mean: 0.851589823784554"
+<pre><code>[1] "Lockdown mean: 0.155650772466123"
+[1] "No-lockdown mean: 0.14797168371925"
 
     Wilcoxon rank sum test with continuity correction
 
 data:  data[data$CO2 == 1, var] and data[data$CO2 == 0, var]
-W = 5574840309, p-value &lt; 2.2e-16
+W = 5952733131, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -286,13 +297,13 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lockdown_compare</span>(data_imputed_long, <span class="st">"H6"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Lockdown mean: 0.126641743884147"
-[1] "No-lockdown mean: 0.0994264734387649"
+<pre><code>[1] "Lockdown mean: 0.127136906710934"
+[1] "No-lockdown mean: 0.0988839362053831"
 
     Wilcoxon rank sum test with continuity correction
 
 data:  data[data$CO2 == 1, var] and data[data$CO2 == 0, var]
-W = 5916156118, p-value &lt; 2.2e-16
+W = 5922491480, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -305,13 +316,13 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lockdown_compare</span>(data_imputed_long, <span class="st">"PAYKEL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Lockdown mean: 0.108965540427059"
-[1] "No-lockdown mean: 0.0822291006127049"
+<pre><code>[1] "Lockdown mean: 0.109289342819456"
+[1] "No-lockdown mean: 0.0818645083528361"
 
     Wilcoxon rank sum test with continuity correction
 
 data:  data[data$CO2 == 1, var] and data[data$CO2 == 0, var]
-W = 6098625971, p-value &lt; 2.2e-16
+W = 6102888792, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -343,7 +354,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.05</td>
 <td style="text-align: right;">0.02</td>
 <td style="text-align: right;">0.03</td>
-<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">-0.02</td>
 <td style="text-align: right;">-0.01</td>
 <td style="text-align: right;">0.00</td>
 </tr>
@@ -352,7 +363,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">-0.16</td>
 <td style="text-align: right;">0.07</td>
 <td style="text-align: right;">0.10</td>
-<td style="text-align: right;">-0.15</td>
+<td style="text-align: right;">0.15</td>
 <td style="text-align: right;">0.07</td>
 <td style="text-align: right;">0.17</td>
 </tr>
@@ -370,7 +381,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">-0.09</td>
 <td style="text-align: right;">-0.02</td>
 <td style="text-align: right;">-0.04</td>
-<td style="text-align: right;">-0.02</td>
+<td style="text-align: right;">0.02</td>
 <td style="text-align: right;">0.03</td>
 <td style="text-align: right;">-0.02</td>
 </tr>
@@ -379,7 +390,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.24</td>
 <td style="text-align: right;">0.03</td>
 <td style="text-align: right;">0.01</td>
-<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">-0.10</td>
 <td style="text-align: right;">-0.10</td>
 <td style="text-align: right;">-0.16</td>
 </tr>
@@ -388,17 +399,17 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.11</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">0.05</td>
-<td style="text-align: right;">-0.03</td>
+<td style="text-align: right;">0.03</td>
 <td style="text-align: right;">0.04</td>
 <td style="text-align: right;">0.06</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">CO3</td>
 <td style="text-align: right;">0.03</td>
-<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
 <td style="text-align: right;">-0.08</td>
-<td style="text-align: right;">0.09</td>
-<td style="text-align: right;">-0.06</td>
+<td style="text-align: right;">-0.09</td>
+<td style="text-align: right;">-0.05</td>
 <td style="text-align: right;">-0.15</td>
 </tr>
 <tr class="even">
@@ -406,7 +417,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">0.18</td>
 <td style="text-align: right;">-0.14</td>
-<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">-0.20</td>
 <td style="text-align: right;">-0.07</td>
 <td style="text-align: right;">-0.13</td>
 </tr>
@@ -415,7 +426,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">-0.07</td>
 <td style="text-align: right;">-0.01</td>
 <td style="text-align: right;">0.14</td>
-<td style="text-align: right;">-0.26</td>
+<td style="text-align: right;">0.26</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">0.35</td>
 </tr>
@@ -423,8 +434,8 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: left;">L1</td>
 <td style="text-align: right;">-0.14</td>
 <td style="text-align: right;">-0.02</td>
-<td style="text-align: right;">0.08</td>
-<td style="text-align: right;">-0.12</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.12</td>
 <td style="text-align: right;">0.09</td>
 <td style="text-align: right;">0.16</td>
 </tr>
@@ -433,7 +444,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.02</td>
 <td style="text-align: right;">0.02</td>
 <td style="text-align: right;">0.08</td>
-<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">-0.03</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">-0.02</td>
 </tr>
@@ -442,7 +453,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.11</td>
 <td style="text-align: right;">0.01</td>
 <td style="text-align: right;">-0.07</td>
-<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">-0.05</td>
 <td style="text-align: right;">-0.06</td>
 <td style="text-align: right;">-0.10</td>
 </tr>
@@ -451,7 +462,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.10</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">-0.02</td>
-<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">-0.07</td>
 <td style="text-align: right;">-0.04</td>
 <td style="text-align: right;">-0.05</td>
 </tr>
@@ -460,7 +471,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">-0.09</td>
 <td style="text-align: right;">-0.01</td>
 <td style="text-align: right;">0.06</td>
-<td style="text-align: right;">-0.08</td>
+<td style="text-align: right;">0.08</td>
 <td style="text-align: right;">0.08</td>
 <td style="text-align: right;">0.06</td>
 </tr>
@@ -469,7 +480,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.21</td>
 <td style="text-align: right;">0.04</td>
 <td style="text-align: right;">0.03</td>
-<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">-0.10</td>
 <td style="text-align: right;">-0.09</td>
 <td style="text-align: right;">-0.05</td>
 </tr>
@@ -477,8 +488,8 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: left;">L11.Q</td>
 <td style="text-align: right;">-0.15</td>
 <td style="text-align: right;">0.01</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">-0.09</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.09</td>
 <td style="text-align: right;">0.08</td>
 <td style="text-align: right;">0.07</td>
 </tr>
@@ -487,7 +498,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.17</td>
 <td style="text-align: right;">0.08</td>
 <td style="text-align: right;">-0.03</td>
-<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">-0.09</td>
 <td style="text-align: right;">-0.06</td>
 <td style="text-align: right;">-0.13</td>
 </tr>
@@ -496,7 +507,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">-0.02</td>
 <td style="text-align: right;">-0.05</td>
-<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">-0.02</td>
 <td style="text-align: right;">-0.07</td>
 <td style="text-align: right;">-0.10</td>
 </tr>
@@ -505,7 +516,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.25</td>
 <td style="text-align: right;">0.05</td>
 <td style="text-align: right;">-0.02</td>
-<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">-0.16</td>
 <td style="text-align: right;">-0.10</td>
 <td style="text-align: right;">-0.16</td>
 </tr>
@@ -514,25 +525,25 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.07</td>
 <td style="text-align: right;">0.04</td>
 <td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">-0.02</td>
 <td style="text-align: right;">0.00</td>
-<td style="text-align: right;">-0.04</td>
+<td style="text-align: right;">-0.03</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">L36b</td>
+<td style="text-align: right;">-0.05</td>
 <td style="text-align: right;">-0.04</td>
-<td style="text-align: right;">-0.03</td>
 <td style="text-align: right;">0.03</td>
-<td style="text-align: right;">-0.03</td>
+<td style="text-align: right;">0.03</td>
 <td style="text-align: right;">0.01</td>
-<td style="text-align: right;">-0.01</td>
+<td style="text-align: right;">0.00</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">L36c</td>
 <td style="text-align: right;">-0.03</td>
 <td style="text-align: right;">-0.06</td>
 <td style="text-align: right;">0.07</td>
-<td style="text-align: right;">-0.07</td>
+<td style="text-align: right;">0.07</td>
 <td style="text-align: right;">0.01</td>
 <td style="text-align: right;">0.06</td>
 </tr>
@@ -541,7 +552,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">-0.03</td>
 <td style="text-align: right;">-0.03</td>
 <td style="text-align: right;">0.03</td>
-<td style="text-align: right;">-0.06</td>
+<td style="text-align: right;">0.06</td>
 <td style="text-align: right;">0.04</td>
 <td style="text-align: right;">0.08</td>
 </tr>
@@ -549,8 +560,8 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: left;">L50</td>
 <td style="text-align: right;">0.49</td>
 <td style="text-align: right;">0.11</td>
-<td style="text-align: right;">-0.10</td>
-<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">-0.11</td>
+<td style="text-align: right;">-0.17</td>
 <td style="text-align: right;">-0.08</td>
 <td style="text-align: right;">-0.13</td>
 </tr>
@@ -559,7 +570,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">-0.06</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">0.09</td>
-<td style="text-align: right;">-0.12</td>
+<td style="text-align: right;">0.12</td>
 <td style="text-align: right;">0.20</td>
 <td style="text-align: right;">0.15</td>
 </tr>
@@ -568,7 +579,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.01</td>
 <td style="text-align: right;">0.03</td>
 <td style="text-align: right;">0.05</td>
-<td style="text-align: right;">-0.06</td>
+<td style="text-align: right;">0.06</td>
 <td style="text-align: right;">0.06</td>
 <td style="text-align: right;">0.04</td>
 </tr>
@@ -577,131 +588,625 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">0.03</td>
 <td style="text-align: right;">0.03</td>
-<td style="text-align: right;">-0.02</td>
+<td style="text-align: right;">0.02</td>
 <td style="text-align: right;">0.04</td>
 <td style="text-align: right;">0.05</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">L45_NEW.Q</td>
 <td style="text-align: right;">0.05</td>
-<td style="text-align: right;">-0.01</td>
+<td style="text-align: right;">-0.02</td>
 <td style="text-align: right;">-0.04</td>
-<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">-0.07</td>
 <td style="text-align: right;">-0.08</td>
 <td style="text-align: right;">-0.11</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">wgt_scaled</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-0.03</td>
+<td style="text-align: right;">-0.04</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-0.03</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">INCOME.L</td>
 <td style="text-align: right;">0.28</td>
 <td style="text-align: right;">0.08</td>
 <td style="text-align: right;">-0.12</td>
-<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">-0.19</td>
 <td style="text-align: right;">-0.15</td>
 <td style="text-align: right;">-0.24</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">INCOME.Q</td>
 <td style="text-align: right;">0.10</td>
 <td style="text-align: right;">0.06</td>
 <td style="text-align: right;">-0.07</td>
-<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">-0.08</td>
 <td style="text-align: right;">-0.04</td>
 <td style="text-align: right;">-0.07</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">INCOME.C</td>
 <td style="text-align: right;">0.09</td>
 <td style="text-align: right;">0.05</td>
 <td style="text-align: right;">-0.04</td>
-<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">-0.06</td>
 <td style="text-align: right;">-0.03</td>
 <td style="text-align: right;">-0.08</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">DIFFS</td>
 <td style="text-align: right;">-0.07</td>
 <td style="text-align: right;">-0.05</td>
 <td style="text-align: right;">0.09</td>
-<td style="text-align: right;">-0.10</td>
+<td style="text-align: right;">0.10</td>
 <td style="text-align: right;">0.04</td>
 <td style="text-align: right;">0.05</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">CW_SWBS</td>
 <td style="text-align: right;">0.18</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">-0.13</td>
-<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">-0.14</td>
 <td style="text-align: right;">-0.01</td>
 <td style="text-align: right;">-0.08</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">ANX</td>
 <td style="text-align: right;">-0.14</td>
 <td style="text-align: right;">-0.13</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">-0.38</td>
+<td style="text-align: right;">0.38</td>
 <td style="text-align: right;">0.14</td>
 <td style="text-align: right;">0.25</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">CES_D</td>
-<td style="text-align: right;">0.20</td>
-<td style="text-align: right;">0.14</td>
-<td style="text-align: right;">-0.38</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">-0.26</td>
-<td style="text-align: right;">-0.37</td>
-</tr>
 <tr class="even">
+<td style="text-align: left;">CES_D</td>
+<td style="text-align: right;">-0.20</td>
+<td style="text-align: right;">-0.14</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">0.37</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">PAYKEL</td>
 <td style="text-align: right;">-0.13</td>
 <td style="text-align: right;">-0.08</td>
 <td style="text-align: right;">0.25</td>
-<td style="text-align: right;">-0.37</td>
+<td style="text-align: right;">0.37</td>
 <td style="text-align: right;">0.35</td>
 <td style="text-align: right;">1.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">CG_CW_SWBS</td>
 <td style="text-align: right;">0.12</td>
 <td style="text-align: right;">0.35</td>
 <td style="text-align: right;">-0.09</td>
-<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">-0.13</td>
 <td style="text-align: right;">-0.04</td>
 <td style="text-align: right;">-0.05</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">CG_ANX</td>
 <td style="text-align: right;">-0.16</td>
 <td style="text-align: right;">-0.11</td>
 <td style="text-align: right;">0.40</td>
-<td style="text-align: right;">-0.28</td>
+<td style="text-align: right;">0.28</td>
 <td style="text-align: right;">0.12</td>
 <td style="text-align: right;">0.17</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">CG_CES_D</td>
 <td style="text-align: right;">0.19</td>
 <td style="text-align: right;">0.12</td>
 <td style="text-align: right;">-0.25</td>
-<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">-0.34</td>
 <td style="text-align: right;">-0.14</td>
 <td style="text-align: right;">-0.21</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">CG_PAYKEL</td>
 <td style="text-align: right;">-0.12</td>
 <td style="text-align: right;">-0.05</td>
 <td style="text-align: right;">0.17</td>
-<td style="text-align: right;">-0.18</td>
-<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.16</td>
 <td style="text-align: right;">0.42</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</section>
+<section id="plots" class="level2">
+<h2 class="anchored" data-anchor-id="plots">Plots</h2>
+<section id="proportion-of-children-facing-a-covid-19-lockdown-by-country" class="level3">
+<h3 class="anchored" data-anchor-id="proportion-of-children-facing-a-covid-19-lockdown-by-country">Proportion of children facing a COVID-19 lockdown by country</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lockdown_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">country =</span> <span class="fu">c</span>(<span class="st">"Ethiopia"</span>, <span class="st">"Kenya"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Uganda"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Philippines"</span>, <span class="st">"Thailand"</span>, <span class="st">"Vietnam"</span>),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop_CO2_1 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_CO2_1 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(list_imputed_data)){</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">complete</span>(list_imputed_data[[i]], <span class="st">"long"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="ot">&lt;-</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="sc">/</span> <span class="fu">mean</span>(data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j]) </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    props_CO2_1 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>CO2[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]))</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    lockdown_summary<span class="sc">$</span>prop_CO2_1[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(props_CO2_1)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    ses_CO2_1 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(data<span class="sc">$</span>CO2[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x))</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    V_W <span class="ot">&lt;-</span> <span class="fu">mean</span>(ses_CO2_1<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    V_B <span class="ot">&lt;-</span> <span class="fu">var</span>(props_CO2_1)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    lockdown_summary<span class="sc">$</span>se_CO2_1[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(V_W <span class="sc">+</span> V_B <span class="sc">+</span> V_B<span class="sc">/</span>m)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lockdown_summary, <span class="fu">aes</span>(<span class="at">x =</span> country)) <span class="sc">+</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> prop_CO2_1), <span class="at">fill =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> prop_CO2_1 <span class="sc">-</span> se_CO2_1, <span class="at">ymax =</span> prop_CO2_1 <span class="sc">+</span> se_CO2_1), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Proportion of children facing a COVID-19 lockdown"</span>) <span class="sc">+</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/lockdown_plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="mean-wellbeing-scores-by-country" class="level3">
+<h3 class="anchored" data-anchor-id="mean-wellbeing-scores-by-country">Mean wellbeing scores by country</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>scores_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">country =</span> <span class="fu">c</span>(<span class="st">"Ethiopia"</span>, <span class="st">"Kenya"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Uganda"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Philippines"</span>, <span class="st">"Thailand"</span>, <span class="st">"Vietnam"</span>),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_H1 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_H1 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_CW_SWBS =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_CW_SWBS =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_ANX =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_ANX =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_CES_D =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_CES_D =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_H6 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_H6 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_PAYKEL =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_PAYKEL =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data))</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(list_imputed_data)){</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">complete</span>(list_imputed_data[[i]], <span class="st">"long"</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span>)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="ot">&lt;-</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="sc">/</span> <span class="fu">mean</span>(data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j]) </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    means_H1 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>H1[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]))</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>mean_H1[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_H1)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    ses_H1 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(data<span class="sc">$</span>H1[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x))</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>se_H1[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_H1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_H1) <span class="sc">+</span> <span class="fu">var</span>(means_H1)<span class="sc">/</span>m)</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    means_CW_SWBS <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>CW_SWBS[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]))</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>mean_CW_SWBS[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_CW_SWBS)</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    ses_CW_SWBS <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(data<span class="sc">$</span>CW_SWBS[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x))</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>se_CW_SWBS[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_CW_SWBS<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_CW_SWBS) <span class="sc">+</span> <span class="fu">var</span>(means_CW_SWBS)<span class="sc">/</span>m)</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>    means_ANX <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>ANX[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]))</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>mean_ANX[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_ANX)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>    ses_ANX <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(data<span class="sc">$</span>ANX[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x))</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>se_ANX[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_ANX<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_ANX) <span class="sc">+</span> <span class="fu">var</span>(means_ANX)<span class="sc">/</span>m)</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>    means_CES_D <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>CES_D[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]))</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>mean_CES_D[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_CES_D)</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>    ses_CES_D <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(data<span class="sc">$</span>CES_D[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x))</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>se_CES_D[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_CES_D<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_CES_D) <span class="sc">+</span> <span class="fu">var</span>(means_CES_D)<span class="sc">/</span>m)</span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>    means_H6 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>H6[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]))</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>mean_H6[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_H6)</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>    ses_H6 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(data<span class="sc">$</span>H6[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x))</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>se_H6[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_H6<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_H6) <span class="sc">+</span> <span class="fu">var</span>(means_H6)<span class="sc">/</span>m)</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>    means_PAYKEL <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>PAYKEL[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]))</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>mean_PAYKEL[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_PAYKEL)</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>    ses_PAYKEL <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(data<span class="sc">$</span>PAYKEL[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x))</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>    scores_summary<span class="sc">$</span>se_PAYKEL[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_PAYKEL<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_PAYKEL) <span class="sc">+</span> <span class="fu">var</span>(means_PAYKEL)<span class="sc">/</span>m)</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>scores_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(var, label, <span class="at">lower =</span> <span class="dv">0</span>){</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(scores_summary, <span class="fu">aes</span>(<span class="at">x =</span> country)) <span class="sc">+</span></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">fill =</span> <span class="st">"#ff7f50"</span>) <span class="sc">+</span></span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">-</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)), <span class="at">ymax =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">+</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> label) <span class="sc">+</span></span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a>        <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(lower, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a>scores_plot_percentage <span class="ot">&lt;-</span> <span class="cf">function</span>(var, label){</span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(scores_summary, <span class="fu">aes</span>(<span class="at">x =</span> country)) <span class="sc">+</span></span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">fill =</span> <span class="st">"#ff7f50"</span>) <span class="sc">+</span></span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">-</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)), <span class="at">ymax =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">+</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> label) <span class="sc">+</span></span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="life-satisfaction-1" class="level4">
+<h4 class="anchored" data-anchor-id="life-satisfaction-1">Life satisfaction</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_plot</span>(<span class="st">"H1"</span>, <span class="st">"Mean life satisfaction (rescaled between 0 and 1)"</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_ls-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cw-swbs-1" class="level4">
+<h4 class="anchored" data-anchor-id="cw-swbs-1">CW-SWBS</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_plot</span>(<span class="st">"CW_SWBS"</span>, <span class="st">"Mean CW-SWBS score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(lower = worse symptoms)"</span>, <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_swbs-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="anxiety-1" class="level4">
+<h4 class="anchored" data-anchor-id="anxiety-1">Anxiety</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_plot</span>(<span class="st">"ANX"</span>, <span class="st">"Mean anxiety score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(higher = worse symptoms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_anx-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cesd-r" class="level4">
+<h4 class="anchored" data-anchor-id="cesd-r">CESD-R</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_plot</span>(<span class="st">"CES_D"</span>, <span class="st">"Mean CESD-R score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(higher = worse symptoms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_cesd-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="self-harm-1" class="level4">
+<h4 class="anchored" data-anchor-id="self-harm-1">Self-harm</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_plot_percentage</span>(<span class="st">"H6"</span>, <span class="st">"Proportion of children who report self-harm in the last year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_sh-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="paykel-suicide-scale-1" class="level4">
+<h4 class="anchored" data-anchor-id="paykel-suicide-scale-1">Paykel suicide scale</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_plot</span>(<span class="st">"PAYKEL"</span>, <span class="st">"Mean Paykel suicide scale score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(higher = worse symptoms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_paykel-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="internet-usage-by-country" class="level3">
+<h3 class="anchored" data-anchor-id="internet-usage-by-country">Internet usage by country</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>internet_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">country =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Ethiopia"</span>, <span class="st">"Kenya"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Uganda"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Philippines"</span>, <span class="st">"Thailand"</span>, <span class="st">"Vietnam"</span>), <span class="at">each =</span> <span class="dv">7</span>),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Never"</span>, <span class="st">"Rarely"</span>, <span class="st">"At least every month"</span>, <span class="st">"At least every week"</span>, <span class="st">"Daily or almost daily"</span>, <span class="st">"Several times each day"</span>, <span class="st">"Almost all the time"</span>), <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">7</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>internet_summary<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="fu">factor</span>(internet_summary<span class="sc">$</span>value, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">c</span>(<span class="st">"Never"</span>, <span class="st">"Rarely"</span>, <span class="st">"At least every month"</span>, <span class="st">"At least every week"</span>, <span class="st">"Daily or almost daily"</span>, <span class="st">"Several times each day"</span>, <span class="st">"Almost all the time"</span>)), <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(list_imputed_data)){</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">complete</span>(list_imputed_data[[i]], <span class="st">"long"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    data<span class="sc">$</span>B1 <span class="ot">&lt;-</span> data<span class="sc">$</span>B1<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="ot">&lt;-</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="sc">/</span> <span class="fu">mean</span>(data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j]) </span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>){</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        means <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sum</span>(data<span class="sc">$</span>B1[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x] <span class="sc">==</span> j)<span class="sc">/</span><span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x) <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x]</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>        internet_summary<span class="sc">$</span>prop[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">7</span> <span class="sc">+</span> j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(internet_summary, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> prop, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"YlGn"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Proportion of children"</span>, <span class="at">fill =</span> <span class="st">"Frequency of internet</span><span class="sc">\n</span><span class="st">usage"</span>) <span class="sc">+</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/internet_plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="wellbeing-by-lockdown-status" class="level3">
+<h3 class="anchored" data-anchor-id="wellbeing-by-lockdown-status">Wellbeing by lockdown status</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>scores_lockdown_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">country =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Ethiopia"</span>, <span class="st">"Kenya"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Uganda"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Philippines"</span>, <span class="st">"Thailand"</span>, <span class="st">"Vietnam"</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">CO2 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"No lockdown"</span>, <span class="st">"Lockdown"</span>), <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_H1 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_H1 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_CW_SWBS =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_CW_SWBS =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_ANX =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_ANX =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_CES_D =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_CES_D =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_H6 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_H6 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_PAYKEL =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_PAYKEL =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(list_imputed_data)){</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">complete</span>(list_imputed_data[[i]], <span class="st">"long"</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span>)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="ot">&lt;-</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="sc">/</span> <span class="fu">mean</span>(data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j]) </span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>){</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>        means_H1 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>H1[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]))</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>mean_H1[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_H1)</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>        ses_H1 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(data<span class="sc">$</span>H1[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j))</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>se_H1[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_H1<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_H1) <span class="sc">+</span> <span class="fu">var</span>(means_H1)<span class="sc">/</span>m)</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>        means_CW_SWBS <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>CW_SWBS[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]))</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>mean_CW_SWBS[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_CW_SWBS)</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>        ses_CW_SWBS <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(data<span class="sc">$</span>CW_SWBS[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j))</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>se_CW_SWBS[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_CW_SWBS<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_CW_SWBS) <span class="sc">+</span> <span class="fu">var</span>(means_CW_SWBS)<span class="sc">/</span>m)</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>        means_ANX <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>ANX[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]))</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>mean_ANX[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_ANX)</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>        ses_ANX <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(data<span class="sc">$</span>ANX[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j))</span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>se_ANX[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_ANX<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_ANX) <span class="sc">+</span> <span class="fu">var</span>(means_ANX)<span class="sc">/</span>m)</span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>        means_CES_D <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>CES_D[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]))</span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>mean_CES_D[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_CES_D)</span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a>        ses_CES_D <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(data<span class="sc">$</span>CES_D[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j))</span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>se_CES_D[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_CES_D<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_CES_D) <span class="sc">+</span> <span class="fu">var</span>(means_CES_D)<span class="sc">/</span>m)</span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a>        means_H6 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>H6[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]))</span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>mean_H6[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_H6)</span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a>        ses_H6 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(data<span class="sc">$</span>H6[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j))</span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>se_H6[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_H6<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_H6) <span class="sc">+</span> <span class="fu">var</span>(means_H6)<span class="sc">/</span>m)</span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a>        means_PAYKEL <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>PAYKEL[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]))</span>
+<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>mean_PAYKEL[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means_PAYKEL)</span>
+<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a>        ses_PAYKEL <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(data<span class="sc">$</span>PAYKEL[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j))</span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a>        scores_lockdown_summary<span class="sc">$</span>se_PAYKEL[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses_PAYKEL<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means_PAYKEL) <span class="sc">+</span> <span class="fu">var</span>(means_PAYKEL)<span class="sc">/</span>m)</span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a>scores_lockdown_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(var, label, <span class="at">lower =</span> <span class="dv">0</span>){</span>
+<span id="cb29-71"><a href="#cb29-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">suppressWarnings</span>({</span>
+<span id="cb29-72"><a href="#cb29-72" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(scores_lockdown_summary, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">fill =</span> CO2)) <span class="sc">+</span></span>
+<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>)) <span class="sc">+</span></span>
+<span id="cb29-74"><a href="#cb29-74" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">-</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)), <span class="at">ymax =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">+</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb29-75"><a href="#cb29-75" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> label, <span class="at">fill =</span> <span class="st">"Lockdown status"</span>) <span class="sc">+</span></span>
+<span id="cb29-76"><a href="#cb29-76" aria-hidden="true" tabindex="-1"></a>            <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(lower, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb29-77"><a href="#cb29-77" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb29-78"><a href="#cb29-78" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb29-79"><a href="#cb29-79" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb29-80"><a href="#cb29-80" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-81"><a href="#cb29-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-82"><a href="#cb29-82" aria-hidden="true" tabindex="-1"></a>scores_lockdown_plot_percentage <span class="ot">&lt;-</span> <span class="cf">function</span>(var, label){</span>
+<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">suppressWarnings</span>({</span>
+<span id="cb29-84"><a href="#cb29-84" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(scores_lockdown_summary, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">fill =</span> CO2)) <span class="sc">+</span></span>
+<span id="cb29-85"><a href="#cb29-85" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>)) <span class="sc">+</span></span>
+<span id="cb29-86"><a href="#cb29-86" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">-</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)), <span class="at">ymax =</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"mean"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">+</span> <span class="fu">get</span>(<span class="fu">paste</span>(<span class="st">"se"</span>, var, <span class="at">sep =</span> <span class="st">"_"</span>))), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb29-87"><a href="#cb29-87" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb29-88"><a href="#cb29-88" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> label, <span class="at">fill =</span> <span class="st">"Lockdown status"</span>) <span class="sc">+</span></span>
+<span id="cb29-89"><a href="#cb29-89" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb29-90"><a href="#cb29-90" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb29-91"><a href="#cb29-91" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb29-92"><a href="#cb29-92" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="life-satisfaction-2" class="level4">
+<h4 class="anchored" data-anchor-id="life-satisfaction-2">Life satisfaction</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_lockdown_plot</span>(<span class="st">"H1"</span>, <span class="st">"Mean life satisfaction (rescaled between 0 and 1)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_lockdown_ls-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cw-swbs-2" class="level4">
+<h4 class="anchored" data-anchor-id="cw-swbs-2">CW-SWBS</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_lockdown_plot</span>(<span class="st">"CW_SWBS"</span>, <span class="st">"Mean CW-SWBS score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(lower = worse symptoms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_lockdown_swbs-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="anxiety-2" class="level4">
+<h4 class="anchored" data-anchor-id="anxiety-2">Anxiety</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_lockdown_plot</span>(<span class="st">"ANX"</span>, <span class="st">"Mean anxiety score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(higher = worse symptoms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_lockdown_anx-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cesd-r-1" class="level4">
+<h4 class="anchored" data-anchor-id="cesd-r-1">CESD-R</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_lockdown_plot</span>(<span class="st">"CES_D"</span>, <span class="st">"Mean CESD-R score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(higher = worse symptoms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_lockdown_cesd-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="self-harm-2" class="level4">
+<h4 class="anchored" data-anchor-id="self-harm-2">Self-harm</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_lockdown_plot_percentage</span>(<span class="st">"H6"</span>, <span class="st">"Proportion of children who report self-harm in the last year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_lockdown_sh-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="paykel-suicide-scale-2" class="level4">
+<h4 class="anchored" data-anchor-id="paykel-suicide-scale-2">Paykel suicide scale</h4>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scores_lockdown_plot</span>(<span class="st">"PAYKEL"</span>, <span class="st">"Mean Paykel suicide scale score (rescaled between 0 and 1)</span><span class="sc">\n</span><span class="st">(higher = worse symptoms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/scores_lockdown_paykel-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="internet-usage-by-lockdown-status" class="level3">
+<h3 class="anchored" data-anchor-id="internet-usage-by-lockdown-status">Internet usage by lockdown status</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>internet_lockdown_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">country =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Ethiopia"</span>, <span class="st">"Kenya"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Uganda"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Philippines"</span>, <span class="st">"Thailand"</span>, <span class="st">"Vietnam"</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">CO2 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"No lockdown"</span>, <span class="st">"Lockdown"</span>), <span class="fu">length</span>(list_imputed_data)),</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>),</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(list_imputed_data)<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(list_imputed_data)){</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">complete</span>(list_imputed_data[[i]], <span class="st">"long"</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    data<span class="sc">$</span>B1 <span class="ot">&lt;-</span> data<span class="sc">$</span>B1<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span>)</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>        data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="ot">&lt;-</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j] <span class="sc">/</span> <span class="fu">mean</span>(data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> j]) </span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>){</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>        means <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x) <span class="fu">mean</span>(data<span class="sc">$</span>B1[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]))</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>        internet_lockdown_summary<span class="sc">$</span>mean[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(means)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>        ses <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>m, <span class="cf">function</span>(x){</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(data<span class="sc">$</span>B1[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j] <span class="sc">*</span> data<span class="sc">$</span>wgt_scaled[data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">.imp</span><span class="st">`</span> <span class="sc">==</span> x <span class="sc">&amp;</span> data<span class="sc">$</span>CO2 <span class="sc">==</span> j))</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>        internet_lockdown_summary<span class="sc">$</span>se[(i<span class="dv">-1</span>)<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(ses<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">var</span>(means) <span class="sc">+</span> <span class="fu">var</span>(means)<span class="sc">/</span>m)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(internet_lockdown_summary, <span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">fill =</span> CO2)) <span class="sc">+</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> mean), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>)) <span class="sc">+</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Mean internet usage (arbitrary units)"</span>, <span class="at">fill =</span> <span class="st">"Lockdown status"</span>) <span class="sc">+</span></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_linedraw</span>() <span class="sc">+</span></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="descriptives_report_files/figure-html/internet_lockdown_plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 </section>
 
 </main>

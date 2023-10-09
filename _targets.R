@@ -168,7 +168,8 @@ list(
 
     tar_target(
         cesd_cfa,
-        conf_fact_analysis(
+        # The "1 minus" is here to reverse the CES-D scoring, to make the interpretation more intuitive
+        1 - conf_fact_analysis(
             data_clean,
             "lf =~ H5a + H5b + H5f + H5g"
         )
@@ -355,6 +356,114 @@ list(
         zoib_mixed_model(
             data_imputed,
             "PAYKEL",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL"
+        )
+    ),
+
+    tar_target(
+        connection_ls_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "H1 | weights(wgt_scaled)",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50"
+        )
+    ),
+
+    tar_target(
+        connection_swbs_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "CW_SWBS | weights(wgt_scaled)",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS"
+        )
+    ),
+
+    tar_target(
+        connection_anx_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "ANX | weights(wgt_scaled)",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX"
+        )
+    ),
+
+    tar_target(
+        connection_cesd_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "CES_D | weights(wgt_scaled)",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D"
+        )
+    ),
+
+    tar_target(
+        connection_sh_model_weighted,
+        logistic_mixed_model(
+            data_imputed,
+            "H6 | weights(wgt_scaled)",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41"
+        )
+    ),
+
+    tar_target(
+        connection_paykel_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "PAYKEL | weights(wgt_scaled)",
+            "CO2*CO3 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL"
+        )
+    ),
+
+    tar_target(
+        internet_ls_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "H1 | weights(wgt_scaled)", 
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50"
+        )
+    ),
+
+    tar_target(
+        internet_swbs_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "CW_SWBS | weights(wgt_scaled)",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS"
+        )
+    ),
+
+    tar_target(
+        internet_anx_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "ANX | weights(wgt_scaled)",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX"
+        )
+    ),
+
+    tar_target(
+        internet_cesd_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "CES_D | weights(wgt_scaled)",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D"
+        )
+    ),
+
+    tar_target(
+        internet_sh_model_weighted,
+        logistic_mixed_model(
+            data_imputed,
+            "H6 | weights(wgt_scaled)",
+            "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41"
+        )
+    ),
+
+    tar_target(
+        internet_paykel_model_weighted,
+        zoib_mixed_model(
+            data_imputed,
+            "PAYKEL | weights(wgt_scaled)",
             "B1*CO2 + ECS_SELECTED_CH_GENDER + ECS_SELECTED_CH_AGE + A1 + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL"
         )
     ),
