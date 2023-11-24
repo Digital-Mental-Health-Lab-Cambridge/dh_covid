@@ -1,0 +1,79 @@
+---
+title: "cfa_report"
+author: "Thomas E. Metherell"
+date: "2023-08-08"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependencies and targets
+
+```{r dependencies}
+library(targets)
+library(lavaan)
+library(semTools)
+
+swbs_country_cfa_model <- tar_read(swbs_country_cfa_model)
+swbs_country_metric_model <- tar_read(swbs_country_metric_model)
+
+anx_country_cfa_model <- tar_read(anx_country_cfa_model)
+anx_country_metric_model <- tar_read(anx_country_metric_model)
+
+cesd_country_cfa_model <- tar_read(cesd_country_cfa_model)
+cesd_country_metric_model <- tar_read(cesd_country_metric_model)
+```
+
+## CW-SWBS
+### Unconstrained CFA summary
+
+```{r swbs_uc}
+summary(swbs_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Constrained CFA summary
+
+```{r swbs_c}
+summary(swbs_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+``` 
+
+### Comparison between constrained and unconstrained models
+
+```{r swbs_comp}
+summary(compareFit(swbs_country_metric_model, swbs_country_cfa_model))
+```
+
+## Anxiety scale
+### Unconstrained CFA summary
+
+```{r anx_uc}
+summary(anx_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Constrained CFA summary
+
+```{r anx_c}
+summary(anx_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained and unconstrained models
+
+```{r anx_comp}
+summary(compareFit(anx_country_metric_model, anx_country_cfa_model))
+```
+
+## Abridged CES-D
+### Unconstrained CFA summary
+
+```{r cesd_uc}
+summary(cesd_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Constrained CFA summary
+
+```{r cesd_c}
+summary(cesd_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+As this model did not converge, we cannot compare the fit of the two models.

@@ -1,0 +1,402 @@
+---
+title: "models_report"
+author: "Thomas E. Metherell"
+date: "2023-09-08"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependencies and targets
+
+```{r dependencies}
+library(targets)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(mice)
+library(mitools)
+
+connection_ls_models_summary <- tar_read(connection_ls_models_summary)
+connection_swbs_models_summary <- tar_read(connection_swbs_models_summary)
+connection_anx_models_summary <- tar_read(connection_anx_models_summary)
+connection_cesd_models_summary <- tar_read(connection_cesd_models_summary)
+connection_sh_models_summary <- tar_read(connection_sh_models_summary)
+connection_paykel_models_summary <- tar_read(connection_paykel_models_summary)
+
+connection_ls_models_weighted_summary <- tar_read(connection_ls_models_weighted_summary)
+connection_swbs_models_weighted_summary <- tar_read(connection_swbs_models_weighted_summary)
+connection_anx_models_weighted_summary <- tar_read(connection_anx_models_weighted_summary)
+connection_cesd_models_weighted_summary <- tar_read(connection_cesd_models_weighted_summary)
+connection_sh_models_weighted_summary <- tar_read(connection_sh_models_weighted_summary)
+connection_paykel_models_weighted_summary <- tar_read(connection_paykel_models_weighted_summary)
+
+internet_ls_models_summary <- tar_read(internet_ls_models_summary)
+internet_swbs_models_summary <- tar_read(internet_swbs_models_summary)
+internet_anx_models_summary <- tar_read(internet_anx_models_summary)
+internet_cesd_models_summary <- tar_read(internet_cesd_models_summary)
+internet_sh_models_summary <- tar_read(internet_sh_models_summary)
+internet_paykel_models_summary <- tar_read(internet_paykel_models_summary)
+
+internet_ls_models_weighted_summary <- tar_read(internet_ls_models_weighted_summary)
+internet_swbs_models_weighted_summary <- tar_read(internet_swbs_models_weighted_summary)
+internet_anx_models_weighted_summary <- tar_read(internet_anx_models_weighted_summary)
+internet_cesd_models_weighted_summary <- tar_read(internet_cesd_models_weighted_summary)
+internet_sh_models_weighted_summary <- tar_read(internet_sh_models_weighted_summary)
+internet_paykel_models_weighted_summary <- tar_read(internet_paykel_models_weighted_summary)
+```
+
+## Defining rounding function
+
+```{r round_fn}
+round_summary <- function(summary){
+    for(i in 1:ncol(summary)){
+        if(is.numeric(summary[, i])){
+            summary[, i] <- round(summary[, i], 3)
+        }
+    }
+
+    return(summary)
+}
+```
+
+## Defining plotting functions
+
+```{r plot_fn}
+connection_plot <- function(summary){
+    ggplot(
+        summary %>% 
+            mutate(term = case_when(
+                term == "dv_covid_statusLockdown, connected" ~ "Yes",
+                term == "dv_covid_statusLockdown, disconnected" ~ "No"
+            )),
+            aes(
+            x = country, 
+            y = estimate, 
+            fill = term, 
+            ymin = estimate + qt(0.025, df) * std.error,
+            ymax = estimate + qt(0.975, df) * std.error
+            )   
+    ) +
+    geom_col(position = "dodge") + 
+    geom_errorbar(position = position_dodge(width = 0.9), width = 0.5) + 
+    labs(x = "Country", y = "Coefficient", fill = "Connected with\nfriends and family\nduring lockdown?") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
+
+internet_plots <- function(summary){
+    country_list <- c("Ethiopia", "Kenya", "Mozambique", "Namibia", "Uganda", "Cambodia", "Indonesia", "Malaysia", "Philippines", "Thailand", "Vietnam")
+
+    plots <- list()
+    
+    for(i in seq_along(country_list)){
+        country <- country_list[i]
+
+        temp <- summary[summary$country == country,]
+
+        B1coef <- temp$estimate[temp$term == "B1"]
+        B1se <- temp$std.error[temp$term == "B1"]
+        B1df <- temp$df[temp$term == "B1"]
+        B1lower <- B1coef + qt(0.025, B1df) * B1se
+        B1upper <- B1coef + qt(0.975, B1df) * B1se
+        CO2coef <- temp$estimate[temp$term == "CO2"]
+        CO2se <- temp$std.error[temp$term == "CO2"]
+        CO2lower <- CO2coef + qt(0.025, B1df) * CO2se
+        CO2upper <- CO2coef + qt(0.975, B1df) * CO2se
+        interactioncoef <- temp$estimate[temp$term == "B1:CO2"]
+        interactionse <- temp$std.error[temp$term == "B1:CO2"]
+        interactionlower <- interactioncoef + qt(0.025, B1df) * interactionse
+        interactionupper <- interactioncoef + qt(0.975, B1df) * interactionse
+
+        plot_data <- data.frame(
+            B1 = rep(0:5 / 5, 2),
+            CO2 = c(rep(0, 6), rep(1, 6))
+        )
+
+        plot_data$estimate <- B1coef * plot_data$B1 + CO2coef * plot_data$CO2 + interactioncoef * plot_data$B1 * plot_data$CO2
+
+        plot_data$upper <- B1upper * plot_data$B1 + CO2upper * plot_data$CO2 + interactionupper * plot_data$B1 * plot_data$CO2
+
+        plot_data$lower <- B1lower * plot_data$B1 + CO2lower * plot_data$CO2 + interactionlower * plot_data$B1 * plot_data$CO2
+
+        plot_data$B1 <- as.factor(plot_data$B1)
+        plot_data$CO2 <- as.factor(plot_data$CO2)
+
+        plots[[i]] <- ggplot(
+            plot_data,
+            aes(
+                x = B1,
+                y = estimate,
+                ymin = lower,
+                ymax = upper,
+                fill = CO2
+            )
+        ) +
+        facet_wrap(vars(CO2), labeller = labeller(CO2 = c("0" = "No lockdown", "1" = "Lockdown"))) +
+        geom_col() +
+        geom_errorbar(width = 1/12) +
+        scale_x_discrete(labels = c("Rarely", "At least every month", "At least every week", "At least every day", "Several times each day", "Almost all the time")) +
+        labs(x = "Frequency of internet use", y = "Coefficient", title = country) +
+        theme_bw() +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+    }
+
+    return(plots)
+}
+```
+
+## Models for ability to stay connected during lockdown
+### Life satisfaction
+#### Unweighted
+
+```{r conn_ls}
+connection_ls_models_summary |> round_summary() |> kable()
+```
+
+```{r conn_ls_plot}
+connection_plot(connection_ls_models_summary)
+```
+
+#### Weighted
+
+```{r conn_ls_weighted}
+connection_ls_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r conn_ls_weighted_plot}
+connection_plot(connection_ls_models_weighted_summary)
+```
+
+### CW-SWBS
+#### Unweighted
+
+```{r conn_swbs}
+connection_swbs_models_summary |> round_summary() |> kable()
+```
+
+```{r conn_swbs_plot}
+connection_plot(connection_swbs_models_summary)
+```
+
+#### Weighted
+
+```{r conn_swbs_weighted}
+connection_swbs_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r conn_swbs_weighted_plot}
+connection_plot(connection_swbs_models_weighted_summary)
+```
+
+### Anxiety
+#### Unweighted
+
+```{r conn_anx}
+connection_anx_models_summary |> round_summary() |> kable()
+```
+
+```{r conn_anx_plot}
+connection_plot(connection_anx_models_summary)
+```
+
+#### Weighted
+
+```{r conn_anx_weighted}
+connection_anx_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r conn_anx_weighted_plot}
+connection_plot(connection_anx_models_weighted_summary)
+```
+
+### CES-D
+#### Unweighted
+
+```{r conn_cesd}
+connection_cesd_models_summary |> round_summary() |> kable()
+```
+
+```{r conn_cesd_plot}
+connection_plot(connection_cesd_models_summary)
+```
+
+#### Weighted
+
+```{r conn_cesd_weighted}
+connection_cesd_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r conn_cesd_weighted_plot}
+connection_plot(connection_cesd_models_weighted_summary)
+```
+
+### Self-harm
+#### Unweighted
+
+```{r conn_sh}
+connection_sh_models_summary |> round_summary() |> kable()
+```
+
+```{r conn_sh_plot}
+connection_plot(connection_sh_models_summary)
+```
+
+#### Weighted
+
+```{r conn_sh_weighted}
+connection_sh_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r conn_sh_weighted_plot}
+connection_plot(connection_sh_models_weighted_summary)
+```
+
+### Paykel suicide scale
+#### Unweighted
+
+```{r conn_paykel}
+connection_paykel_models_summary |> round_summary() |> kable()
+```
+
+```{r conn_paykel_plot}
+connection_plot(connection_paykel_models_summary)
+```
+
+#### Weighted
+
+```{r conn_paykel_weighted}
+connection_paykel_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r conn_paykel_weighted_plot}
+connection_plot(connection_paykel_models_weighted_summary)
+```
+
+## Models for internet use frequency
+### Life satisfaction
+#### Unweighted
+
+```{r int_ls}
+internet_ls_models_summary |> round_summary() |> kable()
+```
+
+```{r int_ls_plots}
+internet_plots(internet_ls_models_summary)
+```
+
+#### Weighted
+
+```{r int_ls_weighted}
+internet_ls_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r int_ls_weighted_plots}
+internet_plots(internet_ls_models_weighted_summary)
+```
+
+### CW-SWBS
+#### Unweighted
+
+```{r int_swbs}
+internet_swbs_models_summary |> round_summary() |> kable()
+```
+
+```{r int_swbs_plots}
+internet_plots(internet_swbs_models_summary)
+```
+
+#### Weighted
+
+```{r int_swbs_weighted}
+internet_swbs_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r int_swbs_weighted_plots}
+internet_plots(internet_swbs_models_weighted_summary)
+```
+
+### Anxiety
+#### Unweighted
+
+```{r int_anx}
+internet_anx_models_summary |> round_summary() |> kable()
+```
+
+```{r int_anx_plots}
+internet_plots(internet_anx_models_summary)
+```
+
+#### Weighted
+
+```{r int_anx_weighted}
+internet_anx_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r int_anx_weighted_plots}
+internet_plots(internet_anx_models_weighted_summary)
+```
+
+### CES-D
+#### Unweighted
+
+```{r int_cesd}
+internet_cesd_models_summary |> round_summary() |> kable()
+```
+
+```{r int_cesd_plots}
+internet_plots(internet_cesd_models_summary)
+```
+
+#### Weighted
+
+```{r int_cesd_weighted}
+internet_cesd_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r int_cesd_weighted_plots}
+internet_plots(internet_cesd_models_weighted_summary)
+```
+
+### Self-harm
+#### Unweighted
+
+```{r int_sh}
+internet_sh_models_summary |> round_summary() |> kable()
+```
+
+```{r int_sh_plots}
+internet_plots(internet_sh_models_summary)
+```
+
+#### Weighted
+
+```{r int_sh_weighted}
+internet_sh_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r int_sh_weighted_plots}
+internet_plots(internet_sh_models_weighted_summary)
+```
+
+### Paykel suicide scale
+#### Unweighted
+
+```{r int_paykel}
+internet_paykel_models_summary |> round_summary() |> kable()
+```
+
+```{r int_paykel_plots}
+internet_plots(internet_paykel_models_summary)
+```
+
+#### Weighted
+
+```{r int_paykel_weighted}
+internet_paykel_models_weighted_summary |> round_summary() |> kable()
+```
+
+```{r int_paykel_weighted_plots}
+internet_plots(internet_paykel_models_weighted_summary)
+```

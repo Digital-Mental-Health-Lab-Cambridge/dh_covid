@@ -1,0 +1,436 @@
+---
+title: "descriptives_report"
+author: "Thomas E. Metherell"
+date: "2023-09-13"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependencies and target
+
+```{r dependencies}
+library(targets)
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+library(mice)
+library(knitr)
+library(purrr)
+library(RColorBrewer)
+
+imputed_data <- tar_read(imputed_data)
+```
+
+## Proportion of children facing a COVID-19 lockdown by country
+
+```{r lockdown_plot}
+country_list <- c("Ethiopia", "Kenya", "Mozambique", "Namibia", "Tanzania", "Uganda", "Cambodia", "Indonesia", "Malaysia", "Philippines", "Thailand", "Vietnam")
+
+lockdown_summary <- data.frame(
+    country = country_list,
+    prop_CO2_1 = rep(NA, length(country_list)),
+    se_CO2_1 = rep(NA, length(country_list))
+)
+
+full_data <- complete(imputed_data, "long")
+m <- imputed_data$m
+
+for(i in seq_along(unique(imputed_data$data$COUNTRY))){
+    country <- unique(imputed_data$data$COUNTRY)[i]
+
+    data <- full_data[full_data$COUNTRY == country,]
+
+    props_CO2_1 <- sapply(1:m, function(x) mean(data$CO2[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
+    lockdown_summary$prop_CO2_1[i] <- mean(props_CO2_1)
+    ses_CO2_1 <- sapply(1:m, function(x){
+        sd(data$CO2[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled)))
+    })
+    V_W <- mean(ses_CO2_1^2)
+    V_B <- var(props_CO2_1)
+    lockdown_summary$se_CO2_1[i] <- sqrt(V_W + V_B + V_B/m)
+}
+
+ggplot(lockdown_summary, aes(x = country)) +
+    geom_col(aes(y = prop_CO2_1), fill = "black") +
+    geom_errorbar(aes(ymin = prop_CO2_1 - se_CO2_1, ymax = prop_CO2_1 + se_CO2_1), width = 0.2) +
+    scale_y_continuous(labels = scales::percent) +
+    labs(x = "Country", y = "Proportion of children facing a COVID-19 lockdown") +
+    theme_linedraw() +
+    theme(axis.text.x=element_text(angle = 45, hjust = 1))
+```
+
+## Mean wellbeing scores by country
+
+```{r scores_plots}
+scores_summary <- data.frame(
+    country = country_list,
+    mean_H1 = rep(NA, length(country_list)),
+    se_H1 = rep(NA, length(country_list)),
+    mean_CW_SWBS = rep(NA, length(country_list)),
+    se_CW_SWBS = rep(NA, length(country_list)),
+    mean_ANX = rep(NA, length(country_list)),
+    se_ANX = rep(NA, length(country_list)),
+    mean_CES_D = rep(NA, length(country_list)),
+    se_CES_D = rep(NA, length(country_list)),
+    mean_H6 = rep(NA, length(country_list)),
+    se_H6 = rep(NA, length(country_list)),
+    mean_PAYKEL = rep(NA, length(country_list)),
+    se_PAYKEL = rep(NA, length(country_list))
+)
+
+for(i in seq_along(unique(imputed_data$data$COUNTRY))){
+    country <- unique(imputed_data$data$COUNTRY)[i]
+
+    data <- full_data[full_data$COUNTRY == country,]
+
+    means_H1 <- sapply(1:m, function(x) mean(data$H1[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
+    scores_summary$mean_H1[i] <- mean(means_H1)
+    ses_H1 <- sapply(1:m, function(x){
+        sd(data$H1[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled)))
+    })
+    scores_summary$se_H1[i] <- sqrt(mean(ses_H1^2) + var(means_H1) + var(means_H1)/m)
+
+    means_CW_SWBS <- sapply(1:m, function(x) mean(data$CW_SWBS[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
+    scores_summary$mean_CW_SWBS[i] <- mean(means_CW_SWBS)
+    ses_CW_SWBS <- sapply(1:m, function(x){
+        sd(data$CW_SWBS[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled)))
+    })
+    scores_summary$se_CW_SWBS[i] <- sqrt(mean(ses_CW_SWBS^2) + var(means_CW_SWBS) + var(means_CW_SWBS)/m)
+
+    means_ANX <- sapply(1:m, function(x) mean(data$ANX[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
+    scores_summary$mean_ANX[i] <- mean(means_ANX)
+    ses_ANX <- sapply(1:m, function(x){
+        sd(data$ANX[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled)))
+    })
+    scores_summary$se_ANX[i] <- sqrt(mean(ses_ANX^2) + var(means_ANX) + var(means_ANX)/m)
+
+    means_CES_D <- sapply(1:m, function(x) mean(data$CES_D[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
+    scores_summary$mean_CES_D[i] <- mean(means_CES_D)
+    ses_CES_D <- sapply(1:m, function(x){
+        sd(data$CES_D[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled)))
+    })
+    scores_summary$se_CES_D[i] <- sqrt(mean(ses_CES_D^2) + var(means_CES_D) + var(means_CES_D)/m)
+
+    means_H6 <- sapply(1:m, function(x) mean(data$H6[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
+    scores_summary$mean_H6[i] <- mean(means_H6)
+    ses_H6 <- sapply(1:m, function(x){
+        sd(data$H6[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled)))
+    })
+    scores_summary$se_H6[i] <- sqrt(mean(ses_H6^2) + var(means_H6) + var(means_H6)/m)
+
+    means_PAYKEL <- sapply(1:m, function(x) mean(data$PAYKEL[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
+    scores_summary$mean_PAYKEL[i] <- mean(means_PAYKEL)
+    ses_PAYKEL <- sapply(1:m, function(x){
+        sd(data$PAYKEL[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled)))
+    })
+    scores_summary$se_PAYKEL[i] <- sqrt(mean(ses_PAYKEL^2) + var(means_PAYKEL) + var(means_PAYKEL)/m)
+}
+
+scores_plot <- function(var, label, lower = 0){
+    ggplot(scores_summary, aes(x = country)) +
+        geom_col(aes(y = get(paste("mean", var, sep = "_"))), fill = "#ff7f50") +
+        geom_errorbar(aes(ymin = get(paste("mean", var, sep = "_")) - get(paste("se", var, sep = "_")), ymax = get(paste("mean", var, sep = "_")) + get(paste("se", var, sep = "_"))), width = 0.2) +
+        labs(x = "Country", y = label) +
+        coord_cartesian(ylim = c(lower, NA)) +
+        theme_linedraw() +
+        theme(axis.text.x=element_text(angle = 45, hjust = 1))
+}
+
+scores_plot_percentage <- function(var, label){
+    ggplot(scores_summary, aes(x = country)) +
+        geom_col(aes(y = get(paste("mean", var, sep = "_"))), fill = "#ff7f50") +
+        geom_errorbar(aes(ymin = get(paste("mean", var, sep = "_")) - get(paste("se", var, sep = "_")), ymax = get(paste("mean", var, sep = "_")) + get(paste("se", var, sep = "_"))), width = 0.2) +
+        scale_y_continuous(labels = scales::percent) +
+        labs(x = "Country", y = label) +
+        theme_linedraw() +
+        theme(axis.text.x=element_text(angle = 45, hjust = 1))
+}
+```
+
+### Life satisfaction
+
+```{r scores_ls}
+scores_plot("H1", "Mean life satisfaction (rescaled between 0 and 1)", 0.5)
+```
+
+### CW-SWBS
+
+```{r scores_swbs}
+scores_plot("CW_SWBS", "Mean CW-SWBS score (rescaled between 0 and 1)\n(lower = worse symptoms)", 0.6)
+```
+
+### Anxiety
+
+```{r scores_anx}
+scores_plot("ANX", "Mean anxiety score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+```
+
+### CESD-R
+
+```{r scores_cesd}
+scores_plot("CES_D", "Mean CESD-R score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+```
+
+### Self-harm
+
+```{r scores_sh}
+scores_plot_percentage("H6", "Proportion of children who report self-harm in the last year")
+```
+
+### Paykel suicide scale
+
+```{r scores_paykel}
+scores_plot("PAYKEL", "Mean Paykel suicide scale score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+```
+
+## Internet usage by country
+
+```{r internet_plot}
+internet_summary <- data.frame(
+    country = rep(country_list, each = 7),
+    value = rep(c("Never", "Rarely", "At least every month", "At least every week", "Daily or almost daily", "Several times each day", "Almost all the time"), length(country_list)),
+    prop = rep(NA, length(country_list)*7)
+)
+
+internet_summary$value <- factor(internet_summary$value, levels = rev(c("Never", "Rarely", "At least every month", "At least every week", "Daily or almost daily", "Several times each day", "Almost all the time")), ordered = TRUE)
+
+for(i in seq_along(unique(imputed_data$data$COUNTRY))){
+    country = unique(imputed_data$data$COUNTRY)[i]
+
+    data <- full_data[full_data$COUNTRY == country,]
+    data$B1 <- data$B1*5 + 2
+    m <- max(data$`.imp`)
+
+    for(j in 1:7){
+        sums <- sapply(1:m, function(x){
+            sum(as.integer(data$B1[data$`.imp` == x] == j) * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE)
+        })
+        internet_summary$prop[(i-1)*7 + j] <- mean(sums)
+    }
+}
+
+ggplot(internet_summary, aes(x = country, y = prop, fill = value)) +
+    geom_col(position = "fill") +
+    scale_y_continuous(labels = scales::percent) +
+    scale_fill_brewer(palette = "YlGn", direction = -1) +
+    labs(x = "Country", y = "Proportion of children", fill = "Frequency of internet\nusage") +
+    theme_linedraw() +
+    theme(axis.text.x=element_text(angle = 45, hjust = 1))
+```
+
+## Wellbeing by lockdown status
+
+```{r scores_lockdown}
+scores_lockdown_summary <- data.frame(
+    country = rep(country_list, each = 2),
+    CO2 = rep(c("No lockdown", "Lockdown"), length(country_list)),
+    mean_H1 = rep(NA, length(country_list)*2),
+    se_H1 = rep(NA, length(country_list)*2),
+    mean_CW_SWBS = rep(NA, length(country_list)*2),
+    se_CW_SWBS = rep(NA, length(country_list)*2),
+    mean_ANX = rep(NA, length(country_list)*2),
+    se_ANX = rep(NA, length(country_list)*2),
+    mean_CES_D = rep(NA, length(country_list)*2),
+    se_CES_D = rep(NA, length(country_list)*2),
+    mean_H6 = rep(NA, length(country_list)*2),
+    se_H6 = rep(NA, length(country_list)*2),
+    mean_PAYKEL = rep(NA, length(country_list)*2),
+    se_PAYKEL = rep(NA, length(country_list)*2)
+)
+
+for(i in seq_along(unique(imputed_data$data$COUNTRY))){
+    country <- unique(imputed_data$data$COUNTRY)[i]
+
+    data <- full_data[full_data$COUNTRY == country,]
+
+    for(j in 0:1){
+        means_H1 <- sapply(1:m, function(x) mean(data$H1[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE))
+        scores_lockdown_summary$mean_H1[(i-1)*2 + j + 1] <- mean(means_H1)
+        ses_H1 <- sapply(1:m, function(x){
+            sd(data$H1[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled) & data$CO2 == j))
+        })
+        scores_lockdown_summary$se_H1[(i-1)*2 + j + 1] <- sqrt(mean(ses_H1^2) + var(means_H1) + var(means_H1)/m)
+
+        means_CW_SWBS <- sapply(1:m, function(x) mean(data$CW_SWBS[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE))
+        scores_lockdown_summary$mean_CW_SWBS[(i-1)*2 + j + 1] <- mean(means_CW_SWBS)
+        ses_CW_SWBS <- sapply(1:m, function(x){
+            sd(data$CW_SWBS[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled) & data$CO2 == j))
+        })
+        scores_lockdown_summary$se_CW_SWBS[(i-1)*2 + j + 1] <- sqrt(mean(ses_CW_SWBS^2) + var(means_CW_SWBS) + var(means_CW_SWBS)/m)
+
+        means_ANX <- sapply(1:m, function(x) mean(data$ANX[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE))
+        scores_lockdown_summary$mean_ANX[(i-1)*2 + j + 1] <- mean(means_ANX)
+        ses_ANX <- sapply(1:m, function(x){
+            sd(data$ANX[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled) & data$CO2 == j))
+        })
+        scores_lockdown_summary$se_ANX[(i-1)*2 + j + 1] <- sqrt(mean(ses_ANX^2) + var(means_ANX) + var(means_ANX)/m)
+
+        means_CES_D <- sapply(1:m, function(x) mean(data$CES_D[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE))
+        scores_lockdown_summary$mean_CES_D[(i-1)*2 + j + 1] <- mean(means_CES_D)
+        ses_CES_D <- sapply(1:m, function(x){
+            sd(data$CES_D[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled) & data$CO2 == j))
+        })
+        scores_lockdown_summary$se_CES_D[(i-1)*2 + j + 1] <- sqrt(mean(ses_CES_D^2) + var(means_CES_D) + var(means_CES_D)/m)
+
+        means_H6 <- sapply(1:m, function(x) mean(data$H6[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE))
+        scores_lockdown_summary$mean_H6[(i-1)*2 + j + 1] <- mean(means_H6)
+        ses_H6 <- sapply(1:m, function(x){
+            sd(data$H6[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled) & data$CO2 == j))
+        })
+        scores_lockdown_summary$se_H6[(i-1)*2 + j + 1] <- sqrt(mean(ses_H6^2) + var(means_H6) + var(means_H6)/m)
+
+        means_PAYKEL <- sapply(1:m, function(x) mean(data$PAYKEL[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE))
+        scores_lockdown_summary$mean_PAYKEL[(i-1)*2 + j + 1] <- mean(means_PAYKEL)
+        ses_PAYKEL <- sapply(1:m, function(x){
+            sd(data$PAYKEL[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled) & data$CO2 == j))
+        })
+        scores_lockdown_summary$se_PAYKEL[(i-1)*2 + j + 1] <- sqrt(mean(ses_PAYKEL^2) + var(means_PAYKEL) + var(means_PAYKEL)/m)
+    }
+}
+
+scores_lockdown_plot <- function(var, label, lower = 0){
+    suppressWarnings({
+        ggplot(scores_lockdown_summary, aes(x = country, fill = CO2)) +
+            geom_col(aes(y = get(paste("mean", var, sep = "_"))), position = position_dodge(width = 0.9)) +
+            geom_errorbar(aes(ymin = get(paste("mean", var, sep = "_")) - get(paste("se", var, sep = "_")), ymax = get(paste("mean", var, sep = "_")) + get(paste("se", var, sep = "_"))), position = position_dodge(width = 0.9), width = 0.2) +
+            labs(x = "Country", y = label, fill = "Lockdown status") +
+            coord_cartesian(ylim = c(lower, NA)) +
+            theme_linedraw() +
+            theme(axis.text.x=element_text(angle = 45, hjust = 1))
+    })
+}
+
+scores_lockdown_plot_percentage <- function(var, label){
+    suppressWarnings({
+        ggplot(scores_lockdown_summary, aes(x = country, fill = CO2)) +
+            geom_col(aes(y = get(paste("mean", var, sep = "_"))), position = position_dodge(width = 0.9)) +
+            geom_errorbar(aes(ymin = get(paste("mean", var, sep = "_")) - get(paste("se", var, sep = "_")), ymax = get(paste("mean", var, sep = "_")) + get(paste("se", var, sep = "_"))), position = position_dodge(width = 0.9), width = 0.2) +
+            scale_y_continuous(labels = scales::percent) +
+            labs(x = "Country", y = label, fill = "Lockdown status") +
+            theme_linedraw() +
+            theme(axis.text.x=element_text(angle = 45, hjust = 1))
+    })
+}
+```
+
+### Life satisfaction
+
+```{r scores_lockdown_ls}
+scores_lockdown_plot("H1", "Mean life satisfaction (rescaled between 0 and 1)")
+```
+
+### CW-SWBS
+
+```{r scores_lockdown_swbs}
+scores_lockdown_plot("CW_SWBS", "Mean CW-SWBS score (rescaled between 0 and 1)\n(lower = worse symptoms)")
+```
+
+### Anxiety
+
+```{r scores_lockdown_anx}
+scores_lockdown_plot("ANX", "Mean anxiety score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+```
+
+### CESD-R
+
+```{r scores_lockdown_cesd}
+scores_lockdown_plot("CES_D", "Mean CESD-R score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+```
+
+### Self-harm
+
+```{r scores_lockdown_sh}
+scores_lockdown_plot_percentage("H6", "Proportion of children who report self-harm in the last year")
+```
+
+### Paykel suicide scale
+
+```{r scores_lockdown_paykel}
+scores_lockdown_plot("PAYKEL", "Mean Paykel suicide scale score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+```
+
+## Internet usage by lockdown status
+
+```{r internet_lockdown_plot}
+internet_lockdown_summary <- data.frame(
+    country = rep(country_list, each = 2),
+    CO2 = rep(c("No lockdown", "Lockdown"), length(country_list)),
+    mean = rep(NA, length(country_list)*2),
+    se = rep(NA, length(country_list)*2)
+)
+
+for(i in seq_along(unique(imputed_data$data$COUNTRY))){
+    country <- unique(imputed_data$data$COUNTRY)[i]
+
+    data <- full_data[full_data$COUNTRY == country,]
+    data$B1 <- data$B1*5 + 2
+    m <- max(data$`.imp`)
+
+    for(j in 0:1){
+        means <- sapply(1:m, function(x) mean(data$B1[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE))
+        internet_lockdown_summary$mean[(i-1)*2 + j + 1] <- mean(means)
+        ses <- sapply(1:m, function(x){
+            sd(data$B1[data$`.imp` == x & data$CO2 == j] * data$wgt_scaled[data$`.imp` == x & data$CO2 == j], na.rm = TRUE) / sqrt(sum(data$`.imp` == x & !is.na(data$wgt_scaled) & data$CO2 == j))
+        })
+        internet_lockdown_summary$se[(i-1)*2 + j + 1] <- sqrt(mean(ses^2) + var(means) + var(means)/m)
+    }
+}
+
+ggplot(internet_lockdown_summary, aes(x = country, fill = CO2)) +
+    geom_col(aes(y = mean), position = position_dodge(width = 0.9)) +
+    geom_errorbar(aes(ymin = mean - se, ymax = mean + se), position = position_dodge(width = 0.9), width = 0.2) +
+    labs(x = "Country", y = "Mean internet usage (arbitrary units)", fill = "Lockdown status") +
+    theme_linedraw() +
+    theme(axis.text.x=element_text(angle = 45, hjust = 1))
+```
+
+## Lockdown status by interview time and country
+
+```{r lockdown_time_plot}
+plot_data <- list()
+
+for(i in seq_along(unique(imputed_data$data$COUNTRY))){
+    country <- unique(imputed_data$data$COUNTRY)[i]
+
+    plot_data[[i]] <- full_data[full_data$COUNTRY == country, c("id_new", "COUNTRY", "intStartTime", "CO2")] %>%
+        group_by(id_new) %>%
+        mutate(CO2 = if_else(
+            mean(CO2) > 0.5,
+            "1",
+            "0"
+        )) %>%
+        ungroup() %>%
+        distinct()
+}
+
+plot_data %<>% reduce(rbind)
+
+plot_data$intStartTime %<>% as.POSIXct(format = "%a, %d %b %Y %H:%M:%S")
+plot_data$CO2 %<>% factor()
+plot_data %<>% mutate(COUNTRY = case_match(COUNTRY,
+    "1" ~ "Ethiopia",
+    "2" ~ "Kenya",
+    "3" ~ "Mozambique",
+    "4" ~ "Namibia",
+    "6" ~ "Tanzania",
+    "7" ~ "Uganda",
+    "8" ~ "Cambodia",
+    "9" ~ "Indonesia",
+    "10" ~ "Malaysia",
+    "11" ~ "Philippines",
+    "12" ~ "Thailand",
+    "13" ~ "Vietnam"
+))
+
+ggplot(plot_data, aes(x = intStartTime, y = CO2, colour = CO2)) +
+    geom_jitter(size = 0.2) +
+    scale_y_discrete(labels = c("No lockdown", "Had a lockdown")) +
+    scale_colour_manual(breaks = c(1, 0), labels = c("Had a lockdown", "No lockdown"), values = c("#f8766d", "#00bfc4")) +
+    labs(x = "Interview date", color = "Lockdown status") +
+    facet_grid(COUNTRY ~ ., switch = "y") +
+    guides(colour = guide_legend(override.aes = list(shape = 15, size = 5))) +
+    theme_bw() +
+    theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank(), strip.text.y.left = element_text(angle = 0), panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(), strip.placement = "outside")
+```
