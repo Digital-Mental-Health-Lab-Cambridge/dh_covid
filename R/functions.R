@@ -360,6 +360,16 @@ multiple_imputation <- function(data){
     return(imputed_data)
 }
 
+covid_relevel <- function(data){
+    data_long <- complete(data, "long", include = TRUE)
+
+    data_long$dv_covid_status %<>% relevel("Lockdown, disconnected")
+
+    data_relevelled <- as.mids(data_long)
+
+    return(data_relevelled)
+}
+
 logistic_models <- function(data, y, formula_RHS){
     # Initialising list of model fits
     model_fits <- list()
@@ -384,6 +394,29 @@ logistic_models <- function(data, y, formula_RHS){
     return(model_fits)
 }
 
+pooled_logistic_model <- function(data, y, formula_RHS){
+    # Removing Tanzania rows
+    data <- filter(data, COUNTRY != 6)
+
+    # Initialising list of model fits
+    fitlist <- list()
+
+    # For each imputed dataset
+    for(i in 1:data$m){
+        # Selecting this imputation, removing Tanzania rows and the unused country factor level
+        these_data <- complete(data, i)
+        these_data <- filter(these_data, COUNTRY != 6)
+        these_data$COUNTRY <- droplevels(these_data$COUNTRY)
+
+        # Fitting logistic regression model
+        fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS)), data = these_data, family = "binomial")
+    }
+
+    model_fit <- as.mira(fitlist)
+
+    return(model_fit)
+}
+
 robust_linear_models <- function(data, y, formula_RHS){
     # Initialising list of model fits
     model_fits <- list()
@@ -405,6 +438,29 @@ robust_linear_models <- function(data, y, formula_RHS){
     }
 
     return(model_fits)
+}
+
+pooled_robust_linear_model <- function(data, y, formula_RHS){
+    # Removing Tanzania rows
+    data <- filter(data, COUNTRY != 6)
+
+    # Initialising list of model fits
+    fitlist <- list()
+
+    # For each imputed dataset
+    for(i in 1:data$m){
+        # Selecting this imputation, removing Tanzania rows and the unused country factor level
+        these_data <- complete(data, i)
+        these_data <- filter(these_data, COUNTRY != 6)
+        these_data$COUNTRY <- droplevels(these_data$COUNTRY)
+
+        # Fitting robust linear regression model
+        fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS)), these_data)
+    }
+
+    model_fit <- as.mira(fitlist)
+
+    return(model_fit)
 }
 
 weighted_logistic_models <- function(data, y, formula_RHS){
@@ -434,6 +490,22 @@ weighted_logistic_models <- function(data, y, formula_RHS){
     return(model_fits)
 }
 
+pooled_weighted_logistic_model <- function(data, y, formula_RHS){
+    # Removing Tanzania rows
+    data <- filter(data, COUNTRY != 6)
+
+    # Converting to imputationList, removing rows with missing weights and removing unused factor level
+    data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), !is.na(wgt_scaled)) |> droplevels()))
+
+    # Creating survey design object
+    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = data)
+
+    # Fitting weighted logistic regression model
+    model_fit <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+
+    return(model_fit)
+}
+
 weighted_robust_linear_models <- function(data, y, formula_RHS){
     # Initialising list of model fits
     model_fits <- list()
@@ -459,6 +531,22 @@ weighted_robust_linear_models <- function(data, y, formula_RHS){
     }
 
     return(model_fits)
+}
+
+pooled_weighted_robust_linear_model <- function(data, y, formula_RHS){
+    # Removing Tanzania rows
+    data <- filter(data, COUNTRY != 6)
+
+    # Converting to imputationList, removing rows with missing weights and removing unused factor level
+    data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), !is.na(wgt_scaled)) |> droplevels()))
+
+    # Creating survey design object
+    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = data)
+
+    # Fitting weighted logistic regression model
+    model_fit <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+
+    return(model_fit)
 }
 
 summarise_results <- function(results, terms){
@@ -501,4 +589,31 @@ summarise_weighted_results <- function(results, terms){
     }
 
     return(reduce(results_list, rbind))
+}
+
+summarise_pooled_results <- function(results, terms){
+    results <- summary(pool(results))
+    results_abridged <- results[results$term %in% terms,]
+    rownames(results_abridged) <- NULL
+
+    return(results_abridged)
+}
+
+summarise_pooled_weighted_results <- function(results, terms){
+    results_abridged <- summary(results)[terms,]
+    results_abridged <- cbind(term = rownames(results_abridged), results_abridged)
+    rownames(results_abridged) <- NULL
+    results_abridged %<>% 
+        rename(estimate = results, std.error = se) %>%
+        dplyr::select(-`(lower`, -`upper)`, -missInfo)
+
+    results_abridged %<>% mutate(
+        statistic = estimate / std.error
+    )
+    results_abridged$df <- results$df[terms]
+    results_abridged %<>% mutate(
+        p.value = 2 * pt(abs(statistic), df, lower.tail = FALSE)
+    )
+
+    return(results_abridged)
 }

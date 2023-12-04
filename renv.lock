@@ -108,18 +108,6 @@
       ],
       "Hash": "1e035db628cefb315c571202d70202fe"
     },
-    "abind": {
-      "Package": "abind",
-      "Version": "1.4-5",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "methods",
-        "utils"
-      ],
-      "Hash": "4f57884290cc75ab22f4af9e9d4ca862"
-    },
     "askpass": {
       "Package": "askpass",
       "Version": "1.1",
@@ -159,27 +147,6 @@
         "backports"
       ],
       "Hash": "0c54cf3a08cc0e550fbd64ad33166143"
-    },
-    "bayesplot": {
-      "Package": "bayesplot",
-      "Version": "1.10.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "dplyr",
-        "ggplot2",
-        "ggridges",
-        "glue",
-        "posterior",
-        "reshape2",
-        "rlang",
-        "stats",
-        "tibble",
-        "tidyselect",
-        "utils"
-      ],
-      "Hash": "9c4f6ab31da906185d23e69a88595cf7"
     },
     "bit": {
       "Package": "bit",
@@ -288,18 +255,6 @@
         "utils"
       ],
       "Hash": "9b2191ede20fa29828139b9900922e51"
-    },
-    "checkmate": {
-      "Package": "checkmate",
-      "Version": "2.2.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "backports",
-        "utils"
-      ],
-      "Hash": "ca9c113196136f4a9ca9ce6079c2c99e"
     },
     "cli": {
       "Package": "cli",
@@ -425,26 +380,6 @@
         "utils"
       ],
       "Hash": "b18a9cf3c003977b0cc49d5e76ebe48d"
-    },
-    "distributional": {
-      "Package": "distributional",
-      "Version": "0.3.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "digest",
-        "farver",
-        "generics",
-        "ggplot2",
-        "lifecycle",
-        "numDeriv",
-        "rlang",
-        "scales",
-        "stats",
-        "utils",
-        "vctrs"
-      ],
-      "Hash": "0a94c3c917918a1c90f4609171ff41b6"
     },
     "dplyr": {
       "Package": "dplyr",
@@ -647,20 +582,6 @@
         "withr"
       ],
       "Hash": "85846544c596e71f8f46483ab165da33"
-    },
-    "ggridges": {
-      "Package": "ggridges",
-      "Version": "0.5.4",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "ggplot2",
-        "grid",
-        "scales",
-        "withr"
-      ],
-      "Hash": "c76ee8fe60939384b9726128e38caea0"
     },
     "glmnet": {
       "Package": "glmnet",
@@ -990,16 +911,6 @@
       ],
       "Hash": "7ce2733a9826b3aeb1775d56fd305472"
     },
-    "matrixStats": {
-      "Package": "matrixStats",
-      "Version": "1.0.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "9143629fd64335aac6a6250d1c1ed82a"
-    },
     "memoise": {
       "Package": "memoise",
       "Version": "2.0.1",
@@ -1293,28 +1204,6 @@
         "Rcpp"
       ],
       "Hash": "d744387aef9047b0b48be2933d78e862"
-    },
-    "posterior": {
-      "Package": "posterior",
-      "Version": "1.4.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "abind",
-        "checkmate",
-        "distributional",
-        "matrixStats",
-        "methods",
-        "parallel",
-        "pillar",
-        "rlang",
-        "stats",
-        "tensorA",
-        "tibble",
-        "vctrs"
-      ],
-      "Hash": "7be6f62ae6281e965f09ca8657a066b2"
     },
     "praise": {
       "Package": "praise",
@@ -1783,17 +1672,6 @@
         "yaml"
       ],
       "Hash": "a1e56d84e94c41a03391aea66c32b732"
-    },
-    "tensorA": {
-      "Package": "tensorA",
-      "Version": "0.36.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "stats"
-      ],
-      "Hash": "fd792ceac77f96b647fa8d6e1788969a"
     },
     "testthat": {
       "Package": "testthat",
