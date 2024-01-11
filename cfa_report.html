@@ -127,6 +127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#unconstrained-cfa-summary-2" id="toc-unconstrained-cfa-summary-2" class="nav-link" data-scroll-target="#unconstrained-cfa-summary-2">Unconstrained CFA summary</a></li>
   <li><a href="#constrained-cfa-summary-2" id="toc-constrained-cfa-summary-2" class="nav-link" data-scroll-target="#constrained-cfa-summary-2">Constrained CFA summary</a></li>
+  <li><a href="#comparison-between-constrained-and-unconstrained-models-2" id="toc-comparison-between-constrained-and-unconstrained-models-2" class="nav-link" data-scroll-target="#comparison-between-constrained-and-unconstrained-models-2">Comparison between constrained and unconstrained models</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -2681,20 +2682,12 @@ anx_country_metric_model - anx_country_cfa_model 157.568 -330.644</code></pre>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cesd_country_cfa_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in lav_fit_cfi_lavobject(lavobject = object, fit.measures =
-fit.measures, : lavaan WARNING: computation of robust CFI failed.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in lav_fit_rmsea_lavobject(lavobject = object, fit.measures =
-fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>lavaan 0.6.16 ended normally after 627 iterations
+<pre><code>lavaan 0.6.16 ended normally after 446 iterations
 
   Estimator                                         ML
   Optimization method                           NLMINB
-  Number of model parameters                       144
+  Number of model parameters                       108
 
   Number of observations per group:               Used       Total
     1                                             1004        1021
@@ -2703,12 +2696,12 @@ fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
     4                                              953        1000
     6                                              985        1000
     7                                             1005        1020
-    8                                              983        1007
-    9                                              943        1012
+    8                                              973        1007
+    9                                              939        1012
     10                                             982        1009
     11                                             947         975
     12                                             997        1000
-    13                                             996         998
+    13                                             994         998
   Number of missing patterns per group:                           
     1                                                7            
     2                                                7            
@@ -2716,18 +2709,17 @@ fit.measures, : lavaan WARNING: computation of robust RMSEA failed.</code></pre>
     4                                                7            
     6                                                7            
     7                                                7            
-    8                                               15            
-    9                                               15            
+    8                                                7            
+    9                                                7            
     10                                               7            
     11                                               7            
-    12                                              12            
-    13                                              15            
+    12                                               7            
+    13                                               7            
 
 Model Test User Model:
                                                       
-  Test statistic                               512.266
-  Degrees of freedom                                24
-  P-value (Chi-square)                           0.000
+  Test statistic                                 0.000
+  Degrees of freedom                                 0
   Test statistic for each group:
     1                                            0.000
     2                                            0.000
@@ -2735,53 +2727,53 @@ Model Test User Model:
     4                                            0.000
     6                                            0.000
     7                                            0.000
-    8                                          345.423
-    9                                           38.175
+    8                                            0.000
+    9                                            0.000
     10                                           0.000
     11                                           0.000
-    12                                          66.704
-    13                                          61.965
+    12                                           0.000
+    13                                           0.000
 
 Model Test Baseline Model:
 
-  Test statistic                              5071.885
-  Degrees of freedom                                72
+  Test statistic                              4549.553
+  Degrees of freedom                                36
   P-value                                        0.000
 
 User Model versus Baseline Model:
 
-  Comparative Fit Index (CFI)                    0.902
-  Tucker-Lewis Index (TLI)                       0.707
+  Comparative Fit Index (CFI)                    1.000
+  Tucker-Lewis Index (TLI)                       1.000
                                                       
-  Robust Comparative Fit Index (CFI)                NA
-  Robust Tucker-Lewis Index (TLI)                   NA
+  Robust Comparative Fit Index (CFI)             1.000
+  Robust Tucker-Lewis Index (TLI)                1.000
 
 Loglikelihood and Information Criteria:
 
-  Loglikelihood user model (H0)             -47519.699
-  Loglikelihood unrestricted model (H1)     -47263.565
+  Loglikelihood user model (H0)             -44532.738
+  Loglikelihood unrestricted model (H1)     -44532.738
                                                       
-  Akaike (AIC)                               95327.397
-  Bayesian (BIC)                             96390.335
-  Sample-size adjusted Bayesian (SABIC)      95932.720
+  Akaike (AIC)                               89281.476
+  Bayesian (BIC)                             90078.534
+  Sample-size adjusted Bayesian (SABIC)      89735.322
 
 Root Mean Square Error of Approximation:
 
-  RMSEA                                          0.143
-  90 Percent confidence interval - lower         0.133
-  90 Percent confidence interval - upper         0.154
-  P-value H_0: RMSEA &lt;= 0.050                    0.000
-  P-value H_0: RMSEA &gt;= 0.080                    1.000
+  RMSEA                                          0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.000
+  P-value H_0: RMSEA &lt;= 0.050                       NA
+  P-value H_0: RMSEA &gt;= 0.080                       NA
                                                       
-  Robust RMSEA                                      NA
-  90 Percent confidence interval - lower            NA
-  90 Percent confidence interval - upper            NA
+  Robust RMSEA                                   0.000
+  90 Percent confidence interval - lower         0.000
+  90 Percent confidence interval - upper         0.000
   P-value H_0: Robust RMSEA &lt;= 0.050                NA
   P-value H_0: Robust RMSEA &gt;= 0.080                NA
 
 Standardized Root Mean Square Residual:
 
-  SRMR                                           0.138
+  SRMR                                           0.000
 
 Parameter Estimates:
 
@@ -2795,26 +2787,23 @@ Group 1 [1]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.567    0.625
-    H5b              -0.506       NA                     -0.287   -0.210
-    H5f               1.330       NA                      0.754    0.655
-    H5g               1.562       NA                      0.885    0.819
+    H5b               1.000                               0.287    0.210
+    H5f              -2.631    0.531   -4.957    0.000   -0.754   -0.655
+    H5g              -3.090    0.757   -4.080    0.000   -0.885   -0.819
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               3.470       NA                      3.470    2.538
-   .H5f               1.721       NA                      1.721    1.496
-   .H5g               1.839       NA                      1.839    1.701
+   .H5b               3.470    0.045   77.653    0.000    3.470    2.538
+   .H5f               1.721    0.038   45.734    0.000    1.721    1.496
+   .H5g               1.839    0.035   52.378    0.000    1.839    1.701
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.609
-   .H5b               1.788       NA                      1.788    0.956
-   .H5f               0.756       NA                      0.756    0.571
-   .H5g               0.385       NA                      0.385    0.329
-    lf                0.321       NA                      1.000    1.000
+   .H5b               1.788    0.085   21.092    0.000    1.788    0.956
+   .H5f               0.756    0.129    5.864    0.000    0.756    0.571
+   .H5g               0.385    0.171    2.245    0.025    0.385    0.329
+    lf                0.082    0.032    2.582    0.010    1.000    1.000
 
 
 Group 2 [2]:
@@ -2822,26 +2811,23 @@ Group 2 [2]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.473    0.556
-    H5b              -0.653       NA                     -0.309   -0.260
-    H5f               1.463       NA                      0.692    0.641
-    H5g               1.640       NA                      0.775    0.773
+    H5b               1.000                               0.309    0.260
+    H5f              -2.242    0.381   -5.880    0.000   -0.692   -0.641
+    H5g              -2.512    0.513   -4.893    0.000   -0.775   -0.773
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               4.199       NA                      4.199    3.532
-   .H5f               1.672       NA                      1.672    1.548
-   .H5g               1.543       NA                      1.543    1.539
+   .H5b               4.199    0.038  109.289    0.000    4.199    3.532
+   .H5f               1.672    0.035   47.339    0.000    1.672    1.548
+   .H5g               1.543    0.033   46.606    0.000    1.543    1.539
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.691
-   .H5b               1.318       NA                      1.318    0.933
-   .H5f               0.688       NA                      0.688    0.590
-   .H5g               0.404       NA                      0.404    0.402
-    lf                0.224       NA                      1.000    1.000
+   .H5b               1.318    0.063   20.911    0.000    1.318    0.933
+   .H5f               0.688    0.097    7.059    0.000    0.688    0.590
+   .H5g               0.404    0.118    3.437    0.001    0.404    0.402
+    lf                0.095    0.030    3.182    0.001    1.000    1.000
 
 
 Group 3 [3]:
@@ -2849,26 +2835,23 @@ Group 3 [3]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.514    0.588
-    H5b              -0.309       NA                     -0.159   -0.113
-    H5f               1.613       NA                      0.829    0.809
-    H5g               1.184       NA                      0.608    0.656
+    H5b               1.000                               0.159    0.113
+    H5f              -5.228    2.335   -2.239    0.025   -0.829   -0.809
+    H5g              -3.837    1.397   -2.748    0.006   -0.608   -0.656
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               3.530       NA                      3.530    2.528
-   .H5f               1.616       NA                      1.616    1.578
-   .H5g               1.439       NA                      1.439    1.551
+   .H5b               3.530    0.044   80.143    0.000    3.530    2.528
+   .H5f               1.616    0.032   50.236    0.000    1.616    1.578
+   .H5g               1.439    0.030   48.397    0.000    1.439    1.551
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.655
-   .H5b               1.926       NA                      1.926    0.987
-   .H5f               0.362       NA                      0.362    0.345
-   .H5g               0.491       NA                      0.491    0.570
-    lf                0.264       NA                      1.000    1.000
+   .H5b               1.926    0.087   22.247    0.000    1.926    0.987
+   .H5f               0.362    0.279    1.296    0.195    0.362    0.345
+   .H5g               0.491    0.152    3.228    0.001    0.491    0.570
+    lf                0.025    0.018    1.421    0.155    1.000    1.000
 
 
 Group 4 [4]:
@@ -2876,26 +2859,23 @@ Group 4 [4]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.345    0.439
-    H5b              -0.825       NA                     -0.285   -0.278
-    H5f               2.407       NA                      0.831    0.828
-    H5g               1.537       NA                      0.531    0.664
+    H5b               1.000                               0.285    0.278
+    H5f              -2.918    0.536   -5.443    0.000   -0.831   -0.828
+    H5g              -1.864    0.279   -6.690    0.000   -0.531   -0.664
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               4.394       NA                      4.394    4.289
-   .H5f               1.657       NA                      1.657    1.651
-   .H5g               1.377       NA                      1.377    1.723
+   .H5b               4.394    0.034  130.665    0.000    4.394    4.289
+   .H5f               1.657    0.034   48.536    0.000    1.657    1.651
+   .H5g               1.377    0.027   50.334    0.000    1.377    1.723
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.808
-   .H5b               0.969       NA                      0.969    0.923
-   .H5f               0.317       NA                      0.317    0.315
-   .H5g               0.357       NA                      0.357    0.559
-    lf                0.119       NA                      1.000    1.000
+   .H5b               0.969    0.047   20.597    0.000    0.969    0.923
+   .H5f               0.317    0.114    2.790    0.005    0.317    0.315
+   .H5g               0.357    0.049    7.273    0.000    0.357    0.559
+    lf                0.081    0.023    3.495    0.000    1.000    1.000
 
 
 Group 5 [6]:
@@ -2903,26 +2883,23 @@ Group 5 [6]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.501    0.578
-    H5b              -0.456       NA                     -0.228   -0.200
-    H5f               1.417       NA                      0.710    0.718
-    H5g               1.520       NA                      0.761    0.894
+    H5b               1.000                               0.228    0.200
+    H5f              -3.108    0.580   -5.358    0.000   -0.710   -0.718
+    H5g              -3.334    0.767   -4.346    0.000   -0.761   -0.894
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               4.265       NA                      4.265    3.731
-   .H5f               1.631       NA                      1.631    1.651
-   .H5g               1.510       NA                      1.510    1.773
+   .H5b               4.265    0.037  115.992    0.000    4.265    3.731
+   .H5f               1.631    0.032   50.424    0.000    1.631    1.651
+   .H5g               1.510    0.028   54.078    0.000    1.510    1.773
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.666
-   .H5b               1.254       NA                      1.254    0.960
-   .H5f               0.472       NA                      0.472    0.484
-   .H5g               0.146       NA                      0.146    0.201
-    lf                0.251       NA                      1.000    1.000
+   .H5b               1.254    0.058   21.655    0.000    1.254    0.960
+   .H5f               0.472    0.093    5.068    0.000    0.472    0.484
+   .H5g               0.146    0.104    1.398    0.162    0.146    0.201
+    lf                0.052    0.020    2.653    0.008    1.000    1.000
 
 
 Group 6 [7]:
@@ -2930,26 +2907,23 @@ Group 6 [7]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.496    0.574
-    H5b              -0.577       NA                     -0.286   -0.226
-    H5f               1.300       NA                      0.645    0.522
-    H5g               1.638       NA                      0.813    0.720
+    H5b               1.000                               0.286    0.226
+    H5f              -2.251    0.511   -4.408    0.000   -0.645   -0.522
+    H5g              -2.838    0.819   -3.466    0.001   -0.813   -0.720
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               3.891       NA                      3.891    3.075
-   .H5f               1.966       NA                      1.966    1.593
-   .H5g               1.761       NA                      1.761    1.560
+   .H5b               3.891    0.041   94.867    0.000    3.891    3.075
+   .H5f               1.966    0.041   48.501    0.000    1.966    1.593
+   .H5g               1.761    0.038   46.538    0.000    1.761    1.560
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.670
-   .H5b               1.519       NA                      1.519    0.949
-   .H5f               1.108       NA                      1.108    0.727
-   .H5g               0.613       NA                      0.613    0.481
-    lf                0.246       NA                      1.000    1.000
+   .H5b               1.519    0.074   20.590    0.000    1.519    0.949
+   .H5f               1.108    0.131    8.468    0.000    1.108    0.727
+   .H5g               0.613    0.193    3.178    0.001    0.613    0.481
+    lf                0.082    0.034    2.410    0.016    1.000    1.000
 
 
 Group 7 [8]:
@@ -2957,26 +2931,23 @@ Group 7 [8]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.729    0.479
-    H5b               2.188       NA                      1.595    1.138
-    H5f              -0.063       NA                     -0.046   -0.037
-    H5g              -0.153       NA                     -0.112   -0.095
+    H5b               1.000                               0.140    0.100
+    H5f              -4.871    1.572   -3.099    0.002   -0.680   -0.546
+    H5g              -9.100    5.724   -1.590    0.112   -1.270   -1.075
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               3.547       NA                      3.547    2.331
-   .H5b               3.731       NA                      3.731    2.661
-   .H5f               1.818       NA                      1.818    1.463
-   .H5g               1.730       NA                      1.730    1.467
+   .H5b               3.730    0.046   80.548    0.000    3.730    2.664
+   .H5f               1.818    0.041   43.937    0.000    1.818    1.461
+   .H5g               1.740    0.039   44.378    0.000    1.740    1.473
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               1.784       NA                      1.784    0.770
-   .H5b              -0.579       NA                     -0.579   -0.295
-   .H5f               1.543       NA                      1.543    0.999
-   .H5g               1.378       NA                      1.378    0.991
-    lf                0.532       NA                      1.000    1.000
+   .H5b               1.942    0.091   21.239    0.000    1.942    0.990
+   .H5f               1.086    0.246    4.413    0.000    1.086    0.702
+   .H5g              -0.216    0.840   -0.257    0.797   -0.216   -0.155
+    lf                0.019    0.017    1.174    0.240    1.000    1.000
 
 
 Group 8 [9]:
@@ -2984,26 +2955,23 @@ Group 8 [9]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.360    0.308
-    H5b               0.901       NA                      0.324    0.433
-    H5f              -1.985       NA                     -0.714   -0.742
-    H5g              -1.120       NA                     -0.403   -0.669
+    H5b               1.000                               0.302    0.403
+    H5f              -2.420    0.322   -7.514    0.000   -0.731   -0.758
+    H5g              -1.341    0.168   -7.958    0.000   -0.405   -0.672
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               4.442       NA                      4.442    3.803
-   .H5b               4.707       NA                      4.707    6.286
-   .H5f               1.433       NA                      1.433    1.489
-   .H5g               1.184       NA                      1.184    1.966
+   .H5b               4.708    0.025  188.470    0.000    4.708    6.289
+   .H5f               1.433    0.033   43.967    0.000    1.433    1.487
+   .H5g               1.184    0.020   58.125    0.000    1.184    1.966
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               1.235       NA                      1.235    0.905
-   .H5b               0.456       NA                      0.456    0.813
-   .H5f               0.417       NA                      0.417    0.450
-   .H5g               0.200       NA                      0.200    0.552
-    lf                0.129       NA                      1.000    1.000
+   .H5b               0.469    0.025   18.649    0.000    0.469    0.837
+   .H5f               0.395    0.068    5.772    0.000    0.395    0.425
+   .H5g               0.199    0.023    8.777    0.000    0.199    0.548
+    lf                0.091    0.019    4.678    0.000    1.000    1.000
 
 
 Group 9 [10]:
@@ -3011,26 +2979,23 @@ Group 9 [10]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.314    0.406
-    H5b              -1.129       NA                     -0.355   -0.414
-    H5f               1.995       NA                      0.627    0.799
-    H5g               2.113       NA                      0.664    0.824
+    H5b               1.000                               0.355    0.414
+    H5f              -1.766    0.168  -10.496    0.000   -0.627   -0.799
+    H5g              -1.872    0.183  -10.242    0.000   -0.664   -0.824
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               4.532       NA                      4.532    5.290
-   .H5f               1.393       NA                      1.393    1.774
-   .H5g               1.395       NA                      1.395    1.730
+   .H5b               4.532    0.028  162.785    0.000    4.532    5.290
+   .H5f               1.393    0.026   53.909    0.000    1.393    1.774
+   .H5g               1.395    0.026   52.844    0.000    1.395    1.730
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.835
-   .H5b               0.608       NA                      0.608    0.828
-   .H5f               0.223       NA                      0.223    0.362
-   .H5g               0.209       NA                      0.209    0.322
-    lf                0.099       NA                      1.000    1.000
+   .H5b               0.608    0.030   20.310    0.000    0.608    0.828
+   .H5f               0.223    0.033    6.839    0.000    0.223    0.362
+   .H5g               0.209    0.036    5.801    0.000    0.209    0.322
+    lf                0.126    0.022    5.783    0.000    1.000    1.000
 
 
 Group 10 [11]:
@@ -3038,26 +3003,23 @@ Group 10 [11]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.375    0.468
-    H5b              -0.753       NA                     -0.282   -0.249
-    H5f               2.502       NA                      0.938    0.806
-    H5g               1.350       NA                      0.506    0.540
+    H5b               1.000                               0.282    0.249
+    H5f              -3.322    0.908   -3.660    0.000   -0.938   -0.806
+    H5g              -1.793    0.343   -5.232    0.000   -0.506   -0.540
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.000       NA                      0.000    0.000
-   .H5b               4.200       NA                      4.200    3.704
-   .H5f               2.197       NA                      2.197    1.888
-   .H5g               1.593       NA                      1.593    1.699
+   .H5b               4.200    0.038  111.221    0.000    4.200    3.704
+   .H5f               2.197    0.041   53.265    0.000    2.197    1.888
+   .H5g               1.593    0.034   47.296    0.000    1.593    1.699
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.500       NA                      0.500    0.781
-   .H5b               1.206       NA                      1.206    0.938
-   .H5f               0.475       NA                      0.475    0.351
-   .H5g               0.623       NA                      0.623    0.709
-    lf                0.140       NA                      1.000    1.000
+   .H5b               1.206    0.061   19.824    0.000    1.206    0.938
+   .H5f               0.475    0.229    2.077    0.038    0.475    0.351
+   .H5g               0.623    0.073    8.504    0.000    0.623    0.709
+    lf                0.080    0.030    2.632    0.008    1.000    1.000
 
 
 Group 11 [12]:
@@ -3065,26 +3027,23 @@ Group 11 [12]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.079    0.069
-    H5b               1.781       NA                      0.141    0.145
-    H5f              -9.760       NA                     -0.770   -0.821
-    H5g              -9.899       NA                     -0.781   -0.905
+    H5b               1.000                               0.140    0.145
+    H5f              -5.708    1.470   -3.883    0.000   -0.800   -0.853
+    H5g              -5.363    1.388   -3.863    0.000   -0.752   -0.871
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               4.371       NA                      4.371    3.821
-   .H5b               4.331       NA                      4.331    4.474
-   .H5f               1.384       NA                      1.384    1.476
-   .H5g               1.293       NA                      1.293    1.499
+   .H5b               4.331    0.031  140.350    0.000    4.331    4.474
+   .H5f               1.383    0.030   46.395    0.000    1.383    1.476
+   .H5g               1.293    0.027   47.022    0.000    1.293    1.498
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               1.302       NA                      1.302    0.995
-   .H5b               0.917       NA                      0.917    0.979
-   .H5f               0.286       NA                      0.286    0.326
-   .H5g               0.135       NA                      0.135    0.181
-    lf                0.006       NA                      1.000    1.000
+   .H5b               0.917    0.042   22.083    0.000    0.917    0.979
+   .H5f               0.239    0.121    1.970    0.049    0.239    0.272
+   .H5g               0.180    0.107    1.682    0.092    0.180    0.241
+    lf                0.020    0.009    2.079    0.038    1.000    1.000
 
 
 Group 12 [13]:
@@ -3092,26 +3051,23 @@ Group 12 [13]:
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                 
-    H5a               1.000                               0.248    0.389
-    H5b               1.393       NA                      0.346    0.407
-    H5f              -2.552       NA                     -0.634   -0.786
-    H5g              -2.573       NA                     -0.639   -0.769
+    H5b               1.000                               0.321    0.378
+    H5f              -2.093    0.249   -8.406    0.000   -0.672   -0.835
+    H5g              -1.903    0.201   -9.485    0.000   -0.611   -0.734
 
 Intercepts:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               4.769       NA                      4.769    7.466
-   .H5b               4.600       NA                      4.600    5.407
-   .H5f               1.307       NA                      1.307    1.621
-   .H5g               1.453       NA                      1.453    1.748
+   .H5b               4.602    0.027  167.857    0.000    4.602    5.416
+   .H5f               1.307    0.026   49.858    0.000    1.307    1.623
+   .H5g               1.455    0.027   53.987    0.000    1.455    1.748
     lf                0.000                               0.000    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               0.346       NA                      0.346    0.849
-   .H5b               0.604       NA                      0.604    0.835
-   .H5f               0.249       NA                      0.249    0.382
-   .H5g               0.282       NA                      0.282    0.409
-    lf                0.062       NA                      1.000    1.000</code></pre>
+   .H5b               0.619    0.030   20.623    0.000    0.619    0.857
+   .H5f               0.197    0.044    4.447    0.000    0.197    0.303
+   .H5g               0.319    0.039    8.248    0.000    0.319    0.461
+    lf                0.103    0.020    5.033    0.000    1.000    1.000</code></pre>
 </div>
 </div>
 </section>
@@ -3120,19 +3076,15 @@ Variances:
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cesd_country_metric_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cesd_country_metric_model, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in lav_object_summary(object = object, header = header, fit.measures = fit.measures, : lavaan WARNING: fit measures not available if model did not converge</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>lavaan 0.6.16 did NOT end normally after 1361 iterations
-** WARNING ** Estimates below are most likely unreliable
+<pre><code>lavaan 0.6.16 ended normally after 129 iterations
 
   Estimator                                         ML
   Optimization method                           NLMINB
-  Number of model parameters                       144
-  Number of equality constraints                    33
+  Number of model parameters                       108
+  Number of equality constraints                    22
 
   Number of observations per group:               Used       Total
     1                                             1004        1021
@@ -3141,12 +3093,12 @@ Variances:
     4                                              953        1000
     6                                              985        1000
     7                                             1005        1020
-    8                                              983        1007
-    9                                              943        1012
+    8                                              973        1007
+    9                                              939        1012
     10                                             982        1009
     11                                             947         975
     12                                             997        1000
-    13                                             996         998
+    13                                             994         998
   Number of missing patterns per group:                           
     1                                                7            
     2                                                7            
@@ -3154,13 +3106,72 @@ Variances:
     4                                                7            
     6                                                7            
     7                                                7            
-    8                                               15            
-    9                                               15            
+    8                                                7            
+    9                                                7            
     10                                               7            
     11                                               7            
-    12                                              12            
-    13                                              15            
+    12                                               7            
+    13                                               7            
 
+Model Test User Model:
+                                                      
+  Test statistic                                96.471
+  Degrees of freedom                                22
+  P-value (Chi-square)                           0.000
+  Test statistic for each group:
+    1                                            1.358
+    2                                            1.677
+    3                                            3.839
+    4                                            5.742
+    6                                            1.634
+    7                                            1.351
+    8                                           15.454
+    9                                           18.141
+    10                                          16.023
+    11                                           5.147
+    12                                          19.015
+    13                                           7.089
+
+Model Test Baseline Model:
+
+  Test statistic                              4549.553
+  Degrees of freedom                                36
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.984
+  Tucker-Lewis Index (TLI)                       0.973
+                                                      
+  Robust Comparative Fit Index (CFI)             0.984
+  Robust Tucker-Lewis Index (TLI)                0.973
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -44580.974
+  Loglikelihood unrestricted model (H1)     -44532.738
+                                                      
+  Akaike (AIC)                               89333.947
+  Bayesian (BIC)                             89968.642
+  Sample-size adjusted Bayesian (SABIC)      89695.344
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.059
+  90 Percent confidence interval - lower         0.047
+  90 Percent confidence interval - upper         0.071
+  P-value H_0: RMSEA &lt;= 0.050                    0.111
+  P-value H_0: RMSEA &gt;= 0.080                    0.002
+                                                      
+  Robust RMSEA                                   0.063
+  90 Percent confidence interval - lower         0.051
+  90 Percent confidence interval - upper         0.077
+  P-value H_0: Robust RMSEA &lt;= 0.050             0.043
+  P-value H_0: Robust RMSEA &gt;= 0.080             0.018
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.032
 
 Parameter Estimates:
 
@@ -3172,328 +3183,328 @@ Parameter Estimates:
 Group 1 [1]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.308   -0.225
-    H5f     (.p3.)  9787.254       NA                      0.857    0.743
-    H5g     (.p4.)  8860.909       NA                      0.776    0.720
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.303    0.221
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.849   -0.736
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.784   -0.727
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               -0.000       NA                     -0.000   -0.000
-   .H5b                3.471       NA                      3.471    2.533
-   .H5f                1.721       NA                      1.721    1.492
-   .H5g                1.839       NA                      1.839    1.707
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.471    0.045   77.574    0.000    3.471    2.534
+   .H5f               1.721    0.038   45.630    0.000    1.721    1.492
+   .H5g               1.839    0.035   52.535    0.000    1.839    1.706
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                1.784       NA                      1.784    0.949
-   .H5f                0.597       NA                      0.597    0.449
-   .H5g                0.559       NA                      0.559    0.482
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.784    0.084   21.234    0.000    1.784    0.951
+   .H5f               0.609    0.057   10.639    0.000    0.609    0.458
+   .H5g               0.548    0.050   10.988    0.000    0.548    0.472
+    lf                0.092    0.010    8.775    0.000    1.000    1.000
 
 
 Group 2 [2]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.278   -0.235
-    H5f     (.p3.)  9787.254       NA                      0.773    0.713
-    H5g     (.p4.)  8860.909       NA                      0.700    0.699
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.273    0.231
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.766   -0.707
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.707   -0.706
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
-   .H5b                4.199       NA                      4.199    3.546
-   .H5f                1.672       NA                      1.672    1.542
-   .H5g                1.543       NA                      1.543    1.542
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.199    0.038  109.768    0.000    4.199    3.548
+   .H5f               1.672    0.035   47.165    0.000    1.672    1.542
+   .H5g               1.543    0.033   46.678    0.000    1.543    1.542
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                1.325       NA                      1.325    0.945
-   .H5f                0.579       NA                      0.579    0.492
-   .H5g                0.512       NA                      0.512    0.511
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.326    0.062   21.386    0.000    1.326    0.947
+   .H5f               0.588    0.051   11.486    0.000    0.588    0.500
+   .H5g               0.503    0.044   11.390    0.000    0.503    0.501
+    lf                0.075    0.009    8.579    0.000    1.000    1.000
 
 
 Group 3 [3]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.266   -0.189
-    H5f     (.p3.)  9787.254       NA                      0.740    0.725
-    H5g     (.p4.)  8860.909       NA                      0.670    0.723
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.262    0.186
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.734   -0.718
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.677   -0.730
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
-   .H5b                3.530       NA                      3.530    2.505
-   .H5f                1.617       NA                      1.617    1.583
-   .H5g                1.439       NA                      1.439    1.552
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.530    0.044   79.494    0.000    3.530    2.506
+   .H5f               1.617    0.032   50.402    0.000    1.617    1.583
+   .H5g               1.439    0.030   48.425    0.000    1.439    1.552
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                1.916       NA                      1.916    0.964
-   .H5f                0.495       NA                      0.495    0.475
-   .H5g                0.410       NA                      0.410    0.477
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.917    0.087   22.129    0.000    1.917    0.966
+   .H5f               0.504    0.044   11.485    0.000    0.504    0.484
+   .H5g               0.402    0.037   10.963    0.000    0.402    0.467
+    lf                0.068    0.008    8.782    0.000    1.000    1.000
 
 
 Group 4 [4]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.251   -0.246
-    H5f     (.p3.)  9787.254       NA                      0.699    0.700
-    H5g     (.p4.)  8860.909       NA                      0.633    0.787
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.247    0.242
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.692   -0.694
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.639   -0.794
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
-   .H5b                4.394       NA                      4.394    4.308
-   .H5f                1.658       NA                      1.658    1.661
-   .H5g                1.378       NA                      1.378    1.712
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.394    0.033  131.279    0.000    4.394    4.310
+   .H5f               1.658    0.034   48.787    0.000    1.658    1.661
+   .H5g               1.378    0.028   50.041    0.000    1.378    1.712
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                0.977       NA                      0.977    0.939
-   .H5f                0.508       NA                      0.508    0.510
-   .H5g                0.247       NA                      0.247    0.381
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.979    0.046   21.049    0.000    0.979    0.941
+   .H5f               0.517    0.042   12.254    0.000    0.517    0.519
+   .H5g               0.240    0.030    8.047    0.000    0.240    0.370
+    lf                0.061    0.007    8.772    0.000    1.000    1.000
 
 
 Group 5 [6]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.277   -0.241
-    H5f     (.p3.)  9787.254       NA                      0.770    0.779
-    H5g     (.p4.)  8860.909       NA                      0.697    0.822
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.272    0.237
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.764   -0.772
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.704   -0.829
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
-   .H5b                4.264       NA                      4.264    3.704
-   .H5f                1.630       NA                      1.630    1.648
-   .H5g                1.510       NA                      1.510    1.779
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.264    0.037  115.277    0.000    4.264    3.708
+   .H5f               1.630    0.032   50.372    0.000    1.630    1.649
+   .H5g               1.510    0.028   54.236    0.000    1.510    1.778
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                1.249       NA                      1.249    0.942
-   .H5f                0.385       NA                      0.385    0.394
-   .H5g                0.234       NA                      0.234    0.325
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.249    0.058   21.656    0.000    1.249    0.944
+   .H5f               0.395    0.039   10.052    0.000    0.395    0.404
+   .H5g               0.225    0.031    7.180    0.000    0.225    0.312
+    lf                0.074    0.008    9.137    0.000    1.000    1.000
 
 
 Group 6 [7]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.274   -0.217
-    H5f     (.p3.)  9787.254       NA                      0.763    0.616
-    H5g     (.p4.)  8860.909       NA                      0.691    0.614
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.270    0.214
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.757   -0.611
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.698   -0.620
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
-   .H5b                3.891       NA                      3.891    3.078
-   .H5f                1.965       NA                      1.965    1.588
-   .H5g                1.761       NA                      1.761    1.564
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.891    0.041   95.026    0.000    3.891    3.080
+   .H5f               1.966    0.041   48.370    0.000    1.966    1.588
+   .H5g               1.761    0.038   46.624    0.000    1.761    1.564
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                1.523       NA                      1.523    0.953
-   .H5f                0.950       NA                      0.950    0.620
-   .H5g                0.790       NA                      0.790    0.623
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.524    0.072   21.269    0.000    1.524    0.954
+   .H5f               0.960    0.070   13.784    0.000    0.960    0.626
+   .H5g               0.781    0.060   13.052    0.000    0.781    0.616
+    lf                0.073    0.009    7.772    0.000    1.000    1.000
 
 
 Group 7 [8]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.345   -0.240
-    H5f     (.p3.)  9787.254       NA                      0.959    0.771
-    H5g     (.p4.)  8860.909       NA                      0.868    0.743
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.339    0.237
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.951   -0.765
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.878   -0.751
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                3.560       NA                      3.560    2.344
-   .H5b                3.729       NA                      3.729    2.600
-   .H5f                1.819       NA                      1.819    1.462
-   .H5g                1.739       NA                      1.739    1.489
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               3.729    0.047   78.800    0.000    3.729    2.604
+   .H5f               1.819    0.041   43.956    0.000    1.819    1.462
+   .H5g               1.739    0.039   44.819    0.000    1.739    1.487
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                2.306       NA                      2.306    1.000
-   .H5b                1.938       NA                      1.938    0.942
-   .H5f                0.628       NA                      0.628    0.406
-   .H5g                0.611       NA                      0.611    0.448
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.937    0.092   20.979    0.000    1.937    0.944
+   .H5f               0.642    0.066    9.796    0.000    0.642    0.415
+   .H5g               0.597    0.058   10.294    0.000    0.597    0.437
+    lf                0.115    0.013    8.964    0.000    1.000    1.000
 
 
 Group 8 [9]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.206   -0.280
-    H5f     (.p3.)  9787.254       NA                      0.574    0.599
-    H5g     (.p4.)  8860.909       NA                      0.520    0.857
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.203    0.275
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.568   -0.593
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.524   -0.864
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                4.416       NA                      4.416    3.745
-   .H5b                4.711       NA                      4.711    6.396
-   .H5f                1.433       NA                      1.433    1.496
-   .H5g                1.184       NA                      1.184    1.952
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.712    0.025  191.594    0.000    4.712    6.397
+   .H5f               1.433    0.032   44.144    0.000    1.433    1.496
+   .H5g               1.184    0.021   57.731    0.000    1.184    1.952
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.391       NA                      1.391    1.000
-   .H5b                0.500       NA                      0.500    0.921
-   .H5f                0.588       NA                      0.588    0.641
-   .H5g                0.098       NA                      0.098    0.266
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.501    0.024   20.477    0.000    0.501    0.924
+   .H5f               0.595    0.038   15.638    0.000    0.595    0.648
+   .H5g               0.093    0.020    4.735    0.000    0.093    0.253
+    lf                0.041    0.005    8.619    0.000    1.000    1.000
 
 
 Group 9 [10]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.247   -0.296
-    H5f     (.p3.)  9787.254       NA                      0.686    0.866
-    H5g     (.p4.)  8860.909       NA                      0.621    0.769
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.242    0.291
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.680   -0.858
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.627   -0.777
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
-   .H5b                4.533       NA                      4.533    5.432
-   .H5f                1.393       NA                      1.393    1.758
-   .H5g                1.394       NA                      1.394    1.728
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.533    0.027  167.111    0.000    4.533    5.438
+   .H5f               1.393    0.026   53.400    0.000    1.393    1.758
+   .H5g               1.394    0.026   52.681    0.000    1.394    1.727
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                0.635       NA                      0.635    0.913
-   .H5f                0.157       NA                      0.157    0.251
-   .H5g                0.266       NA                      0.266    0.408
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.636    0.030   21.097    0.000    0.636    0.915
+   .H5f               0.165    0.028    5.966    0.000    0.165    0.263
+   .H5g               0.259    0.027    9.723    0.000    0.259    0.397
+    lf                0.059    0.006    9.148    0.000    1.000    1.000
 
 
 Group 10 [11]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.261   -0.231
-    H5f     (.p3.)  9787.254       NA                      0.725    0.627
-    H5g     (.p4.)  8860.909       NA                      0.657    0.696
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.256    0.227
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.719   -0.621
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.663   -0.703
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
-   .H5b                4.201       NA                      4.201    3.713
-   .H5f                2.201       NA                      2.201    1.902
-   .H5g                1.593       NA                      1.593    1.688
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.201    0.038  111.491    0.000    4.201    3.714
+   .H5f               2.201    0.041   53.631    0.000    2.201    1.902
+   .H5g               1.593    0.034   47.044    0.000    1.593    1.688
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.000       NA                      1.000    1.000
-   .H5b                1.212       NA                      1.212    0.947
-   .H5f                0.813       NA                      0.813    0.607
-   .H5g                0.459       NA                      0.459    0.516
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               1.214    0.059   20.633    0.000    1.214    0.949
+   .H5f               0.822    0.064   12.894    0.000    0.822    0.614
+   .H5g               0.451    0.044   10.190    0.000    0.451    0.506
+    lf                0.066    0.008    7.887    0.000    1.000    1.000
 
 
 Group 11 [12]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.290   -0.289
-    H5f     (.p3.)  9787.254       NA                      0.807    0.864
-    H5g     (.p4.)  8860.909       NA                      0.731    0.852
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.285    0.284
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.800   -0.857
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.738   -0.860
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                4.373       NA                      4.373    3.823
-   .H5b                4.330       NA                      4.330    4.310
-   .H5f                1.385       NA                      1.385    1.483
-   .H5g                1.294       NA                      1.294    1.510
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.330    0.032  135.495    0.000    4.330    4.318
+   .H5f               1.385    0.030   46.636    0.000    1.385    1.483
+   .H5g               1.294    0.027   47.334    0.000    1.294    1.508
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                1.309       NA                      1.309    1.000
-   .H5b                0.925       NA                      0.925    0.917
-   .H5f                0.221       NA                      0.221    0.253
-   .H5g                0.201       NA                      0.201    0.274
-    lf                 0.000       NA                      1.000    1.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.924    0.042   21.819    0.000    0.924    0.919
+   .H5f               0.231    0.034    6.768    0.000    0.231    0.265
+   .H5g               0.192    0.029    6.631    0.000    0.192    0.261
+    lf                0.081    0.009    9.490    0.000    1.000    1.000
 
 
 Group 12 [13]:
 
 Latent Variables:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-  lf =~                                                                  
-    H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.245   -0.294
-    H5f     (.p3.)  9787.254       NA                      0.682    0.844
-    H5g     (.p4.)  8860.909       NA                      0.617    0.737
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  lf =~                                                                 
+    H5b               1.000                               0.241    0.289
+    H5f     (.p2.)   -2.805    0.146  -19.187    0.000   -0.676   -0.837
+    H5g     (.p3.)   -2.587    0.136  -19.085    0.000   -0.623   -0.744
 
 Intercepts:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                4.765       NA                      4.765    7.441
-   .H5b                4.603       NA                      4.603    5.525
-   .H5f                1.308       NA                      1.308    1.620
-   .H5g                1.455       NA                      1.455    1.737
-    lf                 0.000                               0.000    0.000
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               4.603    0.027  171.334    0.000    4.603    5.530
+   .H5f               1.308    0.026   49.739    0.000    1.308    1.620
+   .H5g               1.455    0.027   53.592    0.000    1.455    1.736
+    lf                0.000                               0.000    0.000
 
 Variances:
-                   Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.410       NA                      0.410    1.000
-   .H5b                0.634       NA                      0.634    0.913
-   .H5f                0.187       NA                      0.187    0.287
-   .H5g                0.321       NA                      0.321    0.457
-    lf                 0.000       NA                      1.000    1.000</code></pre>
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .H5b               0.635    0.030   21.337    0.000    0.635    0.916
+   .H5f               0.195    0.029    6.724    0.000    0.195    0.299
+   .H5g               0.314    0.028   11.166    0.000    0.314    0.447
+    lf                0.058    0.006    9.069    0.000    1.000    1.000</code></pre>
 </div>
 </div>
-<p>As this model did not converge, we cannot compare the fit of the two models.</p>
+</section>
+<section id="comparison-between-constrained-and-unconstrained-models-2" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-between-constrained-and-unconstrained-models-2">Comparison between constrained and unconstrained models</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">compareFit</span>(cesd_country_metric_model, cesd_country_cfa_model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>################### Nested Model Comparison #########################
+
+Chi-Squared Difference Test
+
+                          Df   AIC   BIC  Chisq Chisq diff    RMSEA Df diff
+cesd_country_cfa_model     0 89281 90079  0.000                            
+cesd_country_metric_model 22 89334 89969 96.471     96.471 0.058546      22
+                          Pr(&gt;Chisq)    
+cesd_country_cfa_model                  
+cesd_country_metric_model  2.652e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+####################### Model Fit Indices ###########################
+                            chisq df pvalue rmsea    cfi    tli  srmr
+cesd_country_cfa_model      .000†        NA .000† 1.000† 1.000† .000†
+cesd_country_metric_model 96.471  22   .000 .059   .984   .973  .032 
+                                 aic        bic
+cesd_country_cfa_model    89281.476† 90078.534 
+cesd_country_metric_model 89333.947  89968.642†
+
+################## Differences in Fit Indices #######################
+                                                   df rmsea    cfi    tli  srmr
+cesd_country_metric_model - cesd_country_cfa_model 22 0.059 -0.016 -0.027 0.032
+                                                      aic      bic
+cesd_country_metric_model - cesd_country_cfa_model 52.471 -109.892</code></pre>
+</div>
+</div>
 </section>
 </section>
 

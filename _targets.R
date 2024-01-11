@@ -146,7 +146,7 @@ list(
         cesd_country_cfa_model,
         conf_fact_analysis(
             data_clean,
-            "lf =~ H5a + H5b + H5f + H5g",
+            "lf =~ H5b + H5f + H5g",
             group = "COUNTRY"
         )
     ),
@@ -155,7 +155,7 @@ list(
         cesd_country_metric_model,
         conf_fact_analysis(
             data_clean,
-            "lf =~ H5a + H5b + H5f + H5g",
+            "lf =~ H5b + H5f + H5g",
             group = "COUNTRY",
             TRUE
         )
@@ -189,7 +189,7 @@ list(
         # The "1 minus" is here to reverse the CES-D scoring, to make the interpretation more intuitive
         1 - conf_fact_analysis(
             data_clean,
-            "lf =~ H5a + H5b + H5f + H5g"
+            "lf =~ H5b + H5f + H5g"
         )
     ),
 
