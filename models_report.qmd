@@ -6,6 +6,9 @@ format:
     html:
         code-fold: true
         toc: true
+        toc-depth: 5
+execute:
+    output: asis
 ---
 
 ## Loading dependencies and targets
@@ -18,47 +21,47 @@ library(knitr)
 library(mice)
 library(mitools)
 
-pooled_connection_ls_model_summary <- tar_read(pooled_connection_ls_model_summary)
-pooled_connection_swbs_model_summary <- tar_read(pooled_connection_swbs_model_summary)
-pooled_connection_anx_model_summary <- tar_read(pooled_connection_anx_model_summary)
-pooled_connection_cesd_model_summary <- tar_read(pooled_connection_cesd_model_summary)
-pooled_connection_sh_model_summary <- tar_read(pooled_connection_sh_model_summary)
-pooled_connection_paykel_model_summary <- tar_read(pooled_connection_paykel_model_summary)
+pooled_connection_ls_models_summary <- tar_read(pooled_connection_ls_models_summary)
+pooled_connection_swbs_models_summary <- tar_read(pooled_connection_swbs_models_summary)
+pooled_connection_anx_models_summary <- tar_read(pooled_connection_anx_models_summary)
+pooled_connection_cesd_models_summary <- tar_read(pooled_connection_cesd_models_summary)
+pooled_connection_sh_models_summary <- tar_read(pooled_connection_sh_models_summary)
+pooled_connection_paykel_models_summary <- tar_read(pooled_connection_paykel_models_summary)
 
-pooled_connection_ls_model_weighted_summary <- tar_read(pooled_connection_ls_model_weighted_summary)
-pooled_connection_swbs_model_weighted_summary <- tar_read(pooled_connection_swbs_model_weighted_summary)
-pooled_connection_anx_model_weighted_summary <- tar_read(pooled_connection_anx_model_weighted_summary)
-pooled_connection_cesd_model_weighted_summary <- tar_read(pooled_connection_cesd_model_weighted_summary)
-pooled_connection_sh_model_weighted_summary <- tar_read(pooled_connection_sh_model_weighted_summary)
-pooled_connection_paykel_model_weighted_summary <- tar_read(pooled_connection_paykel_model_weighted_summary)
+pooled_connection_ls_models_weighted_summary <- tar_read(pooled_connection_ls_models_weighted_summary)
+pooled_connection_swbs_models_weighted_summary <- tar_read(pooled_connection_swbs_models_weighted_summary)
+pooled_connection_anx_models_weighted_summary <- tar_read(pooled_connection_anx_models_weighted_summary)
+pooled_connection_cesd_models_weighted_summary <- tar_read(pooled_connection_cesd_models_weighted_summary)
+pooled_connection_sh_models_weighted_summary <- tar_read(pooled_connection_sh_models_weighted_summary)
+pooled_connection_paykel_models_weighted_summary <- tar_read(pooled_connection_paykel_models_weighted_summary)
 
-pooled_connection_ls_model_relevelled_summary <- tar_read(pooled_connection_ls_model_relevelled_summary)
-pooled_connection_swbs_model_relevelled_summary <- tar_read(pooled_connection_swbs_model_relevelled_summary)
-pooled_connection_anx_model_relevelled_summary <- tar_read(pooled_connection_anx_model_relevelled_summary)
-pooled_connection_cesd_model_relevelled_summary <- tar_read(pooled_connection_cesd_model_relevelled_summary)
-pooled_connection_sh_model_relevelled_summary <- tar_read(pooled_connection_sh_model_relevelled_summary)
-pooled_connection_paykel_model_relevelled_summary <- tar_read(pooled_connection_paykel_model_relevelled_summary)
+pooled_connection_ls_models_relevelled_summary <- tar_read(pooled_connection_ls_models_relevelled_summary)
+pooled_connection_swbs_models_relevelled_summary <- tar_read(pooled_connection_swbs_models_relevelled_summary)
+pooled_connection_anx_models_relevelled_summary <- tar_read(pooled_connection_anx_models_relevelled_summary)
+pooled_connection_cesd_models_relevelled_summary <- tar_read(pooled_connection_cesd_models_relevelled_summary)
+pooled_connection_sh_models_relevelled_summary <- tar_read(pooled_connection_sh_models_relevelled_summary)
+pooled_connection_paykel_models_relevelled_summary <- tar_read(pooled_connection_paykel_models_relevelled_summary)
 
-pooled_connection_ls_model_relevelled_weighted_summary <- tar_read(pooled_connection_ls_model_relevelled_weighted_summary)
-pooled_connection_swbs_model_relevelled_weighted_summary <- tar_read(pooled_connection_swbs_model_relevelled_weighted_summary)
-pooled_connection_anx_model_relevelled_weighted_summary <- tar_read(pooled_connection_anx_model_relevelled_weighted_summary)
-pooled_connection_cesd_model_relevelled_weighted_summary <- tar_read(pooled_connection_cesd_model_relevelled_weighted_summary)
-pooled_connection_sh_model_relevelled_weighted_summary <- tar_read(pooled_connection_sh_model_relevelled_weighted_summary)
-pooled_connection_paykel_model_relevelled_weighted_summary <- tar_read(pooled_connection_paykel_model_relevelled_weighted_summary)
+pooled_connection_ls_models_relevelled_weighted_summary <- tar_read(pooled_connection_ls_models_relevelled_weighted_summary)
+pooled_connection_swbs_models_relevelled_weighted_summary <- tar_read(pooled_connection_swbs_models_relevelled_weighted_summary)
+pooled_connection_anx_models_relevelled_weighted_summary <- tar_read(pooled_connection_anx_models_relevelled_weighted_summary)
+pooled_connection_cesd_models_relevelled_weighted_summary <- tar_read(pooled_connection_cesd_models_relevelled_weighted_summary)
+pooled_connection_sh_models_relevelled_weighted_summary <- tar_read(pooled_connection_sh_models_relevelled_weighted_summary)
+pooled_connection_paykel_models_relevelled_weighted_summary <- tar_read(pooled_connection_paykel_models_relevelled_weighted_summary)
 
-pooled_internet_ls_model_summary <- tar_read(pooled_internet_ls_model_summary)
-pooled_internet_swbs_model_summary <- tar_read(pooled_internet_swbs_model_summary)
-pooled_internet_anx_model_summary <- tar_read(pooled_internet_anx_model_summary)
-pooled_internet_cesd_model_summary <- tar_read(pooled_internet_cesd_model_summary)
-pooled_internet_sh_model_summary <- tar_read(pooled_internet_sh_model_summary)
-pooled_internet_paykel_model_summary <- tar_read(pooled_internet_paykel_model_summary)
+pooled_internet_ls_models_summary <- tar_read(pooled_internet_ls_models_summary)
+pooled_internet_swbs_models_summary <- tar_read(pooled_internet_swbs_models_summary)
+pooled_internet_anx_models_summary <- tar_read(pooled_internet_anx_models_summary)
+pooled_internet_cesd_models_summary <- tar_read(pooled_internet_cesd_models_summary)
+pooled_internet_sh_models_summary <- tar_read(pooled_internet_sh_models_summary)
+pooled_internet_paykel_models_summary <- tar_read(pooled_internet_paykel_models_summary)
 
-pooled_internet_ls_model_weighted_summary <- tar_read(pooled_internet_ls_model_weighted_summary)
-pooled_internet_swbs_model_weighted_summary <- tar_read(pooled_internet_swbs_model_weighted_summary)
-pooled_internet_anx_model_weighted_summary <- tar_read(pooled_internet_anx_model_weighted_summary)
-pooled_internet_cesd_model_weighted_summary <- tar_read(pooled_internet_cesd_model_weighted_summary)
-pooled_internet_sh_model_weighted_summary <- tar_read(pooled_internet_sh_model_weighted_summary)
-pooled_internet_paykel_model_weighted_summary <- tar_read(pooled_internet_paykel_model_weighted_summary)
+pooled_internet_ls_models_weighted_summary <- tar_read(pooled_internet_ls_models_weighted_summary)
+pooled_internet_swbs_models_weighted_summary <- tar_read(pooled_internet_swbs_models_weighted_summary)
+pooled_internet_anx_models_weighted_summary <- tar_read(pooled_internet_anx_models_weighted_summary)
+pooled_internet_cesd_models_weighted_summary <- tar_read(pooled_internet_cesd_models_weighted_summary)
+pooled_internet_sh_models_weighted_summary <- tar_read(pooled_internet_sh_models_weighted_summary)
+pooled_internet_paykel_models_weighted_summary <- tar_read(pooled_internet_paykel_models_weighted_summary)
 
 connection_ls_models_summary <- tar_read(connection_ls_models_summary)
 connection_swbs_models_summary <- tar_read(connection_swbs_models_summary)
@@ -101,20 +104,6 @@ internet_anx_models_weighted_summary <- tar_read(internet_anx_models_weighted_su
 internet_cesd_models_weighted_summary <- tar_read(internet_cesd_models_weighted_summary)
 internet_sh_models_weighted_summary <- tar_read(internet_sh_models_weighted_summary)
 internet_paykel_models_weighted_summary <- tar_read(internet_paykel_models_weighted_summary)
-```
-
-## Defining rounding function
-
-```{r round_fn}
-round_summary <- function(summary){
-    for(i in 1:ncol(summary)){
-        if(is.numeric(summary[, i])){
-            summary[, i] <- round(summary[, i], 3)
-        }
-    }
-
-    return(summary)
-}
 ```
 
 ## Defining plotting functions
@@ -204,203 +193,214 @@ internet_plots <- function(summary){
 }
 ```
 
+## Defining results printing function
+
+```{r print_fn}
+round_summary <- function(summary){
+    for(i in 1:ncol(summary)){
+        if(is.numeric(summary[, i])){
+            summary[, i] <- round(summary[, i], 3)
+        }
+    }
+
+    return(summary)
+}
+
+summary_list <- c("All participants", "Boys", "Girls", "Rural", "Urban", "Rural boys", "Urban boys", "Rural girls", "Urban girls")
+
+print_summary <- function(summary){
+    for(i in seq_along(summary_list)){
+        cat(paste("#####", summary_list[i], "\n"))
+        print(summary[[i]] |> round_summary() |> kable())
+    }
+}
+```
+
 ## Models for ability to stay connected during lockdown ("no lockdown" as reference group)
 ### Life satisfaction
 #### Pooled, unweighted
 
 ```{r pooled_conn_ls}
-pooled_connection_ls_model_summary |> round_summary() |> kable()
+print_summary(pooled_connection_ls_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_ls_weighted}
-pooled_connection_ls_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_ls_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_ls}
-connection_ls_models_summary |> round_summary() |> kable()
-```
-
-```{r conn_ls_plot}
-connection_plot(connection_ls_models_summary)
+print_summary(connection_ls_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_ls_weighted}
-connection_ls_models_weighted_summary |> round_summary() |> kable()
+print_summary(connection_ls_models_weighted_summary)
 ```
 
-```{r conn_ls_weighted_plot}
-connection_plot(connection_ls_models_weighted_summary)
+##### Plot (all participants)
+
+```{r conn_ls_plot}
+connection_plot(connection_ls_models_weighted_summary[[1]])
 ```
 
 ### CW-SWBS
 #### Pooled, unweighted
 
 ```{r pooled_conn_swbs}
-pooled_connection_swbs_model_summary |> round_summary() |> kable()
+print_summary(pooled_connection_swbs_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_swbs_weighted}
-pooled_connection_swbs_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_swbs_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_swbs}
-connection_swbs_models_summary |> round_summary() |> kable()
-```
-
-```{r conn_swbs_plot}
-connection_plot(connection_swbs_models_summary)
+print_summary(connection_swbs_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_swbs_weighted}
-connection_swbs_models_weighted_summary |> round_summary() |> kable()
+print_summary(connection_swbs_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_swbs_weighted_plot}
-connection_plot(connection_swbs_models_weighted_summary)
+connection_plot(connection_swbs_models_weighted_summary[[1]])
 ```
 
 ### Anxiety
 #### Pooled, unweighted
 
 ```{r pooled_conn_anx}
-pooled_connection_anx_model_summary |> round_summary() |> kable()
+print_summary(pooled_connection_anx_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_anx_weighted}
-pooled_connection_anx_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_anx_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_anx}
-connection_anx_models_summary |> round_summary() |> kable()
-```
-
-```{r conn_anx_plot}
-connection_plot(connection_anx_models_summary)
+print_summary(connection_anx_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_anx_weighted}
-connection_anx_models_weighted_summary |> round_summary() |> kable()
+print_summary(connection_anx_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_anx_weighted_plot}
-connection_plot(connection_anx_models_weighted_summary)
+connection_plot(connection_anx_models_weighted_summary[[1]])
 ```
 
 ### CES-D
 #### Pooled, unweighted
 
 ```{r pooled_conn_cesd}
-pooled_connection_cesd_model_summary |> round_summary() |> kable()
+print_summary(pooled_connection_cesd_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_cesd_weighted}
-pooled_connection_cesd_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_cesd_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_cesd}
-connection_cesd_models_summary |> round_summary() |> kable()
-```
-
-```{r conn_cesd_plot}
-connection_plot(connection_cesd_models_summary)
+print_summary(connection_cesd_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_cesd_weighted}
-connection_cesd_models_weighted_summary |> round_summary() |> kable()
+print_summary(connection_cesd_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_cesd_weighted_plot}
-connection_plot(connection_cesd_models_weighted_summary)
+connection_plot(connection_cesd_models_weighted_summary[[1]])
 ```
 
 ### Self-harm
 #### Pooled, unweighted
 
 ```{r pooled_conn_sh}
-pooled_connection_sh_model_summary |> round_summary() |> kable()
+print_summary(pooled_connection_sh_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_sh_weighted}
-pooled_connection_sh_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_sh_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_sh}
-connection_sh_models_summary |> round_summary() |> kable()
-```
-
-```{r conn_sh_plot}
-connection_plot(connection_sh_models_summary)
+print_summary(connection_sh_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_sh_weighted}
-connection_sh_models_weighted_summary |> round_summary() |> kable()
+print_summary(connection_sh_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_sh_weighted_plot}
-connection_plot(connection_sh_models_weighted_summary)
+connection_plot(connection_sh_models_weighted_summary[[1]])
 ```
 
 ### Paykel suicide scale
 #### Pooled, unweighted
 
 ```{r pooled_conn_paykel}
-pooled_connection_paykel_model_summary |> round_summary() |> kable()
+print_summary(pooled_connection_paykel_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_paykel_weighted}
-pooled_connection_paykel_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_paykel_models_weighted_summary)
 ```
 
-#### By country, uweighted
+#### By country, unweighted
 
 ```{r conn_paykel}
-connection_paykel_models_summary |> round_summary() |> kable()
-```
-
-```{r conn_paykel_plot}
-connection_plot(connection_paykel_models_summary)
+print_summary(connection_paykel_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_paykel_weighted}
-connection_paykel_models_weighted_summary |> round_summary() |> kable()
+print_summary(connection_paykel_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_paykel_weighted_plot}
-connection_plot(connection_paykel_models_weighted_summary)
+connection_plot(connection_paykel_models_weighted_summary[[1]])
 ```
 
 ## Models for ability to stay connected during lockdown ("lockdown, disconnected" as reference group)
@@ -408,198 +408,186 @@ connection_plot(connection_paykel_models_weighted_summary)
 #### Pooled, unweighted
 
 ```{r pooled_conn_ls_relevelled}
-pooled_connection_ls_model_relevelled_summary |> round_summary() |> kable()
+print_summary(pooled_connection_ls_models_relevelled_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_ls_relevelled_weighted}
-pooled_connection_ls_model_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_ls_models_relevelled_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_ls_relevelled}
-connection_ls_models_relevelled_summary |> round_summary() |> kable()
-```
-
-```{r conn_ls_relevelled_plot}
-connection_plot(connection_ls_models_relevelled_summary)
+print_summary(connection_ls_models_relevelled_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_ls_relevelled_weighted}
-connection_ls_models_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(connection_ls_models_relevelled_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_ls_relevelled_weighted_plot}
-connection_plot(connection_ls_models_relevelled_weighted_summary)
+connection_plot(connection_ls_models_relevelled_weighted_summary[[1]])
 ```
 
 ### CW-SWBS
 #### Pooled, unweighted
 
 ```{r pooled_conn_swbs_relevelled}
-pooled_connection_swbs_model_relevelled_summary |> round_summary() |> kable()
+print_summary(pooled_connection_swbs_models_relevelled_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_swbs_relevelled_weighted}
-pooled_connection_swbs_model_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_swbs_models_relevelled_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_swbs_relevelled}
-connection_swbs_models_relevelled_summary |> round_summary() |> kable()
-```
-
-```{r conn_swbs_relevelled_plot}
-connection_plot(connection_swbs_models_relevelled_summary)
+print_summary(connection_swbs_models_relevelled_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_swbs_relevelled_weighted}
-connection_swbs_models_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(connection_swbs_models_relevelled_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_swbs_relevelled_weighted_plot}
-connection_plot(connection_swbs_models_relevelled_weighted_summary)
+connection_plot(connection_swbs_models_relevelled_weighted_summary[[1]])
 ```
 
 ### Anxiety
 #### Pooled, unweighted
 
 ```{r pooled_conn_anx_relevelled}
-pooled_connection_anx_model_relevelled_summary |> round_summary() |> kable()
+print_summary(pooled_connection_anx_models_relevelled_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_anx_relevelled_weighted}
-pooled_connection_anx_model_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_anx_models_relevelled_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_anx_relevelled}
-connection_anx_models_relevelled_summary |> round_summary() |> kable()
-```
-
-```{r conn_anx_relevelled_plot}
-connection_plot(connection_anx_models_relevelled_summary)
+print_summary(connection_anx_models_relevelled_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_anx_relevelled_weighted}
-connection_anx_models_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(connection_anx_models_relevelled_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_anx_relevelled_weighted_plot}
-connection_plot(connection_anx_models_relevelled_weighted_summary)
+connection_plot(connection_anx_models_relevelled_weighted_summary[[1]])
 ```
 
 ### CES-D
 #### Pooled, unweighted
 
 ```{r pooled_conn_cesd_relevelled}
-pooled_connection_cesd_model_relevelled_summary |> round_summary() |> kable()
+print_summary(pooled_connection_cesd_models_relevelled_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_cesd_relevelled_weighted}
-pooled_connection_cesd_model_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_cesd_models_relevelled_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_cesd_relevelled}
-connection_cesd_models_relevelled_summary |> round_summary() |> kable()
-```
-
-```{r conn_cesd_relevelled_plot}
-connection_plot(connection_cesd_models_relevelled_summary)
+print_summary(connection_cesd_models_relevelled_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_cesd_relevelled_weighted}
-connection_cesd_models_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(connection_cesd_models_relevelled_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_cesd_relevelled_weighted_plot}
-connection_plot(connection_cesd_models_relevelled_weighted_summary)
+connection_plot(connection_cesd_models_relevelled_weighted_summary[[1]])
 ```
 
 ### Self-harm
 #### Pooled, unweighted
 
 ```{r pooled_conn_sh_relevelled}
-pooled_connection_sh_model_relevelled_summary |> round_summary() |> kable()
+print_summary(pooled_connection_sh_models_relevelled_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_sh_relevelled_weighted}
-pooled_connection_sh_model_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_sh_models_relevelled_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_sh_relevelled}
-connection_sh_models_relevelled_summary |> round_summary() |> kable()
-```
-
-```{r conn_sh_relevelled_plot}
-connection_plot(connection_sh_models_relevelled_summary)
+print_summary(connection_sh_models_relevelled_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_sh_relevelled_weighted}
-connection_sh_models_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(connection_sh_models_relevelled_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_sh_relevelled_weighted_plot}
-connection_plot(connection_sh_models_relevelled_weighted_summary)
+connection_plot(connection_sh_models_relevelled_weighted_summary[[1]])
 ```
 
 ### Paykel suicide scale
 #### Pooled, unweighted
 
 ```{r pooled_conn_paykel_relevelled}
-pooled_connection_paykel_model_relevelled_summary |> round_summary() |> kable()
+print_summary(pooled_connection_paykel_models_relevelled_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_conn_paykel_relevelled_weighted}
-pooled_connection_paykel_model_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_connection_paykel_models_relevelled_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r conn_paykel_relevelled}
-connection_paykel_models_relevelled_summary |> round_summary() |> kable()
-```
-
-```{r conn_paykel_relevelled_plot}
-connection_plot(connection_paykel_models_relevelled_summary)
+print_summary(connection_paykel_models_relevelled_summary)
 ```
 
 #### By country, weighted
 
 ```{r conn_paykel_relevelled_weighted}
-connection_paykel_models_relevelled_weighted_summary |> round_summary() |> kable()
+print_summary(connection_paykel_models_relevelled_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r conn_paykel_relevelled_weighted_plot}
-connection_plot(connection_paykel_models_relevelled_weighted_summary)
+connection_plot(connection_paykel_models_relevelled_weighted_summary[[1]])
 ```
 
 ## Models for internet use frequency
@@ -607,196 +595,184 @@ connection_plot(connection_paykel_models_relevelled_weighted_summary)
 #### Pooled, unweighted
 
 ```{r pooled_int_ls}
-pooled_internet_ls_model_summary |> round_summary() |> kable()
+print_summary(pooled_internet_ls_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_int_ls_weighted}
-pooled_internet_ls_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_internet_ls_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r int_ls}
-internet_ls_models_summary |> round_summary() |> kable()
-```
-
-```{r int_ls_plots}
-internet_plots(internet_ls_models_summary)
+print_summary(internet_ls_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r int_ls_weighted}
-internet_ls_models_weighted_summary |> round_summary() |> kable()
+print_summary(internet_ls_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r int_ls_weighted_plots}
-internet_plots(internet_ls_models_weighted_summary)
+internet_plots(internet_ls_models_weighted_summary[[1]])
 ```
 
 ### CW-SWBS
 #### Pooled, unweighted
 
 ```{r pooled_int_swbs}
-pooled_internet_swbs_model_summary |> round_summary() |> kable()
+print_summary(pooled_internet_swbs_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_int_swbs_weighted}
-pooled_internet_swbs_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_internet_swbs_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r int_swbs}
-internet_swbs_models_summary |> round_summary() |> kable()
-```
-
-```{r int_swbs_plots}
-internet_plots(internet_swbs_models_summary)
+print_summary(internet_swbs_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r int_swbs_weighted}
-internet_swbs_models_weighted_summary |> round_summary() |> kable()
+print_summary(internet_swbs_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r int_swbs_weighted_plots}
-internet_plots(internet_swbs_models_weighted_summary)
+internet_plots(internet_swbs_models_weighted_summary[[1]])
 ```
 
 ### Anxiety
 #### Pooled, unweighted
 
 ```{r pooled_int_anx}
-pooled_internet_anx_model_summary |> round_summary() |> kable()
+print_summary(pooled_internet_anx_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_int_anx_weighted}
-pooled_internet_anx_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_internet_anx_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r int_anx}
-internet_anx_models_summary |> round_summary() |> kable()
-```
-
-```{r int_anx_plots}
-internet_plots(internet_anx_models_summary)
+print_summary(internet_anx_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r int_anx_weighted}
-internet_anx_models_weighted_summary |> round_summary() |> kable()
+print_summary(internet_anx_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r int_anx_weighted_plots}
-internet_plots(internet_anx_models_weighted_summary)
+internet_plots(internet_anx_models_weighted_summary[[1]])
 ```
 
 ### CES-D
 #### Pooled, unweighted
 
 ```{r pooled_int_cesd}
-pooled_internet_cesd_model_summary |> round_summary() |> kable()
+print_summary(pooled_internet_cesd_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_int_cesd_weighted}
-pooled_internet_cesd_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_internet_cesd_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r int_cesd}
-internet_cesd_models_summary |> round_summary() |> kable()
-```
-
-```{r int_cesd_plots}
-internet_plots(internet_cesd_models_summary)
+print_summary(internet_cesd_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r int_cesd_weighted}
-internet_cesd_models_weighted_summary |> round_summary() |> kable()
+print_summary(internet_cesd_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r int_cesd_weighted_plots}
-internet_plots(internet_cesd_models_weighted_summary)
+internet_plots(internet_cesd_models_weighted_summary[[1]])
 ```
 
 ### Self-harm
 #### Pooled, unweighted
 
 ```{r pooled_int_sh}
-pooled_internet_sh_model_summary |> round_summary() |> kable()
+print_summary(pooled_internet_sh_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_int_sh_weighted}
-pooled_internet_sh_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_internet_sh_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r int_sh}
-internet_sh_models_summary |> round_summary() |> kable()
-```
-
-```{r int_sh_plots}
-internet_plots(internet_sh_models_summary)
+print_summary(internet_sh_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r int_sh_weighted}
-internet_sh_models_weighted_summary |> round_summary() |> kable()
+print_summary(internet_sh_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r int_sh_weighted_plots}
-internet_plots(internet_sh_models_weighted_summary)
+internet_plots(internet_sh_models_weighted_summary[[1]])
 ```
 
 ### Paykel suicide scale
 #### Pooled, unweighted
 
 ```{r pooled_int_paykel}
-pooled_internet_paykel_model_summary |> round_summary() |> kable()
+print_summary(pooled_internet_paykel_models_summary)
 ```
 
 #### Pooled, weighted
 
 ```{r pooled_int_paykel_weighted}
-pooled_internet_paykel_model_weighted_summary |> round_summary() |> kable()
+print_summary(pooled_internet_paykel_models_weighted_summary)
 ```
 
 #### By country, unweighted
 
 ```{r int_paykel}
-internet_paykel_models_summary |> round_summary() |> kable()
-```
-
-```{r int_paykel_plots}
-internet_plots(internet_paykel_models_summary)
+print_summary(internet_paykel_models_summary)
 ```
 
 #### By country, weighted
 
 ```{r int_paykel_weighted}
-internet_paykel_models_weighted_summary |> round_summary() |> kable()
+print_summary(internet_paykel_models_weighted_summary)
 ```
 
+##### Plot (all participants)
+
 ```{r int_paykel_weighted_plots}
-internet_plots(internet_paykel_models_weighted_summary)
+internet_plots(internet_paykel_models_weighted_summary[[1]])
 ```
