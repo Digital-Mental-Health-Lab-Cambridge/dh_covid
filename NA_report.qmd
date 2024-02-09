@@ -80,8 +80,6 @@ for(i in c("H7a", "H7b", "H7c", "H7d", "H7e")){
 ## COVID-19 variables
 
 ```{r covid}
-for(i in c("CO2", "CO3")){
-    print(country_NA_plots[[i]])
-    print(language_NA_plots[[i]])
-}
+print(country_NA_plots[["CO2"]])
+print(language_NA_plots[["CO2"]])
 ```

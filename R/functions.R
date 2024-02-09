@@ -11,7 +11,7 @@ clean_data <- function(data){
         ECS_SELECTED_CH, # Selected child [N]
         ECS_SELECTED_CH_GENDER, # Selected child's gender [B]
         ECS_SELECTED_CH_AGE, # Selected child's age [N]
-        A1, # Classification of local area/neighbourhood [UF]
+        Urbanity, # Classification of local area/neighbourhood [UF]
         B1, # Frequency of internet usage [N]
         CO2, # Occurrence of lockdown [B]
         CO3, # Ability to stay in touch with others during lockdown [B]
@@ -43,7 +43,7 @@ clean_data <- function(data){
     )
 
     # Set 888 and 999 values to NA
-    is.na(data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime"))]) <- data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime"))] > 887
+    is.na(data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime", "Urbanity"))]) <- data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime", "Urbanity"))] > 887
 
     # Delete all responses for H4f and L39f in Mozambique (because of a translation error)
     data_clean[data_clean$COUNTRY == 3, c("H4f", "L39f")] <- NA
@@ -60,11 +60,7 @@ clean_data <- function(data){
                 CO2 == 1 & CO3 == 1 ~ "Lockdown, connected"
             ),
 
-            # Merging sparse categories in rural/urban classification (A1), marital status (L8), caregiver's relationship to study child (L9), caregiver's education (L11) and type of school attended (L14)
-            A1 = case_match(A1,
-                3 ~ 2L,
-                .default = A1
-            ),
+            # Merging sparse categories in marital status (L8), caregiver's relationship to study child (L9), caregiver's education (L11) and type of school attended (L14)
             L8 = case_match(L8,
                 3:6 ~ 1L,
                 .default = L8
@@ -96,11 +92,6 @@ clean_data <- function(data){
                 2 ~ 1L,
                 .default = ECS_SELECTED_CH_GENDER
             ),
-            A1 = case_match(A1,
-                1 ~ 0L,
-                2 ~ 1L,
-                .default = A1
-            ),
             L8 = case_match(L8,
                 1 ~ 0L,
                 2 ~ 1L,
@@ -115,6 +106,13 @@ clean_data <- function(data){
                 1 ~ 0L,
                 2 ~ 1L,
                 .default = L14
+            ),
+
+            # Recoding urbanity
+            Urbanity = case_match(Urbanity,
+                "Rural     " ~ "Rural",
+                "Urban     " ~ "Urban",
+                .default = Urbanity
             )
         ) %>%
 
@@ -123,7 +121,7 @@ clean_data <- function(data){
 
     # Making factor variables as necessary
     ## Unordered
-    for(var in c("id_new", "COUNTRY", "Language", "ECS_SELECTED_CH_GENDER", "L9", "dv_covid_status")){
+    for(var in c("id_new", "COUNTRY", "Language", "ECS_SELECTED_CH_GENDER", "Urbanity", "L9", "dv_covid_status")){
         data_clean[, var] <- as.factor(data_clean[, var])
     }
 
@@ -336,7 +334,7 @@ cfa_calc <- function(data, prediction, new_var, old_vars){
 multiple_imputation <- function(data){
     # Listing variables needing to be rescaled
     varnames <- names(data)
-    varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "wgt_scaled")]
+    varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled")]
     
     # Rescaling variables as necessary
     for(i in varnames){
@@ -348,12 +346,12 @@ multiple_imputation <- function(data){
     # Setting method to pmm, except for those variables that should not be imputed
     methods <- make.method(data)
     methods[] <- "pmm"
-    methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "wgt_scaled")] <- ""
+    methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled")] <- ""
 
     # Setting certain variables to not predict the rest, and again specifying which variables are not to be imputed at all
     predictorMatrix <- make.predictorMatrix(data)
     predictorMatrix[, c("id_new", "COUNTRY", "Language", "intStartTime", "CO2", "wgt_scaled")] <- 0
-    predictorMatrix[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "wgt_scaled"), ] <- 0
+    predictorMatrix[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled"), ] <- 0
 
     imputed_data <- mice(data, vis = "monotone", method = methods, predictorMatrix = predictorMatrix, m = 20, maxit = 20)
 
@@ -371,249 +369,499 @@ covid_relevel <- function(data){
 }
 
 logistic_models <- function(data, y, formula_RHS){
-    # Initialising list of model fits
-    model_fits <- list()
+    # Initialising lists of model fits
+    fitlist <- list()
+    boys_fitlist <- list()
+    girls_fitlist <- list()
+    rural_fitlist <- list()
+    urban_fitlist <- list()
+    boys_rural_fitlist <- list()
+    boys_urban_fitlist <- list()
+    girls_rural_fitlist <- list()
+    girls_urban_fitlist <- list()
 
     # For each country
     for(i in unique(complete(data, 1)$COUNTRY)){
 
         # Skipping Tanzania
         if(i == 6){
-            model_fits[[i]] <- NULL
-
             next
         }
 
         # Selecting relevant dataset
-        by_country_data <- filter(data, COUNTRY == i)
+        these_data <- filter(data, COUNTRY == i)
+
+        # Creating sub-datasets
+        boys_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 0)
+        girls_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 1)
+        rural_data <- filter(these_data, Urbanity == "Rural")
+        urban_data <- filter(these_data, Urbanity == "Urban")
+        boys_rural_data <- filter(boys_data, Urbanity == "Rural")
+        boys_urban_data <- filter(boys_data, Urbanity == "Urban")
+        girls_rural_data <- filter(girls_data, Urbanity == "Rural")
+        girls_urban_data <- filter(girls_data, Urbanity == "Urban")
 
         # Fitting logistic regression models
-        model_fits[[i]] <- with(by_country_data, glm(as.formula(paste(y, "~", formula_RHS)), family = "binomial"))
+        fitlist[[i]] <- with(these_data, glm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "binomial"))
+        try(boys_fitlist[[i]] <- with(boys_data, glm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "binomial")), silent = TRUE)
+        try(girls_fitlist[[i]] <- with(girls_data, glm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "binomial")), silent = TRUE)
+        try(rural_fitlist[[i]] <- with(rural_data, glm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "binomial")), silent = TRUE)
+        try(urban_fitlist[[i]] <- with(urban_data, glm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "binomial")), silent = TRUE)
+        try(boys_rural_fitlist[[i]] <- with(boys_rural_data, glm(as.formula(paste(y, "~", formula_RHS)), family = "binomial")), silent = TRUE)
+        try(boys_urban_fitlist[[i]] <- with(boys_urban_data, glm(as.formula(paste(y, "~", formula_RHS)), family = "binomial")), silent = TRUE)
+        try(girls_rural_fitlist[[i]] <- with(girls_rural_data, glm(as.formula(paste(y, "~", formula_RHS)), family = "binomial")), silent = TRUE)
+        try(girls_urban_fitlist[[i]] <- with(girls_urban_data, glm(as.formula(paste(y, "~", formula_RHS)), family = "binomial")), silent = TRUE)
     }
 
-    return(model_fits)
+    return(list(fitlist, boys_fitlist, girls_fitlist, rural_fitlist, urban_fitlist, boys_rural_fitlist, boys_urban_fitlist, girls_rural_fitlist, girls_urban_fitlist))
 }
 
-pooled_logistic_model <- function(data, y, formula_RHS){
+pooled_logistic_models <- function(data, y, formula_RHS){
     # Removing Tanzania rows
-    data <- filter(data, COUNTRY != 6)
+    data <- filter(data, COUNTRY != 6)    
 
-    # Initialising list of model fits
+    # Initialising lists of model fits
     fitlist <- list()
+    boys_fitlist <- list()
+    girls_fitlist <- list()
+    rural_fitlist <- list()
+    urban_fitlist <- list()
+    boys_rural_fitlist <- list()
+    boys_urban_fitlist <- list()
+    girls_rural_fitlist <- list()
+    girls_urban_fitlist <- list()
 
     # For each imputed dataset
     for(i in 1:data$m){
-        # Selecting this imputation, removing Tanzania rows and the unused country factor level
+        # Selecting this imputation and removing the unused country factor level
         these_data <- complete(data, i)
-        these_data <- filter(these_data, COUNTRY != 6)
         these_data$COUNTRY <- droplevels(these_data$COUNTRY)
 
-        # Fitting logistic regression model
-        fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS)), data = these_data, family = "binomial")
+        # Creating sub-datasets
+        boys_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 0)
+        girls_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 1)
+        rural_data <- filter(these_data, Urbanity == "Rural")
+        urban_data <- filter(these_data, Urbanity == "Urban")
+        boys_rural_data <- filter(boys_data, Urbanity == "Rural")
+        boys_urban_data <- filter(boys_data, Urbanity == "Urban")
+        girls_rural_data <- filter(girls_data, Urbanity == "Rural")
+        girls_urban_data <- filter(girls_data, Urbanity == "Urban")
+
+        # Fitting logistic regression models
+        fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), data = these_data, family = "binomial")
+        boys_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), data = boys_data, family = "binomial")
+        girls_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), data = girls_data, family = "binomial")
+        rural_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), data = rural_data, family = "binomial")
+        urban_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), data = urban_data, family = "binomial")
+        boys_rural_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS)), data = boys_rural_data, family = "binomial")
+        boys_urban_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS)), data = boys_urban_data, family = "binomial")
+        girls_rural_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS)), data = girls_rural_data, family = "binomial")
+        girls_urban_fitlist[[i]] <- glm(as.formula(paste(y, "~", formula_RHS)), data = girls_urban_data, family = "binomial")
     }
 
     model_fit <- as.mira(fitlist)
+    boys_model_fit <- as.mira(boys_fitlist)
+    girls_model_fit <- as.mira(girls_fitlist)
+    rural_model_fit <- as.mira(rural_fitlist)
+    urban_model_fit <- as.mira(urban_fitlist)
+    boys_rural_model_fit <- as.mira(boys_rural_fitlist)
+    boys_urban_model_fit <- as.mira(boys_urban_fitlist)
+    girls_rural_model_fit <- as.mira(girls_rural_fitlist)
+    girls_urban_model_fit <- as.mira(girls_urban_fitlist)
 
-    return(model_fit)
+    return(list(model_fit, boys_model_fit, girls_model_fit, rural_model_fit, urban_model_fit, boys_rural_model_fit, boys_urban_model_fit, girls_rural_model_fit, girls_urban_model_fit))
 }
 
 robust_linear_models <- function(data, y, formula_RHS){
-    # Initialising list of model fits
-    model_fits <- list()
+    # Initialising lists of model fits
+    fitlist <- list()
+    boys_fitlist <- list()
+    girls_fitlist <- list()
+    rural_fitlist <- list()
+    urban_fitlist <- list()
+    boys_rural_fitlist <- list()
+    boys_urban_fitlist <- list()
+    girls_rural_fitlist <- list()
+    girls_urban_fitlist <- list()
 
     for(i in unique(complete(data, 1)$COUNTRY)){
 
         # Skipping Tanzania
         if(i == 6){
-            model_fits[[i]] <- NULL
-
             next
         }
 
         # Selecting relevant dataset
-        by_country_data <- filter(data, COUNTRY == i)
+        these_data <- filter(data, COUNTRY == i)
+
+        # Creating sub-datasets
+        boys_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 0)
+        girls_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 1)
+        rural_data <- filter(these_data, Urbanity == "Rural")
+        urban_data <- filter(these_data, Urbanity == "Urban")
+        boys_rural_data <- filter(boys_data, Urbanity == "Rural")
+        boys_urban_data <- filter(boys_data, Urbanity == "Urban")
+        girls_rural_data <- filter(girls_data, Urbanity == "Rural")
+        girls_urban_data <- filter(girls_data, Urbanity == "Urban")
 
         # Fitting robust linear regression models
-        model_fits[[i]] <- with(by_country_data, rlm(as.formula(paste(y, "~", formula_RHS))))
+        fitlist[[i]] <- with(these_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity"))))
+        try(boys_fitlist[[i]] <- with(boys_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")))), silent = TRUE)
+        try(girls_fitlist[[i]] <- with(girls_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")))), silent = TRUE)
+        try(rural_fitlist[[i]] <- with(rural_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")))), silent = TRUE)
+        try(urban_fitlist[[i]] <- with(urban_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")))), silent = TRUE)
+        try(boys_rural_fitlist[[i]] <- with(boys_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
+        try(boys_urban_fitlist[[i]] <- with(boys_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
+        try(girls_rural_fitlist[[i]] <- with(girls_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
+        try(girls_urban_fitlist[[i]] <- with(girls_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
     }
 
-    return(model_fits)
+    return(list(fitlist, boys_fitlist, girls_fitlist, rural_fitlist, urban_fitlist, boys_rural_fitlist, boys_urban_fitlist, girls_rural_fitlist, girls_urban_fitlist))
 }
 
-pooled_robust_linear_model <- function(data, y, formula_RHS){
+pooled_robust_linear_models <- function(data, y, formula_RHS){
     # Removing Tanzania rows
     data <- filter(data, COUNTRY != 6)
 
-    # Initialising list of model fits
+    # Initialising lists of model fits
     fitlist <- list()
+    boys_fitlist <- list()
+    girls_fitlist <- list()
+    rural_fitlist <- list()
+    urban_fitlist <- list()
+    boys_rural_fitlist <- list()
+    boys_urban_fitlist <- list()
+    girls_rural_fitlist <- list()
+    girls_urban_fitlist <- list()
 
     # For each imputed dataset
     for(i in 1:data$m){
         # Selecting this imputation, removing Tanzania rows and the unused country factor level
         these_data <- complete(data, i)
-        these_data <- filter(these_data, COUNTRY != 6)
         these_data$COUNTRY <- droplevels(these_data$COUNTRY)
 
-        # Fitting robust linear regression model
-        fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS)), these_data)
+        # Creating sub-datasets
+        boys_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 0)
+        girls_data <- filter(these_data, ECS_SELECTED_CH_GENDER == 1)
+        rural_data <- filter(these_data, Urbanity == "Rural")
+        urban_data <- filter(these_data, Urbanity == "Urban")
+        boys_rural_data <- filter(boys_data, Urbanity == "Rural")
+        boys_urban_data <- filter(boys_data, Urbanity == "Urban")
+        girls_rural_data <- filter(girls_data, Urbanity == "Rural")
+        girls_urban_data <- filter(girls_data, Urbanity == "Urban")
+
+        # Fitting robust linear regression models
+        fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), these_data)
+        boys_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), boys_data)
+        girls_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), girls_data)
+        rural_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), rural_data)
+        urban_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), urban_data)
+        boys_rural_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS)), boys_rural_data)
+        boys_urban_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS)), boys_urban_data)
+        girls_rural_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS)), girls_rural_data)
+        girls_urban_fitlist[[i]] <- rlm(as.formula(paste(y, "~", formula_RHS)), girls_urban_data)
     }
 
     model_fit <- as.mira(fitlist)
+    boys_model_fit <- as.mira(boys_fitlist)
+    girls_model_fit <- as.mira(girls_fitlist)
+    rural_model_fit <- as.mira(rural_fitlist)
+    urban_model_fit <- as.mira(urban_fitlist)
+    boys_rural_model_fit <- as.mira(boys_rural_fitlist)
+    boys_urban_model_fit <- as.mira(boys_urban_fitlist)
+    girls_rural_model_fit <- as.mira(girls_rural_fitlist)
+    girls_urban_model_fit <- as.mira(girls_urban_fitlist)
 
-    return(model_fit)
+    return(list(model_fit, boys_model_fit, girls_model_fit, rural_model_fit, urban_model_fit, boys_rural_model_fit, boys_urban_model_fit, girls_rural_model_fit, girls_urban_model_fit))
 }
 
 weighted_logistic_models <- function(data, y, formula_RHS){
-    # Initialising list of model fits
-    model_fits <- list()
+    # Initialising lists of model fits
+    fitlist <- list()
+    boys_fitlist <- list()
+    girls_fitlist <- list()
+    rural_fitlist <- list()
+    urban_fitlist <- list()
+    boys_rural_fitlist <- list()
+    boys_urban_fitlist <- list()
+    girls_rural_fitlist <- list()
+    girls_urban_fitlist <- list()
 
     # For each country
     for(i in unique(complete(data, 1)$COUNTRY)){
 
         # Skipping Tanzania
         if(i == 6){
-            model_fits[[i]] <- NULL
-
             next
         }
 
         # Selecting relevant dataset & removing rows with missing weights
-        by_country_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & !is.na(wgt_scaled))))
+        these_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & !is.na(wgt_scaled))))
 
-        # Creating survey design object
-        designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = by_country_data)
+        # and creating sub-datasets by the same method
+        boys_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 0 & !is.na(wgt_scaled))))
+        girls_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & !is.na(wgt_scaled))))
+        rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & Urbanity == "Rural" & !is.na(wgt_scaled))))
+        urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & Urbanity == "Urban" & !is.na(wgt_scaled))))
+        boys_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Rural" & !is.na(wgt_scaled))))
+        boys_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Urban" & !is.na(wgt_scaled))))
+        girls_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Rural" & !is.na(wgt_scaled))))
+        girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled))))
+
+        # Creating survey design objects
+        designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
+        boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
+        girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
+        rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
+        urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
+        boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
+        boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
+        girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
+        girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
 
         # Fitting weighted logistic regression models
-        model_fits[[i]] <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+        fitlist[[i]] <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial")))
+        try(boys_fitlist[[i]] <- MIcombine(with(boys_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial"))), silent = TRUE)
+        try(girls_fitlist[[i]] <- MIcombine(with(girls_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial"))), silent = TRUE)
+        try(rural_fitlist[[i]] <- MIcombine(with(rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial"))), silent = TRUE)
+        try(urban_fitlist[[i]] <- MIcombine(with(urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial"))), silent = TRUE)
+        try(boys_rural_fitlist[[i]] <- MIcombine(with(boys_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
+        try(boys_urban_fitlist[[i]] <- MIcombine(with(boys_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
+        try(girls_rural_fitlist[[i]] <- MIcombine(with(girls_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
+        try(girls_urban_fitlist[[i]] <- MIcombine(with(girls_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
     }
 
-    return(model_fits)
+    return(list(fitlist, boys_fitlist, girls_fitlist, rural_fitlist, urban_fitlist, boys_rural_fitlist, boys_urban_fitlist, girls_rural_fitlist, girls_urban_fitlist))
 }
 
-pooled_weighted_logistic_model <- function(data, y, formula_RHS){
+pooled_weighted_logistic_models <- function(data, y, formula_RHS){
     # Removing Tanzania rows
     data <- filter(data, COUNTRY != 6)
 
-    # Converting to imputationList, removing rows with missing weights and removing unused factor level
-    data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), !is.na(wgt_scaled)) |> droplevels()))
+    # Converting to imputationLists, removing rows with missing weights and removing unused factor level
+    these_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), !is.na(wgt_scaled)) |> droplevels()))
 
-    # Creating survey design object
-    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = data)
+    # and creating sub-datasets by the same method
+    boys_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 0 & !is.na(wgt_scaled)) |> droplevels()))
+    girls_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & !is.na(wgt_scaled)) |> droplevels()))
+    rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), Urbanity == "Rural" & !is.na(wgt_scaled)) |> droplevels()))
+    urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
+    boys_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Rural" & !is.na(wgt_scaled)) |> droplevels()))
+    boys_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
+    girls_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Rural" & !is.na(wgt_scaled)) |> droplevels()))
+    girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
 
-    # Fitting weighted logistic regression model
-    model_fit <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+    # Creating survey design objects
+    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
+    boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
+    girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
+    rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
+    urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
+    boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
+    boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
+    girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
+    girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
 
-    return(model_fit)
+    # Fitting weighted logistic regression models
+    model_fit <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial")))
+    boys_model_fit <- MIcombine(with(boys_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial")))
+    girls_model_fit <- MIcombine(with(girls_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial")))
+    rural_model_fit <- MIcombine(with(rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial")))
+    urban_model_fit <- MIcombine(with(urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial")))
+    boys_rural_model_fit <- MIcombine(with(boys_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+    boys_urban_model_fit <- MIcombine(with(boys_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+    girls_rural_model_fit <- MIcombine(with(girls_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+    girls_urban_model_fit <- MIcombine(with(girls_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+
+    return(list(model_fit, boys_model_fit, girls_model_fit, rural_model_fit, urban_model_fit, boys_rural_model_fit, boys_urban_model_fit, girls_rural_model_fit, girls_urban_model_fit))
 }
 
 weighted_robust_linear_models <- function(data, y, formula_RHS){
-    # Initialising list of model fits
-    model_fits <- list()
+    # Initialising lists of model fits
+    fitlist <- list()
+    boys_fitlist <- list()
+    girls_fitlist <- list()
+    rural_fitlist <- list()
+    urban_fitlist <- list()
+    boys_rural_fitlist <- list()
+    boys_urban_fitlist <- list()
+    girls_rural_fitlist <- list()
+    girls_urban_fitlist <- list()
 
     # For each country
     for(i in unique(complete(data, 1)$COUNTRY)){
 
         # Skipping Tanzania
         if(i == 6){
-            model_fits[[i]] <- NULL
-
             next
         }
 
         # Selecting relevant dataset & removing rows with missing weights
-        by_country_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & !is.na(wgt_scaled))))
+        these_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & !is.na(wgt_scaled))))
 
-        # Creating survey design object
-        designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = by_country_data)
+        # and creating sub-datasets by the same method
+        boys_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 0 & !is.na(wgt_scaled))))
+        girls_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & !is.na(wgt_scaled))))
+        rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & Urbanity == "Rural" & !is.na(wgt_scaled))))
+        urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & Urbanity == "Urban" & !is.na(wgt_scaled))))
+        boys_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Rural" & !is.na(wgt_scaled))))
+        boys_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Urban" & !is.na(wgt_scaled))))
+        girls_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Rural" & !is.na(wgt_scaled))))
+        girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled))))
+
+        # Creating survey design objects
+        designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
+        boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
+        girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
+        rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
+        urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
+        boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
+        boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
+        girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
+        girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
 
         # Fitting weighted logistic regression models
-        model_fits[[i]] <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+        fitlist[[i]] <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345)))
+        try(boys_fitlist[[i]] <- MIcombine(with(boys_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345))), silent = TRUE)
+        try(girls_fitlist[[i]] <- MIcombine(with(girls_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345))), silent = TRUE)
+        try(rural_fitlist[[i]] <- MIcombine(with(rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345))), silent = TRUE)
+        try(urban_fitlist[[i]] <- MIcombine(with(urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345))), silent = TRUE)
+        try(boys_rural_fitlist[[i]] <- MIcombine(with(boys_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
+        try(boys_urban_fitlist[[i]] <- MIcombine(with(boys_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
+        try(girls_rural_fitlist[[i]] <- MIcombine(with(girls_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
+        try(girls_urban_fitlist[[i]] <- MIcombine(with(girls_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
     }
 
-    return(model_fits)
+    return(list(fitlist, boys_fitlist, girls_fitlist, rural_fitlist, urban_fitlist, boys_rural_fitlist, boys_urban_fitlist, girls_rural_fitlist, girls_urban_fitlist))
 }
 
-pooled_weighted_robust_linear_model <- function(data, y, formula_RHS){
+pooled_weighted_robust_linear_models <- function(data, y, formula_RHS){
     # Removing Tanzania rows
     data <- filter(data, COUNTRY != 6)
 
     # Converting to imputationList, removing rows with missing weights and removing unused factor level
-    data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), !is.na(wgt_scaled)) |> droplevels()))
+    these_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), !is.na(wgt_scaled)) |> droplevels()))
 
-    # Creating survey design object
-    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = data)
+    # and creating sub-datasets by the same method
+    boys_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 0 & !is.na(wgt_scaled)) |> droplevels()))
+    girls_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & !is.na(wgt_scaled)) |> droplevels()))
+    rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), Urbanity == "Rural" & !is.na(wgt_scaled)) |> droplevels()))
+    urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
+    boys_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Rural" & !is.na(wgt_scaled)) |> droplevels()))
+    boys_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 0 & Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
+    girls_rural_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Rural" & !is.na(wgt_scaled)) |> droplevels()))
+    girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
 
-    # Fitting weighted logistic regression model
-    model_fit <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+    # Creating survey design objects
+    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
+    boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
+    girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
+    rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
+    urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
+    boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
+    boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
+    girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
+    girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
 
-    return(model_fit)
+    # Fitting weighted logistic regression models
+    model_fit <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345)))
+    boys_model_fit <- MIcombine(with(boys_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345)))
+    girls_model_fit <- MIcombine(with(girls_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345)))
+    rural_model_fit <- MIcombine(with(rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345)))
+    urban_model_fit <- MIcombine(with(urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345)))
+    boys_rural_model_fit <- MIcombine(with(boys_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+    boys_urban_model_fit <- MIcombine(with(boys_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+    girls_rural_model_fit <- MIcombine(with(girls_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+    girls_urban_model_fit <- MIcombine(with(girls_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+
+    return(list(model_fit, boys_model_fit, girls_model_fit, rural_model_fit, urban_model_fit, boys_rural_model_fit, boys_urban_model_fit, girls_rural_model_fit, girls_urban_model_fit))
 }
 
 summarise_results <- function(results, terms){
-    results_list <- list()
-
+    summary_list <- list()
     country_list <- c("Ethiopia", "Kenya", "Mozambique", "Namibia", "Uganda", "Cambodia", "Indonesia", "Malaysia", "Philippines", "Thailand", "Vietnam")
 
     for(i in seq_along(results)){
-        these_results <- summary(pool(results[[i]]))
-        these_results_abridged <- these_results[these_results$term %in% terms,]
-        rownames(these_results_abridged) <- NULL
-        results_list[[i]] <- as.data.frame(cbind(country = country_list[i], these_results_abridged))
+        results_list <- list()
+
+        for(j in seq_along(results[[i]])){
+            these_results <- summary(pool(results[[i]][[j]]))
+            these_results_abridged <- these_results[these_results$term %in% terms,]
+            rownames(these_results_abridged) <- NULL
+            results_list[[j]] <- as.data.frame(cbind(country = country_list[j], these_results_abridged))
+        }
+
+        try(summary_list[[i]] <- reduce(results_list, rbind), silent = TRUE)
     }
 
-    return(reduce(results_list, rbind))
+    return(summary_list)
 }
 
 summarise_weighted_results <- function(results, terms){
-    results_list <- list()
-
+    summary_list <- list()
     country_list <- c("Ethiopia", "Kenya", "Mozambique", "Namibia", "Uganda", "Cambodia", "Indonesia", "Malaysia", "Philippines", "Thailand", "Vietnam")
 
     for(i in seq_along(results)){
-        these_results_abridged <- summary(results[[i]])[terms,]
-        these_results_abridged <- cbind(term = rownames(these_results_abridged), these_results_abridged)
-        rownames(these_results_abridged) <- NULL
-        these_results_abridged %<>% 
-            rename(estimate = results, std.error = se) %>%
-            dplyr::select(-`(lower`, -`upper)`, -missInfo)
+        results_list <- list()
 
-        results_list[[i]] <- as.data.frame(cbind(country = country_list[i], these_results_abridged))
+        for(j in seq_along(results[[i]])){
+            these_results_abridged <- summary(results[[i]][[j]])[terms,]
+            these_results_abridged <- cbind(term = rownames(these_results_abridged), these_results_abridged)
+            rownames(these_results_abridged) <- NULL
+            these_results_abridged %<>% 
+                rename(estimate = results, std.error = se) %>%
+                dplyr::select(-`(lower`, -`upper)`, -missInfo)
 
-        results_list[[i]] %<>% mutate(
-            statistic = estimate / std.error
-        )
-        results_list[[i]]$df <- results[[i]]$df[terms]
-        results_list[[i]] %<>% mutate(
-            p.value = 2 * pt(abs(statistic), df, lower.tail = FALSE)
-        )
+            results_list[[j]] <- as.data.frame(cbind(country = country_list[j], these_results_abridged))
+
+            results_list[[j]] %<>% mutate(
+                statistic = estimate / std.error
+            )
+            results_list[[j]]$df <- results[[i]][[j]]$df[terms]
+            results_list[[j]] %<>% mutate(
+                p.value = 2 * pt(abs(statistic), df, lower.tail = FALSE)
+            )
+        }
+
+        try(summary_list[[i]] <- reduce(results_list, rbind), silent = TRUE)
     }
 
-    return(reduce(results_list, rbind))
+    return(summary_list)
 }
 
 summarise_pooled_results <- function(results, terms){
-    results <- summary(pool(results))
-    results_abridged <- results[results$term %in% terms,]
-    rownames(results_abridged) <- NULL
+    results_list <- list()
 
-    return(results_abridged)
+    for(i in seq_along(results)){
+        results_summary <- summary(pool(results[[i]]))
+        results_list[[i]] <- results_summary[results_summary$term %in% terms,]
+        rownames(results_list[[i]]) <- NULL
+    }
+
+    return(results_list)
 }
 
 summarise_pooled_weighted_results <- function(results, terms){
-    results_abridged <- summary(results)[terms,]
-    results_abridged <- cbind(term = rownames(results_abridged), results_abridged)
-    rownames(results_abridged) <- NULL
-    results_abridged %<>% 
-        rename(estimate = results, std.error = se) %>%
-        dplyr::select(-`(lower`, -`upper)`, -missInfo)
+    results_list <- list()
+    
+    for(i in seq_along(results)){
+        results_abridged <- summary(results[[i]])[terms,]
+        results_abridged <- cbind(term = rownames(results_abridged), results_abridged)
+        rownames(results_abridged) <- NULL
+        results_abridged %<>% 
+            rename(estimate = results, std.error = se) %>%
+            dplyr::select(-`(lower`, -`upper)`, -missInfo)
 
-    results_abridged %<>% mutate(
-        statistic = estimate / std.error
-    )
-    results_abridged$df <- results$df[terms]
-    results_abridged %<>% mutate(
-        p.value = 2 * pt(abs(statistic), df, lower.tail = FALSE)
-    )
+        results_abridged %<>% mutate(
+            statistic = estimate / std.error
+        )
+        results_abridged$df <- results[[i]]$df[terms]
+        results_abridged %<>% mutate(
+            p.value = 2 * pt(abs(statistic), df, lower.tail = FALSE)
+        )
 
-    return(results_abridged)
+        results_list[[i]] <- results_abridged
+    }
+
+    return(results_list)
 }
