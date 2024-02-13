@@ -5,6 +5,7 @@ clean_data <- function(data){
     # Select relevant variables (eventual variable types: [B] = boolean, [N] = numeric, [UF] = unordered factor, [OF] = ordered factor)
     data_clean <- data %>% dplyr::select(
         id_new, # New participant ID [UF]
+        ECS_AddressID, # Address ID (from which PSU will be extracted) [UF]
         COUNTRY, # [UF]
         Language, # [UF]
         intStartTime, # Interview start time [N]
@@ -43,7 +44,7 @@ clean_data <- function(data){
     )
 
     # Set 888 and 999 values to NA
-    is.na(data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime", "Urbanity"))]) <- data_clean[, !(names(data_clean) %in% c("id_new", "intStartTime", "Urbanity"))] > 887
+    is.na(data_clean[, !(names(data_clean) %in% c("id_new", "ECS_AddressID", "intStartTime", "Urbanity"))]) <- data_clean[, !(names(data_clean) %in% c("id_new", "ECS_AddressID", "intStartTime", "Urbanity"))] > 887
 
     # Delete all responses for H4f and L39f in Mozambique (because of a translation error)
     data_clean[data_clean$COUNTRY == 3, c("H4f", "L39f")] <- NA
@@ -117,11 +118,17 @@ clean_data <- function(data){
         ) %>%
 
         # Removing unnecessary variables
-        dplyr::select(-contains("L52"), -contains("L16"), -CO3)
+        dplyr::select(-contains("L52"), -contains("L16"), -CO3) %>%
+
+        # Renaming PSU variable
+        rename(PSU = ECS_AddressID)
+
+    # Extract PSU from ECS_AddressID
+    data_clean$PSU <- sapply(data_clean$PSU, function(x) gsub("(.{3,})(Z[01])+?.*", "\\1", x))
 
     # Making factor variables as necessary
     ## Unordered
-    for(var in c("id_new", "COUNTRY", "Language", "ECS_SELECTED_CH_GENDER", "Urbanity", "L9", "dv_covid_status")){
+    for(var in c("id_new", "PSU", "COUNTRY", "Language", "ECS_SELECTED_CH_GENDER", "Urbanity", "L9", "dv_covid_status")){
         data_clean[, var] <- as.factor(data_clean[, var])
     }
 
@@ -334,7 +341,7 @@ cfa_calc <- function(data, prediction, new_var, old_vars){
 multiple_imputation <- function(data){
     # Listing variables needing to be rescaled
     varnames <- names(data)
-    varnames <- varnames[! varnames %in% c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled")]
+    varnames <- varnames[! varnames %in% c("id_new", "PSU", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled")]
     
     # Rescaling variables as necessary
     for(i in varnames){
@@ -346,12 +353,12 @@ multiple_imputation <- function(data){
     # Setting method to pmm, except for those variables that should not be imputed
     methods <- make.method(data)
     methods[] <- "pmm"
-    methods[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled")] <- ""
+    methods[c("id_new", "PSU", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled")] <- ""
 
     # Setting certain variables to not predict the rest, and again specifying which variables are not to be imputed at all
     predictorMatrix <- make.predictorMatrix(data)
-    predictorMatrix[, c("id_new", "COUNTRY", "Language", "intStartTime", "CO2", "wgt_scaled")] <- 0
-    predictorMatrix[c("id_new", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled"), ] <- 0
+    predictorMatrix[, c("id_new", "PSU", "COUNTRY", "Language", "intStartTime", "CO2", "wgt_scaled")] <- 0
+    predictorMatrix[c("id_new", "PSU", "COUNTRY", "Language", "intStartTime", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "ECS_SELECTED_CH_AGE", "Urbanity", "wgt_scaled"), ] <- 0
 
     imputed_data <- mice(data, vis = "monotone", method = methods, predictorMatrix = predictorMatrix, m = 20, maxit = 20)
 
@@ -609,15 +616,15 @@ weighted_logistic_models <- function(data, y, formula_RHS){
         girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled))))
 
         # Creating survey design objects
-        designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
-        boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
-        girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
-        rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
-        urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
-        boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
-        boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
-        girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
-        girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
+        designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = these_data)
+        boys_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_data)
+        girls_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_data)
+        rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = rural_data)
+        urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = urban_data)
+        boys_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_rural_data)
+        boys_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_urban_data)
+        girls_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_rural_data)
+        girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
         # Fitting weighted logistic regression models
         fitlist[[i]] <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial")))
@@ -652,15 +659,15 @@ pooled_weighted_logistic_models <- function(data, y, formula_RHS){
     girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
 
     # Creating survey design objects
-    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
-    boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
-    girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
-    rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
-    urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
-    boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
-    boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
-    girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
-    girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
+    designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = these_data)
+    boys_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_data)
+    girls_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_data)
+    rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = rural_data)
+    urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = urban_data)
+    boys_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_rural_data)
+    boys_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_urban_data)
+    girls_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_rural_data)
+    girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
     # Fitting weighted logistic regression models
     model_fit <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial")))
@@ -710,15 +717,15 @@ weighted_robust_linear_models <- function(data, y, formula_RHS){
         girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), COUNTRY == i & ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled))))
 
         # Creating survey design objects
-        designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
-        boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
-        girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
-        rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
-        urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
-        boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
-        boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
-        girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
-        girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
+        designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = these_data)
+        boys_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_data)
+        girls_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_data)
+        rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = rural_data)
+        urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = urban_data)
+        boys_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_rural_data)
+        boys_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_urban_data)
+        girls_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_rural_data)
+        girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
         # Fitting weighted logistic regression models
         fitlist[[i]] <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345)))
@@ -753,15 +760,15 @@ pooled_weighted_robust_linear_models <- function(data, y, formula_RHS){
     girls_urban_data <- imputationList(lapply(1:data$m, function(x) filter(complete(data, x), ECS_SELECTED_CH_GENDER == 1 & Urbanity == "Urban" & !is.na(wgt_scaled)) |> droplevels()))
 
     # Creating survey design objects
-    designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = these_data)
-    boys_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_data)
-    girls_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_data)
-    rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = rural_data)
-    urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = urban_data)
-    boys_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_rural_data)
-    boys_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = boys_urban_data)
-    girls_rural_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_rural_data)
-    girls_urban_designs <- svydesign(ids = ~0, weights = ~wgt_scaled, data = girls_urban_data)
+    designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = these_data)
+    boys_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_data)
+    girls_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_data)
+    rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = rural_data)
+    urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = urban_data)
+    boys_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_rural_data)
+    boys_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = boys_urban_data)
+    girls_rural_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_rural_data)
+    girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
     # Fitting weighted logistic regression models
     model_fit <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345)))
