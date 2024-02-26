@@ -298,26 +298,15 @@ plot_language_NA <- function(NA_by_language){
     return(language_NA_plots)
 }
 
-conf_fact_analysis <- function(data, model, group = NULL, groups_constrained = FALSE){
+conf_fact_analysis <- function(data, model, group = NULL, constraints = ""){
     # CFA model with loadings constrained to be equal across countries
-    if(groups_constrained == TRUE){
-        cfa_model <- cfa(
-            model,
-            data,
-            missing = "ml",
-            group = group,
-            group.equal = "loadings"
-        )
-
-    # CFA model with loadings free to vary across countries
-    } else if(groups_constrained == FALSE) {
-        cfa_model <- cfa(
-            model,
-            data,
-            missing = "ml",
-            group = group
-        )
-    }
+    cfa_model <- cfa(
+        model,
+        data,
+        missing = "ml",
+        group = group,
+        group.equal = constraints
+    )
 
     # Rescale and return CFA output
     if(is.null(group)){

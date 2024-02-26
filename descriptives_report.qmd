@@ -17,8 +17,9 @@ library(ggplot2)
 library(magrittr)
 library(mice)
 library(knitr)
+library(patchwork)
 library(purrr)
-library(RColorBrewer)
+library(scales)
 
 imputed_data <- tar_read(imputed_data)
 ```
@@ -128,61 +129,76 @@ for(i in seq_along(unique(imputed_data$data$COUNTRY))){
     scores_summary$se_PAYKEL[i] <- sqrt(mean(ses_PAYKEL^2) + var(means_PAYKEL) + var(means_PAYKEL)/m)
 }
 
-scores_plot <- function(var, label, lower = 0){
+scores_plot <- function(var, title, label, lower = 0){
     ggplot(scores_summary, aes(x = country)) +
         geom_col(aes(y = get(paste("mean", var, sep = "_"))), fill = "#ff7f50") +
         geom_errorbar(aes(ymin = get(paste("mean", var, sep = "_")) - get(paste("se", var, sep = "_")), ymax = get(paste("mean", var, sep = "_")) + get(paste("se", var, sep = "_"))), width = 0.2) +
         labs(x = "Country", y = label) +
         coord_cartesian(ylim = c(lower, NA)) +
         theme_linedraw() +
-        theme(axis.text.x=element_text(angle = 45, hjust = 1))
+        theme(axis.text.x=element_text(angle = 45, hjust = 1)) +
+        ggtitle(title)
 }
 
-scores_plot_percentage <- function(var, label){
+scores_plot_percentage <- function(var, title, label){
     ggplot(scores_summary, aes(x = country)) +
         geom_col(aes(y = get(paste("mean", var, sep = "_"))), fill = "#ff7f50") +
         geom_errorbar(aes(ymin = get(paste("mean", var, sep = "_")) - get(paste("se", var, sep = "_")), ymax = get(paste("mean", var, sep = "_")) + get(paste("se", var, sep = "_"))), width = 0.2) +
         scale_y_continuous(labels = scales::percent) +
         labs(x = "Country", y = label) +
         theme_linedraw() +
-        theme(axis.text.x=element_text(angle = 45, hjust = 1))
+        theme(axis.text.x=element_text(angle = 45, hjust = 1)) +
+        ggtitle(title)
 }
 ```
 
 ### Life satisfaction
 
 ```{r scores_ls}
-scores_plot("H1", "Mean life satisfaction (rescaled between 0 and 1)", 0.5)
+ls_scores_plot <- scores_plot("H1", "Life satisfaction", "Mean life satisfaction (rescaled between 0 and 1)", 0.5)
+ls_scores_plot
 ```
 
 ### CW-SWBS
 
 ```{r scores_swbs}
-scores_plot("CW_SWBS", "Mean CW-SWBS score (rescaled between 0 and 1)\n(lower = worse symptoms)", 0.6)
+swbs_scores_plot <- scores_plot("CW_SWBS", "CW-SWBS", "Mean CW-SWBS score (rescaled between 0 and 1)\n(lower = worse symptoms)", 0.6)
+swbs_scores_plot
 ```
 
 ### Anxiety
 
 ```{r scores_anx}
-scores_plot("ANX", "Mean anxiety score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+anx_scores_plot <- scores_plot("ANX", "Anxiety", "Mean anxiety score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+anx_scores_plot
 ```
 
 ### CESD-R
 
 ```{r scores_cesd}
-scores_plot("CES_D", "Mean CESD-R score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+cesd_scores_plot <- scores_plot("CES_D", "CESD-R", "Mean CESD-R score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+cesd_scores_plot
 ```
 
 ### Self-harm
 
 ```{r scores_sh}
-scores_plot_percentage("H6", "Proportion of children who report self-harm in the last year")
+sh_scores_plot <- scores_plot_percentage("H6", "Self-harm", "Proportion of children who report self-harm in the last year")
+sh_scores_plot
 ```
 
 ### Paykel suicide scale
 
 ```{r scores_paykel}
-scores_plot("PAYKEL", "Mean Paykel suicide scale score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+paykel_scores_plot <- scores_plot("PAYKEL", "Paykel suicide scale", "Mean Paykel suicide scale score (rescaled between 0 and 1)\n(higher = worse symptoms)")
+paykel_scores_plot
+```
+
+### Saving combined plot as figure
+
+```{r combine_scores}
+scores_plots <- ls_scores_plot + swbs_scores_plot + anx_scores_plot + cesd_scores_plot + sh_scores_plot + paykel_scores_plot + plot_layout(nrow = 3)
+ggsave("scores_plots.png", scores_plots, dpi = 600, height = 320, width = 210, units = "mm")
 ```
 
 ## Internet usage by country
@@ -428,7 +444,7 @@ ggplot(plot_data, aes(x = intStartTime, y = CO2, colour = CO2)) +
     geom_jitter(size = 0.2) +
     scale_y_discrete(labels = c("No lockdown", "Had a lockdown")) +
     scale_colour_manual(breaks = c(1, 0), labels = c("Had a lockdown", "No lockdown"), values = c("#f8766d", "#00bfc4")) +
-    labs(x = "Interview date", color = "Lockdown status") +
+    labs(x = "Interview date", colour = "Lockdown status") +
     facet_grid(COUNTRY ~ ., switch = "y") +
     guides(colour = guide_legend(override.aes = list(shape = 15, size = 5))) +
     theme_bw() +

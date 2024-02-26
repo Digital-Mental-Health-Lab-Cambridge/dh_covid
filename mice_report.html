@@ -111,7 +111,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#loading-dependencies-and-target" id="toc-loading-dependencies-and-target" class="nav-link active" data-scroll-target="#loading-dependencies-and-target">Loading dependencies and target</a></li>
-  <li><a href="#mice-diagnostic-plots" id="toc-mice-diagnostic-plots" class="nav-link" data-scroll-target="#mice-diagnostic-plots">MICE diagnostic plots</a></li>
+  <li><a href="#mice-diagnostic-plots" id="toc-mice-diagnostic-plots" class="nav-link" data-scroll-target="#mice-diagnostic-plots">MICE diagnostic plots</a>
+  <ul class="collapse">
+  <li><a href="#abridged-wellbeing-scales" id="toc-abridged-wellbeing-scales" class="nav-link" data-scroll-target="#abridged-wellbeing-scales">Abridged wellbeing scales</a></li>
+  <li><a href="#full-wellbeing-scales" id="toc-full-wellbeing-scales" class="nav-link" data-scroll-target="#full-wellbeing-scales">Full wellbeing scales</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -170,12 +174,15 @@ Attaching package: 'mice'</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>imputed_data <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(imputed_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>imputed_data <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(imputed_data)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>imputed_data_full_wb_vars <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(imputed_data_full_wb_vars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="mice-diagnostic-plots" class="level2">
 <h2 class="anchored" data-anchor-id="mice-diagnostic-plots">MICE diagnostic plots</h2>
+<section id="abridged-wellbeing-scales" class="level3">
+<h3 class="anchored" data-anchor-id="abridged-wellbeing-scales">Abridged wellbeing scales</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -215,6 +222,49 @@ Attaching package: 'mice'</code></pre>
 <p><img src="mice_report_files/figure-html/plots-11.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="full-wellbeing-scales" class="level3">
+<h3 class="anchored" data-anchor-id="full-wellbeing-scales">Full wellbeing scales</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imputed_data_full_wb_vars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-10.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="mice_report_files/figure-html/plots_full-11.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 </section>
 
 </main>
