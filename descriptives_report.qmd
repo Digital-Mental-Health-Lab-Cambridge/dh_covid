@@ -444,7 +444,7 @@ plot_data %<>% mutate(COUNTRY = case_match(COUNTRY,
     "13" ~ "Vietnam"
 ))
 
-ggplot(plot_data, aes(x = intStartTime, y = CO2, colour = CO2)) +
+lockdown_time_plot <- ggplot(plot_data, aes(x = intStartTime, y = CO2, colour = CO2)) +
     geom_jitter(size = 0.2) +
     scale_y_discrete(labels = c("No lockdown", "Had a lockdown")) +
     scale_colour_manual(breaks = c(1, 0), labels = c("Had a lockdown", "No lockdown"), values = c("#f8766d", "#00bfc4")) +
@@ -453,4 +453,9 @@ ggplot(plot_data, aes(x = intStartTime, y = CO2, colour = CO2)) +
     guides(colour = guide_legend(override.aes = list(shape = 15, size = 5))) +
     theme_bw() +
     theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank(), strip.text.y.left = element_text(angle = 0), panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank(), strip.placement = "outside")
+
+lockdown_time_plot
+
+# Saving plot as figure
+ggsave("lockdown_time_plot.png", lockdown_time_plot, dpi = 600)
 ```
