@@ -38,6 +38,9 @@ lockdown_summary <- data.frame(
 full_data <- complete(imputed_data, "long")
 m <- imputed_data$m
 
+full_data$H6 <- as.integer(full_data$H6) - 1
+full_data$CO2 <- as.integer(full_data$CO2) - 1
+
 for(i in seq_along(unique(imputed_data$data$COUNTRY))){
     country <- unique(imputed_data$data$COUNTRY)[i]
 
@@ -85,6 +88,7 @@ for(i in seq_along(unique(imputed_data$data$COUNTRY))){
     country <- unique(imputed_data$data$COUNTRY)[i]
 
     data <- full_data[full_data$COUNTRY == country,]
+    data$H6 <- as.integer(data$H6) - 1
 
     means_H1 <- sapply(1:m, function(x) mean(data$H1[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
     scores_summary$mean_H1[i] <- mean(means_H1)
