@@ -128,7 +128,7 @@ clean_data <- function(data){
 
     # Making factor variables as necessary
     ## Unordered
-    for(var in c("id_new", "PSU", "COUNTRY", "Language", "ECS_SELECTED_CH_GENDER", "Urbanity", "L9", "dv_covid_status")){
+    for(var in c("id_new", "PSU", "COUNTRY", "Language", "ECS_SELECTED_CH", "ECS_SELECTED_CH_GENDER", "Urbanity", "CO2", "H6", "L4", "L8", "L9", "L12", "L14", "DIFFS", "L36a", "L36b", "L36c", "L36f", "L41", "dv_covid_status")){
         data_clean[, var] <- as.factor(data_clean[, var])
     }
 
@@ -616,15 +616,15 @@ weighted_logistic_models <- function(data, y, formula_RHS){
         girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
         # Fitting weighted logistic regression models
-        fitlist[[i]] <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial")))
-        try(boys_fitlist[[i]] <- MIcombine(with(boys_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial"))), silent = TRUE)
-        try(girls_fitlist[[i]] <- MIcombine(with(girls_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial"))), silent = TRUE)
-        try(rural_fitlist[[i]] <- MIcombine(with(rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial"))), silent = TRUE)
-        try(urban_fitlist[[i]] <- MIcombine(with(urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial"))), silent = TRUE)
-        try(boys_rural_fitlist[[i]] <- MIcombine(with(boys_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
-        try(boys_urban_fitlist[[i]] <- MIcombine(with(boys_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
-        try(girls_rural_fitlist[[i]] <- MIcombine(with(girls_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
-        try(girls_urban_fitlist[[i]] <- MIcombine(with(girls_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))), silent = TRUE)
+        fitlist[[i]] <- with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial"))
+        try(boys_fitlist[[i]] <- with(boys_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial")), silent = TRUE)
+        try(girls_fitlist[[i]] <- with(girls_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial")), silent = TRUE)
+        try(rural_fitlist[[i]] <- with(rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial")), silent = TRUE)
+        try(urban_fitlist[[i]] <- with(urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial")), silent = TRUE)
+        try(boys_rural_fitlist[[i]] <- with(boys_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")), silent = TRUE)
+        try(boys_urban_fitlist[[i]] <- with(boys_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")), silent = TRUE)
+        try(girls_rural_fitlist[[i]] <- with(girls_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")), silent = TRUE)
+        try(girls_urban_fitlist[[i]] <- with(girls_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")), silent = TRUE)
     }
 
     return(list(fitlist, boys_fitlist, girls_fitlist, rural_fitlist, urban_fitlist, boys_rural_fitlist, boys_urban_fitlist, girls_rural_fitlist, girls_urban_fitlist))
@@ -659,15 +659,15 @@ pooled_weighted_logistic_models <- function(data, y, formula_RHS){
     girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
     # Fitting weighted logistic regression models
-    model_fit <- MIcombine(with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial")))
-    boys_model_fit <- MIcombine(with(boys_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial")))
-    girls_model_fit <- MIcombine(with(girls_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial")))
-    rural_model_fit <- MIcombine(with(rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial")))
-    urban_model_fit <- MIcombine(with(urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial")))
-    boys_rural_model_fit <- MIcombine(with(boys_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
-    boys_urban_model_fit <- MIcombine(with(boys_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
-    girls_rural_model_fit <- MIcombine(with(girls_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
-    girls_urban_model_fit <- MIcombine(with(girls_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial")))
+    model_fit <- with(designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), family = "quasibinomial"))
+    boys_model_fit <- with(boys_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial"))
+    girls_model_fit <- with(girls_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), family = "quasibinomial"))
+    rural_model_fit <- with(rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial"))
+    urban_model_fit <- with(urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), family = "quasibinomial"))
+    boys_rural_model_fit <- with(boys_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))
+    boys_urban_model_fit <- with(boys_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))
+    girls_rural_model_fit <- with(girls_rural_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))
+    girls_urban_model_fit <- with(girls_urban_designs, svyglm(as.formula(paste(y, "~", formula_RHS)), family = "quasibinomial"))
 
     return(list(model_fit, boys_model_fit, girls_model_fit, rural_model_fit, urban_model_fit, boys_rural_model_fit, boys_urban_model_fit, girls_rural_model_fit, girls_urban_model_fit))
 }
@@ -717,15 +717,15 @@ weighted_robust_linear_models <- function(data, y, formula_RHS){
         girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
         # Fitting weighted logistic regression models
-        fitlist[[i]] <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345)))
-        try(boys_fitlist[[i]] <- MIcombine(with(boys_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345))), silent = TRUE)
-        try(girls_fitlist[[i]] <- MIcombine(with(girls_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345))), silent = TRUE)
-        try(rural_fitlist[[i]] <- MIcombine(with(rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345))), silent = TRUE)
-        try(urban_fitlist[[i]] <- MIcombine(with(urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345))), silent = TRUE)
-        try(boys_rural_fitlist[[i]] <- MIcombine(with(boys_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
-        try(boys_urban_fitlist[[i]] <- MIcombine(with(boys_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
-        try(girls_rural_fitlist[[i]] <- MIcombine(with(girls_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
-        try(girls_urban_fitlist[[i]] <- MIcombine(with(girls_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))), silent = TRUE)
+        fitlist[[i]] <- with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345))
+        try(boys_fitlist[[i]] <- with(boys_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345)), silent = TRUE)
+        try(girls_fitlist[[i]] <- with(girls_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345)), silent = TRUE)
+        try(rural_fitlist[[i]] <- with(rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345)), silent = TRUE)
+        try(urban_fitlist[[i]] <- with(urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345)), silent = TRUE)
+        try(boys_rural_fitlist[[i]] <- with(boys_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)), silent = TRUE)
+        try(boys_urban_fitlist[[i]] <- with(boys_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)), silent = TRUE)
+        try(girls_rural_fitlist[[i]] <- with(girls_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)), silent = TRUE)
+        try(girls_urban_fitlist[[i]] <- with(girls_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)), silent = TRUE)
     }
 
     return(list(fitlist, boys_fitlist, girls_fitlist, rural_fitlist, urban_fitlist, boys_rural_fitlist, boys_urban_fitlist, girls_rural_fitlist, girls_urban_fitlist))
@@ -760,15 +760,15 @@ pooled_weighted_robust_linear_models <- function(data, y, formula_RHS){
     girls_urban_designs <- svydesign(ids = ~PSU, weights = ~wgt_scaled, data = girls_urban_data)
 
     # Fitting weighted logistic regression models
-    model_fit <- MIcombine(with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345)))
-    boys_model_fit <- MIcombine(with(boys_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345)))
-    girls_model_fit <- MIcombine(with(girls_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345)))
-    rural_model_fit <- MIcombine(with(rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345)))
-    urban_model_fit <- MIcombine(with(urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345)))
-    boys_rural_model_fit <- MIcombine(with(boys_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
-    boys_urban_model_fit <- MIcombine(with(boys_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
-    girls_rural_model_fit <- MIcombine(with(girls_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
-    girls_urban_model_fit <- MIcombine(with(girls_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345)))
+    model_fit <- with(designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), k = 1.345))
+    boys_model_fit <- with(boys_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345))
+    girls_model_fit <- with(girls_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), k = 1.345))
+    rural_model_fit <- with(rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345))
+    urban_model_fit <- with(urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), k = 1.345))
+    boys_rural_model_fit <- with(boys_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))
+    boys_urban_model_fit <- with(boys_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))
+    girls_rural_model_fit <- with(girls_rural_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))
+    girls_urban_model_fit <- with(girls_urban_designs, svyreg_huberM(as.formula(paste(y, "~", formula_RHS)), k = 1.345))
 
     return(list(model_fit, boys_model_fit, girls_model_fit, rural_model_fit, urban_model_fit, boys_rural_model_fit, boys_urban_model_fit, girls_rural_model_fit, girls_urban_model_fit))
 }
@@ -801,19 +801,23 @@ summarise_weighted_results <- function(results, terms){
         results_list <- list()
 
         for(j in seq_along(results[[i]])){
-            these_results_abridged <- summary(results[[i]][[j]])[terms,]
+            try(these_results_abridged <- summary(MIcombine(results[[i]][[j]]))[terms,], silent = TRUE)
+            if(!exists("these_results_abridged")){
+                next
+            }
             these_results_abridged <- cbind(term = rownames(these_results_abridged), these_results_abridged)
             rownames(these_results_abridged) <- NULL
             these_results_abridged %<>% 
-                rename(estimate = results, std.error = se) %>%
+                rename(estimate = "results", std.error = se) %>%
                 dplyr::select(-`(lower`, -`upper)`, -missInfo)
 
             results_list[[j]] <- as.data.frame(cbind(country = country_list[j], these_results_abridged))
+            rm(these_results_abridged)
 
             results_list[[j]] %<>% mutate(
                 statistic = estimate / std.error
             )
-            results_list[[j]]$df <- results[[i]][[j]]$df[terms]
+            results_list[[j]]$df <- MIcombine(results[[i]][[j]])$df[terms]
             results_list[[j]] %<>% mutate(
                 p.value = 2 * pt(abs(statistic), df, lower.tail = FALSE)
             )
@@ -841,17 +845,17 @@ summarise_pooled_weighted_results <- function(results, terms){
     results_list <- list()
     
     for(i in seq_along(results)){
-        results_abridged <- summary(results[[i]])[terms,]
+        results_abridged <- summary(MIcombine(results[[i]]))[terms,]
         results_abridged <- cbind(term = rownames(results_abridged), results_abridged)
         rownames(results_abridged) <- NULL
         results_abridged %<>% 
-            rename(estimate = results, std.error = se) %>%
+            rename(estimate = "results", std.error = se) %>%
             dplyr::select(-`(lower`, -`upper)`, -missInfo)
 
         results_abridged %<>% mutate(
             statistic = estimate / std.error
         )
-        results_abridged$df <- results[[i]]$df[terms]
+        results_abridged$df <- MIcombine(results[[i]])$df[terms]
         results_abridged %<>% mutate(
             p.value = 2 * pt(abs(statistic), df, lower.tail = FALSE)
         )

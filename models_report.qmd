@@ -147,12 +147,12 @@ internet_plots <- function(summary){
         B1df <- temp$df[temp$term == "B1"]
         B1lower <- B1coef + qt(0.025, B1df) * B1se
         B1upper <- B1coef + qt(0.975, B1df) * B1se
-        CO2coef <- temp$estimate[temp$term == "CO2"]
-        CO2se <- temp$std.error[temp$term == "CO2"]
+        CO2coef <- temp$estimate[temp$term == "CO21"]
+        CO2se <- temp$std.error[temp$term == "CO21"]
         CO2lower <- CO2coef + qt(0.025, B1df) * CO2se
         CO2upper <- CO2coef + qt(0.975, B1df) * CO2se
-        interactioncoef <- temp$estimate[temp$term == "B1:CO2"]
-        interactionse <- temp$std.error[temp$term == "B1:CO2"]
+        interactioncoef <- temp$estimate[temp$term == "B1:CO21"]
+        interactionse <- temp$std.error[temp$term == "B1:CO21"]
         interactionlower <- interactioncoef + qt(0.025, B1df) * interactionse
         interactionupper <- interactioncoef + qt(0.975, B1df) * interactionse
 

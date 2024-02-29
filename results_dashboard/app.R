@@ -116,8 +116,8 @@ server <- function(input, output){
                 term == "dv_covid_statusLockdown, disconnected" ~ "Lockdown, disconnected",
                 term == "dv_covid_statusNo lockdown" ~ "No lockdown",
                 term == "B1" ~ "Internet use",
-                term == "CO2" ~ "Lockdown",
-                term == "B1:CO2" ~ "Interaction"
+                term == "CO21" ~ "Lockdown",
+                term == "B1:CO21" ~ "Interaction"
             ))
 
         if(input$country != "pooled"){
@@ -167,8 +167,8 @@ server <- function(input, output){
                     term == "dv_covid_statusLockdown, disconnected" ~ "Lockdown, disconnected",
                     term == "dv_covid_statusNo lockdown" ~ "No lockdown",
                     term == "B1" ~ "Internet use",
-                    term == "CO2" ~ "Lockdown",
-                    term == "B1:CO2" ~ "Interaction"
+                    term == "CO21" ~ "Lockdown",
+                    term == "B1:CO21" ~ "Interaction"
                 ))
 
             if(input$country != "pooled"){
