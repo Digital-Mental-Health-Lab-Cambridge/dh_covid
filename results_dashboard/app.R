@@ -8,6 +8,48 @@ library(targets)
 
 setwd("..")
 
+pooled_connection_ls_models_summary <- tar_read(pooled_connection_ls_models_summary)
+pooled_connection_swbs_models_summary <- tar_read(pooled_connection_swbs_models_summary)
+pooled_connection_anx_models_summary <- tar_read(pooled_connection_anx_models_summary)
+pooled_connection_cesd_models_summary <- tar_read(pooled_connection_cesd_models_summary)
+pooled_connection_sh_models_summary <- tar_read(pooled_connection_sh_models_summary)
+pooled_connection_paykel_models_summary <- tar_read(pooled_connection_paykel_models_summary)
+
+pooled_connection_ls_models_relevelled_summary <- tar_read(pooled_connection_ls_models_relevelled_summary)
+pooled_connection_swbs_models_relevelled_summary <- tar_read(pooled_connection_swbs_models_relevelled_summary)
+pooled_connection_anx_models_relevelled_summary <- tar_read(pooled_connection_anx_models_relevelled_summary)
+pooled_connection_cesd_models_relevelled_summary <- tar_read(pooled_connection_cesd_models_relevelled_summary)
+pooled_connection_sh_models_relevelled_summary <- tar_read(pooled_connection_sh_models_relevelled_summary)
+pooled_connection_paykel_models_relevelled_summary <- tar_read(pooled_connection_paykel_models_relevelled_summary)
+
+pooled_internet_ls_models_summary <- tar_read(pooled_internet_ls_models_summary)
+pooled_internet_swbs_models_summary <- tar_read(pooled_internet_swbs_models_summary)
+pooled_internet_anx_models_summary <- tar_read(pooled_internet_anx_models_summary)
+pooled_internet_cesd_models_summary <- tar_read(pooled_internet_cesd_models_summary)
+pooled_internet_sh_models_summary <- tar_read(pooled_internet_sh_models_summary)
+pooled_internet_paykel_models_summary <- tar_read(pooled_internet_paykel_models_summary)
+
+connection_ls_models_summary <- tar_read(connection_ls_models_summary)
+connection_swbs_models_summary <- tar_read(connection_swbs_models_summary)
+connection_anx_models_summary <- tar_read(connection_anx_models_summary)
+connection_cesd_models_summary <- tar_read(connection_cesd_models_summary)
+connection_sh_models_summary <- tar_read(connection_sh_models_summary)
+connection_paykel_models_summary <- tar_read(connection_paykel_models_summary)
+
+connection_ls_models_relevelled_summary <- tar_read(connection_ls_models_relevelled_summary)
+connection_swbs_models_relevelled_summary <- tar_read(connection_swbs_models_relevelled_summary)
+connection_anx_models_relevelled_summary <- tar_read(connection_anx_models_relevelled_summary)
+connection_cesd_models_relevelled_summary <- tar_read(connection_cesd_models_relevelled_summary)
+connection_sh_models_relevelled_summary <- tar_read(connection_sh_models_relevelled_summary)
+connection_paykel_models_relevelled_summary <- tar_read(connection_paykel_models_relevelled_summary)
+
+internet_ls_models_summary <- tar_read(internet_ls_models_summary)
+internet_swbs_models_summary <- tar_read(internet_swbs_models_summary)
+internet_anx_models_summary <- tar_read(internet_anx_models_summary)
+internet_cesd_models_summary <- tar_read(internet_cesd_models_summary)
+internet_sh_models_summary <- tar_read(internet_sh_models_summary)
+internet_paykel_models_summary <- tar_read(internet_paykel_models_summary)
+
 pooled_connection_ls_models_weighted_summary <- tar_read(pooled_connection_ls_models_weighted_summary)
 pooled_connection_swbs_models_weighted_summary <- tar_read(pooled_connection_swbs_models_weighted_summary)
 pooled_connection_anx_models_weighted_summary <- tar_read(pooled_connection_anx_models_weighted_summary)
@@ -68,9 +110,15 @@ ui <- fluidPage(
             ),
 
             selectInput(
+                "weights",
+                "Survey weights applied?",
+                c("No" = FALSE, "Yes" = TRUE)
+            ),
+
+            selectInput(
                 "indicator",
                 "Indicator:",
-                c("Life satisfaction" = "ls", "CW-SWBS" = "swbs", "Anxiety" = "anx", "CESD-R" = "cesd")
+                c("Life satisfaction" = "ls", "CW-SWBS" = "swbs", "Anxiety" = "anx", "CESD-R" = "cesd", "Self-harm" = "sh", "Paykel suicide scale" = "paykel")
             ),
 
             selectInput(
@@ -92,21 +140,41 @@ server <- function(input, output){
         summary_list <- c("All participants", "Boys", "Girls", "Rural", "Urban", "Rural boys", "Urban boys", "Rural girls", "Urban girls")
 
         if(input$country == "pooled"){
-            if(input$analysis == "connection"){
-                plotData <- get(paste("pooled_connection", input$indicator, "models_weighted_summary", sep = "_"))
-            } else if(input$analysis == "connection_relevelled"){
-                plotData <- get(paste("pooled_connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
-            } else if(input$analysis == "internet"){
-                plotData <- get(paste("pooled_internet", input$indicator, "models_weighted_summary", sep = "_"))
+            if(input$weights){
+                if(input$analysis == "connection"){
+                    plotData <- get(paste("pooled_connection", input$indicator, "models_weighted_summary", sep = "_"))
+                } else if(input$analysis == "connection_relevelled"){
+                    plotData <- get(paste("pooled_connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
+                } else if(input$analysis == "internet"){
+                    plotData <- get(paste("pooled_internet", input$indicator, "models_weighted_summary", sep = "_"))
+                }
+            } else {
+                if(input$analysis == "connection"){
+                    plotData <- get(paste("pooled_connection", input$indicator, "models_summary", sep = "_"))
+                } else if(input$analysis == "connection_relevelled"){
+                    plotData <- get(paste("pooled_connection", input$indicator, "models_relevelled_summary", sep = "_"))
+                } else if(input$analysis == "internet"){
+                    plotData <- get(paste("pooled_internet", input$indicator, "models_summary", sep = "_"))
+                }
             }
         } else {
-            if(input$analysis == "connection"){
-                plotData <- get(paste("connection", input$indicator, "models_weighted_summary", sep = "_"))
-            } else if(input$analysis == "connection_relevelled"){
-                plotData <- get(paste("connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
-            } else if(input$analysis == "internet"){
-                plotData <- get(paste("internet", input$indicator, "models_weighted_summary", sep = "_"))
-            }
+            if(input$weights){
+                if(input$analysis == "connection"){
+                    plotData <- get(paste("connection", input$indicator, "models_weighted_summary", sep = "_"))
+                } else if(input$analysis == "connection_relevelled"){
+                    plotData <- get(paste("connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
+                } else if(input$analysis == "internet"){
+                    plotData <- get(paste("internet", input$indicator, "models_weighted_summary", sep = "_"))
+                }
+            } else {
+                if(input$analysis == "connection"){
+                    plotData <- get(paste("connection", input$indicator, "models_summary", sep = "_"))
+                } else if(input$analysis == "connection_relevelled"){
+                    plotData <- get(paste("connection", input$indicator, "models_relevelled_summary", sep = "_"))
+                } else if(input$analysis == "internet"){
+                    plotData <- get(paste("internet", input$indicator, "models_summary", sep = "_"))
+                }
+            }   
         }
 
         plotData %<>% 
@@ -143,21 +211,41 @@ server <- function(input, output){
 
         if(input$group != "None"){
             if(input$country == "pooled"){
-                if(input$analysis == "connection"){
-                    plotData <- get(paste("pooled_connection", input$indicator, "models_weighted_summary", sep = "_"))
-                } else if(input$analysis == "connection_relevelled"){
-                    plotData <- get(paste("pooled_connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
-                } else if(input$analysis == "internet"){
-                    plotData <- get(paste("pooled_internet", input$indicator, "models_weighted_summary", sep = "_"))
+                if(input$weights){
+                    if(input$analysis == "connection"){
+                        plotData <- get(paste("pooled_connection", input$indicator, "models_weighted_summary", sep = "_"))
+                    } else if(input$analysis == "connection_relevelled"){
+                        plotData <- get(paste("pooled_connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
+                    } else if(input$analysis == "internet"){
+                        plotData <- get(paste("pooled_internet", input$indicator, "models_weighted_summary", sep = "_"))
+                    }
+                } else {
+                    if(input$analysis == "connection"){
+                        plotData <- get(paste("pooled_connection", input$indicator, "models_summary", sep = "_"))
+                    } else if(input$analysis == "connection_relevelled"){
+                        plotData <- get(paste("pooled_connection", input$indicator, "models_relevelled_summary", sep = "_"))
+                    } else if(input$analysis == "internet"){
+                        plotData <- get(paste("pooled_internet", input$indicator, "models_summary", sep = "_"))
+                    }
                 }
             } else {
-                if(input$analysis == "connection"){
-                    plotData <- get(paste("connection", input$indicator, "models_weighted_summary", sep = "_"))
-                } else if(input$analysis == "connection_relevelled"){
-                    plotData <- get(paste("connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
-                } else if(input$analysis == "internet"){
-                    plotData <- get(paste("internet", input$indicator, "models_weighted_summary", sep = "_"))
-                }
+                if(input$weights){
+                    if(input$analysis == "connection"){
+                        plotData <- get(paste("connection", input$indicator, "models_weighted_summary", sep = "_"))
+                    } else if(input$analysis == "connection_relevelled"){
+                        plotData <- get(paste("connection", input$indicator, "models_relevelled_weighted_summary", sep = "_"))
+                    } else if(input$analysis == "internet"){
+                        plotData <- get(paste("internet", input$indicator, "models_weighted_summary", sep = "_"))
+                    }
+                } else {
+                    if(input$analysis == "connection"){
+                        plotData <- get(paste("connection", input$indicator, "models_summary", sep = "_"))
+                    } else if(input$analysis == "connection_relevelled"){
+                        plotData <- get(paste("connection", input$indicator, "models_relevelled_summary", sep = "_"))
+                    } else if(input$analysis == "internet"){
+                        plotData <- get(paste("internet", input$indicator, "models_summary", sep = "_"))
+                    }
+                }   
             }
 
             plotData %<>% 
