@@ -269,7 +269,11 @@ server <- function(input, output){
                 plotData$group <- rep(summary_list, each = 3)
             }
 
-            plotData %>% filter(group == input$group) %>% select(term, estimate, p.value) %>% rename("Term" = term, "\u03B2" = estimate, "p" = p.value)
+            plotData %>% 
+                filter(group == input$group) %>% 
+                mutate(lower = estimate - qt(0.975, df)*std.error, upper = estimate + qt(0.975, df)*std.error) %>%
+                select(term, estimate, lower, upper, p.value) %>% 
+                rename("Term" = term, "\u03B2" = estimate, "p" = p.value)
         }
     }, digits = 3)
 }
