@@ -88,7 +88,6 @@ for(i in seq_along(unique(imputed_data$data$COUNTRY))){
     country <- unique(imputed_data$data$COUNTRY)[i]
 
     data <- full_data[full_data$COUNTRY == country,]
-    data$H6 <- as.integer(data$H6) - 1
 
     means_H1 <- sapply(1:m, function(x) mean(data$H1[data$`.imp` == x] * data$wgt_scaled[data$`.imp` == x], na.rm = TRUE))
     scores_summary$mean_H1[i] <- mean(means_H1)
@@ -163,10 +162,10 @@ ls_scores_plot <- scores_plot("H1", "Life satisfaction", "Mean life satisfaction
 ls_scores_plot
 ```
 
-### CW-SWBS
+### CW-PWBS
 
 ```{r scores_swbs}
-swbs_scores_plot <- scores_plot("CW_SWBS", "CW-SWBS", "Mean CW-SWBS score (rescaled between 0 and 1)\n(lower = worse symptoms)", 0.6)
+swbs_scores_plot <- scores_plot("CW_SWBS", "CW-PWBS", "Mean CW-PWBS score (rescaled between 0 and 1)\n(lower = worse symptoms)", 0.6)
 swbs_scores_plot
 ```
 
