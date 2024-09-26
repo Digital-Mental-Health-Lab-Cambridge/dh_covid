@@ -1,0 +1,85 @@
+---
+title: "NA_report"
+author: "Thomas E. Metherell"
+date: "2023-08-08"
+format: 
+    html:
+        code-fold: true
+        toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(dev = "svglite")
+```
+
+## Dependency and reading targets
+```{r dependencies}
+library(targets)
+
+overall_NA_plot <- tar_read(overall_NA_plot)
+country_NA_plots <- tar_read(country_NA_plots)
+language_NA_plots <- tar_read(language_NA_plots)
+```
+
+## Overall missingness
+
+```{r overall, fig.width = 50}
+print(overall_NA_plot)
+```
+
+## Wellbeing measures
+### Life satisfaction ladder
+```{r ls_ladder}
+print(country_NA_plots[["H1"]])
+print(language_NA_plots[["H1"]])
+```
+
+### CW-SWBS
+
+```{r CW_SWBS}
+for(i in c("H4a", "H4b", "H4c", "H4d", "H4e", "H4f")){
+    print(country_NA_plots[[i]])
+    print(language_NA_plots[[i]])
+}
+```
+
+### Anxiety scale
+
+```{r anxiety}
+for(i in c("H4_NEW_a", "H4_NEW_b", "H4_NEW_c", "H4_NEW_d", "H4_NEW_e", "H4_NEW_f", "H4_NEW_g")){
+    print(country_NA_plots[[i]])
+    print(language_NA_plots[[i]])
+}
+```
+
+### Abridged CES-D
+
+```{r CES_D}
+for(i in c("H5a", "H5b", "H5f", "H5g")){
+    print(country_NA_plots[[i]])
+    print(language_NA_plots[[i]])
+}
+```
+
+### Self-harm
+
+```{r self_harm}
+print(country_NA_plots[["H6"]])
+print(language_NA_plots[["H6"]])
+```
+
+### Paykel suicide scale
+
+```{r paykel}
+for(i in c("H7a", "H7b", "H7c", "H7d", "H7e")){
+    print(country_NA_plots[[i]])
+    print(language_NA_plots[[i]])
+}
+```
+
+## COVID-19 variables
+
+```{r covid}
+print(country_NA_plots[["CO2"]])
+print(language_NA_plots[["CO2"]])
+```

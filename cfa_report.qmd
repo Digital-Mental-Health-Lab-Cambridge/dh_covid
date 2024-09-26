@@ -1,0 +1,258 @@
+---
+title: "cfa_report"
+author: "Thomas E. Metherell"
+date: "2023-08-08"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependencies and targets
+
+```{r dependencies}
+library(targets)
+library(lavaan)
+library(semTools)
+
+swbs_country_cfa_model <- tar_read(swbs_country_cfa_model)
+swbs_country_metric_model <- tar_read(swbs_country_metric_model)
+swbs_country_scalar_model <- tar_read(swbs_country_scalar_model)
+
+anx_country_cfa_model <- tar_read(anx_country_cfa_model)
+anx_country_metric_model <- tar_read(anx_country_metric_model)
+anx_country_scalar_model <- tar_read(anx_country_scalar_model)
+
+cesd_country_cfa_model <- tar_read(cesd_country_cfa_model)
+cesd_country_metric_model <- tar_read(cesd_country_metric_model)
+cesd_country_scalar_model <- tar_read(cesd_country_scalar_model)
+
+paykel_country_cfa_model <- tar_read(paykel_country_cfa_model)
+paykel_country_metric_model <- tar_read(paykel_country_metric_model)
+paykel_country_scalar_model <- tar_read(paykel_country_scalar_model)
+
+anx_abridged_country_cfa_model <- tar_read(anx_abridged_country_cfa_model)
+anx_abridged_country_metric_model <- tar_read(anx_abridged_country_metric_model)
+anx_abridged_country_scalar_model <- tar_read(anx_abridged_country_scalar_model)
+
+cesd_abridged_country_cfa_model <- tar_read(cesd_abridged_country_cfa_model)
+cesd_abridged_country_metric_model <- tar_read(cesd_abridged_country_metric_model)
+cesd_abridged_country_scalar_model <- tar_read(cesd_abridged_country_scalar_model)
+
+paykel_abridged_country_cfa_model <- tar_read(paykel_abridged_country_cfa_model)
+paykel_abridged_country_metric_model <- tar_read(paykel_abridged_country_metric_model)
+paykel_abridged_country_scalar_model <- tar_read(paykel_abridged_country_scalar_model)
+```
+
+## CW-SWBS
+### Unconstrained CFA summary
+
+```{r swbs_uc}
+summary(swbs_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings constrained
+
+```{r swbs_c}
+summary(swbs_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+``` 
+
+### CFA summary with loadings and intercepts constrained
+```{r swbs_c2}
+summary(swbs_country_scalar_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained loadings and unconstrained models
+
+```{r swbs_comp}
+summary(compareFit(swbs_country_metric_model, swbs_country_cfa_model))
+```
+
+### Comparison between constrained loadings and intercepts and constrained loadings models
+
+```{r swbs_comp2}
+summary(compareFit(swbs_country_scalar_model, swbs_country_metric_model))
+```
+
+## Anxiety scale
+### Unconstrained CFA summary
+
+```{r anx_uc}
+summary(anx_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings constrained
+
+```{r anx_c}
+summary(anx_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings and intercepts constrained
+
+```{r anx_c2}
+summary(anx_country_scalar_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained loadings and unconstrained models
+
+```{r anx_comp}
+summary(compareFit(anx_country_metric_model, anx_country_cfa_model))
+```
+
+### Comparison between constrained loadings and intercepts and constrained loadings models
+
+```{r anx_comp2}
+summary(compareFit(anx_country_scalar_model, anx_country_metric_model))
+```
+
+## CESD-R
+### Unconstrained CFA summary
+
+```{r cesd_uc}
+summary(cesd_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings constrained
+
+```{r cesd_c}
+summary(cesd_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings and intercepts constrained
+
+```{r cesd_c2}
+summary(cesd_country_scalar_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained loadings and unconstrained models
+
+```{r cesd_comp}
+tryCatch(summary(compareFit(cesd_country_metric_model, cesd_country_cfa_model)), error = function(e) cat("One or more models did not converge."))
+```
+
+### Comparison between constrained loadings and intercepts and constrained loadings models
+
+```{r cesd_comp2}
+tryCatch(summary(compareFit(cesd_country_scalar_model, cesd_country_metric_model)), error = function(e) cat("One or more models did not converge."))
+```
+
+## Paykel suicide scale
+### Unconstrained CFA summary
+
+```{r paykel_uc}
+summary(paykel_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings constrained
+
+```{r paykel_c}
+summary(paykel_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings and intercepts constrained
+```{r paykel_c2}
+summary(paykel_country_scalar_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained loadings and unconstrained models
+
+```{r paykel_comp}
+summary(compareFit(paykel_country_metric_model, paykel_country_cfa_model))
+```
+
+### Comparison between constrained loadings and intercepts and constrained loadings models
+
+```{r paykel_comp2}
+summary(compareFit(paykel_country_scalar_model, paykel_country_metric_model))
+```
+
+## Abridged anxiety scale
+### Unconstrained CFA summary
+
+```{r abridged_anx_uc}
+summary(anx_abridged_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings constrained
+
+```{r abridged_anx_c}
+summary(anx_abridged_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings and intercepts constrained
+```{r abridged_anx_c2}
+summary(anx_abridged_country_scalar_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained loadings and unconstrained models
+
+```{r abridged_anx_comp}
+summary(compareFit(anx_abridged_country_metric_model, anx_abridged_country_cfa_model))
+```
+
+### Comparison between constrained loadings and intercepts and constrained loadings models
+
+```{r abridged_anx_comp2}
+summary(compareFit(anx_abridged_country_scalar_model, anx_abridged_country_metric_model))
+```
+
+## Abridged CESD-R
+### Unconstrained CFA summary
+
+```{r abridged_cesd_uc}
+summary(cesd_abridged_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings constrained
+
+```{r abridged_cesd_c}
+summary(cesd_abridged_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings and intercepts constrained
+```{r abridged_cesd_c2}
+summary(cesd_abridged_country_scalar_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained loadings and unconstrained models
+
+```{r abridged_cesd_comp}
+summary(compareFit(cesd_abridged_country_metric_model, cesd_abridged_country_cfa_model))
+```
+
+### Comparison between constrained loadings and intercepts and constrained loadings models
+
+```{r abridged_cesd_comp2}
+summary(compareFit(cesd_abridged_country_scalar_model, cesd_abridged_country_metric_model))
+```
+
+## Abridged Paykel suicide scale
+### Unconstrained CFA summary
+
+```{r abridged_paykel_uc}
+summary(paykel_abridged_country_cfa_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings constrained
+
+```{r abridged_paykel_c}
+summary(paykel_abridged_country_metric_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### CFA summary with loadings and intercepts constrained
+
+```{r abridged_paykel_c2}
+summary(paykel_abridged_country_scalar_model, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Comparison between constrained loadings and unconstrained models
+
+```{r abridged_paykel_comp}
+summary(compareFit(paykel_abridged_country_metric_model, paykel_abridged_country_cfa_model))
+```
+
+### Comparison between constrained loadings and intercepts and constrained loadings models
+
+```{r abridged_paykel_comp2}
+summary(compareFit(paykel_abridged_country_scalar_model, paykel_abridged_country_metric_model))
+```

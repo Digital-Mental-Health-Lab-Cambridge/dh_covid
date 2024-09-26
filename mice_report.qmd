@@ -1,0 +1,32 @@
+---
+title: "mice_report"
+author: "Thomas E. Metherell"
+date: "2023-09-05"
+format:
+    html:
+        code-fold: true
+        toc: true
+---
+
+## Loading dependencies and target
+
+```{r}
+library(targets)
+library(mice)
+
+imputed_data <- tar_read(imputed_data)
+imputed_data_full_wb_vars <- tar_read(imputed_data_full_wb_vars)
+```
+
+## MICE diagnostic plots
+### Abridged wellbeing scales
+
+```{r plots}
+plot(imputed_data)
+```
+
+### Full wellbeing scales
+
+```{r plots_full}
+plot(imputed_data_full_wb_vars)
+```

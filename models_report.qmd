@@ -1,0 +1,778 @@
+---
+title: "models_report"
+author: "Thomas E. Metherell"
+date: "2023-09-08"
+format:
+    html:
+        code-fold: true
+        toc: true
+        toc-depth: 5
+execute:
+    output: asis
+---
+
+## Loading dependencies and targets
+
+```{r dependencies}
+library(targets)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(mice)
+library(mitools)
+
+pooled_connection_ls_models_summary <- tar_read(pooled_connection_ls_models_summary)
+pooled_connection_swbs_models_summary <- tar_read(pooled_connection_swbs_models_summary)
+pooled_connection_anx_models_summary <- tar_read(pooled_connection_anx_models_summary)
+pooled_connection_cesd_models_summary <- tar_read(pooled_connection_cesd_models_summary)
+pooled_connection_sh_models_summary <- tar_read(pooled_connection_sh_models_summary)
+pooled_connection_paykel_models_summary <- tar_read(pooled_connection_paykel_models_summary)
+
+pooled_connection_ls_models_weighted_summary <- tar_read(pooled_connection_ls_models_weighted_summary)
+pooled_connection_swbs_models_weighted_summary <- tar_read(pooled_connection_swbs_models_weighted_summary)
+pooled_connection_anx_models_weighted_summary <- tar_read(pooled_connection_anx_models_weighted_summary)
+pooled_connection_cesd_models_weighted_summary <- tar_read(pooled_connection_cesd_models_weighted_summary)
+pooled_connection_sh_models_weighted_summary <- tar_read(pooled_connection_sh_models_weighted_summary)
+pooled_connection_paykel_models_weighted_summary <- tar_read(pooled_connection_paykel_models_weighted_summary)
+
+pooled_connection_ls_models_relevelled_summary <- tar_read(pooled_connection_ls_models_relevelled_summary)
+pooled_connection_swbs_models_relevelled_summary <- tar_read(pooled_connection_swbs_models_relevelled_summary)
+pooled_connection_anx_models_relevelled_summary <- tar_read(pooled_connection_anx_models_relevelled_summary)
+pooled_connection_cesd_models_relevelled_summary <- tar_read(pooled_connection_cesd_models_relevelled_summary)
+pooled_connection_sh_models_relevelled_summary <- tar_read(pooled_connection_sh_models_relevelled_summary)
+pooled_connection_paykel_models_relevelled_summary <- tar_read(pooled_connection_paykel_models_relevelled_summary)
+
+pooled_connection_ls_models_relevelled_weighted_summary <- tar_read(pooled_connection_ls_models_relevelled_weighted_summary)
+pooled_connection_swbs_models_relevelled_weighted_summary <- tar_read(pooled_connection_swbs_models_relevelled_weighted_summary)
+pooled_connection_anx_models_relevelled_weighted_summary <- tar_read(pooled_connection_anx_models_relevelled_weighted_summary)
+pooled_connection_cesd_models_relevelled_weighted_summary <- tar_read(pooled_connection_cesd_models_relevelled_weighted_summary)
+pooled_connection_sh_models_relevelled_weighted_summary <- tar_read(pooled_connection_sh_models_relevelled_weighted_summary)
+pooled_connection_paykel_models_relevelled_weighted_summary <- tar_read(pooled_connection_paykel_models_relevelled_weighted_summary)
+
+pooled_internet_ls_models_summary <- tar_read(pooled_internet_ls_models_summary)
+pooled_internet_swbs_models_summary <- tar_read(pooled_internet_swbs_models_summary)
+pooled_internet_anx_models_summary <- tar_read(pooled_internet_anx_models_summary)
+pooled_internet_cesd_models_summary <- tar_read(pooled_internet_cesd_models_summary)
+pooled_internet_sh_models_summary <- tar_read(pooled_internet_sh_models_summary)
+pooled_internet_paykel_models_summary <- tar_read(pooled_internet_paykel_models_summary)
+
+pooled_internet_ls_models_weighted_summary <- tar_read(pooled_internet_ls_models_weighted_summary)
+pooled_internet_swbs_models_weighted_summary <- tar_read(pooled_internet_swbs_models_weighted_summary)
+pooled_internet_anx_models_weighted_summary <- tar_read(pooled_internet_anx_models_weighted_summary)
+pooled_internet_cesd_models_weighted_summary <- tar_read(pooled_internet_cesd_models_weighted_summary)
+pooled_internet_sh_models_weighted_summary <- tar_read(pooled_internet_sh_models_weighted_summary)
+pooled_internet_paykel_models_weighted_summary <- tar_read(pooled_internet_paykel_models_weighted_summary)
+
+connection_ls_models_summary <- tar_read(connection_ls_models_summary)
+connection_swbs_models_summary <- tar_read(connection_swbs_models_summary)
+connection_anx_models_summary <- tar_read(connection_anx_models_summary)
+connection_cesd_models_summary <- tar_read(connection_cesd_models_summary)
+connection_sh_models_summary <- tar_read(connection_sh_models_summary)
+connection_paykel_models_summary <- tar_read(connection_paykel_models_summary)
+
+connection_ls_models_weighted_summary <- tar_read(connection_ls_models_weighted_summary)
+connection_swbs_models_weighted_summary <- tar_read(connection_swbs_models_weighted_summary)
+connection_anx_models_weighted_summary <- tar_read(connection_anx_models_weighted_summary)
+connection_cesd_models_weighted_summary <- tar_read(connection_cesd_models_weighted_summary)
+connection_sh_models_weighted_summary <- tar_read(connection_sh_models_weighted_summary)
+connection_paykel_models_weighted_summary <- tar_read(connection_paykel_models_weighted_summary)
+
+connection_ls_models_relevelled_summary <- tar_read(connection_ls_models_relevelled_summary)
+connection_swbs_models_relevelled_summary <- tar_read(connection_swbs_models_relevelled_summary)
+connection_anx_models_relevelled_summary <- tar_read(connection_anx_models_relevelled_summary)
+connection_cesd_models_relevelled_summary <- tar_read(connection_cesd_models_relevelled_summary)
+connection_sh_models_relevelled_summary <- tar_read(connection_sh_models_relevelled_summary)
+connection_paykel_models_relevelled_summary <- tar_read(connection_paykel_models_relevelled_summary)
+
+connection_ls_models_relevelled_weighted_summary <- tar_read(connection_ls_models_relevelled_weighted_summary)
+connection_swbs_models_relevelled_weighted_summary <- tar_read(connection_swbs_models_relevelled_weighted_summary)
+connection_anx_models_relevelled_weighted_summary <- tar_read(connection_anx_models_relevelled_weighted_summary)
+connection_cesd_models_relevelled_weighted_summary <- tar_read(connection_cesd_models_relevelled_weighted_summary)
+connection_sh_models_relevelled_weighted_summary <- tar_read(connection_sh_models_relevelled_weighted_summary)
+connection_paykel_models_relevelled_weighted_summary <- tar_read(connection_paykel_models_relevelled_weighted_summary)
+
+internet_ls_models_summary <- tar_read(internet_ls_models_summary)
+internet_swbs_models_summary <- tar_read(internet_swbs_models_summary)
+internet_anx_models_summary <- tar_read(internet_anx_models_summary)
+internet_cesd_models_summary <- tar_read(internet_cesd_models_summary)
+internet_sh_models_summary <- tar_read(internet_sh_models_summary)
+internet_paykel_models_summary <- tar_read(internet_paykel_models_summary)
+
+internet_ls_models_weighted_summary <- tar_read(internet_ls_models_weighted_summary)
+internet_swbs_models_weighted_summary <- tar_read(internet_swbs_models_weighted_summary)
+internet_anx_models_weighted_summary <- tar_read(internet_anx_models_weighted_summary)
+internet_cesd_models_weighted_summary <- tar_read(internet_cesd_models_weighted_summary)
+internet_sh_models_weighted_summary <- tar_read(internet_sh_models_weighted_summary)
+internet_paykel_models_weighted_summary <- tar_read(internet_paykel_models_weighted_summary)
+```
+
+## Defining plotting functions
+
+```{r plot_fn}
+connection_plot <- function(summary){
+    ggplot(
+        summary %>% 
+            mutate(term = case_when(
+                term == "dv_covid_statusLockdown, connected" ~ "Yes",
+                term == "dv_covid_statusLockdown, disconnected" ~ "No",
+                term == "dv_covid_statusNo lockdown" ~ "No lockdown"
+            )),
+            aes(
+            x = country, 
+            y = estimate, 
+            fill = term, 
+            ymin = estimate + qt(0.025, df) * std.error,
+            ymax = estimate + qt(0.975, df) * std.error
+            )   
+    ) +
+    geom_col(position = "dodge") + 
+    geom_errorbar(position = position_dodge(width = 0.9), width = 0.5) + 
+    labs(x = "Country", y = "Coefficient", fill = "Connected with\nfriends and family\nduring lockdown?") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
+
+internet_plots <- function(summary){
+    country_list <- c("Ethiopia", "Kenya", "Mozambique", "Namibia", "Uganda", "Cambodia", "Indonesia", "Malaysia", "Philippines", "Thailand", "Vietnam")
+
+    plots <- list()
+    
+    for(i in seq_along(country_list)){
+        country <- country_list[i]
+
+        temp <- summary[summary$country == country,]
+
+        B1coef <- temp$estimate[temp$term == "B1"]
+        B1se <- temp$std.error[temp$term == "B1"]
+        B1df <- temp$df[temp$term == "B1"]
+        B1lower <- B1coef + qt(0.025, B1df) * B1se
+        B1upper <- B1coef + qt(0.975, B1df) * B1se
+        CO2coef <- temp$estimate[temp$term == "CO21"]
+        CO2se <- temp$std.error[temp$term == "CO21"]
+        CO2lower <- CO2coef + qt(0.025, B1df) * CO2se
+        CO2upper <- CO2coef + qt(0.975, B1df) * CO2se
+        interactioncoef <- temp$estimate[temp$term == "B1:CO21"]
+        interactionse <- temp$std.error[temp$term == "B1:CO21"]
+        interactionlower <- interactioncoef + qt(0.025, B1df) * interactionse
+        interactionupper <- interactioncoef + qt(0.975, B1df) * interactionse
+
+        plot_data <- data.frame(
+            B1 = rep(0:5 / 5, 2),
+            CO2 = c(rep(0, 6), rep(1, 6))
+        )
+
+        plot_data$estimate <- B1coef * plot_data$B1 + CO2coef * plot_data$CO2 + interactioncoef * plot_data$B1 * plot_data$CO2
+
+        plot_data$upper <- B1upper * plot_data$B1 + CO2upper * plot_data$CO2 + interactionupper * plot_data$B1 * plot_data$CO2
+
+        plot_data$lower <- B1lower * plot_data$B1 + CO2lower * plot_data$CO2 + interactionlower * plot_data$B1 * plot_data$CO2
+
+        plot_data$B1 <- as.factor(plot_data$B1)
+        plot_data$CO2 <- as.factor(plot_data$CO2)
+
+        plots[[i]] <- ggplot(
+            plot_data,
+            aes(
+                x = B1,
+                y = estimate,
+                ymin = lower,
+                ymax = upper,
+                fill = CO2
+            )
+        ) +
+        facet_wrap(vars(CO2), labeller = labeller(CO2 = c("0" = "No lockdown", "1" = "Lockdown"))) +
+        geom_col() +
+        geom_errorbar(width = 1/12) +
+        scale_x_discrete(labels = c("Rarely", "At least every month", "At least every week", "At least every day", "Several times each day", "Almost all the time")) +
+        labs(x = "Frequency of internet use", y = "Coefficient", title = country) +
+        theme_bw() +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+    }
+
+    return(plots)
+}
+```
+
+## Defining results printing function
+
+```{r print_fn}
+round_summary <- function(summary){
+    for(i in 1:ncol(summary)){
+        if(is.numeric(summary[, i])){
+            summary[, i] <- round(summary[, i], 3)
+        }
+    }
+
+    return(summary)
+}
+
+summary_list <- c("All participants", "Boys", "Girls", "Rural", "Urban", "Rural boys", "Urban boys", "Rural girls", "Urban girls")
+
+print_summary <- function(summary){
+    for(i in seq_along(summary_list)){
+        cat(paste("#####", summary_list[i], "\n"))
+        print(summary[[i]] |> round_summary() |> kable())
+    }
+}
+```
+
+## Models for ability to stay connected during lockdown ("no lockdown" as reference group)
+### Life satisfaction
+#### Pooled, unweighted
+
+```{r pooled_conn_ls}
+print_summary(pooled_connection_ls_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_ls_weighted}
+print_summary(pooled_connection_ls_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_ls}
+print_summary(connection_ls_models_summary)
+```
+
+#### By country, weighted
+
+```{r conn_ls_weighted}
+print_summary(connection_ls_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_ls_plot}
+connection_plot(connection_ls_models_weighted_summary[[1]])
+```
+
+### CW-SWBS
+#### Pooled, unweighted
+
+```{r pooled_conn_swbs}
+print_summary(pooled_connection_swbs_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_swbs_weighted}
+print_summary(pooled_connection_swbs_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_swbs}
+print_summary(connection_swbs_models_summary)
+```
+
+#### By country, weighted
+
+```{r conn_swbs_weighted}
+print_summary(connection_swbs_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_swbs_weighted_plot}
+connection_plot(connection_swbs_models_weighted_summary[[1]])
+```
+
+### Anxiety
+#### Pooled, unweighted
+
+```{r pooled_conn_anx}
+print_summary(pooled_connection_anx_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_anx_weighted}
+print_summary(pooled_connection_anx_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_anx}
+print_summary(connection_anx_models_summary)
+```
+
+#### By country, weighted
+
+```{r conn_anx_weighted}
+print_summary(connection_anx_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_anx_weighted_plot}
+connection_plot(connection_anx_models_weighted_summary[[1]])
+```
+
+### CES-D
+#### Pooled, unweighted
+
+```{r pooled_conn_cesd}
+print_summary(pooled_connection_cesd_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_cesd_weighted}
+print_summary(pooled_connection_cesd_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_cesd}
+print_summary(connection_cesd_models_summary)
+```
+
+#### By country, weighted
+
+```{r conn_cesd_weighted}
+print_summary(connection_cesd_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_cesd_weighted_plot}
+connection_plot(connection_cesd_models_weighted_summary[[1]])
+```
+
+### Self-harm
+#### Pooled, unweighted
+
+```{r pooled_conn_sh}
+print_summary(pooled_connection_sh_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_sh_weighted}
+print_summary(pooled_connection_sh_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_sh}
+print_summary(connection_sh_models_summary)
+```
+
+#### By country, weighted
+
+```{r conn_sh_weighted}
+print_summary(connection_sh_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_sh_weighted_plot}
+connection_plot(connection_sh_models_weighted_summary[[1]])
+```
+
+### Paykel suicide scale
+#### Pooled, unweighted
+
+```{r pooled_conn_paykel}
+print_summary(pooled_connection_paykel_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_paykel_weighted}
+print_summary(pooled_connection_paykel_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_paykel}
+print_summary(connection_paykel_models_summary)
+```
+
+#### By country, weighted
+
+```{r conn_paykel_weighted}
+print_summary(connection_paykel_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_paykel_weighted_plot}
+connection_plot(connection_paykel_models_weighted_summary[[1]])
+```
+
+## Models for ability to stay connected during lockdown ("lockdown, disconnected" as reference group)
+### Life satisfaction
+#### Pooled, unweighted
+
+```{r pooled_conn_ls_relevelled}
+print_summary(pooled_connection_ls_models_relevelled_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_ls_relevelled_weighted}
+print_summary(pooled_connection_ls_models_relevelled_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_ls_relevelled}
+print_summary(connection_ls_models_relevelled_summary)
+```
+
+#### By country, weighted
+
+```{r conn_ls_relevelled_weighted}
+print_summary(connection_ls_models_relevelled_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_ls_relevelled_weighted_plot}
+connection_plot(connection_ls_models_relevelled_weighted_summary[[1]])
+```
+
+### CW-SWBS
+#### Pooled, unweighted
+
+```{r pooled_conn_swbs_relevelled}
+print_summary(pooled_connection_swbs_models_relevelled_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_swbs_relevelled_weighted}
+print_summary(pooled_connection_swbs_models_relevelled_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_swbs_relevelled}
+print_summary(connection_swbs_models_relevelled_summary)
+```
+
+#### By country, weighted
+
+```{r conn_swbs_relevelled_weighted}
+print_summary(connection_swbs_models_relevelled_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_swbs_relevelled_weighted_plot}
+connection_plot(connection_swbs_models_relevelled_weighted_summary[[1]])
+```
+
+### Anxiety
+#### Pooled, unweighted
+
+```{r pooled_conn_anx_relevelled}
+print_summary(pooled_connection_anx_models_relevelled_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_anx_relevelled_weighted}
+print_summary(pooled_connection_anx_models_relevelled_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_anx_relevelled}
+print_summary(connection_anx_models_relevelled_summary)
+```
+
+#### By country, weighted
+
+```{r conn_anx_relevelled_weighted}
+print_summary(connection_anx_models_relevelled_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_anx_relevelled_weighted_plot}
+connection_plot(connection_anx_models_relevelled_weighted_summary[[1]])
+```
+
+### CES-D
+#### Pooled, unweighted
+
+```{r pooled_conn_cesd_relevelled}
+print_summary(pooled_connection_cesd_models_relevelled_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_cesd_relevelled_weighted}
+print_summary(pooled_connection_cesd_models_relevelled_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_cesd_relevelled}
+print_summary(connection_cesd_models_relevelled_summary)
+```
+
+#### By country, weighted
+
+```{r conn_cesd_relevelled_weighted}
+print_summary(connection_cesd_models_relevelled_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_cesd_relevelled_weighted_plot}
+connection_plot(connection_cesd_models_relevelled_weighted_summary[[1]])
+```
+
+### Self-harm
+#### Pooled, unweighted
+
+```{r pooled_conn_sh_relevelled}
+print_summary(pooled_connection_sh_models_relevelled_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_sh_relevelled_weighted}
+print_summary(pooled_connection_sh_models_relevelled_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_sh_relevelled}
+print_summary(connection_sh_models_relevelled_summary)
+```
+
+#### By country, weighted
+
+```{r conn_sh_relevelled_weighted}
+print_summary(connection_sh_models_relevelled_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_sh_relevelled_weighted_plot}
+connection_plot(connection_sh_models_relevelled_weighted_summary[[1]])
+```
+
+### Paykel suicide scale
+#### Pooled, unweighted
+
+```{r pooled_conn_paykel_relevelled}
+print_summary(pooled_connection_paykel_models_relevelled_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_conn_paykel_relevelled_weighted}
+print_summary(pooled_connection_paykel_models_relevelled_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r conn_paykel_relevelled}
+print_summary(connection_paykel_models_relevelled_summary)
+```
+
+#### By country, weighted
+
+```{r conn_paykel_relevelled_weighted}
+print_summary(connection_paykel_models_relevelled_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r conn_paykel_relevelled_weighted_plot}
+connection_plot(connection_paykel_models_relevelled_weighted_summary[[1]])
+```
+
+## Models for internet use frequency
+### Life satisfaction
+#### Pooled, unweighted
+
+```{r pooled_int_ls}
+print_summary(pooled_internet_ls_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_int_ls_weighted}
+print_summary(pooled_internet_ls_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r int_ls}
+print_summary(internet_ls_models_summary)
+```
+
+#### By country, weighted
+
+```{r int_ls_weighted}
+print_summary(internet_ls_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r int_ls_weighted_plots}
+internet_plots(internet_ls_models_weighted_summary[[1]])
+```
+
+### CW-SWBS
+#### Pooled, unweighted
+
+```{r pooled_int_swbs}
+print_summary(pooled_internet_swbs_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_int_swbs_weighted}
+print_summary(pooled_internet_swbs_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r int_swbs}
+print_summary(internet_swbs_models_summary)
+```
+
+#### By country, weighted
+
+```{r int_swbs_weighted}
+print_summary(internet_swbs_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r int_swbs_weighted_plots}
+internet_plots(internet_swbs_models_weighted_summary[[1]])
+```
+
+### Anxiety
+#### Pooled, unweighted
+
+```{r pooled_int_anx}
+print_summary(pooled_internet_anx_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_int_anx_weighted}
+print_summary(pooled_internet_anx_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r int_anx}
+print_summary(internet_anx_models_summary)
+```
+
+#### By country, weighted
+
+```{r int_anx_weighted}
+print_summary(internet_anx_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r int_anx_weighted_plots}
+internet_plots(internet_anx_models_weighted_summary[[1]])
+```
+
+### CES-D
+#### Pooled, unweighted
+
+```{r pooled_int_cesd}
+print_summary(pooled_internet_cesd_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_int_cesd_weighted}
+print_summary(pooled_internet_cesd_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r int_cesd}
+print_summary(internet_cesd_models_summary)
+```
+
+#### By country, weighted
+
+```{r int_cesd_weighted}
+print_summary(internet_cesd_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r int_cesd_weighted_plots}
+internet_plots(internet_cesd_models_weighted_summary[[1]])
+```
+
+### Self-harm
+#### Pooled, unweighted
+
+```{r pooled_int_sh}
+print_summary(pooled_internet_sh_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_int_sh_weighted}
+print_summary(pooled_internet_sh_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r int_sh}
+print_summary(internet_sh_models_summary)
+```
+
+#### By country, weighted
+
+```{r int_sh_weighted}
+print_summary(internet_sh_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r int_sh_weighted_plots}
+internet_plots(internet_sh_models_weighted_summary[[1]])
+```
+
+### Paykel suicide scale
+#### Pooled, unweighted
+
+```{r pooled_int_paykel}
+print_summary(pooled_internet_paykel_models_summary)
+```
+
+#### Pooled, weighted
+
+```{r pooled_int_paykel_weighted}
+print_summary(pooled_internet_paykel_models_weighted_summary)
+```
+
+#### By country, unweighted
+
+```{r int_paykel}
+print_summary(internet_paykel_models_summary)
+```
+
+#### By country, weighted
+
+```{r int_paykel_weighted}
+print_summary(internet_paykel_models_weighted_summary)
+```
+
+##### Plot (all participants)
+
+```{r int_paykel_weighted_plots}
+internet_plots(internet_paykel_models_weighted_summary[[1]])
+```
