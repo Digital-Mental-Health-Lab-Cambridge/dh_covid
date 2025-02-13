@@ -364,6 +364,22 @@ covid_relevel <- function(data){
     return(data_relevelled)
 }
 
+standardise_vars <- function(data){
+    data_list <- imputationList(lapply(1:data$m, function(x) complete(data, x)))
+
+    for(i in c("H1", "CW_SWBS", "ANX", "CES_D", "PAYKEL", "B1", "CO2")){
+        for(j in seq_along(data_list[[1]])){
+            data_list[[1]][[j]][, i] <- scale(as.numeric(data_list[[1]][[j]][, i]))
+        }
+    }
+
+    return(data_list)
+}
+
+filter.imputationList <- function(data, subset){
+    imputationList(lapply(seq_along(data[[1]]), function(x) filter(data[[1]][[x]], {{subset}})))
+}
+
 logistic_models <- function(data, y, formula_RHS){
     # Initialising lists of model fits
     fitlist <- list()
@@ -377,7 +393,7 @@ logistic_models <- function(data, y, formula_RHS){
     girls_urban_fitlist <- list()
 
     # For each country
-    for(i in unique(complete(data, 1)$COUNTRY)){
+    for(i in unique(data[[1]][[1]]$COUNTRY)){
 
         # Skipping Tanzania
         if(i == 6){
