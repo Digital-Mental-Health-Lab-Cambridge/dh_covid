@@ -370,7 +370,7 @@ standardise_vars <- function(data){
     data_list <- imputationList(lapply(1:data$m, function(x) complete(data, x)))
 
     # Removing rows with no survey weight (excluded participants)
-    data_list <- filter(!is.na(wgt_scaled))
+    data_list <- filter(data_list, !is.na(wgt_scaled))
 
     # Standardising mental health, internet use and lockdown variables
     for(i in c("H1", "CW_SWBS", "ANX", "CES_D", "PAYKEL", "B1", "CO2")){
