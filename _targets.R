@@ -100,7 +100,7 @@ list(
     # Producing report of missingness summary plots
     tar_quarto(
         NA_report,
-        "NA_report.Qmd" 
+        "NA_report.qmd" 
     ),
 
     # Fitting CFA models for wellbeing variables (grouped by country) to test metric invariance
@@ -310,7 +310,7 @@ list(
     # Producing metric invariance report
     tar_quarto(
         cfa_report,
-        "cfa_report.Qmd"
+        "cfa_report.qmd"
     ),
 
     # Fitting final CFA models
@@ -473,13 +473,13 @@ list(
     # Producing multiple imputation report
     tar_quarto(
         mice_report,
-        "mice_report.Qmd"
+        "mice_report.qmd"
     ),
 
     # Producing report of descriptive plots
     tar_quarto(
         descriptives_report,
-        "descriptives_report.Qmd"
+        "descriptives_report.qmd"
     ),
 
     tar_target(
@@ -1738,7 +1738,7 @@ list(
     # Producing report of model results
     tar_quarto(
         models_report,
-        "models_report.Qmd"
+        "models_report.qmd"
     ),
 
     # Fitting sensitivity check regression models
@@ -2969,6 +2969,6 @@ list(
     # Producing report of sensitivity check results
     tar_quarto(
         sensitivity_report,
-            "sensitivity_report.Qmd"
+            "sensitivity_report.qmd"
     )
 )
