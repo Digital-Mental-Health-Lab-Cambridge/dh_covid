@@ -484,14 +484,14 @@ list(
 
     tar_target(
         imputed_data_standardised,
-        standardise_data(
+        standardise_vars(
             imputed_data
         )
     ),
     
     tar_target(
         imputed_data_full_wb_vars_standardised,
-        standardise_data(
+        standardise_vars(
             imputed_data_full_wb_vars
         )
     ),
