@@ -515,7 +515,7 @@ pooled_robust_linear_models <- function(data, y, formula_RHS){
     # Removing Tanzania rows
     data <- filter(data, COUNTRY != 6)
     for(i in seq_along(data[[1]])){
-        data[[1]][[x]]$COUNTRY <- droplevels(data[[1]][[x]]$COUNTRY)
+        data[[1]][[i]]$COUNTRY <- droplevels(data[[1]][[i]]$COUNTRY)
     }
     
     # Creating sub-datasets
