@@ -476,7 +476,7 @@ robust_linear_models <- function(data, y, formula_RHS){
     girls_rural_fitlist <- list()
     girls_urban_fitlist <- list()
 
-    for(i in unique(complete(data, 1)$COUNTRY)){
+    for(i in unique(data[[1]][[1]]$COUNTRY)){
 
         # Skipping Tanzania
         if(i == 6){
