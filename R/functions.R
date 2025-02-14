@@ -356,11 +356,11 @@ multiple_imputation <- function(data){
 
 # Setting "lockdown, disconnected" to be the reference level of the derived lockdown variable for relevelled datasets
 covid_relevel <- function(data){
-    lapply(data[[1]], function(x){
+    imputationList(lapply(data[[1]], function(x){
         x$dv_covid_status %<>% relevel("Lockdown, disconnected")
 
         return(x)
-    })
+    }))
 }
 
 standardise_vars <- function(data){
