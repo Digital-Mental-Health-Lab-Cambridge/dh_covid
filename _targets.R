@@ -8,7 +8,6 @@ library(lavaan)
 library(magrittr)
 library(MASS)
 library(mice)
-library(miceadds)
 library(mitools)
 library(purrr)
 library(quarto)
@@ -484,16 +483,30 @@ list(
     ),
 
     tar_target(
+        imputed_data_standardised,
+        standardise_data(
+            imputed_data
+        )
+    ),
+    
+    tar_target(
+        imputed_data_full_wb_vars_standardised,
+        standardise_data(
+            imputed_data_full_wb_vars
+        )
+    ),
+
+    tar_target(
         imputed_data_relevelled,
         covid_relevel(
-            imputed_data
+            imputed_data_standardised
         )
     ),
     
     tar_target(
         imputed_data_full_wb_vars_relevelled,
         covid_relevel(
-            imputed_data_full_wb_vars
+            imputed_data_full_wb_vars_standardised
         )
     ),
 
@@ -501,7 +514,7 @@ list(
     tar_target(
         connection_ls_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50"
         )
@@ -518,7 +531,7 @@ list(
     tar_target(
         pooled_connection_ls_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50 + COUNTRY"
         )
@@ -535,7 +548,7 @@ list(
     tar_target(
         connection_swbs_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS"
         )
@@ -552,7 +565,7 @@ list(
     tar_target(
         pooled_connection_swbs_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS + COUNTRY"
         )
@@ -569,7 +582,7 @@ list(
     tar_target(
         connection_anx_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX"
         )
@@ -586,7 +599,7 @@ list(
     tar_target(
         pooled_connection_anx_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX + COUNTRY"
         )
@@ -603,7 +616,7 @@ list(
     tar_target(
         connection_cesd_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D"
         )
@@ -620,7 +633,7 @@ list(
     tar_target(
         pooled_connection_cesd_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D + COUNTRY"
         )
@@ -637,7 +650,7 @@ list(
     tar_target(
         connection_sh_models,
         logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41"
         )
@@ -654,7 +667,7 @@ list(
     tar_target(
         pooled_connection_sh_models,
         pooled_logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41 + COUNTRY"
         )
@@ -671,7 +684,7 @@ list(
     tar_target(
         connection_paykel_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL"
         )
@@ -688,7 +701,7 @@ list(
     tar_target(
         pooled_connection_paykel_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL + COUNTRY"
         )
@@ -909,7 +922,7 @@ list(
     tar_target(
         internet_ls_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1", 
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50"
         )
@@ -926,7 +939,7 @@ list(
     tar_target(
         pooled_internet_ls_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + COUNTRY"
         )
@@ -943,7 +956,7 @@ list(
     tar_target(
         internet_swbs_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS"
         )
@@ -960,7 +973,7 @@ list(
     tar_target(
         pooled_internet_swbs_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + COUNTRY"
         )
@@ -977,7 +990,7 @@ list(
     tar_target(
         internet_anx_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX"
         )
@@ -994,7 +1007,7 @@ list(
     tar_target(
         pooled_internet_anx_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + COUNTRY"
         )
@@ -1011,7 +1024,7 @@ list(
     tar_target(
         internet_cesd_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D"
         )
@@ -1028,7 +1041,7 @@ list(
     tar_target(
         pooled_internet_cesd_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + COUNTRY"
         )
@@ -1045,7 +1058,7 @@ list(
     tar_target(
         internet_sh_models,
         logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41"
         )
@@ -1062,7 +1075,7 @@ list(
     tar_target(
         pooled_internet_sh_models,
         pooled_logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + COUNTRY"
         )
@@ -1079,7 +1092,7 @@ list(
     tar_target(
         internet_paykel_models,
         robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL"
         )
@@ -1096,7 +1109,7 @@ list(
     tar_target(
         pooled_internet_paykel_models,
         pooled_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + COUNTRY"
         )
@@ -1113,7 +1126,7 @@ list(
     tar_target(
         connection_ls_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50"
         )
@@ -1121,7 +1134,7 @@ list(
 
     tar_target(
         connection_ls_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_ls_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1130,7 +1143,7 @@ list(
     tar_target(
         pooled_connection_ls_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50 + COUNTRY"
         )
@@ -1138,7 +1151,7 @@ list(
 
     tar_target(
         pooled_connection_ls_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_ls_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1147,7 +1160,7 @@ list(
     tar_target(
         connection_swbs_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS"
         )
@@ -1155,7 +1168,7 @@ list(
 
     tar_target(
         connection_swbs_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_swbs_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1164,7 +1177,7 @@ list(
     tar_target(
         pooled_connection_swbs_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS + COUNTRY"
         )
@@ -1172,7 +1185,7 @@ list(
 
     tar_target(
         pooled_connection_swbs_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_swbs_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1181,7 +1194,7 @@ list(
     tar_target(
         connection_anx_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX"
         )
@@ -1189,7 +1202,7 @@ list(
 
     tar_target(
         connection_anx_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_anx_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1198,7 +1211,7 @@ list(
     tar_target(
         pooled_connection_anx_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX + COUNTRY"
         )
@@ -1206,7 +1219,7 @@ list(
 
     tar_target(
         pooled_connection_anx_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_anx_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1215,7 +1228,7 @@ list(
     tar_target(
         connection_cesd_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D"
         )
@@ -1223,7 +1236,7 @@ list(
 
     tar_target(
         connection_cesd_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_cesd_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1232,7 +1245,7 @@ list(
     tar_target(
         pooled_connection_cesd_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D + COUNTRY"
         )
@@ -1240,7 +1253,7 @@ list(
 
     tar_target(
         pooled_connection_cesd_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_cesd_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1249,7 +1262,7 @@ list(
     tar_target(
         connection_sh_models_weighted,
         weighted_logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41"
         )
@@ -1257,7 +1270,7 @@ list(
 
     tar_target(
         connection_sh_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_sh_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1266,7 +1279,7 @@ list(
     tar_target(
         pooled_connection_sh_models_weighted,
         pooled_weighted_logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41 + COUNTRY"
         )
@@ -1274,7 +1287,7 @@ list(
 
     tar_target(
         pooled_connection_sh_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_sh_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1283,7 +1296,7 @@ list(
     tar_target(
         connection_paykel_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL"
         )
@@ -1291,7 +1304,7 @@ list(
 
     tar_target(
         connection_paykel_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_paykel_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1300,7 +1313,7 @@ list(
     tar_target(
         pooled_connection_paykel_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL + COUNTRY"
         )
@@ -1308,7 +1321,7 @@ list(
 
     tar_target(
         pooled_connection_paykel_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_paykel_models_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -1325,7 +1338,7 @@ list(
 
     tar_target(
         connection_ls_models_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_ls_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1342,7 +1355,7 @@ list(
 
     tar_target(
         pooled_connection_ls_models_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_ls_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1359,7 +1372,7 @@ list(
 
     tar_target(
         connection_swbs_models_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_swbs_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1376,7 +1389,7 @@ list(
 
     tar_target(
         pooled_connection_swbs_models_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_swbs_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1393,7 +1406,7 @@ list(
 
     tar_target(
         connection_anx_models_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_anx_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1410,7 +1423,7 @@ list(
 
     tar_target(
         pooled_connection_anx_models_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_anx_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1427,7 +1440,7 @@ list(
 
     tar_target(
         connection_cesd_models_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_cesd_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1444,7 +1457,7 @@ list(
 
     tar_target(
         pooled_connection_cesd_models_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_cesd_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1461,7 +1474,7 @@ list(
 
     tar_target(
         connection_sh_models_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_sh_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1478,7 +1491,7 @@ list(
 
     tar_target(
         pooled_connection_sh_models_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_sh_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1495,7 +1508,7 @@ list(
 
     tar_target(
         connection_paykel_models_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_paykel_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1512,7 +1525,7 @@ list(
 
     tar_target(
         pooled_connection_paykel_models_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_paykel_models_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -1521,7 +1534,7 @@ list(
     tar_target(
         internet_ls_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1", 
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50"
         )
@@ -1529,7 +1542,7 @@ list(
 
     tar_target(
         internet_ls_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_ls_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1538,7 +1551,7 @@ list(
     tar_target(
         pooled_internet_ls_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "H1",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + COUNTRY"
         )
@@ -1546,7 +1559,7 @@ list(
 
     tar_target(
         pooled_internet_ls_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_ls_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1555,7 +1568,7 @@ list(
     tar_target(
         internet_swbs_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS"
         )
@@ -1563,7 +1576,7 @@ list(
 
     tar_target(
         internet_swbs_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_swbs_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1572,7 +1585,7 @@ list(
     tar_target(
         pooled_internet_swbs_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + COUNTRY"
         )
@@ -1580,7 +1593,7 @@ list(
 
     tar_target(
         pooled_internet_swbs_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_swbs_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1589,7 +1602,7 @@ list(
     tar_target(
         internet_anx_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX"
         )
@@ -1597,7 +1610,7 @@ list(
 
     tar_target(
         internet_anx_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_anx_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1606,7 +1619,7 @@ list(
     tar_target(
         pooled_internet_anx_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + COUNTRY"
         )
@@ -1614,7 +1627,7 @@ list(
 
     tar_target(
         pooled_internet_anx_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_anx_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1623,7 +1636,7 @@ list(
     tar_target(
         internet_cesd_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D"
         )
@@ -1631,7 +1644,7 @@ list(
 
     tar_target(
         internet_cesd_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_cesd_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1640,7 +1653,7 @@ list(
     tar_target(
         pooled_internet_cesd_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + COUNTRY"
         )
@@ -1648,7 +1661,7 @@ list(
 
     tar_target(
         pooled_internet_cesd_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_cesd_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1657,7 +1670,7 @@ list(
     tar_target(
         internet_sh_models_weighted,
         weighted_logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41"
         )
@@ -1665,7 +1678,7 @@ list(
 
     tar_target(
         internet_sh_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_sh_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1674,7 +1687,7 @@ list(
     tar_target(
         pooled_internet_sh_models_weighted,
         pooled_weighted_logistic_models(
-            imputed_data,
+            imputed_data_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + COUNTRY"
         )
@@ -1682,7 +1695,7 @@ list(
 
     tar_target(
         pooled_internet_sh_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_sh_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1691,7 +1704,7 @@ list(
     tar_target(
         internet_paykel_models_weighted,
         weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL"
         )
@@ -1699,7 +1712,7 @@ list(
 
     tar_target(
         internet_paykel_models_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_paykel_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1708,7 +1721,7 @@ list(
     tar_target(
         pooled_internet_paykel_models_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data,
+            imputed_data_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + COUNTRY"
         )
@@ -1716,7 +1729,7 @@ list(
 
     tar_target(
         pooled_internet_paykel_models_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_paykel_models_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -1732,7 +1745,7 @@ list(
     tar_target(
         connection_ls_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50"
         )
@@ -1749,7 +1762,7 @@ list(
     tar_target(
         pooled_connection_ls_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50 + COUNTRY"
         )
@@ -1766,7 +1779,7 @@ list(
     tar_target(
         connection_swbs_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS"
         )
@@ -1783,7 +1796,7 @@ list(
     tar_target(
         pooled_connection_swbs_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS + COUNTRY"
         )
@@ -1800,7 +1813,7 @@ list(
     tar_target(
         connection_anx_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX"
         )
@@ -1817,7 +1830,7 @@ list(
     tar_target(
         pooled_connection_anx_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX + COUNTRY"
         )
@@ -1834,7 +1847,7 @@ list(
     tar_target(
         connection_cesd_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D"
         )
@@ -1851,7 +1864,7 @@ list(
     tar_target(
         pooled_connection_cesd_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D + COUNTRY"
         )
@@ -1868,7 +1881,7 @@ list(
     tar_target(
         connection_sh_models_fullwb,
         logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41"
         )
@@ -1885,7 +1898,7 @@ list(
     tar_target(
         pooled_connection_sh_models_fullwb,
         pooled_logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41 + COUNTRY"
         )
@@ -1902,7 +1915,7 @@ list(
     tar_target(
         connection_paykel_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL"
         )
@@ -1919,7 +1932,7 @@ list(
     tar_target(
         pooled_connection_paykel_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL + COUNTRY"
         )
@@ -2140,7 +2153,7 @@ list(
     tar_target(
         internet_ls_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1", 
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50"
         )
@@ -2157,7 +2170,7 @@ list(
     tar_target(
         pooled_internet_ls_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + COUNTRY"
         )
@@ -2174,7 +2187,7 @@ list(
     tar_target(
         internet_swbs_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS"
         )
@@ -2191,7 +2204,7 @@ list(
     tar_target(
         pooled_internet_swbs_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + COUNTRY"
         )
@@ -2208,7 +2221,7 @@ list(
     tar_target(
         internet_anx_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX"
         )
@@ -2225,7 +2238,7 @@ list(
     tar_target(
         pooled_internet_anx_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + COUNTRY"
         )
@@ -2242,7 +2255,7 @@ list(
     tar_target(
         internet_cesd_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D"
         )
@@ -2259,7 +2272,7 @@ list(
     tar_target(
         pooled_internet_cesd_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + COUNTRY"
         )
@@ -2276,7 +2289,7 @@ list(
     tar_target(
         internet_sh_models_fullwb,
         logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41"
         )
@@ -2293,7 +2306,7 @@ list(
     tar_target(
         pooled_internet_sh_models_fullwb,
         pooled_logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + COUNTRY"
         )
@@ -2310,7 +2323,7 @@ list(
     tar_target(
         internet_paykel_models_fullwb,
         robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL"
         )
@@ -2327,7 +2340,7 @@ list(
     tar_target(
         pooled_internet_paykel_models_fullwb,
         pooled_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + COUNTRY"
         )
@@ -2344,7 +2357,7 @@ list(
     tar_target(
         connection_ls_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50"
         )
@@ -2352,7 +2365,7 @@ list(
 
     tar_target(
         connection_ls_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_ls_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2361,7 +2374,7 @@ list(
     tar_target(
         pooled_connection_ls_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L50 + COUNTRY"
         )
@@ -2369,7 +2382,7 @@ list(
 
     tar_target(
         pooled_connection_ls_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_ls_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2378,7 +2391,7 @@ list(
     tar_target(
         connection_swbs_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS"
         )
@@ -2386,7 +2399,7 @@ list(
 
     tar_target(
         connection_swbs_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_swbs_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2395,7 +2408,7 @@ list(
     tar_target(
         pooled_connection_swbs_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CW_SWBS + COUNTRY"
         )
@@ -2403,7 +2416,7 @@ list(
 
     tar_target(
         pooled_connection_swbs_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_swbs_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2412,7 +2425,7 @@ list(
     tar_target(
         connection_anx_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX"
         )
@@ -2420,7 +2433,7 @@ list(
 
     tar_target(
         connection_anx_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_anx_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2429,7 +2442,7 @@ list(
     tar_target(
         pooled_connection_anx_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_ANX + COUNTRY"
         )
@@ -2437,7 +2450,7 @@ list(
 
     tar_target(
         pooled_connection_anx_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_anx_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2446,7 +2459,7 @@ list(
     tar_target(
         connection_cesd_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D"
         )
@@ -2454,7 +2467,7 @@ list(
 
     tar_target(
         connection_cesd_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_cesd_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2463,7 +2476,7 @@ list(
     tar_target(
         pooled_connection_cesd_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_CES_D + COUNTRY"
         )
@@ -2471,7 +2484,7 @@ list(
 
     tar_target(
         pooled_connection_cesd_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_cesd_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2480,7 +2493,7 @@ list(
     tar_target(
         connection_sh_models_fullwb_weighted,
         weighted_logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41"
         )
@@ -2488,7 +2501,7 @@ list(
 
     tar_target(
         connection_sh_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_sh_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2497,7 +2510,7 @@ list(
     tar_target(
         pooled_connection_sh_models_fullwb_weighted,
         pooled_weighted_logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L41 + COUNTRY"
         )
@@ -2505,7 +2518,7 @@ list(
 
     tar_target(
         pooled_connection_sh_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_sh_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2514,7 +2527,7 @@ list(
     tar_target(
         connection_paykel_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL"
         )
@@ -2522,7 +2535,7 @@ list(
 
     tar_target(
         connection_paykel_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_paykel_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2531,7 +2544,7 @@ list(
     tar_target(
         pooled_connection_paykel_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "dv_covid_status + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + CG_PAYKEL + COUNTRY"
         )
@@ -2539,7 +2552,7 @@ list(
 
     tar_target(
         pooled_connection_paykel_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_paykel_models_fullwb_weighted,
             c("dv_covid_statusLockdown, disconnected", "dv_covid_statusLockdown, connected")
         )
@@ -2556,7 +2569,7 @@ list(
 
     tar_target(
         connection_ls_models_fullwb_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_ls_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2573,7 +2586,7 @@ list(
 
     tar_target(
         pooled_connection_ls_models_fullwb_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_ls_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2590,7 +2603,7 @@ list(
 
     tar_target(
         connection_swbs_models_fullwb_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_swbs_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2607,7 +2620,7 @@ list(
 
     tar_target(
         pooled_connection_swbs_models_fullwb_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_swbs_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2624,7 +2637,7 @@ list(
 
     tar_target(
         connection_anx_models_fullwb_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_anx_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2641,7 +2654,7 @@ list(
 
     tar_target(
         pooled_connection_anx_models_fullwb_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_anx_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2658,7 +2671,7 @@ list(
 
     tar_target(
         connection_cesd_models_fullwb_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_cesd_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2675,7 +2688,7 @@ list(
 
     tar_target(
         pooled_connection_cesd_models_fullwb_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_cesd_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2692,7 +2705,7 @@ list(
 
     tar_target(
         connection_sh_models_fullwb_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_sh_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2709,7 +2722,7 @@ list(
 
     tar_target(
         pooled_connection_sh_models_fullwb_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_sh_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2726,7 +2739,7 @@ list(
 
     tar_target(
         connection_paykel_models_fullwb_relevelled_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             connection_paykel_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2743,7 +2756,7 @@ list(
 
     tar_target(
         pooled_connection_paykel_models_fullwb_relevelled_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_connection_paykel_models_fullwb_relevelled_weighted,
             c("dv_covid_statusNo lockdown", "dv_covid_statusLockdown, connected")
         )
@@ -2752,7 +2765,7 @@ list(
     tar_target(
         internet_ls_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1", 
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50"
         )
@@ -2760,7 +2773,7 @@ list(
 
     tar_target(
         internet_ls_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_ls_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2769,7 +2782,7 @@ list(
     tar_target(
         pooled_internet_ls_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H1",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L50 + COUNTRY"
         )
@@ -2777,7 +2790,7 @@ list(
 
     tar_target(
         pooled_internet_ls_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_ls_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2786,7 +2799,7 @@ list(
     tar_target(
         internet_swbs_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS"
         )
@@ -2794,7 +2807,7 @@ list(
 
     tar_target(
         internet_swbs_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_swbs_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2803,7 +2816,7 @@ list(
     tar_target(
         pooled_internet_swbs_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CW_SWBS",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CW_SWBS + COUNTRY"
         )
@@ -2811,7 +2824,7 @@ list(
 
     tar_target(
         pooled_internet_swbs_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_swbs_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2820,7 +2833,7 @@ list(
     tar_target(
         internet_anx_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX"
         )
@@ -2828,7 +2841,7 @@ list(
 
     tar_target(
         internet_anx_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_anx_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2837,7 +2850,7 @@ list(
     tar_target(
         pooled_internet_anx_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "ANX",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_ANX + COUNTRY"
         )
@@ -2845,7 +2858,7 @@ list(
 
     tar_target(
         pooled_internet_anx_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_anx_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2854,7 +2867,7 @@ list(
     tar_target(
         internet_cesd_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D"
         )
@@ -2862,7 +2875,7 @@ list(
 
     tar_target(
         internet_cesd_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_cesd_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2871,7 +2884,7 @@ list(
     tar_target(
         pooled_internet_cesd_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "CES_D",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_CES_D + COUNTRY"
         )
@@ -2879,7 +2892,7 @@ list(
 
     tar_target(
         pooled_internet_cesd_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_cesd_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2888,7 +2901,7 @@ list(
     tar_target(
         internet_sh_models_fullwb_weighted,
         weighted_logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41"
         )
@@ -2896,7 +2909,7 @@ list(
 
     tar_target(
         internet_sh_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_sh_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2905,7 +2918,7 @@ list(
     tar_target(
         pooled_internet_sh_models_fullwb_weighted,
         pooled_weighted_logistic_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "H6",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + L41 + COUNTRY"
         )
@@ -2913,7 +2926,7 @@ list(
 
     tar_target(
         pooled_internet_sh_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_sh_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2922,7 +2935,7 @@ list(
     tar_target(
         internet_paykel_models_fullwb_weighted,
         weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL"
         )
@@ -2930,7 +2943,7 @@ list(
 
     tar_target(
         internet_paykel_models_fullwb_weighted_summary,
-        summarise_weighted_results(
+        summarise_results(
             internet_paykel_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
@@ -2939,7 +2952,7 @@ list(
     tar_target(
         pooled_internet_paykel_models_fullwb_weighted,
         pooled_weighted_robust_linear_models(
-            imputed_data_full_wb_vars,
+            imputed_data_full_wb_vars_standardised,
             "PAYKEL",
             "B1*CO2 + ECS_SELECTED_CH_AGE + L1 + L4 + INCOME + L9 + L11 + L12 + L14 + L18 + L36a + L36b + L36c + L36f + CG_PAYKEL + COUNTRY"
         )
@@ -2947,7 +2960,7 @@ list(
 
     tar_target(
         pooled_internet_paykel_models_fullwb_weighted_summary,
-        summarise_pooled_weighted_results(
+        summarise_pooled_results(
             pooled_internet_paykel_models_fullwb_weighted,
             c("B1", "CO21", "B1:CO21")
         )
