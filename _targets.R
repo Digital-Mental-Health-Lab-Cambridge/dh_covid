@@ -932,7 +932,7 @@ list(
         internet_ls_models_summary,
         summarise_results(
             internet_ls_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -949,7 +949,7 @@ list(
         pooled_internet_ls_models_summary,
         summarise_pooled_results(
             pooled_internet_ls_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -966,7 +966,7 @@ list(
         internet_swbs_models_summary,
         summarise_results(
             internet_swbs_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -983,7 +983,7 @@ list(
         pooled_internet_swbs_models_summary,
         summarise_pooled_results(
             pooled_internet_swbs_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1000,7 +1000,7 @@ list(
         internet_anx_models_summary,
         summarise_results(
             internet_anx_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1017,7 +1017,7 @@ list(
         pooled_internet_anx_models_summary,
         summarise_pooled_results(
             pooled_internet_anx_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1034,7 +1034,7 @@ list(
         internet_cesd_models_summary,
         summarise_results(
             internet_cesd_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1051,7 +1051,7 @@ list(
         pooled_internet_cesd_models_summary,
         summarise_pooled_results(
             pooled_internet_cesd_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1068,7 +1068,7 @@ list(
         internet_sh_models_summary,
         summarise_results(
             internet_sh_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1085,7 +1085,7 @@ list(
         pooled_internet_sh_models_summary,
         summarise_pooled_results(
             pooled_internet_sh_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1102,7 +1102,7 @@ list(
         internet_paykel_models_summary,
         summarise_results(
             internet_paykel_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1119,7 +1119,7 @@ list(
         pooled_internet_paykel_models_summary,
         summarise_pooled_results(
             pooled_internet_paykel_models,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1544,7 +1544,7 @@ list(
         internet_ls_models_weighted_summary,
         summarise_results(
             internet_ls_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1561,7 +1561,7 @@ list(
         pooled_internet_ls_models_weighted_summary,
         summarise_pooled_results(
             pooled_internet_ls_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1578,7 +1578,7 @@ list(
         internet_swbs_models_weighted_summary,
         summarise_results(
             internet_swbs_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1595,7 +1595,7 @@ list(
         pooled_internet_swbs_models_weighted_summary,
         summarise_pooled_results(
             pooled_internet_swbs_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1612,7 +1612,7 @@ list(
         internet_anx_models_weighted_summary,
         summarise_results(
             internet_anx_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1629,7 +1629,7 @@ list(
         pooled_internet_anx_models_weighted_summary,
         summarise_pooled_results(
             pooled_internet_anx_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1646,7 +1646,7 @@ list(
         internet_cesd_models_weighted_summary,
         summarise_results(
             internet_cesd_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1663,7 +1663,7 @@ list(
         pooled_internet_cesd_models_weighted_summary,
         summarise_pooled_results(
             pooled_internet_cesd_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1680,7 +1680,7 @@ list(
         internet_sh_models_weighted_summary,
         summarise_results(
             internet_sh_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1697,7 +1697,7 @@ list(
         pooled_internet_sh_models_weighted_summary,
         summarise_pooled_results(
             pooled_internet_sh_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1714,7 +1714,7 @@ list(
         internet_paykel_models_weighted_summary,
         summarise_results(
             internet_paykel_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -1731,7 +1731,7 @@ list(
         pooled_internet_paykel_models_weighted_summary,
         summarise_pooled_results(
             pooled_internet_paykel_models_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2163,7 +2163,7 @@ list(
         internet_ls_models_fullwb_summary,
         summarise_results(
             internet_ls_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2180,7 +2180,7 @@ list(
         pooled_internet_ls_models_fullwb_summary,
         summarise_pooled_results(
             pooled_internet_ls_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2197,7 +2197,7 @@ list(
         internet_swbs_models_fullwb_summary,
         summarise_results(
             internet_swbs_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2214,7 +2214,7 @@ list(
         pooled_internet_swbs_models_fullwb_summary,
         summarise_pooled_results(
             pooled_internet_swbs_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2231,7 +2231,7 @@ list(
         internet_anx_models_fullwb_summary,
         summarise_results(
             internet_anx_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2248,7 +2248,7 @@ list(
         pooled_internet_anx_models_fullwb_summary,
         summarise_pooled_results(
             pooled_internet_anx_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2265,7 +2265,7 @@ list(
         internet_cesd_models_fullwb_summary,
         summarise_results(
             internet_cesd_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2282,7 +2282,7 @@ list(
         pooled_internet_cesd_models_fullwb_summary,
         summarise_pooled_results(
             pooled_internet_cesd_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2299,7 +2299,7 @@ list(
         internet_sh_models_fullwb_summary,
         summarise_results(
             internet_sh_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2316,7 +2316,7 @@ list(
         pooled_internet_sh_models_fullwb_summary,
         summarise_pooled_results(
             pooled_internet_sh_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2333,7 +2333,7 @@ list(
         internet_paykel_models_fullwb_summary,
         summarise_results(
             internet_paykel_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2350,7 +2350,7 @@ list(
         pooled_internet_paykel_models_fullwb_summary,
         summarise_pooled_results(
             pooled_internet_paykel_models_fullwb,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2775,7 +2775,7 @@ list(
         internet_ls_models_fullwb_weighted_summary,
         summarise_results(
             internet_ls_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2792,7 +2792,7 @@ list(
         pooled_internet_ls_models_fullwb_weighted_summary,
         summarise_pooled_results(
             pooled_internet_ls_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2809,7 +2809,7 @@ list(
         internet_swbs_models_fullwb_weighted_summary,
         summarise_results(
             internet_swbs_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2826,7 +2826,7 @@ list(
         pooled_internet_swbs_models_fullwb_weighted_summary,
         summarise_pooled_results(
             pooled_internet_swbs_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2843,7 +2843,7 @@ list(
         internet_anx_models_fullwb_weighted_summary,
         summarise_results(
             internet_anx_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2860,7 +2860,7 @@ list(
         pooled_internet_anx_models_fullwb_weighted_summary,
         summarise_pooled_results(
             pooled_internet_anx_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2877,7 +2877,7 @@ list(
         internet_cesd_models_fullwb_weighted_summary,
         summarise_results(
             internet_cesd_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2894,7 +2894,7 @@ list(
         pooled_internet_cesd_models_fullwb_weighted_summary,
         summarise_pooled_results(
             pooled_internet_cesd_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2911,7 +2911,7 @@ list(
         internet_sh_models_fullwb_weighted_summary,
         summarise_results(
             internet_sh_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2928,7 +2928,7 @@ list(
         pooled_internet_sh_models_fullwb_weighted_summary,
         summarise_pooled_results(
             pooled_internet_sh_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2945,7 +2945,7 @@ list(
         internet_paykel_models_fullwb_weighted_summary,
         summarise_results(
             internet_paykel_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 
@@ -2962,7 +2962,7 @@ list(
         pooled_internet_paykel_models_fullwb_weighted_summary,
         summarise_pooled_results(
             pooled_internet_paykel_models_fullwb_weighted,
-            c("B1", "CO21", "B1:CO21")
+            c("B1", "CO2", "B1:CO2")
         )
     ),
 

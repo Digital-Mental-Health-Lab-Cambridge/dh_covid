@@ -497,15 +497,15 @@ robust_linear_models <- function(data, y, formula_RHS){
         girls_urban_data <- filter(girls_data, Urbanity == "Urban")
 
         # Fitting robust linear regression models
-        fitlist[[i]] <- with(these_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity"))))
-        try(boys_fitlist[[i]] <- with(boys_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")))), silent = TRUE)
-        try(girls_fitlist[[i]] <- with(girls_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")))), silent = TRUE)
-        try(rural_fitlist[[i]] <- with(rural_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")))), silent = TRUE)
-        try(urban_fitlist[[i]] <- with(urban_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")))), silent = TRUE)
-        try(boys_rural_fitlist[[i]] <- with(boys_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
-        try(boys_urban_fitlist[[i]] <- with(boys_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
-        try(girls_rural_fitlist[[i]] <- with(girls_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
-        try(girls_urban_fitlist[[i]] <- with(girls_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)))), silent = TRUE)
+        fitlist[[i]] <- with(these_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), maxit = 100))
+        try(boys_fitlist[[i]] <- with(boys_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), maxit = 100)), silent = TRUE)
+        try(girls_fitlist[[i]] <- with(girls_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), maxit = 100)), silent = TRUE)
+        try(rural_fitlist[[i]] <- with(rural_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), maxit = 100)), silent = TRUE)
+        try(urban_fitlist[[i]] <- with(urban_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), maxit = 100)), silent = TRUE)
+        try(boys_rural_fitlist[[i]] <- with(boys_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100)), silent = TRUE)
+        try(boys_urban_fitlist[[i]] <- with(boys_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100)), silent = TRUE)
+        try(girls_rural_fitlist[[i]] <- with(girls_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100)), silent = TRUE)
+        try(girls_urban_fitlist[[i]] <- with(girls_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100)), silent = TRUE)
     }
 
     return(list(fitlist, boys_fitlist, girls_fitlist, rural_fitlist, urban_fitlist, boys_rural_fitlist, boys_urban_fitlist, girls_rural_fitlist, girls_urban_fitlist))
@@ -529,15 +529,15 @@ pooled_robust_linear_models <- function(data, y, formula_RHS){
     girls_urban_data <- filter(girls_data, Urbanity == "Urban")
 
     # Fitting robust linear regression models
-    model_fit <- with(data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity"))))
-    boys_model_fit <- with(boys_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity"))))
-    girls_model_fit <- with(girls_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity"))))
-    rural_model_fit <- with(rural_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER"))))
-    urban_model_fit <- with(urban_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER"))))
-    boys_rural_model_fit <- with(boys_rural_data, rlm(as.formula(paste(y, "~", formula_RHS))))
-    boys_urban_model_fit <- with(boys_urban_data, rlm(as.formula(paste(y, "~", formula_RHS))))
-    girls_rural_model_fit <- with(girls_rural_data, rlm(as.formula(paste(y, "~", formula_RHS))))
-    girls_urban_model_fit <- with(girls_urban_data, rlm(as.formula(paste(y, "~", formula_RHS))))
+    model_fit <- with(data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER + Urbanity")), maxit = 100))
+    boys_model_fit <- with(boys_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), maxit = 100))
+    girls_model_fit <- with(girls_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ Urbanity")), maxit = 100))
+    rural_model_fit <- with(rural_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), maxit = 100))
+    urban_model_fit <- with(urban_data, rlm(as.formula(paste(y, "~", formula_RHS, "+ ECS_SELECTED_CH_GENDER")), maxit = 100))
+    boys_rural_model_fit <- with(boys_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100))
+    boys_urban_model_fit <- with(boys_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100))
+    girls_rural_model_fit <- with(girls_rural_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100))
+    girls_urban_model_fit <- with(girls_urban_data, rlm(as.formula(paste(y, "~", formula_RHS)), maxit = 100))
 
     return(list(model_fit, boys_model_fit, girls_model_fit, rural_model_fit, urban_model_fit, boys_rural_model_fit, boys_urban_model_fit, girls_rural_model_fit, girls_urban_model_fit))
 }
