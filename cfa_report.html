@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -4696,7 +4667,7 @@ Variances:
 <pre><code>Warning in lav_object_summary(object = object, header = header, fit.measures = fit.measures, : lavaan WARNING: fit measures not available if model did not converge</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>lavaan 0.6.16 did NOT end normally after 1361 iterations
+<pre><code>lavaan 0.6.16 did NOT end normally after 1229 iterations
 ** WARNING ** Estimates below are most likely unreliable
 
   Estimator                                         ML
@@ -4745,13 +4716,13 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.308   -0.225
-    H5f     (.p3.)  9787.254       NA                      0.857    0.743
-    H5g     (.p4.)  8860.909       NA                      0.776    0.720
+    H5b     (.p2.) -2362.139       NA                     -0.308   -0.225
+    H5f     (.p3.)  6571.333       NA                      0.856    0.743
+    H5g     (.p4.)  5949.528       NA                      0.775    0.720
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a               -0.000       NA                     -0.000   -0.000
+   .H5a                0.000       NA                      0.000    0.000
    .H5b                3.471       NA                      3.471    2.533
    .H5f                1.721       NA                      1.721    1.492
    .H5g                1.839       NA                      1.839    1.707
@@ -4760,7 +4731,7 @@ Intercepts:
 Variances:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
    .H5a                1.000       NA                      1.000    1.000
-   .H5b                1.784       NA                      1.784    0.949
+   .H5b                1.784       NA                      1.784    0.950
    .H5f                0.597       NA                      0.597    0.449
    .H5g                0.559       NA                      0.559    0.482
     lf                 0.000       NA                      1.000    1.000
@@ -4772,9 +4743,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.278   -0.235
-    H5f     (.p3.)  9787.254       NA                      0.773    0.713
-    H5g     (.p4.)  8860.909       NA                      0.700    0.699
+    H5b     (.p2.) -2362.139       NA                     -0.278   -0.235
+    H5f     (.p3.)  6571.333       NA                      0.773    0.713
+    H5g     (.p4.)  5949.528       NA                      0.700    0.699
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -4799,13 +4770,13 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.266   -0.189
-    H5f     (.p3.)  9787.254       NA                      0.740    0.725
-    H5g     (.p4.)  8860.909       NA                      0.670    0.723
+    H5b     (.p2.) -2362.139       NA                     -0.266   -0.189
+    H5f     (.p3.)  6571.333       NA                      0.740    0.725
+    H5g     (.p4.)  5949.528       NA                      0.670    0.723
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                0.000       NA                      0.000    0.000
+   .H5a               -0.000       NA                     -0.000   -0.000
    .H5b                3.530       NA                      3.530    2.505
    .H5f                1.617       NA                      1.617    1.583
    .H5g                1.439       NA                      1.439    1.552
@@ -4826,9 +4797,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.251   -0.246
-    H5f     (.p3.)  9787.254       NA                      0.699    0.700
-    H5g     (.p4.)  8860.909       NA                      0.633    0.787
+    H5b     (.p2.) -2362.139       NA                     -0.251   -0.246
+    H5f     (.p3.)  6571.333       NA                      0.699    0.700
+    H5g     (.p4.)  5949.528       NA                      0.633    0.787
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -4853,9 +4824,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.277   -0.241
-    H5f     (.p3.)  9787.254       NA                      0.770    0.779
-    H5g     (.p4.)  8860.909       NA                      0.697    0.822
+    H5b     (.p2.) -2362.139       NA                     -0.277   -0.241
+    H5f     (.p3.)  6571.333       NA                      0.770    0.779
+    H5g     (.p4.)  5949.528       NA                      0.697    0.822
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -4880,9 +4851,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.274   -0.217
-    H5f     (.p3.)  9787.254       NA                      0.763    0.616
-    H5g     (.p4.)  8860.909       NA                      0.691    0.614
+    H5b     (.p2.) -2362.139       NA                     -0.274   -0.217
+    H5f     (.p3.)  6571.333       NA                      0.763    0.616
+    H5g     (.p4.)  5949.528       NA                      0.691    0.614
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -4907,9 +4878,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.345   -0.240
-    H5f     (.p3.)  9787.254       NA                      0.959    0.771
-    H5g     (.p4.)  8860.909       NA                      0.868    0.743
+    H5b     (.p2.) -2362.139       NA                     -0.345   -0.240
+    H5f     (.p3.)  6571.333       NA                      0.959    0.771
+    H5g     (.p4.)  5949.528       NA                      0.868    0.743
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -4934,9 +4905,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.206   -0.280
-    H5f     (.p3.)  9787.254       NA                      0.574    0.599
-    H5g     (.p4.)  8860.909       NA                      0.520    0.857
+    H5b     (.p2.) -2362.139       NA                     -0.206   -0.280
+    H5f     (.p3.)  6571.333       NA                      0.574    0.599
+    H5g     (.p4.)  5949.528       NA                      0.520    0.857
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -4949,7 +4920,7 @@ Intercepts:
 Variances:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
    .H5a                1.391       NA                      1.391    1.000
-   .H5b                0.500       NA                      0.500    0.921
+   .H5b                0.500       NA                      0.500    0.922
    .H5f                0.588       NA                      0.588    0.641
    .H5g                0.098       NA                      0.098    0.266
     lf                 0.000       NA                      1.000    1.000
@@ -4961,9 +4932,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.247   -0.296
-    H5f     (.p3.)  9787.254       NA                      0.686    0.866
-    H5g     (.p4.)  8860.909       NA                      0.621    0.769
+    H5b     (.p2.) -2362.139       NA                     -0.246   -0.295
+    H5f     (.p3.)  6571.333       NA                      0.686    0.866
+    H5g     (.p4.)  5949.528       NA                      0.621    0.769
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -4988,9 +4959,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.261   -0.231
-    H5f     (.p3.)  9787.254       NA                      0.725    0.627
-    H5g     (.p4.)  8860.909       NA                      0.657    0.696
+    H5b     (.p2.) -2362.139       NA                     -0.261   -0.230
+    H5f     (.p3.)  6571.333       NA                      0.725    0.627
+    H5g     (.p4.)  5949.528       NA                      0.657    0.696
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -5015,9 +4986,9 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.290   -0.289
-    H5f     (.p3.)  9787.254       NA                      0.807    0.864
-    H5g     (.p4.)  8860.909       NA                      0.731    0.852
+    H5b     (.p2.) -2362.139       NA                     -0.290   -0.289
+    H5f     (.p3.)  6571.333       NA                      0.807    0.864
+    H5g     (.p4.)  5949.528       NA                      0.731    0.852
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
@@ -5042,13 +5013,13 @@ Latent Variables:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
   lf =~                                                                  
     H5a                1.000                               0.000    0.000
-    H5b     (.p2.) -3519.785       NA                     -0.245   -0.294
-    H5f     (.p3.)  9787.254       NA                      0.682    0.844
-    H5g     (.p4.)  8860.909       NA                      0.617    0.737
+    H5b     (.p2.) -2362.139       NA                     -0.245   -0.294
+    H5f     (.p3.)  6571.333       NA                      0.682    0.844
+    H5g     (.p4.)  5949.528       NA                      0.617    0.737
 
 Intercepts:
                    Estimate   Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-   .H5a                4.765       NA                      4.765    7.441
+   .H5a                4.765       NA                      4.765    7.440
    .H5b                4.603       NA                      4.603    5.525
    .H5f                1.308       NA                      1.308    1.620
    .H5g                1.455       NA                      1.455    1.737
@@ -11391,9 +11362,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -11458,6 +11443,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
