@@ -269,11 +269,21 @@ server <- function(input, output){
                 plotData$group <- rep(summary_list, each = 3)
             }
 
-            plotData %>% 
-                filter(group == input$group) %>% 
-                mutate(lower = estimate - qt(0.975, df)*std.error, upper = estimate + qt(0.975, df)*std.error) %>%
-                select(term, estimate, lower, upper, p.value) %>% 
-                rename("Term" = term, "\u03B2" = estimate, "p" = p.value)
+            if(input$indicator != "sh"){
+                coefTable <- plotData %>% 
+                    filter(group == input$group) %>% 
+                    mutate(lower = estimate - qt(0.975, df)*std.error, upper = estimate + qt(0.975, df)*std.error) %>%
+                    select(term, estimate, lower, upper, p.value) %>% 
+                    rename("Term" = term, "\u03B2" = estimate, "p" = p.value)
+            } else {
+                coefTable <- plotData %>%
+                    filter(group == input$group) %>%
+                    mutate(lower = exp(estimate - qt(0.975, df)*std.error), upper = exp(estimate + qt(0.975, df)*std.error), estimate = exp(estimate)) %>%
+                    select(term, estimate, lower, upper, p.value) %>%
+                    rename("Term" = term, "OR" = estimate, "p" = p.value)
+            }
+
+            coefTable
         }
     }, digits = 3)
 }
