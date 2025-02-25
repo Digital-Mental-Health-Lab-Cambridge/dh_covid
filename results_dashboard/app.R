@@ -4,7 +4,6 @@ library(ggplot2)
 library(magrittr)
 library(purrr)
 library(RColorBrewer)
-library(targets)
 
 setwd("data")
 
