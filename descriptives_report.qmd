@@ -203,7 +203,7 @@ paykel_scores_plot
 ```{r combine_scores}
 scores_plots <- ls_scores_plot + swbs_scores_plot + anx_scores_plot + cesd_scores_plot + sh_scores_plot + paykel_scores_plot + plot_layout(nrow = 3)
 ggsave("scores_plots.png", scores_plots, dpi = 600, height = 320, width = 210, units = "mm")
-ggsave("scores_plots.svg", scores_plots)
+ggsave("scores_plots.svg", scores_plots, height = 320, width = 210, units = "mm")
 ```
 
 ## Internet usage by country
