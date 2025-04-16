@@ -20,6 +20,7 @@ library(knitr)
 library(patchwork)
 library(purrr)
 library(scales)
+library(svglite)
 
 imputed_data <- tar_read(imputed_data)
 ```
@@ -202,6 +203,7 @@ paykel_scores_plot
 ```{r combine_scores}
 scores_plots <- ls_scores_plot + swbs_scores_plot + anx_scores_plot + cesd_scores_plot + sh_scores_plot + paykel_scores_plot + plot_layout(nrow = 3)
 ggsave("scores_plots.png", scores_plots, dpi = 600, height = 320, width = 210, units = "mm")
+ggsave("scores_plots.svg", scores_plots)
 ```
 
 ## Internet usage by country
@@ -457,4 +459,5 @@ lockdown_time_plot
 
 # Saving plot as figure
 ggsave("lockdown_time_plot.png", lockdown_time_plot, dpi = 600)
+ggsave("lockdown_time_plot.svg", lockdown_time_plot)
 ```
