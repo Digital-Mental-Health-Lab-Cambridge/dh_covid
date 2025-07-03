@@ -1,6 +1,6 @@
 # Children's social connections, internet usage and mental health during the COVID-19 pandemic in the Global South: evidence from *Disrupting Harm*
 
-This repository contains the supplementary data for the paper "Children's social connections, internet usage and mental health during the COVID-19 pandemic in the Global South: evidence from *Disrupting Harm*" (preprint coming soon).
+This repository contains the supplementary data for the paper "Children's social connections, internet usage and mental health during the COVID-19 pandemic in the Global South: evidence from *Disrupting Harm*" (preprint available [here](https://doi.org/10.31234/osf.io/a3gfv_v2)).
 
 Please review the licensing information at [LICENCE](https://github.com/Digital-Mental-Health-Lab-Cambridge/dh_covid/blob/main/LICENCE) before reusing any software in this repository.
 
